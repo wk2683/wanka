@@ -1,0 +1,14 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8001/eureka/
+server:
+  port: 8002
+spring:
+  application:
+    name: cms-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/wk?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Hongkong
+    username: root
+    password: rootroot
+    driverClassName:  com.mysql.jdbc.Driver

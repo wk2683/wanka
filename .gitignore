@@ -1,0 +1,13 @@
+card/.*
+*.iml
+card-service/register-server/.*
+card-service/register-server/mvnw*
+card-service/register-server/target/*
+card-service/register-server/src/test/*
+card-service/cms/.*
+card-service/cms/mvnw*
+card-service/cms/target/*
+card-service/cms/src/test/*
+card-service/web/target/*
+*.sql
+
