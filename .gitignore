@@ -1,4 +1,3 @@
-card/.*
 *.iml
 card-service/register-server/.*
 card-service/register-server/mvnw*
