@@ -46,40 +46,6 @@
                 <!-- Page Body -->
                 <div class="page-body">
 
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12">
-                            <div class="widget">
-                                <div class="widget-header ">
-                                    <span class="widget-caption">角色列表</span>
-                                    <div class="widget-buttons">
-                                        <a href="#" data-toggle="maximize">
-                                            <i class="fa fa-expand"></i>
-                                        </a>
-                                        <a href="#" data-toggle="collapse">
-                                            <i class="fa fa-minus"></i>
-                                        </a>
-                                        <a href="#" data-toggle="dispose">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="widget-body">
-                                    <table class="table table-striped table-hover table-bordered" id="editabledatatable">
-                                        <thead>
-                                            <tr role="row">
-                                                <th>序号</th>
-                                                <th>名称</th>
-                                                <th>排序</th>
-                                                <th>说明</th>
-                                                <th>操作</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
@@ -113,6 +79,20 @@
         <!-- Main Container -->
 
     </div>
+
+    <!-- 表格左上角添加按钮 -->
+    <script type="text/html" id="toolbarBase">
+        <div class="layui-btn-container" style="text-align: left;">
+            <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+        </div>
+    </script>
+    <!--表格中每一行的操作按钮：-->
+    <script type="text/html" id="toolbarRight">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-xs" lay-event="delete">删除</button>
+            <button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>
+        </div>
+    </script>
 
     <!--Basic Scripts-->
     <script src="../assets/js/jquery-2.0.3.min.js"></script>
