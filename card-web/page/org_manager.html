@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>组织管理</title>
+
+    <meta name="description" content="组织管理" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="../assets/img/favicon.png" type="image/x-icon">
+
+    <!--Basic Styles-->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../assets/css/weather-icons.min.css" rel="stylesheet" />
+
+    <!--Fonts-->
+    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css">-->
+
+    <!--Beyond styles-->
+    <link href="../assets/css/beyond.min.css" rel="stylesheet" />
+    <link href="../assets/css/demo.min.css" rel="stylesheet" />
+    <link href="../assets/css/typicons.min.css" rel="stylesheet" />
+    <link href="../assets/css/animate.min.css" rel="stylesheet" />
+    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
+
+    <!--Page Related styles-->
+    <link href="../assets/css/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="../assets/js/skins.min.js"></script>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+
+    <!-- Main Container -->
+    <div class="main-container container-fluid">
+        <!-- Page Container -->
+        <div class="page-container">
+
+            <!-- Page Content -->
+            <div class="page-content">
+
+                <!-- Page Body -->
+                <div class="page-body">
+
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12">
+                            <div class="widget flat radius-bordered">
+                                <div class="widget-header bg-yellow">
+                                    <span class="widget-caption">组织结构</span>
+                                    <div class="widget-buttons">
+                                        <a href="#" data-toggle="collapse">
+                                            <i class="fa fa-minus"></i>
+                                        </a>
+                                        <a href="#" data-toggle="dispose">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <div id="org_tree" class="tree tree-plus-minus tree-solid-line tree-unselectable">
+                                        <div class="tree-folder" style="display: none;">
+                                            <div class="tree-folder-header">
+                                                <i class="fa fa-folder"></i>
+                                                <div class="tree-folder-name"></div>
+                                            </div>
+                                            <div class="tree-folder-content">
+                                            </div>
+                                            <div class="tree-loader" style="display: none;"></div>
+                                        </div>
+                                        <div class="tree-item" style="display: none;">
+                                            <i class="tree-dot"></i>
+                                            <div class="tree-item-name"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-6 col-xs-12">
+                            <button id="add_org_btn" class="btn btn-success btn-block">添加根组织</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+        </div>
+        <!-- /Page Container -->
+        <!-- Main Container -->
+
+    </div>
+
+    <!--添加组织弹出框模板-->
+    <div id="add_org_modal" style="display:none;">
+        <div class="row">
+            <div class="col-md-12" id="org_add_form">
+                <div class="form-group">
+                    <input type="text" id="pid_name" class="form-control"  readonly>
+                    <input type="hidden" id="parentId" name="parentId">
+                    <input type="hidden" id="parents" name="parents">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="name" name="name" class="form-control" placeholder="填写新组织名称" required="">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="seg" name="seg" class="form-control" placeholder="填写排列序号，整数。如：1" value="1">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" id="remark" name="remark" placeholder="填写新组织描述说明" rows="5" required=""></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 小提示框 -->
+    <!--Small Modal Templates-->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="mySmallModalLabel">小提示框</h4>
+                </div>
+                <div class="modal-body">
+                    小提示框内容
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!--End Small Modal Templates-->
+    <!--Basic Scripts-->
+    <script src="../assets/js/jquery-2.0.3.min.js"></script>
+    <script src="../common/js/module/common.js"></script>
+    <script >common.initCom();</script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+
+    <!--Beyond Scripts-->
+    <script src="../assets/js/beyond.min.js"></script>
+
+    <!--Page Related Scripts-->
+    <script src="../assets/js/datatable/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/datatable/ZeroClipboard.js"></script>
+    <script src="../assets/js/datatable/dataTables.tableTools.min.js"></script>
+    <script src="../assets/js/datatable/dataTables.bootstrap.min.js"></script>
+    <script src="../assets/js/datatable/datatables-init.js"></script>
+    <script src="../assets/js/fuelux/treeview/tree-custom.min.js"></script>
+    <!--<script src="../assets/js/fuelux/treeview/treeview-init.js"></script>-->
+    <!--<link href="https://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css" rel="stylesheet">-->
+    <!--<script src="https://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js"></script>-->
+    <script src="../assets/js/bootbox/bootbox.js"></script>
+    <script src="../js/org_manager.js"></script>
+    <script>
+
+        jQuery(document).ready(function () {
+            UITree.init();
+            //添加组织
+
+            $("#add_org_btn").on('click', function () {
+                var org  = {id:'0',name:'总公司',parentId:'0',parents:'0'};
+                openAddOrgModel(org);
+            });
+            /*
+                        $(".tree-actions .fa-plus").on('click',function (event) {
+                            event.stopPropagation();
+                            openAddOrgModel('',event.target);
+                        });
+                        */
+
+
+        });
+
+
+    </script>
+
+</body>
+<!--  /Body -->
+</html>
