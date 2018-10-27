@@ -32,3 +32,11 @@ spring:
   #typeAliasesPackage: com.xdd.entity
 mybatis:
   mapperLocations: classpath:mapper/*.xml
+
+logging:
+  level:
+    com:
+      wk:
+        cms:
+          dao:  DEBUG
+

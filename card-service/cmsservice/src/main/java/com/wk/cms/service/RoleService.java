@@ -44,4 +44,10 @@ public interface RoleService {
      */
     List<Role> search(Role role);
 
+    /**
+     * 统计搜索的总记录数
+     * @param role
+     * @return
+     */
+    Integer searchCount(Role role);
 }

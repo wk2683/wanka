@@ -33,7 +33,7 @@ public class OrgController extends BaseController{
     public BaseResponse add(Org org){
         logger.info("添加组织"+JSONObject.toJSONString(org));
         String id = orgService.add(org);
-        return responseAdd(org,id);
+        return responseAdd(org,id,OrgController.class);
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
@@ -41,7 +41,7 @@ public class OrgController extends BaseController{
     @CrossOrigin
     public BaseResponse delete(String id){
         Integer affectRow = orgService.delete(id);
-        return responseDeleteOrUpdate(affectRow,Globel.CONTROLLER_OPT_DELETE);
+        return responseDelete(affectRow,id,OrgController.class);
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.GET)
@@ -49,7 +49,7 @@ public class OrgController extends BaseController{
     @CrossOrigin
     public BaseResponse update(Org org){
         Integer affectRow = orgService.update(org);
-        return responseDeleteOrUpdate(affectRow,Globel.CONTROLLER_OPT_UPDATE);
+        return responseUpdate(affectRow,org,OrgController.class);
     }
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)

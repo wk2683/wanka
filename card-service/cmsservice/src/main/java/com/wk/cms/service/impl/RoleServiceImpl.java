@@ -45,4 +45,11 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> search(Role role) {
         return roleDao.search(role);
     }
+
+    @Override
+    public Integer searchCount(Role role) {
+        return roleDao.searchCount(role);
+    }
+
+
 }

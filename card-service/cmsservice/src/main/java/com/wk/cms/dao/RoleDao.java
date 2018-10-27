@@ -50,4 +50,11 @@ public interface RoleDao  {
      * @return
      */
     List<Role> search(Role role);
+
+    /**
+     * 搜索统计数记录数
+     * @param role
+     * @return
+     */
+    Integer searchCount(Role role);
 }
