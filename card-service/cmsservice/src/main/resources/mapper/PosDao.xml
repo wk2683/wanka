@@ -21,8 +21,8 @@
 
 
 
-    <select id="search" resultType="com.wk.entity.Pos" parameterType="com.wk.entity.Pos">
-        SELECT id, name, import_user_name, bank_name, card_number, rate_id, remark, seg, create_time, update_time, opt_id FROM wk.wk_pos
+    <select id="searchCount" resultType="com.wk.entity.Pos" parameterType="com.wk.entity.Pos">
+        SELECT COUNT(*) FROM wk.wk_pos
         <where>
             <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
             <if test="  importUserName != null and  importUserName != '' "> AND  import_user_name =  #{importUserName}</if>
@@ -36,7 +36,7 @@
             <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
-        </where>  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY seg ASC, update_time DESC  limit #{pageStart},#{pageSize}
     </select>
 
 </mapper>

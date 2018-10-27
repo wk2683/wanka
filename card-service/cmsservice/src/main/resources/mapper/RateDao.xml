@@ -28,7 +28,21 @@
             <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
-        </where>  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY seg ASC, update_time DESC  limit #{pageStart},#{pageSize}
+    </select>
+
+    <select id="searchCount" resultType="java.lang.Integer" parameterType="com.wk.entity.Rate">
+        SELECT COUNT(*) FROM wk.wk_rate
+        <where>
+            <if test="  rate != null and  rate != '' "> AND  rate =  #{rate}</if>
+            <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
+            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
+            <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+        </where>
     </select>
 
 </mapper>

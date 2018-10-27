@@ -58,7 +58,37 @@
             <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
-        </where>  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY seg ASC, update_time DESC  limit #{pageStart},#{pageSize}
+    </select>
+
+
+    <select id="searchCount" resultType="java.lang.Integer" parameterType="com.wk.entity.Card">
+        SELECT COUNT(*) FROM wk.wk_card
+        <where>
+            <if test="  self != null and  self != '' "> AND  self =  #{self}</if>
+            <if test="  cardName != null and  cardName != '' "> AND  card_name =  #{cardName}</if>
+            <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
+            <if test="  idNumber != null and  idNumber != '' "> AND  id_number =  #{idNumber}</if>
+            <if test="  phone != null and  phone != '' "> AND  phone =  #{phone}</if>
+            <if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>
+            <if test="  cardNumber != null and  cardNumber != '' "> AND  card_number =  #{cardNumber}</if>
+            <if test="  password != null and  password != '' "> AND  password =  #{password}</if>
+            <if test="  billDate != null and  billDate != 0 "> AND  bill_date =  #{billDate}</if>
+            <if test="  replayDate != null and  replayDate != 0 "> AND  replay_date =  #{replayDate}</if>
+            <if test="  total != null and  total != '' "> AND  total =  #{total}</if>
+            <if test="  bill != null and  bill != '' "> AND  bill =  #{bill}</if>
+            <if test="  replayRate != null and  replayRate != '' "> AND  replay_rate =  #{replayRate}</if>
+            <if test="  miniFee != null and  miniFee != '' "> AND  mini_fee =  #{miniFee}</if>
+            <if test="  cashRate != null and  cashRate != '' "> AND  cash_rate =  #{cashRate}</if>
+            <if test="  income != null and  income != '' "> AND  income =  #{income}</if>
+            <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
+            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
+            <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId} </if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+        </where>
     </select>
 
 </mapper>

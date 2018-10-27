@@ -134,7 +134,7 @@ function submitOrg(org) {
         type:"POST",
         data:org,
         dataType:'json',
-        successCallBack:addCompelte
+        completeCallBack:addCompelte
     };
      common.httpSend(options);
     // $.ajax({

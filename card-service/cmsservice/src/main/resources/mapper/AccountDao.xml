@@ -37,8 +37,25 @@
             <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+        </where>  ORDER BY seg ASC, update_time DESC  limit #{pageStart},#{pageSize}
+    </select>
+
+    <select id="searchCount" resultType="java.lang.Integer" parameterType="com.wk.entity.Account">
+        SELECT COUNT(*) FROM wk.wk_account
+        <where>
+            <if test="  accountName != null and  accountName != '' "> AND  account_name =  #{accountName}</if>
+            <if test="  userName != null and  userName != '' "> AND  user_name =  #{userName}</if>
+            <if test="  password != null and  password != '' "> AND  password =  #{password}</if>
+            <if test="  cardNo != null and  cardNo != '' "> AND  card_no =  #{cardNo}</if>
+            <if test="  webUserName != null and  webUserName != '' "> AND  web_user_name =  #{webUserName}</if>
+            <if test="  webPassword != null and  webPassword != '' "> AND  web_password =  #{webPassword}</if>
+            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
+            <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
         </where>
-        limit #{pageStart},#{pageSize}
     </select>
 
 </mapper>

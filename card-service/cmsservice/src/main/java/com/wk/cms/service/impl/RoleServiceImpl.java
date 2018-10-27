@@ -38,6 +38,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Integer update(Role role) {
+        role.updateInit();
         return roleDao.update(role);
     }
 

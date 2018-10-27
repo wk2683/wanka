@@ -32,7 +32,23 @@
             <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
-        </where>  limit #{pageStart},#{pageSize}
+        </where> ORDER BY seg ASC, update_time DESC   limit #{pageStart},#{pageSize}
+    </select>
+
+    <select id="searchCount" resultType="java.lang.Integer" parameterType="com.wk.entity.Org">
+        SELECT COUNT(*)  FROM wk_org
+        <where>
+            <if test=" name != null and name != '' "> AND name = #{name}</if>
+            <if test=" parents != null and parents != '' "> AND parents = #{parents}</if>
+            <if test=" parentId != null and parentId != '' "> AND parent_id = #{parentId}</if>
+            <if test=" remark != null and remark != '' "> AND remark = #{remark}</if>
+            <if test=" seg != null and seg != '' "> AND seg = #{seg}</if>
+            <if test=" optId)  != null and optId)  != '' "> AND opt_id  = #{optId}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+        </where>
     </select>
 
 </mapper>

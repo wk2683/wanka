@@ -80,16 +80,46 @@
 
     </div>
 
-    <!-- 表格左上角添加按钮 -->
-    <script type="text/html" id="toolbarBase">
-        <div class="layui-btn-container" style="text-align: left;">
-            <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
-        </div>
-    </script>
+
+    <!--添加model 开始-->
+    <div style="width:1px;height: 1px;">
+        <form class="layui-form layui-form-pane" action="" id="add_form" style="padding: 15px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required  lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序值</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="seg" required lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">显示数字小的排在前面</div>
+            </div>
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">角色描述</label>
+                <div class="layui-input-block">
+                    <textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+
+            <!--<div class="layui-form-item">-->
+                <!--<div class="layui-input-block">-->
+                    <!--<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        </form>
+    </div>
+    <!--添加model 结束-->
+
     <!--表格中每一行的操作按钮：-->
     <script type="text/html" id="toolbarRight">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-xs" lay-event="delete">删除</button>
+            <button class="layui-btn layui-btn-xs" lay-event="add">添加</button>
+            <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
             <button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>
         </div>
     </script>

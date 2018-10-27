@@ -43,7 +43,29 @@
             <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
-        </where>  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY seg ASC, update_time DESC  limit #{pageStart},#{pageSize}
+    </select>
+
+
+    <select id="searchCount" resultType="java.lang.Integer" parameterType="com.wk.entity.Order">
+        SELECT COUNT(*) FROM wk.wk_order
+        <where>
+            <if test="  userId != null and  userId != '' "> AND  user_id =  #{userId}</if>
+            <if test="  type != null and  type != '' "> AND  type =  #{type}</if>
+            <if test="  total != null and  total != '' "> AND  total =  #{total}</if>
+            <if test="  rate != null and  rate != '' "> AND  rate =  #{rate}</if>
+            <if test="  fee != null and  fee != '' "> AND  fee =  #{fee}</if>
+            <if test="  discount != null and  discount != '' "> AND  discount =  #{discount}</if>
+            <if test="  realFee != null and  realFee != '' "> AND  real_fee =  #{realFee}</if>
+            <if test="  status != null and  status != '' "> AND  status =  #{status}</if>
+            <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
+            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
+            <if test="  optId) != null and  optId) != '' "> AND  opt_id =  #{optId}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+        </where>
     </select>
 
 </mapper>

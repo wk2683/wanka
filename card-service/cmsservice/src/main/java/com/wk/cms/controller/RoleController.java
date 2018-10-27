@@ -1,12 +1,8 @@
 package com.wk.cms.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.wk.bean.BaseResponse;
-import com.wk.bean.Globel;
 import com.wk.cms.service.RoleService;
 import com.wk.entity.Role;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +18,7 @@ public class RoleController extends BaseController{
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping(value = "/add",method = RequestMethod.GET)
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public BaseResponse add(Role role ){

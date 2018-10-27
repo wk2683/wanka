@@ -28,13 +28,16 @@ function searchOrg(param) {
     var option = {
         url:org.searchUrl,
         data:param,
-        successCallBack:searchSuccess
+        completeCallBack:completeCallBack
     };
+
+
+
     common.httpSend(option);
 
 }
 
-function searchSuccess(resData) {
+function completeCallBack(resData) {
 
 }
 

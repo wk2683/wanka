@@ -1,6 +1,14 @@
 var common = {};//公共体
 common.web_logo = '../common/image/logo.png';
 
+common.sendType = {GET :'GET',POST:'POST'};
+//调用公共请求方法应该要设置的参数
+common.sendOption = {
+    url:'',
+    type:common.sendType.GET,
+    data:null,
+    completeCallBack:''
+};
 common.url = {
     web_root:'http://localhost:8002/',
     model:{
@@ -35,6 +43,8 @@ common.opt = {
     CONTROLLER_OPT_GET:"查询",
     CONTROLLER_OPT_SEARCH:"搜索"
 };
+
+
 
 
 
@@ -596,7 +606,7 @@ common.getSubMeun = function (meunItem) {
 //options = {url,data,success,error}
 /**
  * 请求方法
- * @param options 必填的 {url,successCallBack}
+ * @param options 必填的 {url,completeCallBack}
  */
 common.httpSend = function (options) {
     //设置一些默认值
@@ -616,6 +626,7 @@ common.httpSend = function (options) {
         options.data = {};
     }
     options.data.userId = 'uesr_id';//从sessionStage里提取
+    options.data.userName = 'uesr_name';//从sessionStage里提取
     $.ajax({
         url:options.url,
         type:options.type,
@@ -625,7 +636,7 @@ common.httpSend = function (options) {
         dataFilter:common.defaultDataFilter,//响应前处理
         // success:options.successCallBack,//成功返回处理
         // error:options.errorCallBack,//返回失败处理
-        complete:options.successCallBack,//请求完成处理
+        complete:options.completeCallBack,//请求完成处理
     });
 
 }
@@ -634,7 +645,8 @@ common.httpSend = function (options) {
  * @param xhr
  */
 common.defaultBeforeSend = function (xhr) {
-    console.log("请求之前")
+    console.log("请求之前");
+    $(".loading-container").removeClass("loading-inactive");
 };
 
 /**
@@ -670,6 +682,7 @@ common.errorCallBack = function (xhr,status,ex) {
  * @param textStatus 一个描述成功请求类型的字符串
  */
 common.compelteCallBack = function (xhr,textStatus) {
+    $(".loading-container").addClass("loading-inactive");
     console.log("请求完成")
     console.log("responseText="+xhr.responseText);
     console.log("textStatus="+textStatus)

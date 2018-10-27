@@ -19,8 +19,13 @@ public class BaseEntity extends SearchConditionEntity implements Serializable {
 
     public void addInit(){
         this.setId(UUID.randomUUID().toString());
-        this.setCreateTime(new Date());
+        Date now = new Date();
+        this.setCreateTime(now);
+        this.setUpdateTime(now);
+    }
 
+    public void updateInit(){
+        this.setUpdateTime(new Date());
     }
 
     public String getId() {

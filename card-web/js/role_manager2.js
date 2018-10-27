@@ -13,11 +13,11 @@ layui.use(['form','table','layer'],function () {
 
     var tableHeader = [[ //表头
 
-        {field: 'id',              title: '序号',          align:'center'}
-        ,{field: 'name',        title: '名称'     , align:'center'}
-        ,{field: 'seg',            title: '排序',      align:'center'}
-        ,{field: 'remark',    title: '说明',        align:'center'}
-        ,{fixed: 'right', width:150, align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+         {field: 'id',       title: 'ID', align:'center',width:'20%'}
+        ,{field: 'name',     title: '名称', align:'center',width:'22%'}
+        ,{field: 'seg',      title: '排序', align:'center',width:'10%'}
+        ,{field: 'remark',   title: '说明', align:'center'}
+        ,{fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     pageData.getTableData = function() {
@@ -60,9 +60,9 @@ layui.use(['form','table','layer'],function () {
             //data:[{}{}{}],  把已经数据给表格，不用表格自己请求后台取数据
             , page: true // boolean | object  -----单独生成分页并接收点击分页事件 laypage 组件
             , limit: 10 //每页显示数量
-            , limits: [10, 20, 30, 100, 200, 500, 1000] //可选择设定每页数量
+            , limits: [10,  30, 50,100,200] //可选择设定每页数量
             , loading: true //true | false 是否显示加载条
-            , title: '审核管理权限数据表' //定义table大标题（比如导出时则为文件名）
+            , title: '角色表' //定义table大标题（比如导出时则为文件名）
             , text: {none: '无数据'} //空数据时提示信息
             // ,initSort:'' //默认排序字段
             // ,id:'table tag id' //设置table 标签的id值  （因为正常也没有id而可以通过class渲染表格）
@@ -95,7 +95,7 @@ layui.use(['form','table','layer'],function () {
             , even: true  //隔行背景 true | false
             , size: 'sm'  //小尺寸 sm | lg
         });
-
+        //《《《《《《《《《《《《《《表格初始化完成
 
         //监听工具条
         table.on('tool(roleTableEvent)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -103,9 +103,11 @@ layui.use(['form','table','layer'],function () {
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
             console.log("点击事件......"+layEvent);
-
-            if(layEvent === 'detail'){ //查看
-                //do somehing
+            if(layEvent === 'add'){
+                //添加
+                pageData.openAddModel();
+            }else if(layEvent === 'detail'){ //查看
+                //详情
             } else if(layEvent === 'delete'){ //删除
                 layer.confirm('真的删除行么', function(index){
                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
@@ -113,15 +115,65 @@ layui.use(['form','table','layer'],function () {
                     //向服务端发送删除指令
                 });
             } else if(layEvent === 'edit'){ //编辑
-
+                //修改
             }
         });
+        //监听 增 删 改
 
     };
     //渲染表格方法结束
 
 
+    pageData.openAddModel = function(){
+        layer.open({
+            title:'添加角色',
+            type:1,//页面类型
+            content:$('#add_form'),
+            area:['600px'],
+            btn:['提交'],
+            yes: function(index, layero){//当前层索引、当前层DOM对象
+                //提交
+                var name = $(layero).find("input[name=name]").val();
+                var seg = $(layero).find("input[name=seg]").val();
+                var remark = $(layero).find("textarea[name=remark]").val();
 
+                console.log(name + "," + seg + "," + remark);
+                pageData.submitRole(name,seg,remark);
+                layer.close();
+            },
+            cancel: function(){
+                //右上角关闭回调
+
+                //return false 开启该代码可禁止点击该按钮关闭
+            }
+        });
+    };
+
+    pageData.submitRole = function(name,seg,remark){
+        common.sendOption.data = {
+            name:name,
+            seg:seg,
+            remark:remark,
+        };
+        common.sendOption.url = common.url.web_root + common.url.model.role + common.url.opt.add;
+        common.sendOption.type = common.sendType.POST;
+        common.sendOption.completeCallBack =pageData.addComplete;
+
+        common.httpSend(common.sendOption);
+    };
+
+    pageData.addComplete = function(res){
+        //提交完成返回处理
+        console.log("提交完成返回处理")
+        console.log(res);
+        layer.open({
+            title:'操作提示',
+            content:'添加成功',
+            yes:function () {
+                location.href = location.href;
+            }
+        });
+    };
 
     pageData.getTableData();
 
