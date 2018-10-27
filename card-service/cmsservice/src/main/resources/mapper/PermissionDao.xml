@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wk.cms.dao.PermissionDao">
+
+
+    <!--//add-->
+    <!--//delete-->
+    <!--//get-->
+    <update id="update" parameterType="com.wk.entity.Permission">
+        UPDATE wk.wk_permission SET update_time =  #{updateTime}
+        <if test="  modelId != null and  modelId != '' "> , model_id =  #{modelId}</if>
+        <if test="  name != null and  name != '' "> , name =  #{name}</if>
+        <if test="  action != null and  action != '' "> , action =  #{action}</if>
+        <if test="  optType != null and  optType != '' "> , opt_type =  #{optType}</if>
+        <if test="  remark != null and  remark != '' "> , remark =  #{remark}</if>
+        <if test="  seg != null and  seg != '' "> , seg =  #{seg}</if>
+        <if test="  optId != null and  optId != '' "> , opt_id =  #{optId} </if>
+        WHERE id=#{id}
+    </update>
+
+
+
+    <select id="search" resultType="com.wk.entity.Permission" parameterType="com.wk.entity.Permission">
+        SELECT ID, model_id, name, action, opt_type, remark, seg, create_time, update_time, opt_id FROM wk.wk_permission
+        <where>
+            <if test="  modelId != null and  modelId != '' "> AND  model_id =  #{modelId}</if>
+            <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
+            <if test="  action != null and  action != '' "> AND  action =  #{action}</if>
+            <if test="  optType != null and  optType != '' "> AND  opt_type =  #{optType}</if>
+            <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
+            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
+            <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+        </where>  limit #{pageStart},#{pageSize}
+    </select>
+
+</mapper>

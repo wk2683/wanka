@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wk.cms.dao.AccountDao">
+
+
+    <!--//add-->
+    <!--//delete-->
+    <!--//get-->
+    <update id="update" parameterType="com.wk.entity.Account">
+        UPDATE wk.wk_account  SET update_time =  #{updateTime}
+        <if test="  accountName != null and  accountName != '' "> , account_name =  #{accountName}</if>
+        <if test="  userName != null and  userName != '' "> , user_name =  #{userName}</if>
+        <if test="  password != null and  password != '' "> , password =  #{password}</if>
+        <if test="  cardNo != null and  cardNo != '' "> , card_no =  #{cardNo}</if>
+        <if test="  webUserName != null and  webUserName != '' "> , web_user_name =  #{webUserName}</if>
+        <if test="  webPassword != null and  webPassword != '' "> , web_password =  #{webPassword}</if>
+        <if test="  seg != null and  seg != '' "> , seg =  #{seg}</if>
+        <if test="  optId != null and  optId != '' "> , opt_id =  #{optId} </if>
+        WHERE id=#{id}
+
+    </update>
+
+
+
+    <select id="search" resultType="com.wk.entity.Account" parameterType="com.wk.entity.Account">
+        SELECT id, account_name, user_name, password, card_no, web_user_name, web_password, seg, create_time, update_time, opt_id FROM wk.wk_account
+        <where>
+            <if test="  accountName != null and  accountName != '' "> AND  account_name =  #{accountName}</if>
+            <if test="  userName != null and  userName != '' "> AND  user_name =  #{userName}</if>
+            <if test="  password != null and  password != '' "> AND  password =  #{password}</if>
+            <if test="  cardNo != null and  cardNo != '' "> AND  card_no =  #{cardNo}</if>
+            <if test="  webUserName != null and  webUserName != '' "> AND  web_user_name =  #{webUserName}</if>
+            <if test="  webPassword != null and  webPassword != '' "> AND  web_password =  #{webPassword}</if>
+            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
+            <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+        </where>
+        limit #{pageStart},#{pageSize}
+    </select>
+
+</mapper>

@@ -1,18 +1,27 @@
 package com.wk.entity;
 
+import com.wk.bean.SearchConditionEntity;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * 基础实体类，每个实体类都会拥有的属性
  */
-public class BaseEntity implements Serializable {
+public class BaseEntity extends SearchConditionEntity implements Serializable {
 
     private String id;
     private String remark;
     private Date createTime;
     private Date updateTime;
     private String optId;
+
+    public void addInit(){
+        this.setId(UUID.randomUUID().toString());
+        this.setCreateTime(new Date());
+
+    }
 
     public String getId() {
         return id;
@@ -53,4 +62,6 @@ public class BaseEntity implements Serializable {
     public void setOptId(String optId) {
         this.optId = optId;
     }
+
+
 }

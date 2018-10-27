@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wk.cms.dao.CardDao">
+
+
+    <!--//add-->
+    <!--//delete-->
+    <!--//get-->
+    <update id="update" parameterType="com.wk.entity.Card">
+        UPDATE wk.wk_card SET update_time =  #{updateTime}
+        <if test="  self != null and  self != '' "> , self =  #{self}</if>
+        <if test="  cardName != null and  cardName != '' "> , card_name =  #{cardName}</if>
+        <if test="  name != null and  name != '' "> , name =  #{name}</if>
+        <if test="  idNumber != null and  idNumber != '' "> , id_number =  #{idNumber}</if>
+        <if test="  phone != null and  phone != '' "> , phone =  #{phone}</if>
+        <if test="  bankName != null and  bankName != '' "> , bank_name =  #{bankName}</if>
+        <if test="  cardNumber != null and  cardNumber != '' "> , card_number =  #{cardNumber}</if>
+        <if test="  password != null and  password != '' "> , password =  #{password}</if>
+        <if test="  billDate != null and  billDate != '' "> , bill_date =  #{billDate}</if>
+        <if test="  replayDate != null and  replayDate != '' "> , replay_date =  #{replayDate}</if>
+        <if test="  total != null and  total != '' "> , total =  #{total}</if>
+        <if test="  bill != null and  bill != '' "> , bill =  #{bill}</if>
+        <if test="  replayRate != null and  replayRate != '' "> , replay_rate =  #{replayRate}</if>
+        <if test="  miniFee != null and  miniFee != '' "> , mini_fee =  #{miniFee}</if>
+        <if test="  cashRate != null and  cashRate != '' "> , cash_rate =  #{cashRate}</if>
+        <if test="  income != null and  income != '' "> , income =  #{income}</if>
+        <if test="  remark != null and  remark != '' "> , remark =  #{remark}</if>
+        <if test="  seg != null and  seg != '' "> , seg =  #{seg}</if>
+        <if test="  optId != null and  optId != '' "> , opt_id =  #{optId}  </if>
+        WHERE id=#{id}
+    </update>
+
+
+
+    <select id="search" resultType="com.wk.entity.Card" parameterType="com.wk.entity.Card">
+        SELECT id, self, card_name, name, id_number, phone, bank_name, card_number, password, bill_date, replay_date, total, bill, replay_rate, mini_fee, cash_rate, income, remark, seg, create_time, update_time, opt_id FROM wk.wk_card
+        <where>
+            <if test="  self != null and  self != '' "> AND  self =  #{self}</if>
+            <if test="  cardName != null and  cardName != '' "> AND  card_name =  #{cardName}</if>
+            <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
+            <if test="  idNumber != null and  idNumber != '' "> AND  id_number =  #{idNumber}</if>
+            <if test="  phone != null and  phone != '' "> AND  phone =  #{phone}</if>
+            <if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>
+            <if test="  cardNumber != null and  cardNumber != '' "> AND  card_number =  #{cardNumber}</if>
+            <if test="  password != null and  password != '' "> AND  password =  #{password}</if>
+            <if test="  billDate != null and  billDate != 0 "> AND  bill_date =  #{billDate}</if>
+            <if test="  replayDate != null and  replayDate != 0 "> AND  replay_date =  #{replayDate}</if>
+            <if test="  total != null and  total != '' "> AND  total =  #{total}</if>
+            <if test="  bill != null and  bill != '' "> AND  bill =  #{bill}</if>
+            <if test="  replayRate != null and  replayRate != '' "> AND  replay_rate =  #{replayRate}</if>
+            <if test="  miniFee != null and  miniFee != '' "> AND  mini_fee =  #{miniFee}</if>
+            <if test="  cashRate != null and  cashRate != '' "> AND  cash_rate =  #{cashRate}</if>
+            <if test="  income != null and  income != '' "> AND  income =  #{income}</if>
+            <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
+            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
+            <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId} </if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+        </where>  limit #{pageStart},#{pageSize}
+    </select>
+
+</mapper>

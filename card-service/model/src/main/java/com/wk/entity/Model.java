@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class Model extends BaseEntity implements Serializable {
     private String name;
+    private String icon;
     private Integer seg;
 
     public String getName() {
@@ -17,7 +18,13 @@ public class Model extends BaseEntity implements Serializable {
         this.name = name;
     }
 
+    public String getIcon() {
+        return icon;
+    }
 
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
     public Integer getSeg() {
         return seg;

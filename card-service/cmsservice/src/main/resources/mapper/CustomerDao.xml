@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wk.cms.dao.CustomerDao">
+
+
+    <!--//add-->
+    <!--//delete-->
+    <!--//get-->
+    <update id="update" parameterType="com.wk.entity.Customer">
+        UPDATE wk.wk_customer SET update_time =  #{updateTime}
+        <if test="  name != null and  name != '' "> , name =  #{name}</if>
+        <if test="  idNumber != null and  idNumber != '' "> , id_number =  #{idNumber}</if>
+        <if test="  phone != null and  phone != '' "> , phone =  #{phone}</if>
+        <if test="  workerId != null and  workerId != '' "> , worker_id =  #{workerId}</if>
+        <if test="  fontImg != null and  fontImg != '' "> , font_img =  #{fontImg}</if>
+        <if test="  afterImg != null and  afterImg != '' "> , after_img =  #{afterImg}</if>
+        <if test="  homeImg != null and  homeImg != '' "> , home_img =  #{homeImg}</if>
+        <if test="  remark != null and  remark != '' "> , remark =  #{remark}</if>
+        <if test="  seg != null and  seg != '' "> , seg =  #{seg}</if>
+        <if test="  optId != null and  optId != '' "> , opt_id =  #{optId }  </if>
+        WHERE id=#{id}
+    </update>
+
+
+
+    <select id="search" resultType="com.wk.entity.Customer" parameterType="com.wk.entity.Customer">
+        SELECT id, name, id_number, phone, worker_id, font_img, after_img, home_img, remark, seg, create_time, update_time, opt_id FROM wk.wk_customer
+        <where>
+            <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
+            <if test="  idNumber != null and  idNumber != '' "> AND  id_number =  #{idNumber}</if>
+            <if test="  phone != null and  phone != '' "> AND  phone =  #{phone}</if>
+            <if test="  workerId != null and  workerId != '' "> AND  worker_id =  #{workerId}</if>
+            <if test="  fontImg != null and  fontImg != '' "> AND  font_img =  #{fontImg}</if>
+            <if test="  afterImg != null and  afterImg != '' "> AND  after_img =  #{afterImg}</if>
+            <if test="  homeImg != null and  homeImg != '' "> AND  home_img =  #{homeImg}</if>
+            <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
+            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
+            <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+        </where>  limit #{pageStart},#{pageSize}
+    </select>
+
+</mapper>
