@@ -16,7 +16,7 @@ public class PosController {
     @Autowired
     private PosService posService;
 
-    @RequestMapping(value = "/add",method = RequestMethod.GET)
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public String add(Pos pos ){
@@ -35,7 +35,7 @@ public class PosController {
         return false;
     }
 
-    @RequestMapping(value = "/update",method = RequestMethod.GET)
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public Boolean update(Pos pos ){
@@ -54,7 +54,7 @@ public class PosController {
         return pos ;
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public List<Pos > search(Pos pos ){

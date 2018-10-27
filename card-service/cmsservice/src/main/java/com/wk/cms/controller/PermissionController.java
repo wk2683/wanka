@@ -16,7 +16,7 @@ public class PermissionController {
     @Autowired
     private PermissionService permissionService;
 
-    @RequestMapping(value = "/add",method = RequestMethod.GET)
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public String add(Permission permission){
@@ -35,7 +35,7 @@ public class PermissionController {
         return false;
     }
 
-    @RequestMapping(value = "/update",method = RequestMethod.GET)
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public Boolean update(Permission permission){
@@ -54,7 +54,7 @@ public class PermissionController {
         return permission ;
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public List<Permission > search(Permission permission){

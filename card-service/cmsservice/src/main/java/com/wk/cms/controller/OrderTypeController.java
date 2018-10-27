@@ -16,7 +16,7 @@ public class OrderTypeController {
     @Autowired
     private OrderTypeService orderTypeService;
 
-    @RequestMapping(value = "/add",method = RequestMethod.GET)
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public String add(OrderType orderType){
@@ -35,7 +35,7 @@ public class OrderTypeController {
         return false;
     }
 
-    @RequestMapping(value = "/update",method = RequestMethod.GET)
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public Boolean update(OrderType orderType){
@@ -54,7 +54,7 @@ public class OrderTypeController {
         return orderType;
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public List<OrderType> search(OrderType orderType){

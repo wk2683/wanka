@@ -16,7 +16,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping(value = "/add",method = RequestMethod.GET)
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public String add(Order order){
@@ -35,7 +35,7 @@ public class OrderController {
         return false;
     }
 
-    @RequestMapping(value = "/update",method = RequestMethod.GET)
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public Boolean update(Order order){
@@ -54,7 +54,7 @@ public class OrderController {
         return order;
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public List<Order> search(Order order){

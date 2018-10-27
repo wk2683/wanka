@@ -9,7 +9,7 @@
     <update id="update" parameterType="com.wk.entity.Role">
         UPDATE wk_role SET
         <if test="name != null and name != '' ">name = #{name},</if>
-        <if test="remark != null and remark != '' ">remark = {remark},</if>
+        <if test="remark != null and remark != '' ">remark = #{remark},</if>
         <if test="seg != null and seg != 0 ">seg=#{seg},</if>
         <!-- <if test="">create_time,</if> -->
         update_time = #{updateTime},

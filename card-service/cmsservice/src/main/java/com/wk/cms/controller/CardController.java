@@ -16,7 +16,7 @@ public class CardController {
     @Autowired
     private CardService cardService;
 
-    @RequestMapping(value = "/add",method = RequestMethod.GET)
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public String add(Card card){
@@ -35,7 +35,7 @@ public class CardController {
         return false;
     }
 
-    @RequestMapping(value = "/update",method = RequestMethod.GET)
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public Boolean update(Card card){
@@ -54,7 +54,7 @@ public class CardController {
         return card;
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public List<Card> search(Card card){

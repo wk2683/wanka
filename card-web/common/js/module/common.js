@@ -1,11 +1,15 @@
 var common = {};//公共体
 common.web_logo = '../common/image/logo.png';
 
-common.sendType = {GET :'GET',POST:'POST'};
+common.sendMethod = {GET :'GET',POST:'POST'};
+common.sendDataType = {
+    JSON:'json',
+    STRING:'string',
+};
 //调用公共请求方法应该要设置的参数
 common.sendOption = {
     url:'',
-    type:common.sendType.GET,
+    type:common.sendMethod.GET,
     data:null,
     completeCallBack:''
 };
@@ -24,6 +28,13 @@ common.url = {
     }
 };
 
+common.name = {
+    model: {
+        org:'组织',
+        role:'角色',
+    }
+};
+
 common.code = {
     RESPONSE_CODE_SUCCESS:8001,
     RESPONSE_CODE_FAILE:8002,
@@ -36,7 +47,7 @@ common.msg = {
     RESPONSE_MSG_NODATA:"无数据",
     RESPONSE_MSG_ERROR:"错误"
 };
-common.opt = {
+common.optName = {
     CONTROLLER_OPT_ADD:"新增",
     CONTROLLER_OPT_DELETE:"删除",
     CONTROLLER_OPT_UPDATE:"更新",
@@ -635,7 +646,7 @@ common.httpSend = function (options) {
         beforeSend:common.defaultBeforeSend,//发送前处理
         dataFilter:common.defaultDataFilter,//响应前处理
         // success:options.successCallBack,//成功返回处理
-        // error:options.errorCallBack,//返回失败处理
+        error:options.errorCallBack,//返回失败处理
         complete:options.completeCallBack,//请求完成处理
     });
 
@@ -655,6 +666,7 @@ common.defaultBeforeSend = function (xhr) {
  * @param type type是调用jQuery.ajax时提供的dataType参数
  */
 common.defaultDataFilter = function (data, type) {
+    $(".loading-container").addClass("loading-inactive");
     console.log("请求返回")
     console.log("请求返回数据"+data)
     console.log("数据类型="+type)
@@ -666,6 +678,7 @@ common.defaultDataFilter = function (data, type) {
  * @param ex
  */
 common.errorCallBack = function (xhr,status,ex) {
+    $(".loading-container").addClass("loading-inactive");
     console.log("请求失败");
     console.log("responseText="+xhr.responseText);
     console.log("status="+status);
@@ -686,5 +699,33 @@ common.compelteCallBack = function (xhr,textStatus) {
     console.log("请求完成")
     console.log("responseText="+xhr.responseText);
     console.log("textStatus="+textStatus)
+};
+//无数据返回操作通用处理，增，删，改 操作的响应处理
+common.noDataResponse = function (res,optName) {
+    var resData = JSON.parse(res.responseText);
+
+    //提交完成返回处理
+    console.log("提交完成返回处理");
+    console.log(res.responseText);
+
+    if(resData.code == common.code.RESPONSE_CODE_SUCCESS) {
+        bootbox.dialog({
+            title:'操作提示',
+            message: optName + common.msg.RESPONSE_MSG_SUCCESS,
+            buttons: {
+                success:{ label:'确定', className:'', callback:function () { location.href = location.href; } },
+               // cancel:{ label:'取消', className:'', callback:function () {  /*取消操作*/ } },
+            }
+        });
+    }else{
+        bootbox.dialog({
+            title:'操作提示',
+            message: optName + common.msg.RESPONSE_MSG_FAILE,
+            buttons: {
+                success:{ label:'确定', className:'', callback:function () { /*location.href = location.href;*/ } },
+               // cancel:{ label:'取消', className:'', callback:function () {  /*取消操作*/ } },
+            }
+        });
+    }
 };
 

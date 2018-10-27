@@ -17,7 +17,7 @@ public interface OrgDao {
 	 * @param org
 	 * @return
 	 */
-	@Insert(" INSERT INTO wk_org (id,name,parents,parent_id,remark,seg,create_time,update_time,opt_id) " +
+	@Insert(" INSERT INTO wk.wk_org (id,name,parents,parent_id,remark,seg,create_time,update_time,opt_id) " +
 			" VALUES(#{id},#{name},#{parents},#{parentId},#{remark},#{seg},NOW(),NOW(),#{optId}) ")
 	Integer add(Org org);
 
@@ -26,7 +26,7 @@ public interface OrgDao {
 	 * @param id
 	 * @return
 	 */
-	@Delete(" DELETE FROM wk_org WHERE ID=#{id} ")
+	@Delete(" DELETE FROM wk.wk_org WHERE ID=#{id} ")
 	Integer delete(String id);
 
 	/**
@@ -34,7 +34,7 @@ public interface OrgDao {
 	 * @param id
 	 * @return
 	 */
-	@Select(" SELECT * FROM wk_org WHERE ID=#{id} ")
+	@Select(" SELECT * FROM wk.wk_org WHERE ID=#{id} ")
 	Org get(String id);
 
 	/**

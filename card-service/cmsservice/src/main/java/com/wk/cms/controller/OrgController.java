@@ -44,7 +44,7 @@ public class OrgController extends BaseController{
         return responseDelete(affectRow,id,OrgController.class);
     }
 
-    @RequestMapping(value = "/update",method = RequestMethod.GET)
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public BaseResponse update(Org org){
@@ -62,7 +62,7 @@ public class OrgController extends BaseController{
         return org;
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public List<Org> search(Org org){

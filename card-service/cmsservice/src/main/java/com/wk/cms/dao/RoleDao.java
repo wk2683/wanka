@@ -26,7 +26,7 @@ public interface RoleDao  {
      * @param id
      * @return
      */
-    @Delete(" DELETE FROM wk.wk_rate WHERE ID=#{id} ")
+    @Delete(" DELETE FROM wk.wk_role WHERE ID=#{id} ")
     Integer delete(String id);
 
     /**
@@ -34,7 +34,7 @@ public interface RoleDao  {
      * @param id
      * @return
      */
-    @Select(" SELECT * FROM wk.wk_rate WHERE ID=#{id} ")
+    @Select(" SELECT * FROM wk.wk_role WHERE ID=#{id} ")
     Role get(String id);
 
     /**

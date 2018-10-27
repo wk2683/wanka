@@ -34,7 +34,7 @@ public class RoleController extends BaseController{
         return responseDelete(affectRow,id,RoleController.class);
     }
 
-    @RequestMapping(value = "/update",method = RequestMethod.GET)
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public BaseResponse update(Role role ){

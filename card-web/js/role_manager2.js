@@ -26,9 +26,9 @@ layui.use(['form','table','layer'],function () {
             elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.role + common.url.opt.search  //数据源url
-            , where: {userId: user.id, userName: user.name} //如果无需传递额外参数，可不加该参数
-            , method: 'get' // get | post 如果无需自定义HTTP类型，可不加该参数
-            , contentType: 'json'//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
+            , where: { userId: user.id, userName: user.name } //如果无需传递额外参数，可不加该参数
+            , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
+            , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
                           // toolbar: '#toolbarDemo' //指向自定义工具栏模板选择器
                           // toolbar: '<div>xxx</div>' //直接传入工具栏模板字符
@@ -109,13 +109,10 @@ layui.use(['form','table','layer'],function () {
             }else if(layEvent === 'detail'){ //查看
                 //详情
             } else if(layEvent === 'delete'){ //删除
-                layer.confirm('真的删除行么', function(index){
-                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                    layer.close(index);
-                    //向服务端发送删除指令
-                });
-            } else if(layEvent === 'edit'){ //编辑
+                pageData.deleteConfirm(obj);
+            } else if(layEvent === 'update'){ //编辑
                 //修改
+                pageData.openUpdateModel(obj);
             }
         });
         //监听 增 删 改
@@ -123,10 +120,12 @@ layui.use(['form','table','layer'],function () {
     };
     //渲染表格方法结束
 
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>添加操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+    //打开添加模态框表单
     pageData.openAddModel = function(){
         layer.open({
-            title:'添加角色',
+            title: common.optName.CONTROLLER_OPT_ADD + common.name.model.role,
             type:1,//页面类型
             content:$('#add_form'),
             area:['600px'],
@@ -137,9 +136,10 @@ layui.use(['form','table','layer'],function () {
                 var seg = $(layero).find("input[name=seg]").val();
                 var remark = $(layero).find("textarea[name=remark]").val();
 
+                layer.closeAll();
                 console.log(name + "," + seg + "," + remark);
-                pageData.submitRole(name,seg,remark);
-                layer.close();
+                pageData.submitAddRole(name,seg,remark);
+
             },
             cancel: function(){
                 //右上角关闭回调
@@ -148,33 +148,101 @@ layui.use(['form','table','layer'],function () {
             }
         });
     };
-
-    pageData.submitRole = function(name,seg,remark){
+    //添加提交数据
+    pageData.submitAddRole = function(name,seg,remark){
         common.sendOption.data = {
             name:name,
             seg:seg,
             remark:remark,
         };
         common.sendOption.url = common.url.web_root + common.url.model.role + common.url.opt.add;
-        common.sendOption.type = common.sendType.POST;
+        common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.addComplete;
 
         common.httpSend(common.sendOption);
     };
-
+    //添加完成后动作
     pageData.addComplete = function(res){
-        //提交完成返回处理
-        console.log("提交完成返回处理")
-        console.log(res);
+            common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD);
+    };
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>更新操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    //打开更新模态框表单 modelObj:当前数据行对象，数据为modelObj.data 为一行的数据
+    pageData.openUpdateModel = function(modelObj){
+
+        $('#add_form').find("input[name=name]").val(modelObj.data.name);
+        $('#add_form').find("input[name=seg]").val(modelObj.data.seg);
+        $('#add_form').find("textarea[name=remark]").val(modelObj.data.remark);
+
         layer.open({
-            title:'操作提示',
-            content:'添加成功',
-            yes:function () {
-                location.href = location.href;
+            title:common.optName.CONTROLLER_OPT_UPDATE + common.name.model.role,
+            type:1,//页面类型
+            content:$('#add_form'),
+            area:['600px'],
+            btn:['提交'],
+            yes: function(index, layero){//当前层索引、当前层DOM对象
+                //提交
+                var name = $(layero).find("input[name=name]").val();
+                var seg = $(layero).find("input[name=seg]").val();
+                var remark = $(layero).find("textarea[name=remark]").val();
+                layer.closeAll();
+                console.log(name + "," + seg + "," + remark);
+                pageData.submitUpdateRole(modelObj.data.id,name,seg,remark);
+
+            },
+            cancel: function(){
+                //右上角关闭回调
+
+                //return false 开启该代码可禁止点击该按钮关闭
             }
         });
     };
+    //更新提交数据
+    pageData.submitUpdateRole = function(id,name,seg,remark){
+        common.sendOption.data = {
+            id:id,
+            name:name,
+            seg:seg,
+            remark:remark,
+        };
+        common.sendOption.url = common.url.web_root + common.url.model.role + common.url.opt.update;
+        common.sendOption.type = common.sendMethod.POST;
+        common.sendOption.completeCallBack =pageData.updateComplete;
 
+        common.httpSend(common.sendOption);
+    };
+    //更新完成后动作
+    pageData.updateComplete = function(res){
+        common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE);
+    };
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>删除操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    //确认删除
+    pageData.deleteConfirm = function(obj){
+        layer.confirm('真的删除行么', function(index){
+            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+            layer.close(index);
+            //向服务端发送删除指令
+            console.log("删除 id  =  "+obj.data.id);
+            pageData.deleteRole(obj);
+        });
+    };
+    //提交删除
+    pageData.deleteRole = function(obj){
+        common.sendOption.data = { id:obj.data.id };
+        common.sendOption.url = common.url.web_root + common.url.model.role + common.url.opt.delete;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack =pageData.deleteComplete;
+        common.httpSend(common.sendOption);
+    };
+    //删除返回后处理
+    pageData.deleteComplete = function(res){
+        common.noDataResponse(res,common.optName.CONTROLLER_OPT_DELETE);
+    };
+
+    //初始化第一页数据
     pageData.getTableData();
 
 });
