@@ -9,4 +9,5 @@ card-service/cms/target/*
 card-service/cms/src/test/*
 card-service/web/target/*
 *.sql
+*/.idea*
 

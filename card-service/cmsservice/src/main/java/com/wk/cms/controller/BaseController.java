@@ -23,7 +23,7 @@ public class  BaseController {
     @ResponseBody
     @CrossOrigin
     public String getVersion(){
-
+        //测试
         return "version 1.0.0";
     }
 
@@ -37,7 +37,7 @@ public class  BaseController {
     protected BaseResponse responseAdd(BaseEntity entity,String id,Class t){
         entity.setId(id);
         String entityJson = JSONObject.toJSONString(entity);
-        logger.info(t.getName() + "  " + Globel.CONTROLLER_OPT_ADD +"  info : "+entityJson);
+        logger.info("\n" + t.getName() + "  " + Globel.CONTROLLER_OPT_ADD +"  info : "+entityJson);
         BaseResponse response = new BaseResponse();
         if(id != null && id.length()>0) {
             response.setCode(Globel.RESPONSE_CODE_SUCCESS);
@@ -58,7 +58,7 @@ public class  BaseController {
      * @return 返回响应对象{code,msg}
      */
     protected BaseResponse responseDelete(Integer affectRows,String id,Class t){
-        logger.info(t.getName() + " "+ Globel.CONTROLLER_OPT_DELETE + " id = "+id+" , affectRows="+affectRows);
+        logger.info("\n" + t.getName() + " "+ Globel.CONTROLLER_OPT_DELETE + " id = "+id+" , affectRows="+affectRows);
         BaseResponse response = new BaseResponse();
 
         if (affectRows>0) {
@@ -79,7 +79,7 @@ public class  BaseController {
      * @return 返回响应对象{code,msg}
      */
     protected BaseResponse responseUpdate(Integer affectRows,BaseEntity entity,Class t){
-        logger.info(t.getName() + " "+ Globel.CONTROLLER_OPT_UPDATE + " affectRows="+affectRows + "  info : " + JSONObject.toJSONString(entity));
+        logger.info("\n" + t.getName() + " "+ Globel.CONTROLLER_OPT_UPDATE + " affectRows="+affectRows + "  info : " + JSONObject.toJSONString(entity));
         BaseResponse response = new BaseResponse();
         if (affectRows>0) {
             response.setCode(Globel.RESPONSE_CODE_SUCCESS);
@@ -100,7 +100,7 @@ public class  BaseController {
      */
     protected BaseResponse responseGet(BaseEntity entity,Class t){
         String entityJson = JSONObject.toJSONString(entity);
-        logger.info(t.getName() + "  " + Globel.CONTROLLER_OPT_GET +"  info : "+entityJson);
+        logger.info("\n" + t.getName() + "  " + Globel.CONTROLLER_OPT_GET +"  info : "+entityJson);
         BaseResponse response = new BaseResponse();
         if(entity == null){
             response.setCode(Globel.RESPONSE_CODE_SUCCESS);
@@ -121,7 +121,7 @@ public class  BaseController {
      */
     protected BaseResponse responseSearch(List<? extends BaseEntity> entityList,Integer total,BaseEntity entity, Class t){
         BaseResponse response = new BaseResponse();
-        String loggerInfo = t.getName() + " " + Globel.CONTROLLER_OPT_SEARCH + "  "+ JSONObject.toJSONString(entity) + "  total="+total+ "\n";
+        String loggerInfo = "\n"+ t.getName() + " " + Globel.CONTROLLER_OPT_SEARCH + "  "+ JSONObject.toJSONString(entity) + "  total="+total+ "\n";
         if(entityList != null && entityList.size()>0){
             response.setCode(Globel.RESPONSE_CODE_SUCCESS);
             response.setMsg(Globel.CONTROLLER_OPT_SEARCH + Globel.RESPONSE_MSG_SUCCESS);
