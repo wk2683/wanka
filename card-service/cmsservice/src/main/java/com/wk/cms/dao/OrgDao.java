@@ -34,7 +34,7 @@ public interface OrgDao {
 	 * @param id
 	 * @return
 	 */
-	@Select(" SELECT * FROM wk.wk_org WHERE ID=#{id} ")
+	@Select(" SELECT  id,name,parents,parent_id parentId,remark,seg,create_time createTime,update_time updateTime,opt_id optId   FROM wk.wk_org WHERE ID=#{id} ")
 	Org get(String id);
 
 	/**

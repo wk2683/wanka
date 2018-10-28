@@ -33,7 +33,7 @@ public interface OrderDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT * FROM wk.wk_order WHERE ID=#{id} ")
+	@Select(" SELECT  id, user_id userId, type, total, rate, fee, discount, real_fee realFee, status, remark, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_order WHERE ID=#{id} ")
 	Order get(String id);
 
 	/**

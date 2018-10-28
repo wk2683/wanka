@@ -23,7 +23,7 @@
 
 
     <select id="search" resultType="com.wk.entity.Account" parameterType="com.wk.entity.Account">
-        SELECT id, account_name, user_name, password, card_no, web_user_name, web_password, seg, create_time, update_time, opt_id FROM wk.wk_account
+        SELECT id, account_name accountName, user_name userName, password, card_no cardNo, web_user_name webUserName, web_password webPassword, seg, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_account
         <where>
             <if test="  accountName != null and  accountName != '' "> AND  account_name =  #{accountName}</if>
             <if test="  userName != null and  userName != '' "> AND  user_name =  #{userName}</if>
@@ -37,7 +37,7 @@
             <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
-        </where>  ORDER BY seg ASC, update_time DESC  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY seg DESC, update_time DESC  limit #{pageStart},#{pageSize}
     </select>
 
     <select id="searchCount" resultType="java.lang.Integer" parameterType="com.wk.entity.Account">

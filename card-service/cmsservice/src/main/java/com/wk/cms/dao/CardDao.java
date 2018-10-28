@@ -33,7 +33,23 @@ public interface CardDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT * FROM wk.wk_card WHERE ID=#{id} ")
+	@Select(" SELECT id,\n" +
+			"        self,\n" +
+			"        card_name cardName,\n" +
+			"        name,\n" +
+			"        id_number idNumber,\n" +
+			"        phone,\n" +
+			"        bank_name bankName,\n" +
+			"        card_number cardNumber,\n" +
+			"        password,\n" +
+			"        bill_date billDate,\n" +
+			"        replay_date replayDate,\n" +
+			"        total,\n" +
+			"        bill,\n" +
+			"        replay_rate replayRate,\n" +
+			"        mini_fee miniFee,\n" +
+			"        cash_rate cashRate, \n" +
+			"        income, remark, seg, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_card WHERE ID=#{id} ")
 	Card get(String id);
 
 	/**

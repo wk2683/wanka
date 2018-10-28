@@ -33,7 +33,7 @@ public interface RateDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT * FROM wk.wk_rate WHERE ID=#{id} ")
+	@Select(" SELECT  id, rate, remark, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_rate WHERE ID=#{id} ")
 	Rate get(String id);
 
 	/**

@@ -33,7 +33,7 @@ public interface OptTypeDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT * FROM wk.wk_opt_type WHERE ID=#{id} ")
+	@Select(" SELECT  id, name, remark, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_opt_type WHERE ID=#{id} ")
 	OptType get(String id);
 
 	/**

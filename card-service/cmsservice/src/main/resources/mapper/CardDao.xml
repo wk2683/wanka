@@ -33,7 +33,24 @@
 
 
     <select id="search" resultType="com.wk.entity.Card" parameterType="com.wk.entity.Card">
-        SELECT id, self, card_name, name, id_number, phone, bank_name, card_number, password, bill_date, replay_date, total, bill, replay_rate, mini_fee, cash_rate, income, remark, seg, create_time, update_time, opt_id FROM wk.wk_card
+        SELECT
+        id,
+        self,
+        card_name cardName,
+        name,
+        id_number idNumber,
+        phone,
+        bank_name bankName,
+        card_number cardNumber,
+        password,
+        bill_date billDate,
+        replay_date replayDate,
+        total,
+        bill,
+        replay_rate replayRate,
+        mini_fee miniFee,
+        cash_rate cashRate,
+        income, remark, seg, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_card
         <where>
             <if test="  self != null and  self != '' "> AND  self =  #{self}</if>
             <if test="  cardName != null and  cardName != '' "> AND  card_name =  #{cardName}</if>
@@ -58,7 +75,7 @@
             <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
-        </where>  ORDER BY seg ASC, update_time DESC  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY seg DESC, update_time DESC  limit #{pageStart},#{pageSize}
     </select>
 
 

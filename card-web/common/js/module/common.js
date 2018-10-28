@@ -78,7 +78,7 @@ common.optName = {
     CONTROLLER_OPT_SEARCH:"搜索"
 };
 
-
+common.util = {};
 
 
 
@@ -669,7 +669,7 @@ common.httpSend = function (options) {
         beforeSend:common.defaultBeforeSend,//发送前处理
         dataFilter:common.defaultDataFilter,//响应前处理
         // success:options.successCallBack,//成功返回处理
-        error:options.errorCallBack,//返回失败处理
+        // error:options.errorCallBack,//返回失败处理
         complete:options.completeCallBack,//请求完成处理
     });
 
@@ -709,7 +709,7 @@ common.errorCallBack = function (xhr,status,ex) {
     bootbox.alert(
         '系统异常',
         function () {
-            console.log(response.msg);
+            // console.log(xhr.responseText);
         });
 };
 /**
@@ -750,5 +750,27 @@ common.noDataResponse = function (res,optName) {
             }
         });
     }
+};
+
+/**
+ * 转换成树结构
+ * @param data 要转换的数组对象
+ * @param parentId  父ID
+ * @returns {any[]}  返回多级子对象数组（树形）
+ */
+common.util.covert2TreeJSON = function (data,parentId) {
+    var tree = new Array();
+    var len = data.length;
+    for(var i = 0 ; i < len ; i++ ){
+        var item = data[i];
+        if(item.parentId == parentId){
+            var children = common.util.covert2TreeJSON(data,item.id);
+            if(children && children.length>0) {
+                item.children = children;
+            }
+            tree.push(item);
+        }
+    }
+    return tree;
 };
 

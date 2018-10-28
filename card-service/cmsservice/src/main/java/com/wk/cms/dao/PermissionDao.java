@@ -33,7 +33,7 @@ public interface PermissionDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT * FROM wk.wk_permission WHERE ID=#{id} ")
+	@Select(" SELECT  id, model_id modelId, name, action, opt_type optType, remark, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_permission WHERE ID=#{id} ")
 	Permission get(String id);
 
 	/**

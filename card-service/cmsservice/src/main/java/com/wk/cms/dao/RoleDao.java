@@ -34,7 +34,7 @@ public interface RoleDao  {
      * @param id
      * @return
      */
-    @Select(" SELECT * FROM wk.wk_role WHERE ID=#{id} ")
+    @Select(" SELECT  id,name,remark,seg,create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_role WHERE ID=#{id} ")
     Role get(String id);
 
     /**

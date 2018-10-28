@@ -33,7 +33,7 @@ public interface PosDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT * FROM wk.wk_pos WHERE ID=#{id} ")
+	@Select(" SELECT id,name,import_user_name importUserName, bank_name bankName,card_number cardNumber , rate_id rateId ,  remark ,  seg , create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_pos WHERE ID=#{id} ")
 	Pos get(String id);
 
 	/**

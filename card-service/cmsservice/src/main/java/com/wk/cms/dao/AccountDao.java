@@ -34,7 +34,7 @@ public interface AccountDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT * FROM wk.wk_account WHERE ID=#{id} ")
+	@Select(" SELECT id, account_name accountName, user_name userName, password, card_no cardNo, web_user_name webUserName, web_password webPassword, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_account WHERE ID=#{id} ")
 	Account get(String id);
 
 	/**

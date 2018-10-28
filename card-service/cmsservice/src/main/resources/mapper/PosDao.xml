@@ -19,9 +19,25 @@
         WHERE id=#{id}
     </update>
 
+    <select id="search" resultType="com.wk.entity.Pos" parameterType="com.wk.entity.Pos">
+        SELECT id,name,import_user_name importUserName, bank_name bankName,card_number cardNumber , rate_id rateId ,  remark ,  seg , create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_pos
+        <where>
+            <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
+            <if test="  importUserName != null and  importUserName != '' "> AND  import_user_name =  #{importUserName}</if>
+            <if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>
+            <if test="  cardNumber != null and  cardNumber != '' "> AND  card_number =  #{cardNumber}</if>
+            <if test="  rateId != null and  rateId != '' "> AND  rate_id =  #{rateId}</if>
+            <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
+            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
+            <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+        </where>  ORDER BY seg DESC, update_time DESC  limit #{pageStart},#{pageSize}
+    </select>
 
-
-    <select id="searchCount" resultType="com.wk.entity.Pos" parameterType="com.wk.entity.Pos">
+    <select id="searchCount" resultType="java.lang.Integer" parameterType="com.wk.entity.Pos">
         SELECT COUNT(*) FROM wk.wk_pos
         <where>
             <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
@@ -36,7 +52,7 @@
             <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
-        </where>  ORDER BY seg ASC, update_time DESC  limit #{pageStart},#{pageSize}
+        </where>
     </select>
 
 </mapper>

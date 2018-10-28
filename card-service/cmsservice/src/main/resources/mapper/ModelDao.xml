@@ -19,7 +19,7 @@
 
 
     <select id="search" resultType="com.wk.entity.Model" parameterType="com.wk.entity.Model">
-        SELECT id, name, remark, seg, create_time, update_time, opt_id FROM wk.wk_model
+        SELECT id, name, remark, seg, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_model
         <where>
             <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
             <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
@@ -29,7 +29,7 @@
             <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
-        </where> ORDER BY seg ASC, update_time DESC   limit #{pageStart},#{pageSize}
+        </where> ORDER BY seg DESC, update_time DESC   limit #{pageStart},#{pageSize}
     </select>
 
 

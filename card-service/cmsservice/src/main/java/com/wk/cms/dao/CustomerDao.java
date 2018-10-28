@@ -34,7 +34,14 @@ public interface CustomerDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT * FROM wk.wk_customer WHERE ID=#{id} ")
+	@Select(" SELECT  id, name, \n" +
+			"        id_number idNumber, \n" +
+			"        phone, \n" +
+			"        worker_id workerId, \n" +
+			"        font_img fontImg, \n" +
+			"        after_img afterImg, \n" +
+			"        home_img homeImg, \n" +
+			"        remark, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_customer WHERE ID=#{id} ")
 	Customer get(String id);
 
 	/**
