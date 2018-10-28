@@ -43,4 +43,6 @@ public interface WorkerService {
      * @return
      */
 	List<Worker> search(Worker worker);
+
+	Integer searchCount(Worker worker);
 }

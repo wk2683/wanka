@@ -49,4 +49,11 @@ public interface WorkerDao {
      * @return
      */
 	List<Worker> search(Worker worker);
+
+	/**
+	 * 搜索统计数记录数
+	 * @param worker
+	 * @return
+	 */
+	Integer searchCount(Worker worker);
 }

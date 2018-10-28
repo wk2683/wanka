@@ -21,9 +21,6 @@ import java.util.List;
 @RestController
 public class OrgController extends BaseController{
 
-    private static final Logger logger = LoggerFactory.getLogger(OrgController.class);
-
-
     @Autowired
     private OrgService orgService;
 
@@ -31,9 +28,8 @@ public class OrgController extends BaseController{
     @ResponseBody
     @CrossOrigin
     public BaseResponse add(Org org){
-        logger.info("添加组织"+JSONObject.toJSONString(org));
         String id = orgService.add(org);
-        return responseAdd(org,id,OrgController.class);
+        return responseAdd(org,id,this.getClass());
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
@@ -41,7 +37,7 @@ public class OrgController extends BaseController{
     @CrossOrigin
     public BaseResponse delete(String id){
         Integer affectRow = orgService.delete(id);
-        return responseDelete(affectRow,id,OrgController.class);
+        return responseDelete(affectRow,id,this.getClass());
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
@@ -49,24 +45,26 @@ public class OrgController extends BaseController{
     @CrossOrigin
     public BaseResponse update(Org org){
         Integer affectRow = orgService.update(org);
-        return responseUpdate(affectRow,org,OrgController.class);
+        return responseUpdate(affectRow,org,this.getClass());
     }
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Org add(String id){
+    public BaseResponse get(String id){
         Org org = orgService.get(id);
-        BaseResponse response = new BaseResponse();
-
-        return org;
+        return responseGet(org,this.getClass());
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public List<Org> search(Org org){
+    public BaseResponse search(Org org){
         List<Org> orgs = orgService.search(org);
-        return orgs;
+        int total = 0;
+        if(org.getPage()==1){
+            total = orgService.searchCount(org);
+        }
+        return responseSearch(orgs,total,org,this.getClass());
     }
 }

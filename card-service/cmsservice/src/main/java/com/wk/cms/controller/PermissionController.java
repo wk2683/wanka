@@ -1,5 +1,6 @@
 package com.wk.cms.controller;
 
+import com.wk.bean.BaseResponse;
 import com.wk.cms.service.PermissionService;
 import com.wk.entity.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,53 +13,51 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/permission")
-public class PermissionController {
+public class PermissionController extends  BaseController {
     @Autowired
     private PermissionService permissionService;
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public String add(Permission permission){
+    public BaseResponse add(Permission permission){
         String id = permissionService.add(permission );
-        return id;
+        return responseAdd(permission,id,this.getClass());
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Boolean delete(String id){
+    public BaseResponse delete(String id){
         Integer affectRow = permissionService.delete(id);
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseDelete(affectRow,id,this.getClass());
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public Boolean update(Permission permission){
+    public BaseResponse update(Permission permission){
         Integer affectRow = permissionService.update(permission );
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseUpdate(affectRow,permission,this.getClass());
     }
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Permission  add(String id){
+    public BaseResponse  get(String id){
         Permission permission = permissionService.get(id);
-        return permission ;
+        return responseGet(permission,this.getClass());
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public List<Permission > search(Permission permission){
+    public BaseResponse search(Permission permission){
         List<Permission > permissions = permissionService.search(permission );
-        return permissions;
+        Integer total = 0;
+        if(permission.getPage()==1){
+            total = permissionService.searchCount(permission);
+        }
+        return responseSearch(permissions,total,permission, this.getClass());
     }
 }

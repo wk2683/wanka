@@ -1,5 +1,6 @@
 package com.wk.cms.controller;
 
+import com.wk.bean.BaseResponse;
 import com.wk.cms.service.AccountService;
 import com.wk.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,53 +13,51 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/account")
-public class AccountController {
+public class AccountController extends  BaseController{
     @Autowired
     private AccountService accountService;
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public String add(Account account){
+    public BaseResponse add(Account account){
         String id = accountService.add(account);
-        return id;
+        return responseAdd(account,id,this.getClass());
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Boolean delete(String id){
+    public BaseResponse delete(String id){
         Integer affectRow = accountService.delete(id);
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseDelete(affectRow,id,this.getClass());
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public Boolean update(Account account){
+    public BaseResponse update(Account account){
         Integer affectRow = accountService.update(account);
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseUpdate(affectRow,account,this.getClass());
     }
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Account add(String id){
+    public BaseResponse get(String id){
         Account account = accountService.get(id);
-        return account;
+        return responseGet(account,this.getClass());
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public List<Account> search(Account account){
+    public BaseResponse search(Account account){
         List<Account> accounts = accountService.search(account);
-        return accounts;
+        Integer total = 0;
+        if(account.getPage()==1){
+            total = accountService.searchCount(account);
+        }
+        return responseSearch(accounts,total,account, this.getClass());
     }
 }

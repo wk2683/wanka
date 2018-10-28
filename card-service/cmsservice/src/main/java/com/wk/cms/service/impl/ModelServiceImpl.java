@@ -46,4 +46,9 @@ public class ModelServiceImpl implements ModelService {
     public List<Model> search(Model model) {
         return modelDao.search( model);
     }
+
+    @Override
+    public Integer searchCount(Model model) {
+        return modelDao.searchCount(model);
+    }
 }

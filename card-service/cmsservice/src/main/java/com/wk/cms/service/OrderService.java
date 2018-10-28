@@ -42,4 +42,7 @@ public interface OrderService {
      * @return
      */
 	List<Order> search(Order order);
+
+
+	Integer searchCount(Order order);
 }

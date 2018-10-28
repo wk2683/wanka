@@ -49,4 +49,11 @@ public interface OptTypeDao {
      * @return
      */
 	List<OptType> search(OptType optType);
+
+	/**
+	 * 搜索记录总数
+	 * @param optType 搜索条件
+	 * @return 返回搜索到的记录总数
+	 */
+	Integer searchCount(OptType optType);
 }

@@ -49,4 +49,11 @@ public interface RateDao {
      * @return
      */
 	List<Rate> search(Rate rate);
+
+	/**
+	 * 搜索记录总数
+	 * @param rate 搜索条件
+	 * @return 返回搜索到的记录总数
+	 */
+	Integer searchCount(Rate rate);
 }

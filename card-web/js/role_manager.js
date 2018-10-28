@@ -25,7 +25,7 @@ layui.use(['form','table','layer'],function () {
         table.render({
             elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
-            , url: common.url.web_root + common.url.model.role + common.url.opt.search  //数据源url
+            , url: common.url.web_root + common.url.model.role.acttion + common.url.opt.search  //数据源url
             , where: { userId: user.id, userName: user.name } //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
@@ -63,7 +63,7 @@ layui.use(['form','table','layer'],function () {
             , limits: [10,  30, 50,100,200] //可选择设定每页数量
             , loading: true //true | false 是否显示加载条
             , title: '角色表' //定义table大标题（比如导出时则为文件名）
-            , text: {none: '<button class="layui-btn layui-btn-sm" lay-event="add">添加</button>'} //空数据时提示信息
+            , text: {none: '<button class="layui-btn  layui-btn-fluid" lay-event="add">添加第一个角色</button>'} //空数据时提示信息
             // ,initSort:'' //默认排序字段
             // ,id:'table tag id' //设置table 标签的id值  （因为正常也没有id而可以通过class渲染表格）
             , skin: 'row' //行边框风格 line | row | nob
@@ -125,7 +125,7 @@ layui.use(['form','table','layer'],function () {
     //打开添加模态框表单
     pageData.openAddModel = function(){
         layer.open({
-            title: common.optName.CONTROLLER_OPT_ADD + common.name.model.role,
+            title: common.optName.CONTROLLER_OPT_ADD + common.url.model.role.name,
             type:1,//页面类型
             content:$('#add_form'),
             area:['600px'],
@@ -135,6 +135,14 @@ layui.use(['form','table','layer'],function () {
                 var name = $(layero).find("input[name=name]").val();
                 var seg = $(layero).find("input[name=seg]").val();
                 var remark = $(layero).find("textarea[name=remark]").val();
+
+                name = $.trim(name);
+                seg = $.trim(seg);
+                remark = $.trim(remark);
+                if(!name || !seg || !remark){
+                    layer.alert('所有都有填写的，亲');
+                    return false;
+                }
 
                 layer.closeAll();
                 console.log(name + "," + seg + "," + remark);
@@ -155,7 +163,7 @@ layui.use(['form','table','layer'],function () {
             seg:seg,
             remark:remark,
         };
-        common.sendOption.url = common.url.web_root + common.url.model.role + common.url.opt.add;
+        common.sendOption.url = common.url.web_root + common.url.model.role.acttion + common.url.opt.add;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.addComplete;
 
@@ -176,7 +184,7 @@ layui.use(['form','table','layer'],function () {
         $('#add_form').find("textarea[name=remark]").val(modelObj.data.remark);
 
         layer.open({
-            title:common.optName.CONTROLLER_OPT_UPDATE + common.name.model.role,
+            title:common.optName.CONTROLLER_OPT_UPDATE + common.url.model.role.name,
             type:1,//页面类型
             content:$('#add_form'),
             area:['600px'],
@@ -186,6 +194,15 @@ layui.use(['form','table','layer'],function () {
                 var name = $(layero).find("input[name=name]").val();
                 var seg = $(layero).find("input[name=seg]").val();
                 var remark = $(layero).find("textarea[name=remark]").val();
+
+                name = $.trim(name);
+                seg = $.trim(seg);
+                remark = $.trim(remark);
+                if(!name || !seg || !remark){
+                    layer.alert('所有都有填写的，亲');
+                    return false;
+                }
+
                 layer.closeAll();
                 console.log(name + "," + seg + "," + remark);
                 pageData.submitUpdateRole(modelObj.data.id,name,seg,remark);
@@ -206,7 +223,7 @@ layui.use(['form','table','layer'],function () {
             seg:seg,
             remark:remark,
         };
-        common.sendOption.url = common.url.web_root + common.url.model.role + common.url.opt.update;
+        common.sendOption.url = common.url.web_root + common.url.model.role.acttion + common.url.opt.update;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.updateComplete;
 
@@ -222,17 +239,18 @@ layui.use(['form','table','layer'],function () {
     //确认删除
     pageData.deleteConfirm = function(obj){
         layer.confirm('真的删除行么', function(index){
-            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+
             layer.close(index);
             //向服务端发送删除指令
             console.log("删除 id  =  "+obj.data.id);
             pageData.deleteRole(obj);
+            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
         });
     };
     //提交删除
     pageData.deleteRole = function(obj){
         common.sendOption.data = { id:obj.data.id };
-        common.sendOption.url = common.url.web_root + common.url.model.role + common.url.opt.delete;
+        common.sendOption.url = common.url.web_root + common.url.model.role.acttion + common.url.opt.delete;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.deleteComplete;
         common.httpSend(common.sendOption);

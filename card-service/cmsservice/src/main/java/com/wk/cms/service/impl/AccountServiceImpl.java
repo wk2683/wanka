@@ -48,4 +48,9 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> search(Account account) {
         return accountDao.search(account);
     }
+
+    @Override
+    public Integer searchCount(Account account) {
+        return accountDao.searchCount(account);
+    }
 }

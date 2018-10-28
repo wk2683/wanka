@@ -49,4 +49,11 @@ public interface ModelDao {
      * @return
      */
 	List<Model> search(Model model);
+
+	/**
+	 * 搜索记录总数
+	 * @param model 搜索条件
+	 * @return 返回搜索到的记录总数
+	 */
+	Integer searchCount(Model model);
 }

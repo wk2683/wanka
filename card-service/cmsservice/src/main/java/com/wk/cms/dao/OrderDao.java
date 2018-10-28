@@ -43,10 +43,17 @@ public interface OrderDao {
      */
 	Integer update(Order order);
 
-    /**
-     * 搜索
-	 * @param order
-     * @return
-     */
+	/**
+	 * 搜索记录总数
+	 * @param order 搜索条件
+	 * @return 返回搜索到的记录总数
+	 */
 	List<Order> search(Order order);
+
+	/**
+	 * 搜索记录总数
+	 * @param order 搜索条件
+	 * @return 返回搜索到的记录总数
+	 */
+	Integer searchCount(Order order);
 }

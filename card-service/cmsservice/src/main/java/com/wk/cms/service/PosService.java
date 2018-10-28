@@ -42,4 +42,6 @@ public interface PosService {
      * @return
      */
 	List<Pos> search(Pos pos);
+
+	Integer searchCount(Pos pos);
 }

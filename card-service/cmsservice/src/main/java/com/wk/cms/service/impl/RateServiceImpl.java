@@ -45,4 +45,9 @@ public class RateServiceImpl implements RateService {
     public List<Rate> search(Rate rate) {
         return rateDao.search(rate);
     }
+
+    @Override
+    public Integer searchCount(Rate rate) {
+        return rateDao.searchCount(rate);
+    }
 }

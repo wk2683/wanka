@@ -50,4 +50,11 @@ public interface AccountDao {
      * @return
      */
 	List<Account> search(Account account);
+
+	/**
+	 * 搜索记录总数
+	 * @param account 搜索条件
+	 * @return 返回搜索到的记录总数
+	 */
+	Integer searchCount(Account account);
 }

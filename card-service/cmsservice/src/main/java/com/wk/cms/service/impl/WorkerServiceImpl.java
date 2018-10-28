@@ -45,4 +45,9 @@ public class WorkerServiceImpl implements WorkerService {
     public List<Worker> search(Worker worker) {
         return workerDao.search(worker);
     }
+
+    @Override
+    public Integer searchCount(Worker worker) {
+        return workerDao.searchCount(worker);
+    }
 }

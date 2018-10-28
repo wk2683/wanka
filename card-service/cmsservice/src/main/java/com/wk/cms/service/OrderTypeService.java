@@ -43,4 +43,6 @@ public interface OrderTypeService {
      * @return
      */
 	List<OrderType> search(OrderType orderType);
+
+	Integer searchCount(OrderType orderType);
 }

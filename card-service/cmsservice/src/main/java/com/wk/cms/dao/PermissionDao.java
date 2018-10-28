@@ -49,4 +49,11 @@ public interface PermissionDao {
      * @return
      */
 	List<Permission> search(Permission permission);
+
+	/**
+	 * 搜索记录总数
+	 * @param permission 搜索条件
+	 * @return 返回搜索到的记录总数
+	 */
+	Integer searchCount(Permission permission);
 }

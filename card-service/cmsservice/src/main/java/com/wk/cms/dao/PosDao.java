@@ -49,4 +49,11 @@ public interface PosDao {
      * @return
      */
 	List<Pos> search(Pos pos);
+
+	/**
+	 * 搜索记录总数
+	 * @param pos 搜索条件
+	 * @return 返回搜索到的记录总数
+	 */
+	Integer searchCount(Pos pos);
 }

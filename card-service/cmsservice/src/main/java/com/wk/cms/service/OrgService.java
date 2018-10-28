@@ -44,6 +44,10 @@ public interface OrgService  {
      */
     List<Org> search(Org org);
 
-
-
+    /**
+     * 搜索结果总数
+     * @param org
+     * @return
+     */
+    Integer searchCount(Org org);
 }

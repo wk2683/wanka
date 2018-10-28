@@ -1,5 +1,6 @@
 package com.wk.cms.controller;
 
+import com.wk.bean.BaseResponse;
 import com.wk.cms.service.PosService;
 import com.wk.entity.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,53 +13,51 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/pos")
-public class PosController {
+public class PosController extends  BaseController {
     @Autowired
     private PosService posService;
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public String add(Pos pos ){
+    public BaseResponse add(Pos pos ){
         String id = posService .add(pos );
-        return id;
+        return responseAdd(pos,id,this.getClass());
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Boolean delete(String id){
+    public BaseResponse delete(String id){
         Integer affectRow = posService .delete(id);
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseDelete(affectRow,id,this.getClass());
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public Boolean update(Pos pos ){
+    public BaseResponse update(Pos pos ){
         Integer affectRow = posService .update(pos );
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseUpdate(affectRow,pos,this.getClass());
     }
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Pos  add(String id){
+    public BaseResponse  get(String id){
         Pos pos  = posService .get(id);
-        return pos ;
+        return responseGet(pos,this.getClass());
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public List<Pos > search(Pos pos ){
+    public BaseResponse search(Pos pos ){
         List<Pos > poss = posService .search(pos );
-        return poss;
+        Integer total = 0;
+        if(pos.getPage()==1){
+            total = posService.searchCount(pos);
+        }
+        return responseSearch(poss,total,pos, this.getClass());
     }
 }

@@ -42,4 +42,6 @@ public interface CardService {
      * @return
      */
 	List<Card> search(Card card);
+
+	Integer searchCount(Card card);
 }

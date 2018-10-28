@@ -45,4 +45,9 @@ public class PosServiceImpl implements PosService {
     public List<Pos> search(Pos pos) {
         return posDao.search(pos);
     }
+
+    @Override
+    public Integer searchCount(Pos pos) {
+        return posDao.searchCount(pos);
+    }
 }

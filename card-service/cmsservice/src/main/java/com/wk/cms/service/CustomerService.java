@@ -42,4 +42,6 @@ public interface CustomerService {
      * @return
      */
 	List<Customer> search(Customer customer);
+
+	Integer searchCount(Customer customer);
 }

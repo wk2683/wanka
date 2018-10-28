@@ -46,8 +46,15 @@ public interface OrgDao {
 
 	/**
 	 * 搜索
-	 * @param org
-	 * @return
+	 * @param org 搜索条件
+	 * @return 返回搜索到的数据
 	 */
 	List<Org> search(Org org);
+
+	/**
+	 * 搜索记录总数
+	 * @param org 搜索条件
+	 * @return 返回搜索到的记录总数
+	 */
+	Integer searchCount(Org org);
 }

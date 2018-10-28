@@ -23,7 +23,7 @@ public class RoleController extends BaseController{
     @CrossOrigin
     public BaseResponse add(Role role ){
         String id = roleService.add(role);
-        return responseAdd(role,id,RoleController.class);
+        return responseAdd(role,id,this.getClass());
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
@@ -31,16 +31,15 @@ public class RoleController extends BaseController{
     @CrossOrigin
     public BaseResponse delete(String id){
         Integer affectRow = roleService .delete(id);
-        return responseDelete(affectRow,id,RoleController.class);
+        return responseDelete(affectRow,id,this.getClass());
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public BaseResponse update(Role role ){
-
         Integer affectRow = roleService .update(role);
-        return responseUpdate(affectRow,role,RoleController.class);
+        return responseUpdate(affectRow,role,this.getClass());
     }
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
@@ -48,7 +47,7 @@ public class RoleController extends BaseController{
     @CrossOrigin
     public BaseResponse get(String id){
         Role role  = roleService .get(id);
-        return responseGet(role,RoleController.class);
+        return responseGet(role,this.getClass());
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.GET)
@@ -60,6 +59,6 @@ public class RoleController extends BaseController{
         if(role.getPage()==1){
             total = roleService.searchCount(role);
         }
-        return responseSearch(roles,total,role, RoleController.class);
+        return responseSearch(roles,total,role, this.getClass());
     }
 }

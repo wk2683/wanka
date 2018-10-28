@@ -48,4 +48,9 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> search(Customer customer) {
         return customerDao.search(customer);
     }
+
+    @Override
+    public Integer searchCount(Customer customer) {
+        return customerDao.searchCount(customer);
+    }
 }

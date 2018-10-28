@@ -1,5 +1,6 @@
 package com.wk.cms.controller;
 
+import com.wk.bean.BaseResponse;
 import com.wk.cms.service.OrderService;
 import com.wk.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,53 +13,51 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/order")
-public class OrderController {
+public class OrderController  extends  BaseController{
     @Autowired
     private OrderService orderService;
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public String add(Order order){
+    public BaseResponse add(Order order){
         String id = orderService.add(order);
-        return id;
+        return responseAdd(order,id,this.getClass());
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Boolean delete(String id){
+    public BaseResponse delete(String id){
         Integer affectRow = orderService.delete(id);
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseDelete(affectRow,id,this.getClass());
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public Boolean update(Order order){
+    public BaseResponse update(Order order){
         Integer affectRow = orderService.update(order);
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseUpdate(affectRow,order,this.getClass());
     }
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Order add(String id){
+    public BaseResponse get(String id){
         Order order = orderService.get(id);
-        return order;
+        return responseGet(order,this.getClass());
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public List<Order> search(Order order){
+    public BaseResponse search(Order order){
         List<Order> orders = orderService.search(order);
-        return orders;
+        Integer total = 0;
+        if(order.getPage()==1){
+            total = orderService.searchCount(order);
+        }
+        return responseSearch(orders,total,order, this.getClass());
     }
 }

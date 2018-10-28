@@ -42,4 +42,6 @@ public interface ModelService {
      * @return
      */
 	List<Model> search(Model model);
+
+	Integer searchCount(Model model);
 }

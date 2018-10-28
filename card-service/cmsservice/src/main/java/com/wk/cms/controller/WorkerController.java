@@ -1,5 +1,6 @@
 package com.wk.cms.controller;
 
+import com.wk.bean.BaseResponse;
 import com.wk.cms.service.WorkerService;
 import com.wk.entity.Worker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,53 +13,51 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/worker")
-public class WorkerController {
+public class WorkerController extends  BaseController {
     @Autowired
     private WorkerService workerService;
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public String add(Worker worker){
+    public BaseResponse add(Worker worker){
         String id = workerService.add(worker);
-        return id;
+        return responseAdd(worker,id,this.getClass());
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Boolean delete(String id){
+    public BaseResponse delete(String id){
         Integer affectRow = workerService.delete(id);
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseDelete(affectRow,id,this.getClass());
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public Boolean update(Worker worker){
+    public BaseResponse update(Worker worker){
         Integer affectRow = workerService.update(worker);
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseUpdate(affectRow,worker,this.getClass());
     }
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Worker add(String id){
+    public BaseResponse get(String id){
         Worker worker = workerService.get(id);
-        return worker;
+        return responseGet(worker,this.getClass());
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public List<Worker> search(Worker worker){
+    public BaseResponse search(Worker worker){
         List<Worker> workers = workerService.search(worker);
-        return workers;
+        Integer total = 0;
+        if(worker.getPage()==1){
+                total = workerService.searchCount(worker);
+        }
+        return responseSearch(workers,total,worker, this.getClass());
     }
 }

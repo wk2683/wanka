@@ -43,4 +43,6 @@ public interface PermissionService {
      * @return
      */
 	List<Permission> search(Permission permission);
+
+	Integer searchCount(Permission permission);
 }

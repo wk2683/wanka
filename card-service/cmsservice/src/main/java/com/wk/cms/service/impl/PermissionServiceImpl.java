@@ -45,4 +45,9 @@ public class PermissionServiceImpl implements PermissionService {
     public List<Permission> search(Permission permission) {
         return permissionDao.search(permission);
     }
+
+    @Override
+    public Integer searchCount(Permission permission) {
+        return permissionDao.searchCount(permission);
+    }
 }

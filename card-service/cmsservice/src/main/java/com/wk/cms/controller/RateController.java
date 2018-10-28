@@ -1,5 +1,6 @@
 package com.wk.cms.controller;
 
+import com.wk.bean.BaseResponse;
 import com.wk.cms.service.RateService;
 import com.wk.entity.Rate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,53 +13,51 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/rate")
-public class RateController {
+public class RateController  extends  BaseController{
     @Autowired
     private RateService rateService;
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public String add(Rate rate ){
+    public BaseResponse add(Rate rate ){
         String id = rateService .add(rate );
-        return id;
+        return responseAdd(rate,id,this.getClass());
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Boolean delete(String id){
+    public BaseResponse delete(String id){
         Integer affectRow = rateService .delete(id);
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseDelete(affectRow,id,this.getClass());
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public Boolean update(Rate rate ){
+    public BaseResponse update(Rate rate ){
         Integer affectRow = rateService .update(rate );
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseUpdate(affectRow,rate,this.getClass());
     }
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Rate  add(String id){
+    public BaseResponse  get(String id){
         Rate rate  = rateService .get(id);
-        return rate ;
+        return responseGet(rate,this.getClass());
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public List<Rate > search(Rate rate ){
+    public BaseResponse search(Rate rate ){
         List<Rate> rates = rateService .search(rate );
-        return rates;
+        Integer total = 0;
+        if(rate.getPage()==1){
+            total = rateService.searchCount(rate);
+        }
+        return responseSearch(rates,total,rate, this.getClass());
     }
 }

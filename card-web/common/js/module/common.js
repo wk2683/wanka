@@ -16,8 +16,19 @@ common.sendOption = {
 common.url = {
     web_root:'http://localhost:8002/',
     model:{
-        org:'org/',
-        role:'role/'
+        account:    {acttion:'account/',    name:'账户'},
+        card:       {acttion:'card/',       name:'信用卡'},
+        customer:   {acttion:'customer/',   name:'客户'},
+        model:      {acttion:'model/',      name:'模块'},
+        optType:    {acttion:'optType/',    name:'操作类型'},
+        order:      {acttion:'order/',      name:'订单'},
+        orderType:  {acttion:'orderType/',  name:'订单类型'},
+        org:        {acttion:'org/',        name:'组织'},
+        permission: {acttion:'permission/', name:'权限'},
+        pos:        {acttion:'pos/',        name:'POS机'},
+        rate:       {acttion:'rate/',       name:'费率'},
+        role:       {acttion:'role/',       name:'角色'},
+        worker:     {acttion:'worker/',     name:'员工'}
     },
     opt:{
         add:'add',
@@ -28,12 +39,24 @@ common.url = {
     }
 };
 
-common.name = {
-    model: {
-        org:'组织',
-        role:'角色',
-    }
-};
+//已经定义在一起
+// common.name = {
+//     model: {
+//         account:'账户信息',
+//         card:'信用卡信息',
+//         customer:'客户信息',
+//         model:'模块信息',
+//         optType:'操作类型',
+//         order:'订单',
+//         orderType:'订单类型',
+//         org:'组织',
+//         permission:'权限',
+//         pos:'POS机',
+//         rate:'费率',
+//         role:'角色',
+//         worker:'员工信息'
+//     }
+// };
 
 common.code = {
     RESPONSE_CODE_SUCCESS:8001,

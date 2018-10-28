@@ -46,4 +46,11 @@ public class OrgServiceImpl implements OrgService   {
     public List<Org> search(Org org) {
         return orgDao.search(org);
     }
+
+    @Override
+    public Integer searchCount(Org org) {
+        return orgDao.searchCount(org);
+    }
+
+
 }

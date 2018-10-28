@@ -42,4 +42,6 @@ public interface OptTypeService {
      * @return
      */
 	List<OptType> search(OptType optType);
+
+	Integer searchCount(OptType optType);
 }

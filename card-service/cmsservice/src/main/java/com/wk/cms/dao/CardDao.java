@@ -49,4 +49,11 @@ public interface CardDao {
      * @return
      */
 	List<Card> search(Card card);
+
+	/**
+	 * 搜索记录总数
+	 * @param card 搜索条件
+	 * @return 返回搜索到的记录总数
+	 */
+	Integer searchCount(Card card);
 }

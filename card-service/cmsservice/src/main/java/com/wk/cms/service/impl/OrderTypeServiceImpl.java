@@ -45,4 +45,9 @@ public class OrderTypeServiceImpl implements OrderTypeService {
     public List<OrderType> search(OrderType orderType) {
         return orderTypeDao.search(orderType);
     }
+
+    @Override
+    public Integer searchCount(OrderType orderType) {
+        return orderTypeDao.searchCount(orderType);
+    }
 }

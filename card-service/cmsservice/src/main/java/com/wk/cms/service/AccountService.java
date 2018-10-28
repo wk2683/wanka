@@ -43,4 +43,6 @@ public interface AccountService {
      * @return
      */
 	List<Account> search(Account account);
+
+	Integer searchCount(Account account);
 }

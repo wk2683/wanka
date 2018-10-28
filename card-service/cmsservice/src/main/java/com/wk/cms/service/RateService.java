@@ -42,4 +42,6 @@ public interface RateService {
      * @return
      */
 	List<Rate> search(Rate rate);
+
+	Integer searchCount(Rate rate);
 }

@@ -48,4 +48,9 @@ public class CardServiceImpl implements CardService {
     public List<Card> search(Card card) {
         return cardDao.search(card);
     }
+
+    @Override
+    public Integer searchCount(Card card) {
+        return cardDao.searchCount(card);
+    }
 }

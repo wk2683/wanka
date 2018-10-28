@@ -1,5 +1,6 @@
 package com.wk.cms.controller;
 
+import com.wk.bean.BaseResponse;
 import com.wk.cms.service.ModelService;
 import com.wk.entity.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,53 +13,51 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/model")
-public class ModelController {
+public class ModelController extends  BaseController {
     @Autowired
     private ModelService modelService;
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public String add(Model model){
+    public BaseResponse add(Model model){
         String id = modelService.add(model);
-        return id;
+        return responseAdd(model,id,this.getClass());
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Boolean delete(String id){
+    public BaseResponse delete(String id){
         Integer affectRow = modelService.delete(id);
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseDelete(affectRow,id,this.getClass());
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public Boolean update(Model model){
+    public BaseResponse update(Model model){
         Integer affectRow = modelService.update(model);
-        if (affectRow>0) {
-            return true;
-        }
-        return false;
+        return responseUpdate(affectRow,model,this.getClass());
     }
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public Model add(String id){
-        Model account = modelService.get(id);
-        return account;
+    public BaseResponse get(String id){
+        Model model = modelService.get(id);
+        return responseGet(model,this.getClass());
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public List<Model> search(Model model){
+    public BaseResponse search(Model model){
         List<Model> models = modelService.search(model);
-        return models;
+        Integer total = 0;
+        if(model.getPage()==1){
+            total = modelService.searchCount(model);
+        }
+        return responseSearch(models,total,model, this.getClass());
     }
 }

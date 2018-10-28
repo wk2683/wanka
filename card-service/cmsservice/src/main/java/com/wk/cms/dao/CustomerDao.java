@@ -50,4 +50,11 @@ public interface CustomerDao {
      * @return
      */
 	List<Customer> search(Customer customer);
+
+	/**
+	 * 搜索记录总数
+	 * @param customer 搜索条件
+	 * @return 返回搜索到的记录总数
+	 */
+	Integer searchCount(Customer customer);
 }

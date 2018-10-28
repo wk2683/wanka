@@ -47,4 +47,9 @@ public class OptTypeServiceImpl implements OptTypeService {
     public List<OptType> search(OptType optType) {
         return optTypeDao.search(optType);
     }
+
+    @Override
+    public Integer searchCount(OptType optType) {
+        return optTypeDao.searchCount(optType);
+    }
 }

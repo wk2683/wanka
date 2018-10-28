@@ -57,4 +57,6 @@ public interface RoleDao  {
      * @return
      */
     Integer searchCount(Role role);
+
+
 }
