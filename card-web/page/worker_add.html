@@ -74,6 +74,20 @@
                                     <form class="layui-form layui-form-pane"  onsubmit="return false;">
 
                                         <div class="layui-form-item">
+                                            <label class="layui-form-label">选择角色</label>
+                                            <div class="layui-input-block">
+                                                <select name="roleId" id="roleId" lay-verify="required"></select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">所在组织</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="orgName"  id="orgName"  lay-verify="required" placeholder="请选择组织"  class="layui-input" readonly>
+                                                <input type="hidden" name="orgId" value="1"  >
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
                                             <label class="layui-form-label">用户名</label>
                                             <div class="layui-input-inline">
                                                 <input type="text" name="userName"  required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
@@ -90,19 +104,7 @@
                                             <div class="layui-form-mid layui-word-aux">8-16位的数字、字母、下划线组合</div>
                                         </div>
 
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">选择角色</label>
-                                            <div class="layui-input-block">
-                                                <select name="roleId" id="roleId" lay-verify="required"></select>
-                                            </div>
-                                        </div>
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">所在组织</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="orgName"  id="orgName"  lay-verify="required" placeholder="请选择组织"  class="layui-input" readonly>
-                                                <input type="hidden" name="orgId" value="1"  >
-                                            </div>
-                                        </div>
+
 
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">姓名</label>

@@ -124,6 +124,7 @@ layui.use(['form','layer','upload'],function () {
                 event.preventDefault();
                 $("#orgId").val(node.id);
                 $("#orgName").val(node.name);
+                layer.closeAll();
             }
         });
     };
@@ -173,7 +174,7 @@ layui.use(['form','layer','upload'],function () {
         console.log(info);
         // delete info.file;//删除文件对象
         // layer.msg(info);
-
+        info = JSON.parse(info);
         // 重新 组合参数
         var worker = {
             id:info.id,
@@ -191,7 +192,9 @@ layui.use(['form','layer','upload'],function () {
             remark:info.remark,
             seg:info.seg
         };
-       pageData.submitAdd(worker);
+
+        // var p = JSON.parse(info);
+       pageData.submitAdd(data.field);
 
         return false;
     });

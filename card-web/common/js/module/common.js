@@ -6,6 +6,9 @@ common.sendDataType = {
     JSON:'json',
     STRING:'string',
 };
+common.sendContentType = {
+    postContentTyppe:'application/json;charset=UTF-8' //POST 提交要设置contentType，不然后台接收异常
+};
 //调用公共请求方法应该要设置的参数
 common.sendOption = {
     url:'',
@@ -700,9 +703,14 @@ common.httpSend = function (options) {
     if(!options.data){
         options.data = {};
     }
-    options.data.userId = 'uesr_id';//从sessionStage里提取
-    options.data.userName = 'uesr_name';//从sessionStage里提取
-    $.ajax({
+    if(!options.data.userId ) {
+        options.data.userId = "uesr_id";//从sessionStage里提取
+    }
+    if(!options.data.userName) {
+        options.data.userName = "uesr_name";//从sessionStage里提取
+    }
+
+    var ajaxOption = {
         url:options.url,
         type:options.type,
         data:options.data,
@@ -712,7 +720,12 @@ common.httpSend = function (options) {
         // success:options.successCallBack,//成功返回处理
         // error:options.errorCallBack,//返回失败处理
         complete:options.completeCallBack,//请求完成处理
-    });
+    };
+    if(options.type==common.sendMethod.POST){
+        ajaxOption.contentType = common.sendContentType.postContentTyppe;
+        ajaxOption.data = JSON.stringify(ajaxOption.data);
+    }
+    $.ajax(ajaxOption);
 
 }
 /**
@@ -772,8 +785,8 @@ common.compelteCallBack = function (xhr,textStatus) {
  * @param redrectUrl  操作成功指定跳转页面，无此参数则刷新当前页面
  */
 common.noDataResponse = function (res,optName,redrectUrl) {
+    $(".loading-container").addClass("loading-inactive");
     var resData = JSON.parse(res.responseText);
-
     //提交完成返回处理
     console.log("提交完成返回处理");
     console.log(res.responseText);
