@@ -17,6 +17,7 @@ public class Worker extends BaseEntity implements Serializable {
     private String fontImg  ;
     private String afterImg ;
     private String homeImg  ;
+    private Integer seg;
 
     public String getOrgId() {
         return orgId;
@@ -104,5 +105,13 @@ public class Worker extends BaseEntity implements Serializable {
 
     public void setHomeImg(String homeImg) {
         this.homeImg = homeImg;
+    }
+
+    public Integer getSeg() {
+        return seg;
+    }
+
+    public void setSeg(Integer seg) {
+        this.seg = seg;
     }
 }

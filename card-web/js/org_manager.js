@@ -230,12 +230,17 @@ layui.use(['tree','form','table','layer'],function () {
         var resData = JSON.parse(res.responseText);
         if(resData.code == common.code.RESPONSE_CODE_SUCCESS && resData.total > 0 ){
             var data = JSON.parse(resData.data);
+            var orginTree = common.util.covert2TreeJSON(data,0);
+            //暂时在这里保存，事实上应该在登录时保存这些数据
+            sessionStorage.setItem(common.session.key.orgData,resData.data);
+            sessionStorage.setItem(common.session.key.orgTree,JSON.stringify(orginTree));
+
             var len = data.length;
             for(var i=0;i<len;i++){
                 data[i].name += toolbtn;
             }
-
             var treeJson = common.util.covert2TreeJSON(data,0);
+
             pageData.initOrgTree(treeJson);
         }else{
             var data = [{name:'还没有组织数据'}];

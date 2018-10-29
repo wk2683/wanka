@@ -12,11 +12,17 @@ layui.use(['form','table','layer'],function () {
     var pageData = {};
 
     var tableHeader = [[ //表头
-
-         {field: 'id',       title: 'ID', align:'center',width:'20%'}
-        ,{field: 'name',     title: '名称', align:'center',width:'22%'}
-        ,{field: 'seg',      title: '排序', align:'center',width:'10%'}
-        ,{field: 'remark',   title: '说明', align:'center'}
+        {field: 'orgId',       title: '组织ID', align:'center',width:'8%'},
+        {field: 'roleId',       title: '角色ID', align:'center',width:'8%'},
+        {field: 'userName',       title: '用户名', align:'center',width:'8%'},
+        {field: 'password',       title: '密码', align:'center',width:'8%'},
+        {field: 'name',       title: '姓名', align:'center',width:'8%'},
+        {field: 'idNumber',       title: '身份证号', align:'center',width:'8%'},
+        {field: 'phone',       title: '手机', align:'center',width:'8%'},
+        {field: 'weixin',       title: '微信号', align:'center',width:'8%'},
+        {field: 'fontImg',       title: '身份证正面', align:'center',width:'8%'},
+        {field: 'afterImg',       title: '身份证背面', align:'center',width:'8%'},
+        {field: 'homeImg',       title: '全身照', align:'center',width:'8%'}
         ,{fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
@@ -25,9 +31,9 @@ layui.use(['form','table','layer'],function () {
         table.render({
             elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
-            , url: common.url.web_root + common.url.model.role.acttion + common.url.opt.search  //数据源url
+            , url: common.url.web_root + common.url.model.worker.acttion + common.url.opt.search  //数据源url
             , where: { userId: user.id, userName: user.name } //如果无需传递额外参数，可不加该参数
-            , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
+            , method: common.sendMethod.POST // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
                           // toolbar: '#toolbarDemo' //指向自定义工具栏模板选择器
@@ -84,8 +90,6 @@ layui.use(['form','table','layer'],function () {
             // }
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
-                //保存到会话，给整个系统使用
-                sessionStorage.setItem(common.session.key.roleData,res.data);
                 return {
                     "code": 0,// res.status, //解析接口状态
                     "msg": '',// res.message, //解析提示文本
@@ -107,14 +111,18 @@ layui.use(['form','table','layer'],function () {
             console.log("点击事件......"+layEvent);
             if(layEvent === 'add'){
                 //添加
-                pageData.openAddModel();
+                // pageData.openAddModel();
             }else if(layEvent === 'detail'){ //查看
                 //详情
+                var detail_url = location.origin + '/page/worker_detail.html?id='+data.id;
+                window.open(detail_url);
             } else if(layEvent === 'delete'){ //删除
                 pageData.deleteConfirm(obj);
             } else if(layEvent === 'update'){ //编辑
                 //修改
-                pageData.openUpdateModel(obj);
+                // pageData.openUpdateModel(obj);
+                var detail_url = location.origin + '/page/worker_update.html?id='+data.id;
+                window.open(detail_url);
             }
         });
         //监听 增 删 改
@@ -127,7 +135,7 @@ layui.use(['form','table','layer'],function () {
     //打开添加模态框表单
     pageData.openAddModel = function(){
         layer.open({
-            title: common.optName.CONTROLLER_OPT_ADD + common.url.model.role.name,
+            title: common.optName.CONTROLLER_OPT_ADD + common.url.model.worker.name,
             type:1,//页面类型
             content:$('#add_form'),
             area:['600px'],
@@ -165,7 +173,7 @@ layui.use(['form','table','layer'],function () {
             seg:seg,
             remark:remark,
         };
-        common.sendOption.url = common.url.web_root + common.url.model.role.acttion + common.url.opt.add;
+        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.add;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.addComplete;
 
@@ -186,7 +194,7 @@ layui.use(['form','table','layer'],function () {
         $('#add_form').find("textarea[name=remark]").val(modelObj.data.remark);
 
         layer.open({
-            title:common.optName.CONTROLLER_OPT_UPDATE + common.url.model.role.name,
+            title:common.optName.CONTROLLER_OPT_UPDATE + common.url.model.worker.name,
             type:1,//页面类型
             content:$('#add_form'),
             area:['600px'],
@@ -225,7 +233,7 @@ layui.use(['form','table','layer'],function () {
             seg:seg,
             remark:remark,
         };
-        common.sendOption.url = common.url.web_root + common.url.model.role.acttion + common.url.opt.update;
+        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.update;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.updateComplete;
 
@@ -252,7 +260,7 @@ layui.use(['form','table','layer'],function () {
     //提交删除
     pageData.deleteRole = function(obj){
         common.sendOption.data = { id:obj.data.id };
-        common.sendOption.url = common.url.web_root + common.url.model.role.acttion + common.url.opt.delete;
+        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.delete;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.deleteComplete;
         common.httpSend(common.sendOption);
@@ -262,7 +270,16 @@ layui.use(['form','table','layer'],function () {
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_DELETE);
     };
 
-    //初始化第一页数据
-    pageData.getTableData();
+    $(function () {
 
+
+        //初始化第一页数据
+        pageData.getTableData();
+        //添加按钮事件
+        $(document.body).on('click','#add_worker_btn',function () {
+            //详情
+            var detail_url = location.origin + '/page/worker_add.html';
+            window.open(detail_url);
+        });
+    });
 });

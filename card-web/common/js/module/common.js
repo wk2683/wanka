@@ -35,7 +35,13 @@ common.url = {
         delete:'delete',
         get:'get',
         update:'update',
-        search:'search'
+        search:'search',
+        model:{
+            worker:{
+                uploadImg:'uploadImg',
+                readImg:'readImg'
+            }
+        }
     }
 };
 
@@ -80,8 +86,29 @@ common.optName = {
 
 common.util = {};
 
+// sessionStorage 操作
+// 保存数据到sessionStorage
+//sessionStorage.setItem('key', 'value');
 
+// 从sessionStorage获取数据
+//var data = sessionStorage.getItem('key');
 
+// 从sessionStorage删除保存的数据
+//sessionStorage.removeItem('key');
+
+// 从sessionStorage删除所有保存的数据
+//sessionStorage.clear();
+//系统会话保存的数据
+common.session = {
+    key:{
+        orgData:'orgData',//一维组织数组
+        orgTree:'orgTree',//树形结构数组
+        roleData:'roleData',//角色数组
+        modelData:'modelData',//模块
+        permissionData: 'permissionData',//所有权限
+        modelTree:'modelTree',//模块与权限的组合树
+    }
+};
 
 
 
@@ -513,6 +540,20 @@ common.initLeftSilder = function () {
             children:[
                 {
                     id:"101",
+                    name:"用户列表",
+                    pid:"1",
+                    type:"page",
+                    url:"worker_manager.html"
+                },
+                {
+                    id:"101",
+                    name:"新增用户",
+                    pid:"1",
+                    type:"page",
+                    url:"worker_add.html"
+                },
+                {
+                    id:"101",
                     name:"登录页面",
                     pid:"1",
                     type:"page",
@@ -723,8 +764,14 @@ common.compelteCallBack = function (xhr,textStatus) {
     console.log("responseText="+xhr.responseText);
     console.log("textStatus="+textStatus)
 };
-//无数据返回操作通用处理，增，删，改 操作的响应处理
-common.noDataResponse = function (res,optName) {
+
+/**
+ * 无数据返回操作通用处理，增，删，改 操作的响应处理
+ * @param res 服务器返回数据
+ * @param optName 操作名称，对应common.optName内的参数
+ * @param redrectUrl  操作成功指定跳转页面，无此参数则刷新当前页面
+ */
+common.noDataResponse = function (res,optName,redrectUrl) {
     var resData = JSON.parse(res.responseText);
 
     //提交完成返回处理
@@ -736,7 +783,17 @@ common.noDataResponse = function (res,optName) {
             title:'操作提示',
             message: optName + common.msg.RESPONSE_MSG_SUCCESS,
             buttons: {
-                success:{ label:'确定', className:'', callback:function () { location.href = location.href; } },
+                success:{
+                    label:'确定',
+                    className:'',
+                    callback:function () {
+                        if(redrectUrl){
+                            location.href = location.origin +'/'+ redrectUrl;
+                        }else {
+                            location.href = location.href;
+                        }
+                    }
+                },
                // cancel:{ label:'取消', className:'', callback:function () {  /*取消操作*/ } },
             }
         });
@@ -767,6 +824,7 @@ common.util.covert2TreeJSON = function (data,parentId) {
             var children = common.util.covert2TreeJSON(data,item.id);
             if(children && children.length>0) {
                 item.children = children;
+                item.spread = true;//节点为展开状态
             }
             tree.push(item);
         }
