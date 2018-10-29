@@ -3,7 +3,7 @@
 <!-- Head -->
 <head>
     <meta charset="utf-8" />
-    <title>员工详情</title>
+    <title>员工信息</title>
 
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,6 +30,11 @@
 
     <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
     <script src="../assets/js/skins.min.js"></script>
+    <style type="text/css">
+
+        .layui-form-pane .layui-input-block{width: 30%;}
+        .layui-form-pane .layui-input-inline{width:30%;}
+    </style>
 </head>
 <!-- /Head -->
 <!-- Body -->
@@ -51,8 +56,7 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
                                 <div class="widget-header ">
-                                    <span class="widget-caption">员工列表</span>
-                                    <button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>
+                                    <span class="widget-caption">员工信息</span>
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize">
                                             <i class="fa fa-expand"></i>
@@ -66,7 +70,148 @@
                                     </div>
                                 </div>
                                 <div class="widget-body">
-                                    <table id="role_list" lay-filter="roleTableEvent"></table>
+                                    <!--表单开始-->
+                                    <form class="layui-form layui-form-pane" lay-filter="worker_form" onsubmit="return false;">
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">选择角色</label>
+                                            <div class="layui-input-block">
+                                                <select name="roleId" id="roleId" lay-verify="required" disabled></select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">所在组织</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="orgName"  id="orgName"  lay-verify="required" placeholder="请选择组织"  class="layui-input" readonly>
+                                                <input type="hidden" name="orgId" value="1"  >
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">用户名</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="userName"  required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input" readonly>
+                                                <input id="id" name="id" type="hidden">
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">8-16位的数字、字母、下划线组合</div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">密码</label>
+                                            <div class="layui-input-inline">
+                                                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">8-16位的数字、字母、下划线组合</div>
+                                        </div>
+
+
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">姓名</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">身份证号</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="idNumber" required  lay-verify="required" placeholder="请输入身份证号" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">手机号</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="phone" required  lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">微信号</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="weixin" required  lay-verify="required" placeholder="请输入微信号" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">排序值</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="seg" required  lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">身份证正面</label>
+                                            <div class="layui-input-block">
+                                                <input type="hidden" name="fontImg" id="fontImg">
+                                                <div class="layui-upload">
+                                                    <!--<button type="button" class="layui-btn" id="fontImgBtn" style="width: 100%;">上传照片</button>-->
+                                                    <div class="layui-upload-list">
+                                                        <img class="layui-upload-img" id="fontImgTag" style="width: 100%;">
+                                                        <p id="fontImgText"></p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">身份证背面</label>
+                                            <div class="layui-input-block">
+                                                <input type="hidden" name="afterImg" id="afterImg">
+                                                <div class="layui-upload">
+                                                    <!--<button type="button" class="layui-btn" id="afterImgBtn" style="width: 100%;">上传照片</button>-->
+                                                    <div class="layui-upload-list">
+                                                        <img class="layui-upload-img" id="afterImgTag"  style="width: 100%;">
+                                                        <p id="afterImgText"></p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">全身照</label>
+                                            <div class="layui-input-block">
+                                                <input type="hidden" name="homeImg" id="homeImg">
+                                                <div class="layui-upload">
+                                                    <!--<button type="button" class="layui-btn" id="homeImgBtn" style="width: 100%;">上传照片</button>-->
+                                                    <div class="layui-upload-list">
+                                                        <img class="layui-upload-img" id="homeImgTag"  style="width: 100%;">
+                                                        <p id="homeImgText"></p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <!--<div class="layui-form-item">-->
+                                            <!--<label class="layui-form-label">性别</label>-->
+                                            <!--<div class="layui-input-block">-->
+                                                <!--<input type="radio" name="sex" value="男" title="男">-->
+                                                <!--<input type="radio" name="sex" value="女" title="女" checked>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label" style="width:37%;">备注</label>
+                                            <div class="layui-input-block" style="width:37%;">
+                                                <textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                            </div>
+                                        </div>
+                                        <!--<div class="layui-form-item">-->
+                                            <!--<div class="layui-input-block">-->
+                                                <!--<button class="layui-btn" lay-submit lay-filter="formAdd">提交</button>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </form>
+
+
+                                    <!--表单结束-->
                                 </div>
                             </div>
                         </div>
@@ -83,47 +228,12 @@
 
 
     <!--添加model 开始-->
-    <div style="width:1px;height: 1px;">
-        <form class="layui-form layui-form-pane" action="" id="add_form" style="padding: 15px;">
-            <div class="layui-form-item">
-                <label class="layui-form-label">角色名</label>
-                <div class="layui-input-block">
-                    <input type="text" name="name" required  lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">排序值</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="seg" required lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">显示数字小的排在前面</div>
-            </div>
-
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">角色描述</label>
-                <div class="layui-input-block">
-                    <textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
-                </div>
-            </div>
-
-            <!--<div class="layui-form-item">-->
-                <!--<div class="layui-input-block">-->
-                    <!--<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>-->
-                <!--</div>-->
-            <!--</div>-->
-
-        </form>
-    </div>
+    <!--<div style="width:1px;height: 1px;">-->
+        <!--<ul id="org_tree"></ul>-->
+    <!--</div>-->
     <!--添加model 结束-->
 
-    <!--表格中每一行的操作按钮：-->
-    <script type="text/html" id="toolbarRight">
-        <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-xs" lay-event="detail">详情</button>
-            <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
-            <button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>
-        </div>
-    </script>
+
 
     <!--Basic Scripts-->
     <script src="../assets/js/jquery-2.0.3.min.js"></script>
@@ -142,7 +252,7 @@
     <script src="../assets/js/datatable/datatables-init.js"></script>
     <script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
     <script src="../assets/js/bootbox/bootbox.js"></script>
-    <script src="../js/worker_manager.js"></script>
+    <script src="../js/worker_detail.js"></script>
     <script>
         // InitiateSimpleDataTable.init();
         // InitiateEditableDataTable.init();

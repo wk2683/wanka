@@ -27,7 +27,7 @@ public class OrgController extends BaseController{
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse add(Org org){
+    public BaseResponse  add(@RequestBody  Org org){
         String id = orgService.add(org);
         return responseAdd(org,id,this.getClass());
     }
@@ -43,7 +43,7 @@ public class OrgController extends BaseController{
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse update(Org org){
+    public BaseResponse update(@RequestBody Org org){
         Integer affectRow = orgService.update(org);
         return responseUpdate(affectRow,org,this.getClass());
     }

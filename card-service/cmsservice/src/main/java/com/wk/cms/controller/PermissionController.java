@@ -20,7 +20,7 @@ public class PermissionController extends  BaseController {
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse add(Permission permission){
+    public BaseResponse  add(@RequestBody  Permission permission){
         String id = permissionService.add(permission );
         return responseAdd(permission,id,this.getClass());
     }
@@ -36,7 +36,7 @@ public class PermissionController extends  BaseController {
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse update(Permission permission){
+    public BaseResponse update(@RequestBody Permission permission){
         Integer affectRow = permissionService.update(permission );
         return responseUpdate(affectRow,permission,this.getClass());
     }

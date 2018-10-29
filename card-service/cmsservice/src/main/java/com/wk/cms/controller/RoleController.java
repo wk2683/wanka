@@ -21,7 +21,7 @@ public class RoleController extends BaseController{
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse add(Role role ){
+    public BaseResponse  add(@RequestBody  Role role ){
         String id = roleService.add(role);
         return responseAdd(role,id,this.getClass());
     }
@@ -37,7 +37,7 @@ public class RoleController extends BaseController{
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse update(Role role ){
+    public BaseResponse update(@RequestBody Role role ){
         Integer affectRow = roleService .update(role);
         return responseUpdate(affectRow,role,this.getClass());
     }

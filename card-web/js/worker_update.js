@@ -1,4 +1,4 @@
-//新增员工
+//修改员工
 
 
 layui.use(['form','layer','upload'],function () {
@@ -148,7 +148,7 @@ layui.use(['form','layer','upload'],function () {
 
     pageData.submitAdd = function(param){
         common.sendOption.data = param;
-        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.add;
+        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.update;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.addComplete;
 
@@ -156,8 +156,63 @@ layui.use(['form','layer','upload'],function () {
     }
 
     pageData.addComplete = function(res){
-        common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD,'page/worker_manager.html');
+        common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE,'page/worker_manager.html');
     };
+
+
+
+    pageData.initWorkerInfo = function () {
+        var p = common.util.getHrefParam();
+        common.sendOption.data = {id:p.id};
+        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.get;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack =pageData.getComplete;
+
+        common.httpSend(common.sendOption);
+    };
+    pageData.getComplete = function (res) {
+        var data  = JSON.parse(res.responseText);
+        var item  = JSON.parse(data.data);
+
+        //初始化角色
+        // var roles = JSON.parse(sessionStorage.getItem(common.session.key.roleData));
+        // var len = roles.length;
+        // var selectOptions = '';
+        // for(var i=0 ; i<len ; i++ ){
+        //     var role = roles[i];
+        //     selectOptions +=  '<option value="'+role.id+'" '+(item.roleId==role.id?'selected':'')+' >'+role.name+'</option>';
+        // }
+        // $("#roleId").html(selectOptions);
+
+        //初始化组织
+        var orgName = common.util.findOrgNameFromSession(item.orgId);
+
+        form.val("worker_form", {
+            "id": item.id
+            ,"name": item.name
+            ,"userName": item.userName
+            ,"password": ""
+            ,"orgId": item.orgId
+            ,"orgName": orgName
+            ,"roleId": item.roleId
+            ,"phone": item.phone
+            ,"idNumber": item.idNumber
+            ,"weixin": item.weixin
+            ,"seg": item.seg
+            ,"fontImg": item.fontImg
+            ,"afterImg": item.afterImg
+            ,"homeImg": item.homeImg
+            ,"remark": item.remark
+        });
+
+        var imgrooturl = common.url.web_root + common.url.model.worker.acttion + common.url.opt.model.worker.readImg+ '?path=';
+        $("#fontImgTag").attr("src",imgrooturl +item.fontImg);
+        $("#afterImgTag").attr("src",imgrooturl +item.afterImg);
+        $("#homeImgTag").attr("src",imgrooturl +item.homeImg);
+    };
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<初始化表单 结束<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
 
     //初始化角色选择
     pageData.initRoleSelect();
@@ -170,12 +225,14 @@ layui.use(['form','layer','upload'],function () {
     pageData.initUploadImg(2);
     pageData.initUploadImg(3);
 
+    pageData.initWorkerInfo();
+
     //监听提交按钮 submit(btn_id)
     form.on('submit(formAdd)', function(data){
-       pageData.submitAdd(data.field);
+
+        pageData.submitAdd(data.field);
+
         return false;
     });
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<初始化表单 结束<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
 
 });

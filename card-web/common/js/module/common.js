@@ -113,6 +113,71 @@ common.session = {
     }
 };
 
+common.menu = [
+                {
+                    id:"1",
+                    name:"组织管理",
+                    pid:"-1",
+                    children:[
+                        {
+                            id:"101",
+                            name:"组织管理",
+                            pid:"1",
+                            type:"page",
+                            url:"org_manager.html"
+                        }
+                    ]
+                },
+                {
+                    id:"1",
+                    name:"角色管理",
+                    pid:"-1",
+                    children:[
+                        {
+                            id:"101",
+                            name:"角色管理",
+                            pid:"1",
+                            type:"page",
+                            url:"role_manager.html"
+                        }
+                    ]
+                },
+                {
+                    id:"1",
+                    name:"用户管理",
+                    pid:"-1",
+                    children:[
+                        {
+                            id:"101",
+                            name:"用户列表",
+                            pid:"1",
+                            type:"page",
+                            url:"worker_manager.html"
+                        },
+                        {
+                            id:"101",
+                            name:"新增用户",
+                            pid:"1",
+                            type:"page",
+                            url:"worker_add.html"
+                        },
+                        {
+                            id:"101",
+                            name:"登录页面",
+                            pid:"1",
+                            type:"page",
+                            url:"login.html"
+                        },
+                        {
+                            id:"102",
+                            name:"注册页面",
+                            pid:"1",
+                            type:"page",
+                            url:"register.html"
+                        },
+                    ]
+                }
+            ];
 
 
 
@@ -507,72 +572,8 @@ common.initLeftSilder = function () {
         '                    <div class="searchhelper">关键字搜索菜单</div>\n' +
         '                </div>';
 
-    var navData = [
-        {
-            id:"1",
-            name:"组织管理",
-            pid:"-1",
-            children:[
-                {
-                    id:"101",
-                    name:"组织管理",
-                    pid:"1",
-                    type:"page",
-                    url:"org_manager.html"
-                }
-            ]
-        },
-        {
-            id:"1",
-            name:"角色管理",
-            pid:"-1",
-            children:[
-                {
-                    id:"101",
-                    name:"角色管理",
-                    pid:"1",
-                    type:"page",
-                    url:"role_manager.html"
-                }
-            ]
-        },
-        {
-            id:"1",
-            name:"用户管理",
-            pid:"-1",
-            children:[
-                {
-                    id:"101",
-                    name:"用户列表",
-                    pid:"1",
-                    type:"page",
-                    url:"worker_manager.html"
-                },
-                {
-                    id:"101",
-                    name:"新增用户",
-                    pid:"1",
-                    type:"page",
-                    url:"worker_add.html"
-                },
-                {
-                    id:"101",
-                    name:"登录页面",
-                    pid:"1",
-                    type:"page",
-                    url:"login.html"
-                },
-                {
-                    id:"102",
-                    name:"注册页面",
-                    pid:"1",
-                    type:"page",
-                    url:"register.html"
-                },
-            ]
-        }
-    ];
-    var meun = common.renderLeftMeun(navData);
+
+    var meun = common.renderLeftMeun(common.menu );
     var leftSilderHtml = '<div class="page-sidebar" id="sidebar">' + topNavSearch + meun + '</div>';
     $("div.page-container").prepend(leftSilderHtml);
 };
@@ -843,5 +844,32 @@ common.util.covert2TreeJSON = function (data,parentId) {
         }
     }
     return tree;
+};
+
+common.util.getHrefParam = function () {
+    var search  = location.search;
+    if(!search){
+        return false;
+    }
+    search = search.substring(1);
+    var sx = search.split("&");
+    var len = sx.length;
+    var p = {};
+    for(var i=0;i<len;i++){
+        var item = sx[i].split("=");
+        p[item[0]] = item[1];
+    }
+    return p;
+};
+
+common.util.findOrgNameFromSession = function (id) {
+    var orgs = JSON.parse(sessionStorage.getItem(common.session.key.orgData));
+    var len = orgs.length;
+    for(var i=0 ;i<len ; i++ ){
+        var org = orgs[i];
+        if(org.id==id){
+            return org.name;
+        }
+    }
 };
 

@@ -20,7 +20,7 @@ public class CardController  extends  BaseController{
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse add(Card card){
+    public BaseResponse  add(@RequestBody  Card card){
         String id = cardService.add(card);
         return responseAdd(card,id,this.getClass());
     }
@@ -36,7 +36,7 @@ public class CardController  extends  BaseController{
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse update(Card card){
+    public BaseResponse update(@RequestBody Card card){
         Integer affectRow = cardService.update(card);
         return responseUpdate(affectRow,card,this.getClass());
     }

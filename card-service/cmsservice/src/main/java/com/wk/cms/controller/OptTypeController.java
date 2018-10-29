@@ -20,7 +20,7 @@ public class OptTypeController  extends  BaseController{
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse add(OptType optType){
+    public BaseResponse  add(@RequestBody OptType optType){
         String id = optTypeService.add(optType);
         return responseAdd(optType,id,this.getClass());
     }
@@ -36,7 +36,7 @@ public class OptTypeController  extends  BaseController{
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse update(OptType optType){
+    public BaseResponse update(@RequestBody OptType optType){
         Integer affectRow = optTypeService.update(optType);
         return responseUpdate(affectRow,optType,this.getClass());
     }

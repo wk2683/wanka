@@ -33,7 +33,7 @@ public class WorkerController extends  BaseController {
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse add(@RequestBody Worker worker){
+    public BaseResponse  add(@RequestBody  Worker worker){
         String id = workerService.add(worker);
         return responseAdd(worker,id,this.getClass());
     }
@@ -49,7 +49,7 @@ public class WorkerController extends  BaseController {
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse update(Worker worker){
+    public BaseResponse update(@RequestBody Worker worker){
         Integer affectRow = workerService.update(worker);
         return responseUpdate(affectRow,worker,this.getClass());
     }

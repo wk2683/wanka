@@ -20,7 +20,7 @@ public class OrderTypeController extends  BaseController {
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse add(OrderType orderType){
+    public BaseResponse  add(@RequestBody  OrderType orderType){
         String id = orderTypeService.add(orderType);
         return responseAdd(orderType,id,this.getClass());
     }
@@ -36,7 +36,7 @@ public class OrderTypeController extends  BaseController {
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse update(OrderType orderType){
+    public BaseResponse update(@RequestBody OrderType orderType){
         Integer affectRow = orderTypeService.update(orderType);
         return responseUpdate(affectRow,orderType,this.getClass());
     }

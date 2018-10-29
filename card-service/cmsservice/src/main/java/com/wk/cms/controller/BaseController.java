@@ -102,7 +102,7 @@ public class  BaseController {
         String entityJson = JSONObject.toJSONString(entity);
         logger.info("\n" + t.getName() + "  " + Globel.CONTROLLER_OPT_GET +"  info : "+entityJson);
         BaseResponse response = new BaseResponse();
-        if(entity == null){
+        if(entity != null){
             response.setCode(Globel.RESPONSE_CODE_SUCCESS);
             response.setMsg(Globel.CONTROLLER_OPT_GET + Globel.RESPONSE_MSG_SUCCESS);
             response.setData(entityJson);

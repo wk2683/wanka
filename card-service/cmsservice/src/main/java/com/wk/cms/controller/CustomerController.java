@@ -20,7 +20,7 @@ public class CustomerController  extends  BaseController{
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse add(Customer customer){
+    public BaseResponse  add(@RequestBody  Customer customer){
         String id = customerService.add(customer);
         return responseAdd(customer,id,this.getClass());
     }
@@ -36,7 +36,7 @@ public class CustomerController  extends  BaseController{
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse update(Customer customer){
+    public BaseResponse update(@RequestBody Customer customer){
         Integer affectRow = customerService.update(customer);
         return responseUpdate(affectRow,customer,this.getClass());
     }
@@ -44,7 +44,7 @@ public class CustomerController  extends  BaseController{
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse add(String id){
+    public BaseResponse get(String id){
         Customer customer = customerService.get(id);
         return responseGet(customer,this.getClass());
     }
