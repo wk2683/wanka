@@ -275,16 +275,94 @@ layui.use(['form','table','layer'],function () {
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_DELETE);
     };
 
+    //------------------------------------------------------------------------------------------------
+    //加载模块（包括 权限）数据，
+    pageData.loadModelData = function(){
+        common.sendOption.data = {page:1,limit: 1000,userId:user.id };//加载所有模块
+        common.sendOption.url = common.url.web_root + common.url.model.model.acttion + common.url.opt.search;
+        common.sendOption.type = common.sendMethod.POST;
+        common.sendOption.completeCallBack =pageData.loadComplete;
+        common.httpSend(common.sendOption);
+    };
+    //加载完成处理
+    pageData.loadComplete = function(res){
+        sessionStorage.modelData = res.responseText;//保存到会话
+
+        var resData = JSON.parse(res.responseText);
+        sessionStorage.modelData = resData.data;//保存到会话
+        var modelData = JSON.parse(resData.data);
+
+        pageData.initModelTableList(modelData);
+    };
+
+    pageData.initModelTableList = function(modelData){
+        if(!modelData) return false;
+        var modelPanels = '';
+        var len = modelData.length;
+        for(var i=0;i<len;i++){
+            var model = modelData[i];
+            modelPanels += '<div class="row">\n' +
+                            '    <div class="col-xs-12 col-md-12">\n' +
+                            '        <div class="widget">\n' +
+                            '            <div class="widget-header ">\n' +
+                            '                <span class="widget-caption">'+model.name+'</span>\n' +
+                            '                <button  class="layui-btn layui-btn-xs add_permission_btn" lay-event="add">新增权限</button>\n' +
+                            '                <div class="widget-buttons">\n' +
+                            '                    <a href="#" data-toggle="maximize"><i class="fa fa-expand"></i></a>\n' +
+                            '                    <a href="#" data-toggle="collapse"><i class="fa fa-minus"></i></a>\n' +
+                            '                    <a href="#" data-toggle="dispose"><i class="fa fa-times"></i></a>\n' +
+                            '                </div>\n' +
+                            '            </div>\n' +
+                            '            <div class="widget-body">\n' +
+                            '                <table id="permission_'+model.id+'" lay-filter="roleTableEvent"></table>\n' +
+                            '            </div>\n' +
+                            '        </div>\n' +
+                            '    </div>\n' +
+                            '</div>';
+        }
+        $("div.page-body").html(modelPanels);
+
+        for(var i=0;i<len;i++) {
+            var model = modelData[i];
+            var permissions = model.permissionList;
+            var tableId = 'permission_'+model.id;
+            pageData.showPermissionData(permissions,tableId);
+        }
+
+    };
+
+    pageData.showPermissionData = function(pdata,tableId){
+        if(!pdata){
+
+            return false;
+        }
+        //执行渲染
+        table.render({
+            elem: '#'+tableId //指定原始表格元素选择器（推荐id选择器）
+                          // toolbar: '#toolbarDemo' //指向自定义工具栏模板选择器
+                          // toolbar: '<div>xxx</div>' //直接传入工具栏模板字符
+                          // toolbar: true //仅开启工具栏，不显示左侧模板
+                          // toolbar: 'default' //让工具栏左侧显示默认的内置模板
+            , toolbar: '#toolbarBase'// 'default'  //开启表格头部工具栏区域，该参数支持四种类型值：
+            ,data:pdata //  把已经数据给表格，不用表格自己请求后台取数据
+            , skin: 'row' //行边框风格 line | row | nob
+            , even: true  //隔行背景 true | false
+            , size: 'sm'  //小尺寸 sm | lg
+        });
+    };
+
+
     $(function () {
 
 
         //初始化第一页数据
-        pageData.getTableData('role_list1');
-        pageData.getTableData('role_list2');
-        pageData.getTableData('role_list3');
+        // pageData.getTableData('role_list1');
+        // pageData.getTableData('role_list2');
+        // pageData.getTableData('role_list3');
 
+        pageData.loadModelData();
         //添加按钮事件
-        $(document.body).on('click','#add_worker_btn',function () {
+        $(document.body).on('click','.add_permission_btn',function () {
             //详情
             var detail_url = location.origin + '/page/worker_add.html';
             window.open(detail_url);

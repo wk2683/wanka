@@ -52,12 +52,12 @@ public class ModelController extends  BaseController {
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse search(Model model){
+    public BaseResponse search(@RequestBody Model model){
         List<Model> models = modelService.search(model);
         Integer total = 0;
-        if(model.getPage()==1){
-            total = modelService.searchCount(model);
-        }
+//        if(model.getPage()==1){
+//            total = modelService.searchCount(model);
+//        }
         return responseSearch(models,total,model, this.getClass());
     }
 }

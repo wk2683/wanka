@@ -1,6 +1,7 @@
 package com.wk.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 操作模块表
@@ -9,6 +10,10 @@ public class Model extends BaseEntity implements Serializable {
     private String name;
     private String icon;
     private Integer seg;
+    /**
+     * 模块下的操作（权限）
+     */
+    private List<Permission> permissionList;
 
     public String getName() {
         return name;
@@ -32,5 +37,13 @@ public class Model extends BaseEntity implements Serializable {
 
     public void setSeg(Integer seg) {
         this.seg = seg;
+    }
+
+    public List<Permission> getPermissionList() {
+        return permissionList;
+    }
+
+    public void setPermissionList(List<Permission> permissionList) {
+        this.permissionList = permissionList;
     }
 }

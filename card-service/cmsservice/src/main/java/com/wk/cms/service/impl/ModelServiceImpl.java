@@ -1,8 +1,10 @@
 package com.wk.cms.service.impl;
 
 import com.wk.cms.dao.ModelDao;
+import com.wk.cms.dao.PermissionDao;
 import com.wk.cms.service.ModelService;
 import com.wk.entity.Model;
+import com.wk.entity.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import java.util.List;
 public class ModelServiceImpl implements ModelService {
     @Autowired
     private ModelDao modelDao;
+    @Autowired
+    private PermissionDao permissionDao;
 
     @Override
     public String add(Model model) {
@@ -44,7 +48,14 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public List<Model> search(Model model) {
-        return modelDao.search( model);
+        List<Model> models = modelDao.search( model);
+        for(Model m : models){
+            List<Permission> permissions = permissionDao.getPermissionByModelId(m.getId());
+            if(permissions != null && permissions.size()>0){
+                m.setPermissionList(permissions);
+            }
+        }
+        return  models;
     }
 
     @Override

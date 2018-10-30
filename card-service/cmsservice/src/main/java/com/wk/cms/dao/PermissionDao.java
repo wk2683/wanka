@@ -56,4 +56,12 @@ public interface PermissionDao {
 	 * @return 返回搜索到的记录总数
 	 */
 	Integer searchCount(Permission permission);
+
+	/**
+	 * 根据模块ID获取模块下所有操作（权限）
+	 * @param modelId 模块ID
+	 * @return
+	 */
+	@Select(" SELECT  id, model_id modelId, name, action, opt_type optType, remark, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_permission WHERE model_id=#{modelId} ")
+	List<Permission> getPermissionByModelId(String modelId);
 }
