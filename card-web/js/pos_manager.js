@@ -26,15 +26,10 @@ layui.use(['form','table','layer'],function () {
         ,{fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
-    pageData.getTableData = function(tableId) {
-        if(tableId=='role_list1'){
-
-        }else {
-            return false;
-        }
+    pageData.getTableData = function() {
         //执行渲染
         table.render({
-            elem: '#'+tableId //指定原始表格元素选择器（推荐id选择器）
+            elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.worker.acttion + common.url.opt.search  //数据源url
             , where: { userId: user.id, userName: user.name } //如果无需传递额外参数，可不加该参数
@@ -279,10 +274,7 @@ layui.use(['form','table','layer'],function () {
 
 
         //初始化第一页数据
-        pageData.getTableData('role_list1');
-        pageData.getTableData('role_list2');
-        pageData.getTableData('role_list3');
-
+        pageData.getTableData();
         //添加按钮事件
         $(document.body).on('click','#add_worker_btn',function () {
             //详情

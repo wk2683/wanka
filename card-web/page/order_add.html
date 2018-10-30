@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>新增订单</title>
+
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="../assets/img/favicon.png" type="image/x-icon">
+
+    <!--Basic Styles-->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../assets/css/weather-icons.min.css" rel="stylesheet" />
+
+
+    <!--Beyond styles-->
+    <link href="../assets/css/beyond.min.css" rel="stylesheet" />
+    <link href="../assets/css/demo.min.css" rel="stylesheet" />
+    <link href="../assets/css/typicons.min.css" rel="stylesheet" />
+    <link href="../assets/css/animate.min.css" rel="stylesheet" />
+    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
+
+    <!--Page Related styles-->
+    <link href="../assets/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="../common/lib/layui-v2.4.3/layui/css/layui.css" rel="stylesheet" />
+
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="../assets/js/skins.min.js"></script>
+    <style type="text/css">
+
+        .layui-form-pane .layui-input-block{width: 30%;}
+        .layui-form-pane .layui-input-inline{width:30%;}
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+
+    <!-- Main Container -->
+    <div class="main-container container-fluid">
+        <!-- Page Container -->
+        <div class="page-container">
+
+            <!-- Page Content -->
+            <div class="page-content">
+
+                <!-- Page Body -->
+                <div class="page-body">
+
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="widget">
+                                <div class="widget-header ">
+                                    <span class="widget-caption">新增订单</span>
+                                    <div class="widget-buttons">
+                                        <a href="#" data-toggle="maximize">
+                                            <i class="fa fa-expand"></i>
+                                        </a>
+                                        <a href="#" data-toggle="collapse">
+                                            <i class="fa fa-minus"></i>
+                                        </a>
+                                        <a href="#" data-toggle="dispose">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <!--表单开始-->
+                                    <form class="layui-form layui-form-pane"  onsubmit="return false;">
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">选择角色</label>
+                                            <div class="layui-input-block">
+                                                <select name="roleId" id="roleId" lay-verify="required"></select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">所在组织</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="orgName"  id="orgName"  lay-verify="required" placeholder="请选择组织"  class="layui-input" readonly>
+                                                <input type="hidden" name="orgId" value="1"  >
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">用户名</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="userName"  required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                                                <input id="id" name="id" type="hidden">
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">8-16位的数字、字母、下划线组合</div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">密码</label>
+                                            <div class="layui-input-inline">
+                                                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">8-16位的数字、字母、下划线组合</div>
+                                        </div>
+
+
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">姓名</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">身份证号</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="idNumber" required  lay-verify="required" placeholder="请输入身份证号" autocomplete="off" class="layui-input">
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">手机号</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="phone" required  lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">微信号</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="weixin" required  lay-verify="required" placeholder="请输入微信号" autocomplete="off" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">排序值</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="seg" required  lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input">
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">数字越大排序越靠前</div>
+                                        </div>
+
+
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">身份证正面</label>
+                                            <div class="layui-input-block">
+                                                <input type="hidden" name="fontImg" id="fontImg">
+                                                <div class="layui-upload">
+                                                    <button type="button" class="layui-btn" id="fontImgBtn" style="width: 100%;">上传照片</button>
+                                                    <div class="layui-upload-list">
+                                                        <img class="layui-upload-img" id="fontImgTag" style="width: 100%;">
+                                                        <p id="fontImgText"></p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">身份证背面</label>
+                                            <div class="layui-input-block">
+                                                <input type="hidden" name="afterImg" id="afterImg">
+                                                <div class="layui-upload">
+                                                    <button type="button" class="layui-btn" id="afterImgBtn" style="width: 100%;">上传照片</button>
+                                                    <div class="layui-upload-list">
+                                                        <img class="layui-upload-img" id="afterImgTag"  style="width: 100%;">
+                                                        <p id="afterImgText"></p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">全身照</label>
+                                            <div class="layui-input-block">
+                                                <input type="hidden" name="homeImg" id="homeImg">
+                                                <div class="layui-upload">
+                                                    <button type="button" class="layui-btn" id="homeImgBtn" style="width: 100%;">上传照片</button>
+                                                    <div class="layui-upload-list">
+                                                        <img class="layui-upload-img" id="homeImgTag"  style="width: 100%;">
+                                                        <p id="homeImgText"></p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <!--<div class="layui-form-item">-->
+                                            <!--<label class="layui-form-label">性别</label>-->
+                                            <!--<div class="layui-input-block">-->
+                                                <!--<input type="radio" name="sex" value="男" title="男">-->
+                                                <!--<input type="radio" name="sex" value="女" title="女" checked>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label" style="width:37%;">备注</label>
+                                            <div class="layui-input-block" style="width:37%;">
+                                                <textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <div class="layui-input-block">
+                                                <button class="layui-btn" lay-submit lay-filter="formAdd">提交</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+
+                                    <!--表单结束-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+        </div>
+        <!-- /Page Container -->
+        <!-- Main Container -->
+
+    </div>
+
+
+    <!--添加model 开始-->
+    <div style="width:1px;height: 1px;">
+        <ul id="org_tree"></ul>
+    </div>
+    <!--添加model 结束-->
+
+
+
+    <!--Basic Scripts-->
+    <script src="../assets/js/jquery-2.0.3.min.js"></script>
+    <script src="../common/js/module/common.js"></script>
+    <script >common.initCom();</script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+
+    <!--Beyond Scripts-->
+    <script src="../assets/js/beyond.min.js"></script>
+
+    <!--Page Related Scripts-->
+    <script src="../assets/js/datatable/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/datatable/ZeroClipboard.js"></script>
+    <script src="../assets/js/datatable/dataTables.tableTools.min.js"></script>
+    <script src="../assets/js/datatable/dataTables.bootstrap.min.js"></script>
+    <script src="../assets/js/datatable/datatables-init.js"></script>
+    <script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
+    <script src="../assets/js/bootbox/bootbox.js"></script>
+    <script src="../js/order_add.js"></script>
+    <script>
+        // InitiateSimpleDataTable.init();
+        // InitiateEditableDataTable.init();
+        // InitiateExpandableDataTable.init();
+        // InitiateSearchableDataTable.init();
+    </script>
+
+</body>
+<!--  /Body -->
+</html>

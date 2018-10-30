@@ -3,7 +3,7 @@
 <!-- Head -->
 <head>
     <meta charset="utf-8" />
-    <title>模块权限管理</title>
+    <title>客户管理</title>
 
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -51,8 +51,8 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
                                 <div class="widget-header ">
-                                    <span class="widget-caption">模块-权限 列表 1</span>
-                                    <button id="add_worker_btn1" class="layui-btn layui-btn-xs" lay-event="add">新增权限</button>
+                                    <span class="widget-caption">客户列表</span>
+                                    <button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize">
                                             <i class="fa fa-expand"></i>
@@ -66,65 +66,11 @@
                                     </div>
                                 </div>
                                 <div class="widget-body">
-                                    <table id="role_list1" lay-filter="roleTableEvent"></table>
+                                    <table id="role_list" lay-filter="roleTableEvent"></table>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12">
-                            <div class="widget">
-                                <div class="widget-header ">
-                                    <span class="widget-caption">模块-权限 列表 2</span>
-                                    <button id="add_worker_btn2" class="layui-btn layui-btn-xs" lay-event="add">新增权限</button>
-                                    <div class="widget-buttons">
-                                        <a href="#" data-toggle="maximize">
-                                            <i class="fa fa-expand"></i>
-                                        </a>
-                                        <a href="#" data-toggle="collapse">
-                                            <i class="fa fa-minus"></i>
-                                        </a>
-                                        <a href="#" data-toggle="dispose">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="widget-body">
-                                    <table id="role_list2" lay-filter="roleTableEvent"></table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12">
-                            <div class="widget">
-                                <div class="widget-header ">
-                                    <span class="widget-caption">模块-权限 列表 2</span>
-                                    <button id="add_worker_btn3" class="layui-btn layui-btn-xs" lay-event="add">新增权限</button>
-                                    <div class="widget-buttons">
-                                        <a href="#" data-toggle="maximize">
-                                            <i class="fa fa-expand"></i>
-                                        </a>
-                                        <a href="#" data-toggle="collapse">
-                                            <i class="fa fa-minus"></i>
-                                        </a>
-                                        <a href="#" data-toggle="dispose">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="widget-body">
-                                    <table id="role_list3" lay-filter="roleTableEvent"></table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
                 <!-- /Page Body -->
             </div>
@@ -196,7 +142,7 @@
     <script src="../assets/js/datatable/datatables-init.js"></script>
     <script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
     <script src="../assets/js/bootbox/bootbox.js"></script>
-    <script src="../js/model_manager.js"></script>
+    <script src="../js/customer_manager.js"></script>
     <script>
         // InitiateSimpleDataTable.init();
         // InitiateEditableDataTable.init();

@@ -209,6 +209,13 @@ common.menu = [
                             pid:"1",
                             type:"page",
                             url:"order_manager.html"
+                        },
+                        {
+                            id:"101",
+                            name:"新增订单",
+                            pid:"1",
+                            type:"page",
+                            url:"order_add.html"
                         }
                     ]
                 },
@@ -590,7 +597,7 @@ common.initTopNav = function () {
                         '                                        <img src="../common/image/default_user.jpg">\n' +
                         '                                    </div>\n' +
                         '                                    <section>\n' +
-                        '                                        <h2><span class="profile"><span>用户名</span></span></h2>\n' +
+                        '                                        <h2><span class="profile"><span>{{用户名}}</span></span></h2>\n' +
                         '                                    </section>\n' +
                         '                                </a>\n' +
                         '                                <!--Login Area Dropdown-->\n' +
@@ -693,7 +700,7 @@ common.initMapNav = function () {
                         '                            <i class="fa fa-home"></i>\n' +
                         '                            <a href="#">Home</a>\n' +
                         '                        </li>\n' +
-                        '                        <li class="active">Dashboard</li>\n' +
+                        '                        <li class="active">{{Dashboard}}</li>\n' +
                         '                    </ul>\n' +
                         '                </div>';
     $("div.page-content").prepend(mapNavHtml);
@@ -704,7 +711,7 @@ common.initMiniNavTool = function () {
     var miniNavToolHtml = '<div class="page-header position-relative">\n' +
                             '                    <div class="header-title">\n' +
                             '                        <h1>\n' +
-                            '                            Dashboard\n' +
+                            '                            {{Dashboard}}' +
                             '                        </h1>\n' +
                             '                    </div>\n' +
                             '                    <!--Header Buttons-->\n' +
