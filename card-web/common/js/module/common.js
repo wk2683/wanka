@@ -22,7 +22,14 @@ common.url = {
         account:    {acttion:'account/',    name:'账户'},
         card:       {acttion:'card/',       name:'信用卡'},
         customer:   {acttion:'customer/',   name:'客户'},
-        model:      {acttion:'model/',      name:'模块'},
+        model:      {
+            acttion:'model/',
+            name:'模块',
+            page:{
+                manager:'page/model_manager.html',
+                add:'page/model_add.html'
+            }
+        },
         optType:    {acttion:'optType/',    name:'操作类型'},
         order:      {acttion:'order/',      name:'订单'},
         orderType:  {acttion:'orderType/',  name:'订单类型'},
@@ -31,7 +38,14 @@ common.url = {
         pos:        {acttion:'pos/',        name:'POS机'},
         rate:       {acttion:'rate/',       name:'费率'},
         role:       {acttion:'role/',       name:'角色'},
-        worker:     {acttion:'worker/',     name:'员工'}
+        worker:     {
+            acttion:'worker/',
+            name:'员工',
+            page:{
+                manager:'page/worker_manager.html',
+                add:'page/worker_add.html'
+            }
+        }
     },
     opt:{
         add:'add',
@@ -116,6 +130,27 @@ common.session = {
 common.menu = [
                 {
                     id:"1",
+                    name:"模块管理",
+                    pid:"-1",
+                    children:[
+                        {
+                            id:"101",
+                            name:"新增模块",
+                            pid:"1",
+                            type:"page",
+                            url:"model_add.html"
+                        },
+                        {
+                            id:"101",
+                            name:"模块管理",
+                            pid:"1",
+                            type:"page",
+                            url:"model_manager.html"
+                        }
+                    ]
+                },
+                {
+                    id:"1",
                     name:"组织管理",
                     pid:"-1",
                     children:[
@@ -160,21 +195,84 @@ common.menu = [
                             pid:"1",
                             type:"page",
                             url:"worker_add.html"
+                        }
+                    ]
+                },
+                {
+                    id:"1",
+                    name:"订单管理",
+                    pid:"-1",
+                    children:[
+                        {
+                            id:"101",
+                            name:"订单列表",
+                            pid:"1",
+                            type:"page",
+                            url:"order_manager.html"
+                        }
+                    ]
+                },
+                {
+                    id:"1",
+                    name:"客户信息管理",
+                    pid:"-1",
+                    children:[
+                        {
+                            id:"101",
+                            name:"客户列表",
+                            pid:"1",
+                            type:"page",
+                            url:"customer_manager.html"
                         },
                         {
                             id:"101",
-                            name:"登录页面",
+                            name:"新增客户信息",
                             pid:"1",
                             type:"page",
-                            url:"login.html"
+                            url:"customer_add.html"
+                        }
+                    ]
+                },
+                {
+                    id:"1",
+                    name:"POS信息管理",
+                    pid:"-1",
+                    children:[
+                        {
+                            id:"101",
+                            name:"POS机信息管理",
+                            pid:"1",
+                            type:"page",
+                            url:"pos_manager.html"
                         },
                         {
-                            id:"102",
-                            name:"注册页面",
+                            id:"101",
+                            name:"新增POS机信息",
                             pid:"1",
                             type:"page",
-                            url:"register.html"
+                            url:"pos_add.html"
+                        }
+                    ]
+                },
+                {
+                    id:"1",
+                    name:"信用卡管理",
+                    pid:"-1",
+                    children:[
+                        {
+                            id:"101",
+                            name:"信用卡管理",
+                            pid:"1",
+                            type:"page",
+                            url:"card_manager.html"
                         },
+                        {
+                            id:"101",
+                            name:"新增信用卡",
+                            pid:"1",
+                            type:"page",
+                            url:"card_add.html"
+                        }
                     ]
                 }
             ];
@@ -237,6 +335,135 @@ common.initModelDom = function () {
 };
 //初始化头条
 common.initTopNav = function () {
+
+    var emailList =    '                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">\n' +
+        '                                    <li>\n' +
+        '                                        <a href="#">\n' +
+        '                                            <img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">\n' +
+        '                                            <div class="message">\n' +
+        '                                                <span class="message-sender">\n' +
+        '                                                    Divyia Austin\n' +
+        '                                                </span>\n' +
+        '                                                <span class="message-time">\n' +
+        '                                                    2 minutes ago\n' +
+        '                                                </span>\n' +
+        '                                                <span class="message-subject">\n' +
+        '                                                    Here\'s the recipe for apple pie\n' +
+        '                                                </span>\n' +
+        '                                                <span class="message-body">\n' +
+        '                                                    to identify the sending application when the senders image is shown for the main icon\n' +
+        '                                                </span>\n' +
+        '                                            </div>\n' +
+        '                                        </a>\n' +
+        '                                    </li>\n' +
+        '                                    <li>\n' +
+        '                                        <a href="#">\n' +
+        '                                            <img src="assets/img/avatars/bing.png" class="message-avatar" alt="Microsoft Bing">\n' +
+        '                                            <div class="message">\n' +
+        '                                                <span class="message-sender">\n' +
+        '                                                    Bing.com\n' +
+        '                                                </span>\n' +
+        '                                                <span class="message-time">\n' +
+        '                                                    Yesterday\n' +
+        '                                                </span>\n' +
+        '                                                <span class="message-subject">\n' +
+        '                                                    Bing Newsletter: The January Issue‏\n' +
+        '                                                </span>\n' +
+        '                                                <span class="message-body">\n' +
+        '                                                    Discover new music just in time for the Grammy® Awards.\n' +
+        '                                                </span>\n' +
+        '                                            </div>\n' +
+        '                                        </a>\n' +
+        '                                    </li>\n' +
+        '                                    <li>\n' +
+        '                                        <a href="#">\n' +
+        '                                            <img src="assets/img/avatars/adam-jansen.jpg" class="message-avatar" alt="Divyia Austin">\n' +
+        '                                            <div class="message">\n' +
+        '                                                <span class="message-sender">\n' +
+        '                                                    Nicolas\n' +
+        '                                                </span>\n' +
+        '                                                <span class="message-time">\n' +
+        '                                                    Friday, September 22\n' +
+        '                                                </span>\n' +
+        '                                                <span class="message-subject">\n' +
+        '                                                    New 4K Cameras\n' +
+        '                                                </span>\n' +
+        '                                                <span class="message-body">\n' +
+        '                                                    The 4K revolution has come over the horizon and is reaching the general populous\n' +
+        '                                                </span>\n' +
+        '                                            </div>\n' +
+        '                                        </a>\n' +
+        '                                    </li>\n' +
+        '                                </ul>\n' +
+        '                                <!--/Messages Dropdown-->\n' ;
+
+    var taskList  =  '                                <!--Tasks Dropdown-->\n' +
+    '                                <ul class="pull-right dropdown-menu dropdown-tasks dropdown-arrow ">\n' +
+    '                                    <li class="dropdown-header bordered-darkorange">\n' +
+    '                                        <i class="fa fa-tasks"></i>\n' +
+    '                                        4 Tasks In Progress\n' +
+    '                                    </li>\n' +
+    '                                    <li>\n' +
+    '                                        <a href="#">\n' +
+    '                                            <div class="clearfix">\n' +
+    '                                                <span class="pull-left">Account Creation</span>\n' +
+    '                                                <span class="pull-right">65%</span>\n' +
+    '                                            </div>\n' +
+    '\n' +
+    '                                            <div class="progress progress-xs">\n' +
+    '                                                <div style="width:65%" class="progress-bar"></div>\n' +
+    '                                            </div>\n' +
+    '                                        </a>\n' +
+    '                                    </li>\n' +
+    '                                    <li>\n' +
+    '                                        <a href="#">\n' +
+    '                                            <div class="clearfix">\n' +
+    '                                                <span class="pull-left">Profile Data</span>\n' +
+    '                                                <span class="pull-right">35%</span>\n' +
+    '                                            </div>\n' +
+    '\n' +
+    '                                            <div class="progress progress-xs">\n' +
+    '                                                <div style="width:35%" class="progress-bar progress-bar-success"></div>\n' +
+    '                                            </div>\n' +
+    '                                        </a>\n' +
+    '                                    </li>\n' +
+    '                                    <li>\n' +
+    '                                        <a href="#">\n' +
+    '                                            <div class="clearfix">\n' +
+    '                                                <span class="pull-left">Updating Resume</span>\n' +
+    '                                                <span class="pull-right">75%</span>\n' +
+    '                                            </div>\n' +
+    '\n' +
+    '                                            <div class="progress progress-xs">\n' +
+    '                                                <div style="width:75%" class="progress-bar progress-bar-darkorange"></div>\n' +
+    '                                            </div>\n' +
+    '                                        </a>\n' +
+    '                                    </li>\n' +
+    '                                    <li>\n' +
+    '                                        <a href="#">\n' +
+    '                                            <div class="clearfix">\n' +
+    '                                                <span class="pull-left">Adding Contacts</span>\n' +
+    '                                                <span class="pull-right">10%</span>\n' +
+    '                                            </div>\n' +
+    '\n' +
+    '                                            <div class="progress progress-xs">\n' +
+    '                                                <div style="width:10%" class="progress-bar progress-bar-warning"></div>\n' +
+    '                                            </div>\n' +
+    '                                        </a>\n' +
+    '                                    </li>\n' +
+    '                                    <li class="dropdown-footer">\n' +
+    '                                        <a href="#">\n' +
+    '                                            See All Tasks\n' +
+    '                                        </a>\n' +
+    '                                        <button class="btn btn-xs btn-default shiny darkorange icon-only pull-right"><i class="fa fa-check"></i></button>\n' +
+    '                                    </li>\n' +
+    '                                </ul>\n' +
+    '                                <!--/Tasks Dropdown-->\n' ;
+
+
+    emailList = '';
+    taskList = '';
+
     var topNavHtml = '<div class="navbar">\n' +
                         '        <div class="navbar-inner">\n' +
                         '            <div class="navbar-container">\n' +
@@ -342,148 +569,28 @@ common.initTopNav = function () {
                         '                                <!--/Notification Dropdown-->\n' +
                         '                            </li>\n' +
                         '                            <li>\n' +
-                        '                                <a class="wave in dropdown-toggle" data-toggle="dropdown" title="Help" href="#">\n' +
+                        '                                <a class="wave in dropdown-toggle" data-toggle="dropdown" title="今日新增客户" href="#">\n' +
                         '                                    <i class="icon fa fa-envelope"></i>\n' +
                         '                                    <span class="badge">3</span>\n' +
                         '                                </a>\n' +
                         '                                <!--Messages Dropdown-->\n' +
-                        '                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">\n' +
-                        '                                    <li>\n' +
-                        '                                        <a href="#">\n' +
-                        '                                            <img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">\n' +
-                        '                                            <div class="message">\n' +
-                        '                                                <span class="message-sender">\n' +
-                        '                                                    Divyia Austin\n' +
-                        '                                                </span>\n' +
-                        '                                                <span class="message-time">\n' +
-                        '                                                    2 minutes ago\n' +
-                        '                                                </span>\n' +
-                        '                                                <span class="message-subject">\n' +
-                        '                                                    Here\'s the recipe for apple pie\n' +
-                        '                                                </span>\n' +
-                        '                                                <span class="message-body">\n' +
-                        '                                                    to identify the sending application when the senders image is shown for the main icon\n' +
-                        '                                                </span>\n' +
-                        '                                            </div>\n' +
-                        '                                        </a>\n' +
-                        '                                    </li>\n' +
-                        '                                    <li>\n' +
-                        '                                        <a href="#">\n' +
-                        '                                            <img src="assets/img/avatars/bing.png" class="message-avatar" alt="Microsoft Bing">\n' +
-                        '                                            <div class="message">\n' +
-                        '                                                <span class="message-sender">\n' +
-                        '                                                    Bing.com\n' +
-                        '                                                </span>\n' +
-                        '                                                <span class="message-time">\n' +
-                        '                                                    Yesterday\n' +
-                        '                                                </span>\n' +
-                        '                                                <span class="message-subject">\n' +
-                        '                                                    Bing Newsletter: The January Issue‏\n' +
-                        '                                                </span>\n' +
-                        '                                                <span class="message-body">\n' +
-                        '                                                    Discover new music just in time for the Grammy® Awards.\n' +
-                        '                                                </span>\n' +
-                        '                                            </div>\n' +
-                        '                                        </a>\n' +
-                        '                                    </li>\n' +
-                        '                                    <li>\n' +
-                        '                                        <a href="#">\n' +
-                        '                                            <img src="assets/img/avatars/adam-jansen.jpg" class="message-avatar" alt="Divyia Austin">\n' +
-                        '                                            <div class="message">\n' +
-                        '                                                <span class="message-sender">\n' +
-                        '                                                    Nicolas\n' +
-                        '                                                </span>\n' +
-                        '                                                <span class="message-time">\n' +
-                        '                                                    Friday, September 22\n' +
-                        '                                                </span>\n' +
-                        '                                                <span class="message-subject">\n' +
-                        '                                                    New 4K Cameras\n' +
-                        '                                                </span>\n' +
-                        '                                                <span class="message-body">\n' +
-                        '                                                    The 4K revolution has come over the horizon and is reaching the general populous\n' +
-                        '                                                </span>\n' +
-                        '                                            </div>\n' +
-                        '                                        </a>\n' +
-                        '                                    </li>\n' +
-                        '                                </ul>\n' +
-                        '                                <!--/Messages Dropdown-->\n' +
+                emailList+
                         '                            </li>\n' +
                         '\n' +
                         '                            <li>\n' +
-                        '                                <a class="dropdown-toggle" data-toggle="dropdown" title="Tasks" href="#">\n' +
+                        '                                <a class="dropdown-toggle" data-toggle="dropdown" title="未完成订单" href="#">\n' +
                         '                                    <i class="icon fa fa-tasks"></i>\n' +
                         '                                    <span class="badge">4</span>\n' +
                         '                                </a>\n' +
-                        '                                <!--Tasks Dropdown-->\n' +
-                        '                                <ul class="pull-right dropdown-menu dropdown-tasks dropdown-arrow ">\n' +
-                        '                                    <li class="dropdown-header bordered-darkorange">\n' +
-                        '                                        <i class="fa fa-tasks"></i>\n' +
-                        '                                        4 Tasks In Progress\n' +
-                        '                                    </li>\n' +
-                        '                                    <li>\n' +
-                        '                                        <a href="#">\n' +
-                        '                                            <div class="clearfix">\n' +
-                        '                                                <span class="pull-left">Account Creation</span>\n' +
-                        '                                                <span class="pull-right">65%</span>\n' +
-                        '                                            </div>\n' +
-                        '\n' +
-                        '                                            <div class="progress progress-xs">\n' +
-                        '                                                <div style="width:65%" class="progress-bar"></div>\n' +
-                        '                                            </div>\n' +
-                        '                                        </a>\n' +
-                        '                                    </li>\n' +
-                        '                                    <li>\n' +
-                        '                                        <a href="#">\n' +
-                        '                                            <div class="clearfix">\n' +
-                        '                                                <span class="pull-left">Profile Data</span>\n' +
-                        '                                                <span class="pull-right">35%</span>\n' +
-                        '                                            </div>\n' +
-                        '\n' +
-                        '                                            <div class="progress progress-xs">\n' +
-                        '                                                <div style="width:35%" class="progress-bar progress-bar-success"></div>\n' +
-                        '                                            </div>\n' +
-                        '                                        </a>\n' +
-                        '                                    </li>\n' +
-                        '                                    <li>\n' +
-                        '                                        <a href="#">\n' +
-                        '                                            <div class="clearfix">\n' +
-                        '                                                <span class="pull-left">Updating Resume</span>\n' +
-                        '                                                <span class="pull-right">75%</span>\n' +
-                        '                                            </div>\n' +
-                        '\n' +
-                        '                                            <div class="progress progress-xs">\n' +
-                        '                                                <div style="width:75%" class="progress-bar progress-bar-darkorange"></div>\n' +
-                        '                                            </div>\n' +
-                        '                                        </a>\n' +
-                        '                                    </li>\n' +
-                        '                                    <li>\n' +
-                        '                                        <a href="#">\n' +
-                        '                                            <div class="clearfix">\n' +
-                        '                                                <span class="pull-left">Adding Contacts</span>\n' +
-                        '                                                <span class="pull-right">10%</span>\n' +
-                        '                                            </div>\n' +
-                        '\n' +
-                        '                                            <div class="progress progress-xs">\n' +
-                        '                                                <div style="width:10%" class="progress-bar progress-bar-warning"></div>\n' +
-                        '                                            </div>\n' +
-                        '                                        </a>\n' +
-                        '                                    </li>\n' +
-                        '                                    <li class="dropdown-footer">\n' +
-                        '                                        <a href="#">\n' +
-                        '                                            See All Tasks\n' +
-                        '                                        </a>\n' +
-                        '                                        <button class="btn btn-xs btn-default shiny darkorange icon-only pull-right"><i class="fa fa-check"></i></button>\n' +
-                        '                                    </li>\n' +
-                        '                                </ul>\n' +
-                        '                                <!--/Tasks Dropdown-->\n' +
+                 taskList +
                         '                            </li>\n' +
                         '                            <li>\n' +
                         '                                <a class="login-area dropdown-toggle" data-toggle="dropdown">\n' +
                         '                                    <div class="avatar" title="View your public profile">\n' +
-                        '                                        <img src="assets/img/avatars/adam-jansen.jpg">\n' +
+                        '                                        <img src="../common/image/default_user.jpg">\n' +
                         '                                    </div>\n' +
                         '                                    <section>\n' +
-                        '                                        <h2><span class="profile"><span>David Stevenson</span></span></h2>\n' +
+                        '                                        <h2><span class="profile"><span>用户名</span></span></h2>\n' +
                         '                                    </section>\n' +
                         '                                </a>\n' +
                         '                                <!--Login Area Dropdown-->\n' +

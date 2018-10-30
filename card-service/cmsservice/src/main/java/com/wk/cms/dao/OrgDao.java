@@ -18,7 +18,7 @@ public interface OrgDao {
 	 * @return
 	 */
 	@Insert(" INSERT INTO wk.wk_org (id,name,parents,parent_id,remark,seg,create_time,update_time,opt_id) " +
-			" VALUES(#{id},#{name},#{parents},#{parentId},#{remark},#{seg},NOW(),NOW(),#{optId}) ")
+			" VALUES(#{id},#{name},#{parents},#{parentId},#{remark},#{seg},#{createTime}, #{updateTime},#{optId}) ")
 	Integer add(Org org);
 
 	/**

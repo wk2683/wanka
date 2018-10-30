@@ -17,7 +17,7 @@ public interface OptTypeDao {
      * @return
      */
 	@Insert(" INSERT INTO wk.wk_opt_type(id, name, remark, seg, create_time, update_time, opt_id) VALUES \n" +
-			"(#{id}, #{name}, #{remark}, #{seg}, #{create_time}, #{update_time}, #{opt_id}) ")
+			"(#{id}, #{name}, #{remark}, #{seg}, #{createTime}, #{updateTime}, #{optId}) ")
 	Integer add(OptType optType);
 
     /**

@@ -28,7 +28,7 @@
 
 
     <select id="search" resultType="com.wk.entity.Worker" parameterType="com.wk.entity.Worker">
-        SELECT id, org_id orgId, role_id roleId, user_name userName, password, name, id_number idNumber, phone, weixin, font_img fontImg, after_img afterImg, home_img homeImg, remark, seg,create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_worker
+        SELECT id, org_id orgId, role_id roleId, user_name userName,  name, id_number idNumber, phone, weixin, font_img fontImg, after_img afterImg, home_img homeImg, remark, seg,create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_worker
         <where>
             <if test="  orgId != null and  orgId != '' "> AND  org_id =  #{orgId}</if>
             <if test="  roleId != null and  roleId != '' "> AND  role_id =  #{roleId}</if>

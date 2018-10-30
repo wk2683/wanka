@@ -17,7 +17,7 @@ public interface ModelDao {
      * @return
      */
 	@Insert(" INSERT INTO wk.wk_model(id, name,icon, remark, seg, create_time, update_time, opt_id) VALUES \n" +
-			"(#{id}, #{name},#{icon}, #{remark}, #{seg}, #{create_time}, #{update_time}, #{opt_id}) ")
+			"(#{id}, #{name},#{icon}, #{remark}, #{seg}, #{createTime}, #{updateTime}, #{optId}) ")
 	Integer add(Model model);
 
     /**
