@@ -134,9 +134,31 @@
     <div style="width:1px;height: 1px;">
         <form class="layui-form layui-form-pane" action="" id="add_form" style="padding: 15px;">
             <div class="layui-form-item">
-                <label class="layui-form-label">角色名</label>
+                <label class="layui-form-label">模块名</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" required  lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
+                    <input type="text" name="modelName"   class="layui-input" readonly>
+                    <input type="hidden" name="modelId"  >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">操作名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required  lay-verify="required" placeholder="请输入操作名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">操作类型</label>
+                <div class="layui-input-block">
+                    <select name="optType" lay-verify="required">
+                        <option value="page">页面访问</option>
+                        <option value="click">点击按钮</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">请求地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="action" required  lay-verify="required" placeholder="请输入请求地址" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -144,7 +166,7 @@
                 <div class="layui-input-inline">
                     <input type="text" name="seg" required lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input">
                 </div>
-                <div class="layui-form-mid layui-word-aux">显示数字小的排在前面</div>
+                <div class="layui-form-mid layui-word-aux">显示数字大的排在前面</div>
             </div>
 
             <div class="layui-form-item layui-form-text">
@@ -167,9 +189,15 @@
     <!--表格中每一行的操作按钮：-->
     <script type="text/html" id="toolbarRight">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-xs" lay-event="detail">详情</button>
             <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
-            <button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>
+            <button class="layui-btn layui-btn-normal layui-btn-xs" lay-event="update">编辑</button>
+        </div>
+    </script>
+
+    <!--表格左上角的操作按钮：-->
+    <script type="text/html" id="toolbarBase">
+        <div >
+            权限列表
         </div>
     </script>
 

@@ -64,4 +64,12 @@ public interface PermissionDao {
 	 */
 	@Select(" SELECT  id, model_id modelId, name, action, opt_type optType, remark, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_permission WHERE model_id=#{modelId} ")
 	List<Permission> getPermissionByModelId(String modelId);
+
+	/**
+	 * 根据模块ID删除模块下的所有权限
+	 * @param modelId
+	 * @return
+	 */
+	@Delete(" DELETE FROM wk.wk_permission WHERE model_id=#{modelId}  ")
+	Integer deletePermissionByModelId(String modelId);
 }

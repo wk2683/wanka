@@ -33,6 +33,9 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public Integer delete(String id) {
+        //删除模块下的权限
+        Integer affectRow = permissionDao.deletePermissionByModelId(id);
+        //删除模块
         return modelDao.delete(id);
     }
 

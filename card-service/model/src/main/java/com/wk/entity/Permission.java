@@ -9,6 +9,7 @@ public class Permission extends BaseEntity implements Serializable {
     private String name;
     private String modelId;
     private String action;
+    private String optType;
     private Integer seg;
 
     public String getName() {
@@ -33,6 +34,14 @@ public class Permission extends BaseEntity implements Serializable {
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public String getOptType() {
+        return optType;
+    }
+
+    public void setOptType(String optType) {
+        this.optType = optType;
     }
 
     public Integer getSeg() {
