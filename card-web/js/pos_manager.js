@@ -12,18 +12,13 @@ layui.use(['form','table','layer'],function () {
     var pageData = {};
 
     var tableHeader = [[ //表头
-        {field: 'orgId',       title: '组织ID', align:'center',width:'8%'},
-        {field: 'roleId',       title: '角色ID', align:'center',width:'8%'},
-        {field: 'userName',       title: '用户名', align:'center',width:'8%'},
-        {field: 'password',       title: '密码', align:'center',width:'8%'},
-        {field: 'name',       title: '姓名', align:'center',width:'8%'},
-        {field: 'idNumber',       title: '身份证号', align:'center',width:'8%'},
-        {field: 'phone',       title: '手机', align:'center',width:'8%'},
-        {field: 'weixin',       title: '微信号', align:'center',width:'8%'},
-        {field: 'fontImg',       title: '身份证正面', align:'center',width:'8%'},
-        {field: 'afterImg',       title: '身份证背面', align:'center',width:'8%'},
-        {field: 'homeImg',       title: '全身照', align:'center',width:'8%'}
-        ,{fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {field: 'id',       title: '序号', align:'center',width:'8%',templet:'#indexTemplate'},
+        {field: 'name',       title: 'POS名称', align:'center'},
+        {field: 'importUserName',       title: '入账人姓名', align:'center'},
+        {field: 'bankName',       title: '所在银行名称', align:'center'},
+        {field: 'cardNumber',       title: '卡号', align:'center'},
+        {field: 'rateId',       title: '费率', align:'center'},
+        {fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     pageData.getTableData = function() {
@@ -31,7 +26,7 @@ layui.use(['form','table','layer'],function () {
         table.render({
             elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
-            , url: common.url.web_root + common.url.model.worker.acttion + common.url.opt.search  //数据源url
+            , url: common.url.web_root + common.url.model.pos.acttion + common.url.opt.search  //数据源url
             , where: { userId: user.id, userName: user.name } //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.POST // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'

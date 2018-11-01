@@ -1,11 +1,17 @@
 package com.wk.cms.controller;
 
 import com.wk.bean.BaseResponse;
+import com.wk.bean.Globel;
 import com.wk.cms.service.CustomerService;
+import com.wk.cms.util.FileUtil;
 import com.wk.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -16,6 +22,12 @@ import java.util.List;
 public class CustomerController  extends  BaseController{
     @Autowired
     private CustomerService customerService;
+
+    /**
+     * 客户图片文件总路径
+     */
+    @Value("${config.upload.customer}")
+    private String customerSourcePath;
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
@@ -60,4 +72,29 @@ public class CustomerController  extends  BaseController{
         }
         return responseSearch(customers,total,customer, this.getClass());
     }
+
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<以上是 增删改查 基本操作<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    @RequestMapping(value = "/uploadImg",method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin
+    public BaseResponse uploadImg(@RequestParam(value = "file") MultipartFile file,
+                                  @RequestParam("userId") String userId,
+                                  @RequestParam(value = "id",required = false) String id ){
+        String path = customerService.uploadImg(file,userId,id);
+        return responseUploadImg(path);
+    }
+
+    /**
+     * 读图片显示到img标签
+     * @param path  图片路径（不包含配置的固定路径，数据库中保存的）
+     * @param response
+     */
+    @RequestMapping(value = "/readImg",method = RequestMethod.GET  )
+    @ResponseBody
+    @CrossOrigin
+    public void readImg(@RequestParam(value = "path") String path ,HttpServletResponse response){
+        FileUtil.readImg(customerSourcePath,path,response);
+    }
+
 }

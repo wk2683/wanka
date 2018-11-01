@@ -1,6 +1,7 @@
 package com.wk.cms.service;
 
 import com.wk.entity.Customer;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -44,4 +45,6 @@ public interface CustomerService {
 	List<Customer> search(Customer customer);
 
 	Integer searchCount(Customer customer);
+
+    String uploadImg(MultipartFile file, String userId, String id);
 }

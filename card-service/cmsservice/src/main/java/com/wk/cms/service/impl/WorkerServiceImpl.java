@@ -2,6 +2,7 @@ package com.wk.cms.service.impl;
 
 import com.wk.cms.dao.WorkerDao;
 import com.wk.cms.service.WorkerService;
+import com.wk.cms.util.FileUtil;
 import com.wk.entity.Worker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,32 +73,7 @@ public class WorkerServiceImpl implements WorkerService {
         if(id == null || id.trim().length()==0 ) {
             id = UUID.randomUUID().toString();
         }
-        String filePath = workerSourcePath + id +"/";
-        File workerSourcePathFile = new File(filePath);
-        if(!workerSourcePathFile.exists()){
-            workerSourcePathFile.mkdirs();
-        }
-
-        // 返回源文件名
-        String originalName = file.getOriginalFilename();// 原文件名
-        int lastIndex = originalName.lastIndexOf(".");
-
-        // 上传后为防止文件名冲突及带中文会引起转换异常而新起的文件名
-        String fileType = originalName.substring(lastIndex);// 包含"."
-        fileType = fileType.toLowerCase();
-        String newFileName = UUID.randomUUID().toString() + fileType;
-
-        String saveFileFullName = filePath + newFileName;
-        File saveFile = new File(saveFileFullName);//要保存的全路径文件对象
-
-        try {
-            file.transferTo(saveFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
-        }
-
-        return id + "/" +newFileName;
+        return FileUtil.uploadImg(file,workerSourcePath,id);
     }
 
 

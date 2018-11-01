@@ -44,5 +44,6 @@ config:
   upload:
     # window system path
     worker: D:\server\wk\upload\worker\
+    customer: D:\server\wk\upload\customer\
     # linux system path
     #worker: /opt/server/wk/upload/worker/

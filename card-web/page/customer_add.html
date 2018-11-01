@@ -74,40 +74,15 @@
                                     <form class="layui-form layui-form-pane"  onsubmit="return false;">
 
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">选择角色</label>
+                                            <label class="layui-form-label">归属员工</label>
                                             <div class="layui-input-block">
-                                                <select name="roleId" id="roleId" lay-verify="required"></select>
-                                            </div>
-                                        </div>
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">所在组织</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="orgName"  id="orgName"  lay-verify="required" placeholder="请选择组织"  class="layui-input" readonly>
-                                                <input type="hidden" name="orgId" value="1"  >
+                                                <input type="text" name="workerName" required  lay-verify="required" placeholder="选择员工" autocomplete="off" class="layui-input">
+                                                <input type="hidden" name="workerId" >
                                             </div>
                                         </div>
 
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">用户名</label>
-                                            <div class="layui-input-inline">
-                                                <input type="text" name="userName"  required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-                                                <input id="id" name="id" type="hidden">
-                                            </div>
-                                            <div class="layui-form-mid layui-word-aux">8-16位的数字、字母、下划线组合</div>
-                                        </div>
-
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">密码</label>
-                                            <div class="layui-input-inline">
-                                                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                                            </div>
-                                            <div class="layui-form-mid layui-word-aux">8-16位的数字、字母、下划线组合</div>
-                                        </div>
-
-
-
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">姓名</label>
+                                            <label class="layui-form-label">客户姓名</label>
                                             <div class="layui-input-block">
                                                 <input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                                             </div>

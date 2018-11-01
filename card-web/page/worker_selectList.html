@@ -3,7 +3,7 @@
 <!-- Head -->
 <head>
     <meta charset="utf-8" />
-    <title>POS机管理</title>
+    <title>员工管理</title>
 
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,6 +30,11 @@
 
     <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
     <script src="../assets/js/skins.min.js"></script>
+
+    <style type="text/css">
+        .layui-table th{text-align: center;}
+        .layui-form-checkbox i{border: 1px solid #d2d2d2;}
+    </style>
 </head>
 <!-- /Head -->
 <!-- Body -->
@@ -41,7 +46,7 @@
         <div class="page-container">
 
             <!-- Page Content -->
-            <div class="page-content">
+            <div class="page-content" style="margin-left: 0px;">
 
                 <!-- Page Body -->
                 <div class="page-body">
@@ -51,8 +56,8 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
                                 <div class="widget-header ">
-                                    <span class="widget-caption">POS机列表</span>
-                                    <button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>
+                                    <span class="widget-caption">员工列表</span>
+                                    <!--<button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>-->
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize">
                                             <i class="fa fa-expand"></i>
@@ -81,62 +86,43 @@
 
     </div>
 
-
     <!--添加model 开始-->
     <div style="width:1px;height: 1px;">
-        <form class="layui-form layui-form-pane" action="" id="add_form" style="padding: 15px;">
-            <div class="layui-form-item">
-                <label class="layui-form-label">角色名</label>
-                <div class="layui-input-block">
-                    <input type="text" name="name" required  lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">排序值</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="seg" required lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">显示数字大的排在前面</div>
-            </div>
-
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">角色描述</label>
-                <div class="layui-input-block">
-                    <textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
-                </div>
-            </div>
-
-            <!--<div class="layui-form-item">-->
-                <!--<div class="layui-input-block">-->
-                    <!--<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>-->
-                <!--</div>-->
-            <!--</div>-->
-
-        </form>
+        <ul id="org_tree"></ul>
     </div>
     <!--添加model 结束-->
+    <!-- 表头搜索 模板-->
+    <script type="text/html" id="toolbarSearch">
+        <div  style="text-align: left;">
 
-    <!--表格中每一行的操作按钮：-->
-    <script type="text/html" id="toolbarRight">
-        <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-xs" lay-event="detail">详情</button>
-            <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
-            <button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>
+            <form class="layui-form" lay-filter="search_form" onsubmit="return false;">
+                <div class="layui-inline">
+
+                    <div class="layui-input-inline" style="width: 150px;">
+                        <input type="text" name="orgName" placeholder="选择组织" autocomplete="off" class="layui-input" readonly>
+                        <input type="hidden" name="orgId" >
+                    </div>
+                    <div class="layui-form-mid"></div>
+                    <div class="layui-input-inline" style="width: 150px;">
+                        <input type="text" name="searchKey" placeholder="关键字" autocomplete="off" class="layui-input">
+                    </div>
+                    <button class="layui-btn" id="searchBtn">搜索</button>
+                </div>
+            </form>
+
         </div>
     </script>
-
-
-
-
+    <!-- 表头搜索 模板 end -->
     <!--第一列选择模板-->
     <script type="text/html" id="indexTemplate">
+        <input type="checkbox" name="select_user" value="{{ d.id }}" data-name="{{ d.name }}"> &nbsp;
         {{ d.LAY_INDEX }}
     </script>
     <!--第一列选择模板 end -->
     <!--Basic Scripts-->
     <script src="../assets/js/jquery-2.0.3.min.js"></script>
     <script src="../common/js/module/common.js"></script>
-    <script >common.initCom();</script>
+    <!--<script >common.initCom();</script>-->
     <script src="../assets/js/bootstrap.min.js"></script>
 
     <!--Beyond Scripts-->
@@ -150,12 +136,16 @@
     <script src="../assets/js/datatable/datatables-init.js"></script>
     <script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
     <script src="../assets/js/bootbox/bootbox.js"></script>
-    <script src="../js/pos_manager.js"></script>
-    <script>
-        // InitiateSimpleDataTable.init();
-        // InitiateEditableDataTable.init();
-        // InitiateExpandableDataTable.init();
-        // InitiateSearchableDataTable.init();
+    <script src="../js/worker_selectList.js"></script>
+    <script type="text/javascript" >
+        //获取所有选中的用户信息
+        function getSelectUsers() {
+            var users = [];
+            $("input[name=select_user]:checked").each(function () {
+                users.push({id:this.value,name:$(this).data('name')});
+            });
+            return users;
+        }
     </script>
 
 </body>

@@ -2,9 +2,12 @@ package com.wk.cms.service.impl;
 
 import com.wk.cms.dao.CustomerDao;
 import com.wk.cms.service.CustomerService;
+import com.wk.cms.util.FileUtil;
 import com.wk.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -17,6 +20,12 @@ import java.util.UUID;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerDao customerDao;
+
+    /**
+     * 客户图片文件总路径
+     */
+    @Value("${config.upload.customer}")
+    private String customerSourcePath;
 
     @Override
     public String add(Customer customer) {
@@ -52,5 +61,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Integer searchCount(Customer customer) {
         return customerDao.searchCount(customer);
+    }
+
+    @Override
+    public String uploadImg(MultipartFile file, String userId, String id) {
+        if(id == null || id.trim().length()==0 ) {
+            id = UUID.randomUUID().toString();
+        }
+        return FileUtil.uploadImg(file,customerSourcePath,id);
     }
 }

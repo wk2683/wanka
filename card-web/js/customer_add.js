@@ -1,4 +1,4 @@
-//新增员工
+//新增客户信息
 
 
 layui.use(['form','layer','upload'],function () {
@@ -16,7 +16,7 @@ layui.use(['form','layer','upload'],function () {
 
     pageData.worker.id = '';//初始化
 
-    var uploadUrl = common.url.web_root + common.url.model.worker.acttion + common.url.opt.model.worker.uploadImg;
+    var uploadUrl = common.url.web_root + common.url.model.customer.acttion + common.url.opt.model.customer.uploadImg
 
     //初始化上传组件
     //n-1身份证正面图片上传
@@ -88,59 +88,64 @@ layui.use(['form','layer','upload'],function () {
             }
         });
     };
-    //初始化角色选择
-    pageData.initRoleSelect = function(){
 
-        var roleData = sessionStorage.getItem(common.session.key.roleData);
-        var roles = JSON.parse(roleData);
-        var roleOption = '';
-        var len = roles.length;
-        for(var i=0 ; i< len ; i++){
-            var role = roles[i];
-            roleOption += '<option value="'+role.id+'">'+role.name+'</option>';
-        }
-        $("#roleId").html(roleOption);
-        form.render('select');
-    };
-    //初始化组织选择
-    pageData.initOrgSelect = function(){
-        //绑定点击事件
-        $("#orgName").click(function (event) {
-            pageData.openOrgSelectModel();
-        });
-    };
-    //初始化组织树
-    pageData.initOrgTree = function() {
-        var orgTree = sessionStorage.getItem(common.session.key.orgTree);
-        var data = JSON.parse(orgTree);
-        if(!data) {
-            return false;
-        }
-        layui.tree({
-            elem: '#org_tree' //传入元素选择器
-            , nodes: data
-            ,click: function (node) {//节点数据
-                event.stopPropagation();
-                event.preventDefault();
-                $("#orgId").val(node.id);
-                $("#orgName").val(node.name);
-                layer.closeAll();
-            }
-        });
-    };
+
     //打开选择组织弹出框
-    pageData.openOrgSelectModel = function(){
+    pageData.openWorkerSelectModel = function(){
+
+        var ww = $(window).width();
+        ww = ww*0.8;
+        var hh = $(window).height();
+        hh = hh*0.8;
         layer.open({
-            title:'选择组织',
-            type:1,
-            content:$('#org_tree'),
-            area:['500px'],
+            type:2,
+            title:'选择用户',
+            content: common.url.page_root + common.url.model.worker.page.selectList ,
+            area:[ ww+'px',hh+'px'],
             btn:['确定'],
-            yes:function () {
-                console.log("点击确定");
-                layer.closeAll();
+            yes:function (index, layero) {
+                console.log("点击了确定");
+                pageData.showSelectUsers();
+                layer.close(index);//关掉自己
             }
-        });
+        })
+
+
+    };
+
+    //显示选中的用户
+    pageData.showSelectUsers = function(){
+        var len = window.frames.length;
+        var selectUsers = 0;
+        for(var i=0;i<len;i++){
+            if(window.frames[i].getSelectUsers && typeof  window.frames[i].getSelectUsers == "function"){
+                selectUsers = window.frames[i].getSelectUsers();    //[{id,name},...]
+                break;
+            }
+        }
+        console.log(selectUsers);
+        // if(selectUsers){
+        //     len = selectUsers.length;
+        //     var userNames = '';
+        //     var userIds = '';
+        //     for( var k=0;k<len;k++){
+        //         var user = selectUsers[k];
+        //         userNames += ','+user.name;
+        //         userIds += ','+user.id;
+        //     }
+        //     $("input[name=workerId]").val(userIds.substring(1));
+        //     $("input[name=workerName]").val(userNames.substring(1));
+        // }
+        if(selectUsers.length>1){
+            layer.alert('只能选择一个员工',function () {
+                layer.closeAll();
+                $('input[name=workerName]').click();
+            });
+        }else {
+            $("input[name=workerId]").val(selectUsers[0].id);
+            $("input[name=workerName]").val(selectUsers[0].name);
+        }
+
     };
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>初始化表单 开始>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -148,7 +153,7 @@ layui.use(['form','layer','upload'],function () {
 
     pageData.submitAdd = function(param){
         common.sendOption.data = param;
-        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.add;
+        common.sendOption.url = common.url.web_root + common.url.model.customer.acttion + common.url.opt.add;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.addComplete;
 
@@ -156,15 +161,11 @@ layui.use(['form','layer','upload'],function () {
     }
 
     pageData.addComplete = function(res){
-        common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD,'page/worker_manager.html');
+        common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD,common.url.model.customer.page.manager);
     };
 
-    //初始化角色选择
-    pageData.initRoleSelect();
-    //初始化组织树DOM
-    pageData.initOrgTree();//生成树
-    //初始化组织选择监听
-    pageData.initOrgSelect();
+
+
     //初始化上传图片控件（3个）
     pageData.initUploadImg(1);
     pageData.initUploadImg(2);
@@ -177,5 +178,11 @@ layui.use(['form','layer','upload'],function () {
     });
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<初始化表单 结束<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+
+
+    //选择组织
+    $(document.body).on('click','input[name=workerName]',function () {
+        pageData.openWorkerSelectModel();
+    });
 
 });

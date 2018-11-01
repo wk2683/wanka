@@ -18,10 +18,18 @@ common.sendOption = {
 };
 common.url = {
     web_root:'http://localhost:8002/',
+    page_root:'http://localhost:8003/',
     model:{
         account:    {acttion:'account/',    name:'账户'},
         card:       {acttion:'card/',       name:'信用卡'},
-        customer:   {acttion:'customer/',   name:'客户'},
+        customer:   {
+            acttion:'customer/',
+            name:'客户',
+            page:{
+                manager:'page/customer_manager.html',
+                add:'page/customer_add.html'
+            }
+        },
         model:      {
             acttion:'model/',
             name:'模块',
@@ -35,7 +43,14 @@ common.url = {
         orderType:  {acttion:'orderType/',  name:'订单类型'},
         org:        {acttion:'org/',        name:'组织'},
         permission: {acttion:'permission/', name:'权限'},
-        pos:        {acttion:'pos/',        name:'POS机'},
+        pos:        {
+            acttion:'pos/',
+            name:'POS机',
+            page:{
+                manager:'page/pos_manager.html',
+                add:'page/pos_add.html'
+            }
+        },
         rate:       {acttion:'rate/',       name:'费率'},
         role:       {acttion:'role/',       name:'角色'},
         worker:     {
@@ -43,7 +58,8 @@ common.url = {
             name:'员工',
             page:{
                 manager:'page/worker_manager.html',
-                add:'page/worker_add.html'
+                add:'page/worker_add.html',
+                selectList:'page/worker_selectList.html'
             }
         }
     },
@@ -55,6 +71,10 @@ common.url = {
         search:'search',
         model:{
             worker:{
+                uploadImg:'uploadImg',//上传图片
+                readImg:'readImg'//读图片流
+            },
+            customer:{
                 uploadImg:'uploadImg',
                 readImg:'readImg'
             }

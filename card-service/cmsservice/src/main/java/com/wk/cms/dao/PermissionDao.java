@@ -62,7 +62,7 @@ public interface PermissionDao {
 	 * @param modelId 模块ID
 	 * @return
 	 */
-	@Select(" SELECT  id, model_id modelId, name, action, opt_type optType, remark, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_permission WHERE model_id=#{modelId} ")
+	@Select(" SELECT  id, model_id modelId, name, action, opt_type optType, remark, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_permission WHERE model_id=#{modelId} ORDER BY seg ASC ")
 	List<Permission> getPermissionByModelId(String modelId);
 
 	/**

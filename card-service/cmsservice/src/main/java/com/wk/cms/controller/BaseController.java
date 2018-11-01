@@ -139,4 +139,22 @@ public class  BaseController {
         logger.info(loggerInfo);
         return response;
     }
+
+    /**
+     * 上传图片完成通用返回
+     * @param path 上传完成要返回的路径
+     * @return
+     */
+    protected BaseResponse responseUploadImg(String path){
+        BaseResponse response = new BaseResponse();
+        if(path == null || path.equals("")){
+            response.setCode(Globel.RESPONSE_CODE_FAILE);
+            response.setMsg( "上传图片" + Globel.RESPONSE_MSG_FAILE);
+        }else {
+            response.setCode(Globel.RESPONSE_CODE_SUCCESS);
+            response.setMsg( "上传图片" + Globel.RESPONSE_MSG_SUCCESS);
+            response.setData(path);
+        }
+        return response;
+    }
 }
