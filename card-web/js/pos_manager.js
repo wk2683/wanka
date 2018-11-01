@@ -26,7 +26,7 @@ layui.use(['form','table','layer'],function () {
         table.render({
             elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
-            , url: common.url.web_root + common.url.model.pos.acttion + common.url.opt.search  //数据源url
+            , url: common.url.web_root + common.url.model.pos.action + common.url.opt.search  //数据源url
             , where: { userId: user.id, userName: user.name } //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.POST // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
@@ -168,7 +168,7 @@ layui.use(['form','table','layer'],function () {
             seg:seg,
             remark:remark,
         };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.add;
+        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.add;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.addComplete;
 
@@ -228,7 +228,7 @@ layui.use(['form','table','layer'],function () {
             seg:seg,
             remark:remark,
         };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.update;
+        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.update;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.updateComplete;
 
@@ -255,7 +255,7 @@ layui.use(['form','table','layer'],function () {
     //提交删除
     pageData.deleteRole = function(obj){
         common.sendOption.data = { id:obj.data.id };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.delete;
+        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.delete;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.deleteComplete;
         common.httpSend(common.sendOption);

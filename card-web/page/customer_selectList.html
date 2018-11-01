@@ -3,7 +3,7 @@
 <!-- Head -->
 <head>
     <meta charset="utf-8" />
-    <title>员工选择</title>
+    <title>客户选择</title>
 
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,7 +30,6 @@
 
     <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
     <script src="../assets/js/skins.min.js"></script>
-
     <style type="text/css">
         .layui-table th{text-align: center;}
         .layui-form-checkbox i{border: 1px solid #d2d2d2;}
@@ -43,10 +42,10 @@
     <!-- Main Container -->
     <div class="main-container container-fluid">
         <!-- Page Container -->
-        <div class="page-container">
+        <div class="page-container" >
 
             <!-- Page Content -->
-            <div class="page-content" style="margin-left: 0px;">
+            <div class="page-content"  style="margin-left: 0px;">
 
                 <!-- Page Body -->
                 <div class="page-body">
@@ -56,8 +55,7 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
                                 <div class="widget-header ">
-                                    <span class="widget-caption">员工列表</span>
-                                    <!--<button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>-->
+                                    <span class="widget-caption">客户列表</span>
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize">
                                             <i class="fa fa-expand"></i>
@@ -86,25 +84,15 @@
 
     </div>
 
-    <!--添加model 开始-->
-    <div style="width:1px;height: 1px;">
-        <ul id="org_tree"></ul>
-    </div>
-    <!--添加model 结束-->
     <!-- 表头搜索 模板-->
     <script type="text/html" id="toolbarSearch">
         <div  style="text-align: left;">
 
             <form class="layui-form" lay-filter="search_form" onsubmit="return false;">
                 <div class="layui-inline">
-
-                    <div class="layui-input-inline" style="width: 150px;">
-                        <input type="text" name="orgName" placeholder="选择组织" autocomplete="off" class="layui-input" readonly>
-                        <input type="hidden" name="orgId" >
-                    </div>
                     <div class="layui-form-mid"></div>
-                    <div class="layui-input-inline" style="width: 150px;">
-                        <input type="text" name="searchKey" placeholder="关键字" autocomplete="off" class="layui-input">
+                    <div class="layui-input-inline" style="width: 300px;">
+                        <input type="text" name="searchKey" placeholder="关键字:名字、手机、身份证" autocomplete="off" class="layui-input">
                     </div>
                     <button class="layui-btn" id="searchBtn">搜索</button>
                 </div>
@@ -113,9 +101,11 @@
         </div>
     </script>
     <!-- 表头搜索 模板 end -->
+
+
     <!--第一列选择模板-->
     <script type="text/html" id="indexTemplate">
-        <input type="checkbox" name="select_user" value="{{ d.id }}" data-name="{{ d.name }}"> &nbsp;
+        <input type="checkbox" name="select_customer" value="{{ d.id }}" data-name="{{ d.name }}"> &nbsp;
         {{ d.LAY_INDEX }}
     </script>
     <!--第一列选择模板 end -->
@@ -136,12 +126,12 @@
     <script src="../assets/js/datatable/datatables-init.js"></script>
     <script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
     <script src="../assets/js/bootbox/bootbox.js"></script>
-    <script src="../js/worker_selectList.js"></script>
-    <script type="text/javascript" >
+    <script src="../js/customer_selectList.js"></script>
+    <script>
         //获取所有选中的用户信息
         function getSelectUsers() {
             var users = [];
-            $("input[name=select_user]:checked").each(function () {
+            $("input[name=select_customer]:checked").each(function () {
                 users.push({id:this.value,name:$(this).data('name')});
             });
             return users;

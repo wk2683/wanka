@@ -20,41 +20,43 @@ common.url = {
     web_root:'http://localhost:8002/',
     page_root:'http://localhost:8003/',
     model:{
-        account:    {acttion:'account/',    name:'账户'},
-        card:       {acttion:'card/',       name:'信用卡'},
+        bank: {action:'bank/',name:'银行'},
+        account:{ action:'account/',    name:'账户'},
+        card:       { action:'card/',       name:'信用卡'},
         customer:   {
-            acttion:'customer/',
+            action:'customer/',
             name:'客户',
             page:{
                 manager:'page/customer_manager.html',
-                add:'page/customer_add.html'
+                add:'page/customer_add.html',
+                selectList:'page/customer_selectList.html'
             }
         },
         model:      {
-            acttion:'model/',
+            action:'model/',
             name:'模块',
             page:{
                 manager:'page/model_manager.html',
                 add:'page/model_add.html'
             }
         },
-        optType:    {acttion:'optType/',    name:'操作类型'},
-        order:      {acttion:'order/',      name:'订单'},
-        orderType:  {acttion:'orderType/',  name:'订单类型'},
-        org:        {acttion:'org/',        name:'组织'},
-        permission: {acttion:'permission/', name:'权限'},
+        optType:    {action:'optType/',    name:'操作类型'},
+        order:      {action:'order/',      name:'订单'},
+        orderType:  {action:'orderType/',  name:'订单类型'},
+        org:        {action:'org/',        name:'组织'},
+        permission: {action:'permission/', name:'权限'},
         pos:        {
-            acttion:'pos/',
+            action:'pos/',
             name:'POS机',
             page:{
                 manager:'page/pos_manager.html',
                 add:'page/pos_add.html'
             }
         },
-        rate:       {acttion:'rate/',       name:'费率'},
-        role:       {acttion:'role/',       name:'角色'},
+        rate:       {action:'rate/',       name:'费率'},
+        role:       {action:'role/',       name:'角色'},
         worker:     {
-            acttion:'worker/',
+            action:'worker/',
             name:'员工',
             page:{
                 manager:'page/worker_manager.html',
@@ -77,6 +79,9 @@ common.url = {
             customer:{
                 uploadImg:'uploadImg',
                 readImg:'readImg'
+            },
+            bank:{
+                load:'load'
             }
         }
     }
@@ -1005,5 +1010,20 @@ common.util.findOrgNameFromSession = function (id) {
             return org.name;
         }
     }
+};
+//加载银行列表
+common.util.loadBankList = function(initBankSelectFun){
+
+    common.sendOption.url = common.url.web_root + common.url.model.bank.action + common.url.opt.model.bank.load;
+    common.sendOption.type = common.sendMethod.GET;
+    common.sendOption.completeCallBack =function (res) {
+        var resData = JSON.parse(res.responseText);
+        sessionStorage.bankList = resData.data;
+        initBankSelectFun();
+    };
+
+    common.httpSend(common.sendOption);
+
+
 };
 

@@ -16,7 +16,7 @@ layui.use(['form','layer','upload'],function () {
 
     pageData.worker.id = '';//初始化
 
-    var uploadUrl = common.url.web_root + common.url.model.customer.acttion + common.url.opt.model.customer.uploadImg
+    var uploadUrl = common.url.web_root + common.url.model.customer.action + common.url.opt.model.customer.uploadImg
 
     //初始化上传组件
     //n-1身份证正面图片上传
@@ -153,7 +153,7 @@ layui.use(['form','layer','upload'],function () {
 
     pageData.submitAdd = function(param){
         common.sendOption.data = param;
-        common.sendOption.url = common.url.web_root + common.url.model.customer.acttion + common.url.opt.add;
+        common.sendOption.url = common.url.web_root + common.url.model.customer.action + common.url.opt.add;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.addComplete;
 

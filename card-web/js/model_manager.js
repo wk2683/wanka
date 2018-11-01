@@ -25,7 +25,7 @@ layui.use(['form','table','layer'],function () {
     //加载模块（包括 权限）数据，
     pageData.loadModelData = function(){
         common.sendOption.data = {page:1,limit: 1000,userId:user.id };//加载所有模块
-        common.sendOption.url = common.url.web_root + common.url.model.model.acttion + common.url.opt.search;
+        common.sendOption.url = common.url.web_root + common.url.model.model.action + common.url.opt.search;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.loadComplete;
         common.httpSend(common.sendOption);
@@ -173,7 +173,7 @@ layui.use(['form','table','layer'],function () {
     //添加提交(权限)数据
     pageData.submitAdd = function(permission){
         common.sendOption.data = permission;
-        common.sendOption.url = common.url.web_root + common.url.model.permission.acttion + common.url.opt.add;
+        common.sendOption.url = common.url.web_root + common.url.model.permission.action + common.url.opt.add;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.addComplete;
 
@@ -233,7 +233,7 @@ layui.use(['form','table','layer'],function () {
             seg:seg,
             remark:remark,
         };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.update;
+        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.update;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.updateComplete;
 
@@ -260,7 +260,7 @@ layui.use(['form','table','layer'],function () {
     //提交删除
     pageData.deletePermission = function(obj){
         common.sendOption.data = { id:obj.data.id };
-        common.sendOption.url = common.url.web_root + common.url.model.permission.acttion + common.url.opt.delete;
+        common.sendOption.url = common.url.web_root + common.url.model.permission.action + common.url.opt.delete;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.deleteComplete;
         common.httpSend(common.sendOption);
@@ -283,7 +283,7 @@ layui.use(['form','table','layer'],function () {
 
     pageData.deleteModel = function(id){
         common.sendOption.data = { id:id };
-        common.sendOption.url = common.url.web_root + common.url.model.model.acttion + common.url.opt.delete;
+        common.sendOption.url = common.url.web_root + common.url.model.model.action + common.url.opt.delete;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.deleteComplete;
         common.httpSend(common.sendOption);

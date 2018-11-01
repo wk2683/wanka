@@ -16,7 +16,7 @@ layui.use(['form','layer','upload'],function () {
 
     pageData.worker.id = '';//初始化
 
-    var uploadUrl = common.url.web_root + common.url.model.worker.acttion + common.url.opt.model.worker.uploadImg;
+    var uploadUrl = common.url.web_root + common.url.model.worker.action + common.url.opt.model.worker.uploadImg;
 
     //初始化上传组件
     //n-1身份证正面图片上传
@@ -148,7 +148,7 @@ layui.use(['form','layer','upload'],function () {
 
     pageData.submitAdd = function(param){
         common.sendOption.data = param;
-        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.update;
+        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.update;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.addComplete;
 
@@ -164,7 +164,7 @@ layui.use(['form','layer','upload'],function () {
     pageData.initWorkerInfo = function () {
         var p = common.util.getHrefParam();
         common.sendOption.data = {id:p.id};
-        common.sendOption.url = common.url.web_root + common.url.model.worker.acttion + common.url.opt.get;
+        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.get;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.getComplete;
 
@@ -205,7 +205,7 @@ layui.use(['form','layer','upload'],function () {
             ,"remark": item.remark
         });
 
-        var imgrooturl = common.url.web_root + common.url.model.worker.acttion + common.url.opt.model.worker.readImg+ '?path=';
+        var imgrooturl = common.url.web_root + common.url.model.worker.action + common.url.opt.model.worker.readImg+ '?path=';
         $("#fontImgTag").attr("src",imgrooturl +item.fontImg);
         $("#afterImgTag").attr("src",imgrooturl +item.afterImg);
         $("#homeImgTag").attr("src",imgrooturl +item.homeImg);

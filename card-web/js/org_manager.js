@@ -113,7 +113,7 @@ layui.use(['tree','form','table','layer'],function () {
             seg:seg,
             remark:remark,
         };
-        common.sendOption.url = common.url.web_root + common.url.model.org.acttion + common.url.opt.add;
+        common.sendOption.url = common.url.web_root + common.url.model.org.action + common.url.opt.add;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.addComplete;
 
@@ -181,7 +181,7 @@ layui.use(['tree','form','table','layer'],function () {
             seg:seg,
             remark:remark,
         };
-        common.sendOption.url = common.url.web_root + common.url.model.org.acttion + common.url.opt.update;
+        common.sendOption.url = common.url.web_root + common.url.model.org.action + common.url.opt.update;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.updateComplete;
 
@@ -208,7 +208,7 @@ layui.use(['tree','form','table','layer'],function () {
     //提交删除
     pageData.submitDelete = function(org){
         common.sendOption.data = { id:org.id };
-        common.sendOption.url = common.url.web_root + common.url.model.org.acttion + common.url.opt.delete;
+        common.sendOption.url = common.url.web_root + common.url.model.org.action + common.url.opt.delete;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.deleteComplete;
         common.httpSend(common.sendOption);
@@ -220,7 +220,7 @@ layui.use(['tree','form','table','layer'],function () {
     //加载数据
     pageData.getData = function(){
         common.sendOption.data = { page:1,pageSize:10000 };//加载所有组织
-        common.sendOption.url = common.url.web_root + common.url.model.org.acttion + common.url.opt.search;
+        common.sendOption.url = common.url.web_root + common.url.model.org.action + common.url.opt.search;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.searchComplete;
         common.httpSend(common.sendOption);
