@@ -30,7 +30,7 @@ layui.use(['form','layer'],function () {
 
     pageData.submitAdd = function(param){
         common.sendOption.data = param;
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.add;
+        common.sendOption.url = common.url.web_root + common.url.model.card.action + common.url.opt.add;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.addComplete;
 
@@ -38,7 +38,7 @@ layui.use(['form','layer'],function () {
     }
 
     pageData.addComplete = function(res){
-        common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD,'page/worker_manager.html');
+        common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD,common.url.model.card.page.manager);
     };
 
     //弹出选择用户模态框

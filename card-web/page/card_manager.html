@@ -52,7 +52,6 @@
                             <div class="widget">
                                 <div class="widget-header ">
                                     <span class="widget-caption">信用卡列表</span>
-                                    <button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize">
                                             <i class="fa fa-expand"></i>
@@ -65,8 +64,8 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="widget-body">
-                                    <table id="role_list" lay-filter="roleTableEvent"></table>
+                                <div class="widget-body"  style="padding: 0px;">
+                                    <table id="role_list" lay-filter="roleTableEvent" style="margin: 0px;"></table>
                                 </div>
                             </div>
                         </div>
@@ -82,39 +81,25 @@
     </div>
 
 
-    <!--添加model 开始-->
-    <div style="width:1px;height: 1px;">
-        <form class="layui-form layui-form-pane" action="" id="add_form" style="padding: 15px;">
-            <div class="layui-form-item">
-                <label class="layui-form-label">角色名</label>
-                <div class="layui-input-block">
-                    <input type="text" name="name" required  lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">排序值</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="seg" required lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">显示数字大的排在前面</div>
-            </div>
 
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">角色描述</label>
-                <div class="layui-input-block">
-                    <textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+    <!-- 表头搜索 模板-->
+    <script type="text/html" id="toolbarSearch">
+        <div  style="text-align: left;">
+
+            <form class="layui-form" lay-filter="search_form" onsubmit="return false;">
+                <div class="layui-inline">
+                    <div class="layui-form-mid"></div>
+                    <div class="layui-input-inline" style="width: 300px;">
+                        <input type="text" name="searchKey" placeholder="关键字:名字、手机、身份证" autocomplete="off" class="layui-input">
+                    </div>
+                    <button class="layui-btn" id="searchBtn">搜索</button>
+                    <button class="layui-btn" id="add_card_btn">添加</button>
                 </div>
-            </div>
+            </form>
 
-            <!--<div class="layui-form-item">-->
-                <!--<div class="layui-input-block">-->
-                    <!--<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>-->
-                <!--</div>-->
-            <!--</div>-->
-
-        </form>
-    </div>
-    <!--添加model 结束-->
+        </div>
+    </script>
+    <!-- 表头搜索 模板 end -->
 
     <!--表格中每一行的操作按钮：-->
     <script type="text/html" id="toolbarRight">
@@ -125,6 +110,32 @@
         </div>
     </script>
 
+    <!--第一列选择模板-->
+    <script type="text/html" id="indexTemplate">
+        <!--<input type="checkbox" name="select_customer" value="{{ d.id }}" data-name="{{ d.name }}"> &nbsp;-->
+        {{ d.LAY_INDEX }}
+    </script>
+    <!--第一列选择模板 end -->
+
+    <!--第一列选择模板-->
+    <script type="text/html" id="selfTemplate">
+        {{# if(d.self==1 ) { }}
+        是
+        {{# }else{ }}
+        否
+        {{# }  }}
+    </script>
+    <!--第一列选择模板 end -->
+
+    <!--第一列选择模板-->
+    <script type="text/html" id="incomeTemplate">
+        {{# if(d.income==1 ) { }}
+        是
+        {{# }else{ }}
+        否
+        {{# }  }}
+    </script>
+    <!--第一列选择模板 end -->
     <!--Basic Scripts-->
     <script src="../assets/js/jquery-2.0.3.min.js"></script>
     <script src="../common/js/module/common.js"></script>

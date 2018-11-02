@@ -11,19 +11,29 @@ layui.use(['form','table','layer'],function () {
 
     var pageData = {};
 
+
     var tableHeader = [[ //表头
-        {field: 'orgId',       title: '组织ID', align:'center',width:'8%'},
-        {field: 'roleId',       title: '角色ID', align:'center',width:'8%'},
-        {field: 'userName',       title: '用户名', align:'center',width:'8%'},
-        {field: 'password',       title: '密码', align:'center',width:'8%'},
-        {field: 'name',       title: '姓名', align:'center',width:'8%'},
-        {field: 'idNumber',       title: '身份证号', align:'center',width:'8%'},
-        {field: 'phone',       title: '手机', align:'center',width:'8%'},
-        {field: 'weixin',       title: '微信号', align:'center',width:'8%'},
-        {field: 'fontImg',       title: '身份证正面', align:'center',width:'8%'},
-        {field: 'afterImg',       title: '身份证背面', align:'center',width:'8%'},
-        {field: 'homeImg',       title: '全身照', align:'center',width:'8%'}
-        ,{fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {field: 'id',           title: '序号', align:'center',templet:'#indexTemplate'},
+        {field: 'self',         title: '本人卡', align:'center',templet:'#selfTemplate'},
+        {field: 'customerId',   title: '所属客户', align:'center'},
+        {field: 'cardName',     title: '密码', align:'center'},
+        {field: 'name',         title: '姓名',     align:'center'},
+        {field: 'idNumber',     title: '身份证号', align:'center'},
+        {field: 'phone',        title: '手机号', align:'center'},
+        {field: 'bankName',     title: '发卡银行', align:'center'},
+        {field: 'cardNumber',   title: '卡号', align:'center'},
+        {field: 'password',     title: '密码', align:'center'},
+        {field: 'billDate',     title: '账单日', align:'center'},
+        {field: 'replayDate',   title: '还款日', align:'center'},
+        {field: 'total',        title: '总额', align:'center'},
+        {field: 'bill',         title: '账单金额', align:'center'},
+        {field: 'replayRate',   title: '还款费率',     align:'center'},
+        {field: 'miniFee',      title: '最低手续费', align:'center'},
+        {field: 'cashRate',     title: '取现费率', align:'center'},
+        {field: 'income',       title: '公司持卡', align:'center',templet:'#incomeTemplate'},
+        // {field: 'remark',       title: '备注',     align:'center'},
+
+        {fixed: 'right',  align:'center',width:150, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     pageData.getTableData = function() {
@@ -31,7 +41,7 @@ layui.use(['form','table','layer'],function () {
         table.render({
             elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
-            , url: common.url.web_root + common.url.model.worker.action + common.url.opt.search  //数据源url
+            , url: common.url.web_root + common.url.model.card.action + common.url.opt.search  //数据源url
             , where: { userId: user.id, userName: user.name } //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.POST // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
@@ -40,7 +50,7 @@ layui.use(['form','table','layer'],function () {
                           // toolbar: '<div>xxx</div>' //直接传入工具栏模板字符
                           // toolbar: true //仅开启工具栏，不显示左侧模板
                           // toolbar: 'default' //让工具栏左侧显示默认的内置模板
-            , toolbar: '#toolbarBase'// 'default'  //开启表格头部工具栏区域，该参数支持四种类型值：
+            , toolbar: '#toolbarSearch'// 'default'  //开启表格头部工具栏区域，该参数支持四种类型值：
             // filter: 显示筛选显示表头图标
             // exports: 显示导出图标
             // print: 显示打印图标
@@ -111,18 +121,17 @@ layui.use(['form','table','layer'],function () {
             console.log("点击事件......"+layEvent);
             if(layEvent === 'add'){
                 //添加
-                // pageData.openAddModel();
+               console.log("add event ");
             }else if(layEvent === 'detail'){ //查看
                 //详情
-                var detail_url = location.origin + '/page/worker_detail.html?id='+data.id;
+                var detail_url = common.url.page_root + common.url.model.card.page.detail + '?id='+data.id;
                 window.open(detail_url);
             } else if(layEvent === 'delete'){ //删除
                 pageData.deleteConfirm(obj);
             } else if(layEvent === 'update'){ //编辑
                 //修改
-                // pageData.openUpdateModel(obj);
-                var detail_url = location.origin + '/page/worker_update.html?id='+data.id;
-                window.open(detail_url);
+                var update_url = common.url.page_root + common.url.model.card.page.update + '?id='+data.id;
+                window.open(update_url);
             }
         });
         //监听 增 删 改
@@ -130,119 +139,6 @@ layui.use(['form','table','layer'],function () {
     };
     //渲染表格方法结束
 
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>添加操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-    //打开添加模态框表单
-    pageData.openAddModel = function(){
-        layer.open({
-            title: common.optName.CONTROLLER_OPT_ADD + common.url.model.worker.name,
-            type:1,//页面类型
-            content:$('#add_form'),
-            area:['600px'],
-            btn:['提交'],
-            yes: function(index, layero){//当前层索引、当前层DOM对象
-                //提交
-                var name = $(layero).find("input[name=name]").val();
-                var seg = $(layero).find("input[name=seg]").val();
-                var remark = $(layero).find("textarea[name=remark]").val();
-
-                name = $.trim(name);
-                seg = $.trim(seg);
-                remark = $.trim(remark);
-                if(!name || !seg || !remark){
-                    layer.alert('所有都有填写的，亲');
-                    return false;
-                }
-
-                layer.closeAll();
-                console.log(name + "," + seg + "," + remark);
-                pageData.submitAddRole(name,seg,remark);
-
-            },
-            cancel: function(){
-                //右上角关闭回调
-
-                //return false 开启该代码可禁止点击该按钮关闭
-            }
-        });
-    };
-    //添加提交数据
-    pageData.submitAddRole = function(name,seg,remark){
-        common.sendOption.data = {
-            name:name,
-            seg:seg,
-            remark:remark,
-        };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.add;
-        common.sendOption.type = common.sendMethod.POST;
-        common.sendOption.completeCallBack =pageData.addComplete;
-
-        common.httpSend(common.sendOption);
-    };
-    //添加完成后动作
-    pageData.addComplete = function(res){
-            common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD);
-    };
-
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>更新操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-    //打开更新模态框表单 modelObj:当前数据行对象，数据为modelObj.data 为一行的数据
-    pageData.openUpdateModel = function(modelObj){
-
-        $('#add_form').find("input[name=name]").val(modelObj.data.name);
-        $('#add_form').find("input[name=seg]").val(modelObj.data.seg);
-        $('#add_form').find("textarea[name=remark]").val(modelObj.data.remark);
-
-        layer.open({
-            title:common.optName.CONTROLLER_OPT_UPDATE + common.url.model.worker.name,
-            type:1,//页面类型
-            content:$('#add_form'),
-            area:['600px'],
-            btn:['提交'],
-            yes: function(index, layero){//当前层索引、当前层DOM对象
-                //提交
-                var name = $(layero).find("input[name=name]").val();
-                var seg = $(layero).find("input[name=seg]").val();
-                var remark = $(layero).find("textarea[name=remark]").val();
-
-                name = $.trim(name);
-                seg = $.trim(seg);
-                remark = $.trim(remark);
-                if(!name || !seg || !remark){
-                    layer.alert('所有都有填写的，亲');
-                    return false;
-                }
-
-                layer.closeAll();
-                console.log(name + "," + seg + "," + remark);
-                pageData.submitUpdateRole(modelObj.data.id,name,seg,remark);
-
-            },
-            cancel: function(){
-                //右上角关闭回调
-
-                //return false 开启该代码可禁止点击该按钮关闭
-            }
-        });
-    };
-    //更新提交数据
-    pageData.submitUpdateRole = function(id,name,seg,remark){
-        common.sendOption.data = {
-            id:id,
-            name:name,
-            seg:seg,
-            remark:remark,
-        };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.update;
-        common.sendOption.type = common.sendMethod.POST;
-        common.sendOption.completeCallBack =pageData.updateComplete;
-
-        common.httpSend(common.sendOption);
-    };
-    //更新完成后动作
-    pageData.updateComplete = function(res){
-        common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE);
-    };
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>删除操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -260,7 +156,7 @@ layui.use(['form','table','layer'],function () {
     //提交删除
     pageData.deleteRole = function(obj){
         common.sendOption.data = { id:obj.data.id };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.delete;
+        common.sendOption.url = common.url.web_root + common.url.model.card.action + common.url.opt.delete;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.deleteComplete;
         common.httpSend(common.sendOption);
@@ -276,10 +172,10 @@ layui.use(['form','table','layer'],function () {
         //初始化第一页数据
         pageData.getTableData();
         //添加按钮事件
-        $(document.body).on('click','#add_worker_btn',function () {
+        $(document.body).on('click','#add_card_btn',function () {
             //详情
-            var detail_url = location.origin + '/page/worker_add.html';
-            window.open(detail_url);
+            var add_url = common.url.page_root + common.url.model.card.page.add;
+            window.open(add_url);
         });
     });
 });

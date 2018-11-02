@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 public class Card extends BaseEntity implements Serializable {
 
     private Integer self     ;
+    private String customerId   ;
     private String cardName   ;
     private String name        ;
     private String idNumber   ;
@@ -18,12 +19,12 @@ public class Card extends BaseEntity implements Serializable {
     private String password    ;
     private Integer billDate   ;
     private Integer replayDate ;
-    private BigDecimal total       ;
-    private BigDecimal bill        ;
-    private BigDecimal replayRate ;
-    private BigDecimal miniFee    ;
-    private BigDecimal cashRate   ;
-    private Integer income      ;
+    private BigDecimal total       ;//总额
+    private BigDecimal bill        ;//账单金额
+    private BigDecimal replayRate ;//还款费率
+    private BigDecimal miniFee    ;//最低还款费用
+    private BigDecimal cashRate   ;//取现费率
+    private Integer income      ;//
     private String remark      ;
     private Integer seg         ;
 
@@ -33,6 +34,14 @@ public class Card extends BaseEntity implements Serializable {
 
     public void setSelf(Integer self) {
         this.self = self;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public String getCardName() {

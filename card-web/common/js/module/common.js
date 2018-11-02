@@ -22,7 +22,16 @@ common.url = {
     model:{
         bank: {action:'bank/',name:'银行'},
         account:{ action:'account/',    name:'账户'},
-        card:       { action:'card/',       name:'信用卡'},
+        card:       {
+            action:'card/',
+            name:'信用卡',
+            page:{
+                manager:'page/card_manager.html',
+                add:'page/card_add.html',
+                detail:'page/card_detail.html',
+                update:'page/card_update.html'
+            }
+        },
         customer:   {
             action:'customer/',
             name:'客户',
@@ -755,6 +764,16 @@ common.initMiniNavTool = function () {
                             '                </div>';
     $("div.page-content").prepend(miniNavToolHtml);
 };
+common.initCommonStyle = function(){
+    var style =
+        '<style type="text/css">' +
+        '    .widget-body{padding:0px;} \n' +
+        '    .layui-table, .layui-table-view{margin:0px 0px;} \n' +
+        '    form{padding:10px } \n' +
+        '</style>';
+
+    $(document.head).append(style);
+};
 //统一初始化
 common.initCom = function () {
     common.initTopNav();//body 第二个子节点 顶部导航
@@ -765,6 +784,7 @@ common.initCom = function () {
 
     common.initMiniNavTool();//div.page-content 第二个子节点
     common.initMapNav();//div.page-content 第一个子节点
+    common.initCommonStyle();//加上样式
 };
 common.renderLeftMeun = function (navArrayData) {
     var navLeftMeun = '';

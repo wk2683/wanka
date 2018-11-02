@@ -9,6 +9,7 @@
     <update id="update" parameterType="com.wk.entity.Card">
         UPDATE wk.wk_card SET update_time =  #{updateTime}
         <if test="  self != null and  self != '' "> , self =  #{self}</if>
+        <if test="  customerId != null and  customerId != '' "> , customer_id =  #{customerId}</if>
         <if test="  cardName != null and  cardName != '' "> , card_name =  #{cardName}</if>
         <if test="  name != null and  name != '' "> , name =  #{name}</if>
         <if test="  idNumber != null and  idNumber != '' "> , id_number =  #{idNumber}</if>
@@ -36,6 +37,7 @@
         SELECT
         id,
         self,
+        customer_id customerId,
         card_name cardName,
         name,
         id_number idNumber,
