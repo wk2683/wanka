@@ -54,7 +54,7 @@
                     OR
                     phone LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                     OR
-                    idNumber LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                    id_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
         </where>  ORDER BY seg DESC, update_time DESC  limit #{pageStart},#{pageSize}
@@ -85,7 +85,7 @@
                 OR
                 phone LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
-                idNumber LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                id_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
         </where>
