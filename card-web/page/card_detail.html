@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>信用卡详情信息</title>
+
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="../assets/img/favicon.png" type="image/x-icon">
+
+    <!--Basic Styles-->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../assets/css/weather-icons.min.css" rel="stylesheet" />
+
+
+    <!--Beyond styles-->
+    <link href="../assets/css/beyond.min.css" rel="stylesheet" />
+    <link href="../assets/css/demo.min.css" rel="stylesheet" />
+    <link href="../assets/css/typicons.min.css" rel="stylesheet" />
+    <link href="../assets/css/animate.min.css" rel="stylesheet" />
+    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
+
+    <!--Page Related styles-->
+    <link href="../assets/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="../common/lib/layui-v2.4.3/layui/css/layui.css" rel="stylesheet" />
+
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="../assets/js/skins.min.js"></script>
+    <style type="text/css">
+
+        .layui-form-pane .layui-input-block{width: 30%;}
+        .layui-form-pane .layui-input-inline{width:30%;}
+        .switch-checkbox-block{border: 1px solid #d5d5d5;height: 38px;}
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+
+    <!-- Main Container -->
+    <div class="main-container container-fluid">
+        <!-- Page Container -->
+        <div class="page-container">
+
+            <!-- Page Content -->
+            <div class="page-content">
+
+                <!-- Page Body -->
+                <div class="page-body">
+
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="widget">
+                                <div class="widget-header ">
+                                    <span class="widget-caption">信用卡详情信息</span>
+                                    <div class="widget-buttons">
+                                        <a href="#" data-toggle="maximize">
+                                            <i class="fa fa-expand"></i>
+                                        </a>
+                                        <a href="#" data-toggle="collapse">
+                                            <i class="fa fa-minus"></i>
+                                        </a>
+                                        <a href="#" data-toggle="dispose">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <!--表单开始-->
+                                    <form class="layui-form layui-form-pane"  lay-filter="card_detail_form" onsubmit="return false;">
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">客户姓名</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="customerName" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input" readonly>
+                                                <input type="hidden" name="customerId">
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">本人卡</label>
+                                            <div class="layui-input-block switch-checkbox-block">
+                                                <!--<input type="checkbox" name="self" lay-skin="switch" lay-text="是|否" value="1" checked  class="layui-input">-->
+                                                <input type="text" name="self"  id="self"  lay-verify="required" class="layui-input" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">卡简称</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="cardName"  id="cardName"  lay-verify="required" placeholder="输入卡简称"  class="layui-input" readonly>
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">卡主姓名</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">身份证号</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="idNumber" required  lay-verify="required" placeholder="请输入身份证号" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">联系电话</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="phone" required  lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">发卡银行</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="bankName" required  lay-verify="required" placeholder="请输入银行名称" autocomplete="off" class="layui-input" readonly>
+                                                <!--<select name="bankName" ></select>-->
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">卡号</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="cardNumber" required  lay-verify="required" placeholder="请输入卡号" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">密码</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">账单日</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="billDate" required  lay-verify="required" placeholder="请输入账单日" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">号（输入1-31的整数， 如：每月1号出账，则输入1）</div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">还款日</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="replayDate" required  lay-verify="required" placeholder="请输入还款日" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">号（输入1-31的整数， 如：每月20号是最后还款日期，则输入20）</div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">总额</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="total" required  lay-verify="required" placeholder="请输入总额" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">元</div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">账单金额</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="bill" required  lay-verify="required" placeholder="请输入账单金额" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">元</div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">代还手续费率</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="replayRate" required  lay-verify="required" placeholder="请输入小数" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">%(如 0.04%，则输入0.04)</div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">最低手续费</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="miniFee" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">元</div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">取现刷卡费率</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="cashRate" required  lay-verify="required" placeholder="请输入小数" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">%(如 0.04%，则输入0.04)</div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">是否公司持卡</label>
+                                            <div class="layui-input-block switch-checkbox-block">
+                                                <input type="text" name="income" required  lay-verify="required" placeholder="请输入小数" autocomplete="off" class="layui-input" readonly>
+                                                <!--<input type="checkbox" name="income" lay-skin="switch" lay-text="是|否" value="1" checked>-->
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">排序值</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="seg" required  lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input" readonly>
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">数字越大排序越靠前</div>
+                                        </div>
+
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label" style="width:37%;">备注</label>
+                                            <div class="layui-input-block" style="width:37%;">
+                                                <textarea name="remark" placeholder="请输入内容" class="layui-textarea" readonly></textarea>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+
+                                    <!--表单结束-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+        </div>
+        <!-- /Page Container -->
+        <!-- Main Container -->
+
+    </div>
+
+
+    <!--添加model 开始-->
+    <div style="width:1px;height: 1px;">
+        <ul id="org_tree"></ul>
+    </div>
+    <!--添加model 结束-->
+
+
+
+    <!--Basic Scripts-->
+    <script src="../assets/js/jquery-2.0.3.min.js"></script>
+    <script src="../common/js/module/common.js"></script>
+    <script >common.initCom();</script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+
+    <!--Beyond Scripts-->
+    <script src="../assets/js/beyond.min.js"></script>
+
+    <!--Page Related Scripts-->
+    <script src="../assets/js/datatable/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/datatable/ZeroClipboard.js"></script>
+    <script src="../assets/js/datatable/dataTables.tableTools.min.js"></script>
+    <script src="../assets/js/datatable/dataTables.bootstrap.min.js"></script>
+    <script src="../assets/js/datatable/datatables-init.js"></script>
+    <script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
+    <script src="../assets/js/bootbox/bootbox.js"></script>
+    <script src="../js/card_detail.js"></script>
+    <script>
+        // InitiateSimpleDataTable.init();
+        // InitiateEditableDataTable.init();
+        // InitiateExpandableDataTable.init();
+        // InitiateSearchableDataTable.init();
+    </script>
+
+</body>
+<!--  /Body -->
+</html>
