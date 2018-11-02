@@ -36,13 +36,13 @@ layui.use(['form','table','layer'],function () {
         {fixed: 'right',  align:'center',width:150, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
-    pageData.getTableData = function() {
+    pageData.getTableData = function(searchKey) {
         //执行渲染
         table.render({
             elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.card.action + common.url.opt.search  //数据源url
-            , where: { userId: user.id, userName: user.name } //如果无需传递额外参数，可不加该参数
+            , where: { userId: user.id, userName: user.name, searchKey:searchKey} //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.POST // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
@@ -170,12 +170,21 @@ layui.use(['form','table','layer'],function () {
 
 
         //初始化第一页数据
-        pageData.getTableData();
+        pageData.getTableData('');
         //添加按钮事件
         $(document.body).on('click','#add_card_btn',function () {
             //详情
             var add_url = common.url.page_root + common.url.model.card.page.add;
             window.open(add_url);
+        });
+
+        //添加按钮事件
+        $(document.body).on('click','#searchBtn',function () {
+            var searchKey = $("input[name=searchKey]").val();
+            if(!searchKey){
+                return false;
+            }
+            pageData.getTableData(searchKey);
         });
     });
 });

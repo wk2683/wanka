@@ -20,13 +20,13 @@ layui.use(['form','table','layer'],function () {
         ,{fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
-    pageData.getTableData = function() {
+    pageData.getTableData = function(searchKey) {
         //执行渲染
         table.render({
             elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.role.action + common.url.opt.search  //数据源url
-            , where: { userId: user.id, userName: user.name } //如果无需传递额外参数，可不加该参数
+            , where: { userId: user.id, userName: user.name,searchKey:searchKey } //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
@@ -34,7 +34,7 @@ layui.use(['form','table','layer'],function () {
                           // toolbar: '<div>xxx</div>' //直接传入工具栏模板字符
                           // toolbar: true //仅开启工具栏，不显示左侧模板
                           // toolbar: 'default' //让工具栏左侧显示默认的内置模板
-            , toolbar: '#toolbarBase'// 'default'  //开启表格头部工具栏区域，该参数支持四种类型值：
+            , toolbar: '#toolbarSearch'// 'default'  //开启表格头部工具栏区域，该参数支持四种类型值：
             // filter: 显示筛选显示表头图标
             // exports: 显示导出图标
             // print: 显示打印图标
@@ -263,6 +263,20 @@ layui.use(['form','table','layer'],function () {
     };
 
     //初始化第一页数据
-    pageData.getTableData();
+    pageData.getTableData('');
+    //添加按钮事件
+    $(document.body).on('click','#addBtn',function () {
+        pageData.openAddModel();
+    });
+
+    //搜索按钮事件
+    $(document.body).on('click','#searchBtn',function () {
+        var searchKey = $("input[name=searchKey]").val();
+        if(!searchKey){
+            return false;
+        }
+        pageData.getTableData(searchKey);
+    });
+
 
 });
