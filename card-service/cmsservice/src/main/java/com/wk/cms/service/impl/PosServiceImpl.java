@@ -38,6 +38,7 @@ public class PosServiceImpl implements PosService {
 
     @Override
     public Integer update(Pos pos) {
+        pos.updateInit();
         return posDao.update(pos);
     }
 

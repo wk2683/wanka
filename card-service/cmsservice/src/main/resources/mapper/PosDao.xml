@@ -10,6 +10,7 @@
         UPDATE wk.wk_pos SET update_time =  #{updateTime}
         <if test="  name != null and  name != '' "> , name =  #{name}</if>
         <if test="  importUserName != null and  importUserName != '' "> , import_user_name =  #{importUserName}</if>
+        <if test="  importUserId != null and  importUserId != '' "> , import_user_id =  #{importUserId}</if>
         <if test="  bankName != null and  bankName != '' "> , bank_name =  #{bankName}</if>
         <if test="  cardNumber != null and  cardNumber != '' "> , card_number =  #{cardNumber}</if>
         <if test="  rateId != null and  rateId != '' "> , rate_id =  #{rateId}</if>
@@ -20,7 +21,7 @@
     </update>
 
     <select id="search" resultType="com.wk.entity.Pos" parameterType="com.wk.entity.Pos">
-        SELECT id,name,import_user_name importUserName, bank_name bankName,card_number cardNumber , rate_id rateId ,  remark ,  seg , create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_pos
+        SELECT id,name,import_user_name importUserName,import_user_id importUserId, bank_name bankName,card_number cardNumber , rate_id rateId ,  remark ,  seg , create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_pos
         <where>
             <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
             <if test="  importUserName != null and  importUserName != '' "> AND  import_user_name =  #{importUserName}</if>

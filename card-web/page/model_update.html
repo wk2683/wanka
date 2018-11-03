@@ -3,7 +3,7 @@
 <!-- Head -->
 <head>
     <meta charset="utf-8" />
-    <title>信用卡信息管理</title>
+    <title>更新模块</title>
 
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,6 +30,11 @@
 
     <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
     <script src="../assets/js/skins.min.js"></script>
+    <style type="text/css">
+
+        .layui-form-pane .layui-input-block{width: 30%;}
+        .layui-form-pane .layui-input-inline{width:30%;}
+    </style>
 </head>
 <!-- /Head -->
 <!-- Body -->
@@ -51,7 +56,7 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
                                 <div class="widget-header ">
-                                    <span class="widget-caption">信用卡列表</span>
+                                    <span class="widget-caption">更新模块</span>
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize">
                                             <i class="fa fa-expand"></i>
@@ -64,8 +69,59 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="widget-body"  style="padding: 0px;">
-                                    <table id="card_list" lay-filter="cardTableEvent" style="margin: 0px;"></table>
+                                <div class="widget-body">
+                                    <!--表单开始-->
+                                    <form class="layui-form layui-form-pane"  lay-filter="model_form"   onsubmit="return false;">
+                                        <input type="hidden" name="id" id="id"/>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">模块名称</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="name" required  lay-verify="required" placeholder="请输入模块名称" autocomplete="off" class="layui-input">
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">排序值</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="seg" required  lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input">
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">数字越大排序越靠前</div>
+                                        </div>
+
+
+
+                                        <!--<div class="layui-form-item">-->
+                                            <!--<label class="layui-form-label">模块图标</label>-->
+                                            <!--<div class="layui-input-block">-->
+                                                <!--<input type="hidden" name="fontImg" id="fontImg">-->
+                                                <!--<div class="layui-upload">-->
+                                                    <!--<button type="button" class="layui-btn" id="iconBtn" style="width: 100%;">上传照片</button>-->
+                                                    <!--<div class="layui-upload-list">-->
+                                                        <!--<img class="layui-upload-img" id="iconTag" style="width: 100%;">-->
+                                                        <!--<p id="iconText"></p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+
+
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label" style="width:37%;">备注</label>
+                                            <div class="layui-input-block" style="width:37%;">
+                                                <textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <div class="layui-input-block">
+                                                <button class="layui-btn" lay-submit lay-filter="formAdd">提交</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+
+                                    <!--表单结束-->
                                 </div>
                             </div>
                         </div>
@@ -81,61 +137,14 @@
     </div>
 
 
+    <!--添加model 开始-->
+    <div style="width:1px;height: 1px;">
+        <ul id="org_tree"></ul>
+    </div>
+    <!--添加model 结束-->
 
-    <!-- 表头搜索 模板-->
-    <script type="text/html" id="toolbarSearch">
-        <div  style="text-align: left;">
 
-            <form class="layui-form" lay-filter="search_form" onsubmit="return false;">
-                <div class="layui-inline">
-                    <div class="layui-form-mid"></div>
-                    <div class="layui-input-inline" style="width: 300px;">
-                        <input type="text" name="searchKey" placeholder="关键字:名字、手机、身份证" autocomplete="off" class="layui-input">
-                    </div>
-                    <button class="layui-btn" id="searchBtn">搜索</button>
-                    <button class="layui-btn" id="add_card_btn">添加</button>
-                </div>
-            </form>
 
-        </div>
-    </script>
-    <!-- 表头搜索 模板 end -->
-
-    <!--表格中每一行的操作按钮：-->
-    <script type="text/html" id="toolbarRight">
-        <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-xs" lay-event="detail">详情</button>
-            <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
-            <button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>
-        </div>
-    </script>
-
-    <!--第一列选择模板-->
-    <script type="text/html" id="indexTemplate">
-        <!--<input type="checkbox" name="select_customer" value="{{ d.id }}" data-name="{{ d.name }}"> &nbsp;-->
-        {{ d.LAY_INDEX }}
-    </script>
-    <!--第一列选择模板 end -->
-
-    <!--第一列选择模板-->
-    <script type="text/html" id="selfTemplate">
-        {{# if(d.self==1 ) { }}
-        是
-        {{# }else{ }}
-        否
-        {{# }  }}
-    </script>
-    <!--第一列选择模板 end -->
-
-    <!--第一列选择模板-->
-    <script type="text/html" id="incomeTemplate">
-        {{# if(d.income==1 ) { }}
-        是
-        {{# }else{ }}
-        否
-        {{# }  }}
-    </script>
-    <!--第一列选择模板 end -->
     <!--Basic Scripts-->
     <script src="../assets/js/jquery-2.0.3.min.js"></script>
     <script src="../common/js/module/common.js"></script>
@@ -153,7 +162,7 @@
     <script src="../assets/js/datatable/datatables-init.js"></script>
     <script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
     <script src="../assets/js/bootbox/bootbox.js"></script>
-    <script src="../js/card_manager.js"></script>
+    <script src="../js/model_update.js"></script>
     <script>
         // InitiateSimpleDataTable.init();
         // InitiateEditableDataTable.init();

@@ -23,17 +23,17 @@ layui.use(['form','table','layer'],function () {
         {field: 'fontImg',       title: '身份证正面', align:'center',width:'8%'},
         {field: 'afterImg',       title: '身份证背面', align:'center',width:'8%'},
         {field: 'homeImg',       title: '全身照', align:'center',width:'8%'}
-        ,{fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        ,{fixed: 'right',  align:'center',width:150, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     pageData.getTableData = function(searchKey) {
         //执行渲染
         table.render({
-            elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
+            elem: '#worker_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.worker.action + common.url.opt.search  //数据源url
             , where: { userId: user.id, userName: user.name ,searchKey:searchKey} //如果无需传递额外参数，可不加该参数
-            , method: common.sendMethod.POST // get | post 如果无需自定义HTTP类型，可不加该参数
+            , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
                           // toolbar: '#toolbarDemo' //指向自定义工具栏模板选择器
@@ -104,7 +104,7 @@ layui.use(['form','table','layer'],function () {
         //《《《《《《《《《《《《《《表格初始化完成
 
         //监听工具条
-        table.on('tool(roleTableEvent)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        table.on('tool(workerTableEvent)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象

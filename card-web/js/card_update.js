@@ -109,11 +109,15 @@ layui.use(['form','layer'],function () {
     //显示数据
     pageData.initDetail = function (card) {
 
+        //查找员工名
+        var workerName = common.util.initNameById(card.customerId,common.url.model.customer.action,$("input[name=customerName]"));
+
+
         form.val('card_detail_form',{
             'id':card.id,
             'self':(card.self==1),
             'customerId':card.customerId,
-            'customerName':card.customerId,
+            'customerName':workerName,
             'cardName':card.cardName,
             'name':card.name,
             'idNumber':card.idNumber,

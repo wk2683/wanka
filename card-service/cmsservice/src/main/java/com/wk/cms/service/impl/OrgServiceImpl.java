@@ -29,6 +29,7 @@ public class OrgServiceImpl implements OrgService   {
 
     @Override
     public Integer delete(String id) {
+        //删除所有子组织
         return orgDao.delete(id);
     }
 
@@ -39,6 +40,7 @@ public class OrgServiceImpl implements OrgService   {
 
     @Override
     public Integer update(Org org) {
+        org.updateInit();
         return orgDao.update(org);
     }
 

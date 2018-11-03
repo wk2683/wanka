@@ -38,6 +38,7 @@ public class RateServiceImpl implements RateService {
 
     @Override
     public Integer update(Rate rate) {
+        rate.updateInit();
         return rateDao.update(rate);
     }
 

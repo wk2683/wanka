@@ -49,7 +49,7 @@ public class PosController extends  BaseController {
         return responseGet(pos,this.getClass());
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @RequestMapping(value = "/search",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public BaseResponse search(Pos pos ){

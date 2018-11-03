@@ -249,4 +249,9 @@ layui.use(['tree','form','table','layer'],function () {
     };
 
     pageData.getData();
+
+    $("#add_org_btn").click(function () {
+        var org = 0;
+        pageData.openAddModel(org);
+    })
 });

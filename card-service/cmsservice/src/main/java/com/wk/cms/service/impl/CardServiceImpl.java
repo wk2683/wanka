@@ -44,6 +44,7 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public Integer update(Card card) {
+        card.addInit();
         return cardDao.update(card);
     }
 

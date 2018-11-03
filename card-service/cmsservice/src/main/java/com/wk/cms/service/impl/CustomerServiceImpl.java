@@ -50,6 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Integer update(Customer customer) {
+        customer.updateInit();
         return customerDao.update(customer);
     }
 

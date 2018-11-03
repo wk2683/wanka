@@ -30,6 +30,9 @@
 
     <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
     <script src="../assets/js/skins.min.js"></script>
+    <style type="text/css">
+        .layui-table-tool-temp{position: absolute;top:10px;left:10px;}
+    </style>
 </head>
 <!-- /Head -->
 <!-- Body -->
@@ -132,7 +135,7 @@
 
     <!--添加model 开始-->
     <div style="width:1px;height: 1px;">
-        <form class="layui-form layui-form-pane" action="" id="add_form" style="padding: 15px;">
+        <form class="layui-form layui-form-pane"   lay-filter="permission_form"  action="" id="add_form" style="padding: 15px;">
             <div class="layui-form-item">
                 <label class="layui-form-label">模块名</label>
                 <div class="layui-input-block">

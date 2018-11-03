@@ -38,6 +38,8 @@ common.url = {
             page:{
                 manager:'page/customer_manager.html',
                 add:'page/customer_add.html',
+                detail:'page/customer_detail.html',
+                update:'page/customer_update.html',
                 selectList:'page/customer_selectList.html'
             }
         },
@@ -46,7 +48,9 @@ common.url = {
             name:'模块',
             page:{
                 manager:'page/model_manager.html',
-                add:'page/model_add.html'
+                add:'page/model_add.html',
+                update:'page/model_update.html',
+                detail:'page/model_detail.html'
             }
         },
         optType:    {action:'optType/',    name:'操作类型'},
@@ -59,7 +63,9 @@ common.url = {
             name:'POS机',
             page:{
                 manager:'page/pos_manager.html',
-                add:'page/pos_add.html'
+                add:'page/pos_add.html',
+                detail:'page/pos_detail.html',
+                update:'page/pos_update.html'
             }
         },
         rate:       {action:'rate/',       name:'费率'},
@@ -1032,9 +1038,8 @@ common.util.findOrgNameFromSession = function (id) {
         }
     }
 };
-//加载银行列表
+//加载银行列表(加载完成，数据保存到Session,调用（如果有）处理数据函数)
 common.util.loadBankList = function(initBankSelectFun){
-
     common.sendOption.url = common.url.web_root + common.url.model.bank.action + common.url.opt.model.bank.load;
     common.sendOption.type = common.sendMethod.GET;
     common.sendOption.completeCallBack =function (res) {
@@ -1042,9 +1047,24 @@ common.util.loadBankList = function(initBankSelectFun){
         sessionStorage.bankList = resData.data;
         initBankSelectFun();
     };
-
     common.httpSend(common.sendOption);
-
-
 };
+/**
+ * 通过ID获取员工（或客户）名字
+ * @param id  记录的ID
+ * @param model_action 模块action名
+ * @param showDomId 要把name属性值显示到的节点
+ */
+common.util.initNameById = function (id,model_action,showDom) {
 
+    common.sendOption.data = {id:id};
+    common.sendOption.url = common.url.web_root + model_action + common.url.opt.get;
+    common.sendOption.type = common.sendMethod.GET;
+    common.sendOption.completeCallBack =function (res) {
+        var resData = JSON.parse(res.responseText);
+        var item = JSON.parse(resData.data);
+        $(showDom).val(item.name);
+
+    };
+    common.httpSend(common.sendOption);
+}

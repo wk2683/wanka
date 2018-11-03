@@ -19,7 +19,7 @@ layui.use(['form','table','layer'],function () {
         {field: 'optType',       title: '操作类型', align:'center',width:'8%'},
         {field: 'seg',       title: '排序值', align:'center',width:'8%'},
         {field: 'remark',       title: '备注', align:'center'},
-        ,{fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        ,{fixed: 'right',  align:'center',width:120, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     //加载模块（包括 权限）数据，
@@ -51,10 +51,11 @@ layui.use(['form','table','layer'],function () {
                 '    <div class="col-xs-12 col-md-12">\n' +
                 '        <div class="widget">\n' +
                 '            <div class="widget-header ">\n' +
-                '                <span class="widget-caption">模块名称：'+model.name+'</span>\n' +
-                '                <button  class="layui-btn layui-btn-xs add_permission_btn" data-id="'+model.id+'" data-name="'+model.name+'">添加权限</button>\n' +
-                '                <button  class="layui-btn layui-btn-normal layui-btn-xs update_model_btn" data-id="'+model.id+'">修改模块</button>\n' +
-                '                <button  class="layui-btn layui-btn-danger layui-btn-xs delete_model_btn" data-id="'+model.id+'" data-name="'+model.name+'">删除模块</button>\n' +
+                '                <span class="widget-caption">模块名称：<span class="model_name">'+model.name+'</span>'+
+                '                   <button  class="layui-btn layui-btn-xs add_permission_btn" data-id="'+model.id+'" data-name="'+model.name+'">添加权限</button>\n' +
+                '                   <button  class="layui-btn layui-btn-normal layui-btn-xs update_model_btn" data-id="'+model.id+'">修改模块</button>\n' +
+                '                   <button  class="layui-btn layui-btn-danger layui-btn-xs delete_model_btn" data-id="'+model.id+'" data-name="'+model.name+'">删除模块</button>' +
+                '               </span>\n' +
                 '                <div class="widget-buttons">\n' +
                 '                    <a href="#" data-toggle="maximize"><i class="fa fa-expand"></i></a>\n' +
                 '                    <a href="#" data-toggle="collapse"><i class="fa fa-minus"></i></a>\n' +
@@ -96,7 +97,7 @@ layui.use(['form','table','layer'],function () {
             ,data:pdata //  把已经数据给表格，不用表格自己请求后台取数据
             , skin: 'row' //行边框风格 line | row | nob
             , even: true  //隔行背景 true | false
-            , size: 'sm'  //小尺寸 sm | lg
+            // , size: 'sm'  //小尺寸 sm | lg
         });
 
 
@@ -114,7 +115,9 @@ layui.use(['form','table','layer'],function () {
         if(layEvent === 'delete'){ //删除
             pageData.deleteConfirm(obj);
         } else if(layEvent === 'update'){ //编辑
-
+            var modelId = obj.data.modelId;
+            var modelName = $(obj.tr).closest("div.widget").find(".model_name").text();
+            pageData.openAddModel(modelId,modelName,obj);
 
         }
     };
@@ -122,10 +125,26 @@ layui.use(['form','table','layer'],function () {
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>添加操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     //打开添加(权限)模态框表单
-    pageData.openAddModel = function(modelId,modelName){
-        $('#add_form').find("input[name=modelName]").val(modelName);
-        $('#add_form').find("input[name=modelId]").val(modelId);
+    pageData.openAddModel = function(modelId,modelName,obj){
 
+
+        if(obj && obj.data && obj.data.id){//更新操作
+
+            form.val('permission_form',{
+                'id':obj.data.id,
+                'modelName':modelName,
+                'modelId':obj.data.modelId,
+                'name':obj.data.name,
+                'optType':obj.data.optType,
+                'action':obj.data.action,
+                'seg':obj.data.seg,
+                'remark':obj.data.remark
+            });
+            form.render();
+        }else{
+            $('#add_form').find("input[name=modelName]").val(modelName);
+            $('#add_form').find("input[name=modelId]").val(modelId);
+        }
         layer.open({
             title: common.optName.CONTROLLER_OPT_ADD + common.url.model.permission.name,
             type:1,//页面类型
@@ -137,7 +156,7 @@ layui.use(['form','table','layer'],function () {
                 var modelName = $(layero).find("input[name=modelName]").val();
                 var modelId = $(layero).find("input[name=modelId]").val();
                 var name = $(layero).find("input[name=name]").val();
-                var optType = $(layero).find("input[name=optType]").val();
+                var optType = $(layero).find("select[name=optType]").val();
                 var action = $(layero).find("input[name=action]").val();
                 var seg = $(layero).find("input[name=seg]").val();
                 var remark = $(layero).find("textarea[name=remark]").val();
@@ -154,13 +173,19 @@ layui.use(['form','table','layer'],function () {
                 console.log(name + "," + seg + "," + remark);
                 var p = {
                     modelId:modelId,
+                    modelName:modelName,
                     name:name,
                     optType:optType,
                     action:action,
                     seg:seg,
                     remark:remark
                 };
-                pageData.submitAdd(p);
+                if(obj && obj.data && obj.data.id) {//更新操作
+                    p.id = obj.data.id;
+                    pageData.submitUpdate(p);
+                }else{
+                    pageData.submitAdd(p);
+                }
 
             },
             cancel: function(){
@@ -186,54 +211,11 @@ layui.use(['form','table','layer'],function () {
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>更新操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    //打开更新模态框表单 modelObj:当前数据行对象，数据为modelObj.data 为一行的数据
-    pageData.openUpdateModel = function(modelObj){
 
-        $('#add_form').find("input[name=name]").val(modelObj.data.name);
-        $('#add_form').find("input[name=seg]").val(modelObj.data.seg);
-        $('#add_form').find("textarea[name=remark]").val(modelObj.data.remark);
-
-        layer.open({
-            title:common.optName.CONTROLLER_OPT_UPDATE + common.url.model.worker.name,
-            type:1,//页面类型
-            content:$('#add_form'),
-            area:['600px'],
-            btn:['提交'],
-            yes: function(index, layero){//当前层索引、当前层DOM对象
-                //提交
-                var name = $(layero).find("input[name=name]").val();
-                var seg = $(layero).find("input[name=seg]").val();
-                var remark = $(layero).find("textarea[name=remark]").val();
-
-                name = $.trim(name);
-                seg = $.trim(seg);
-                remark = $.trim(remark);
-                if(!name || !seg || !remark){
-                    layer.alert('所有都有填写的，亲');
-                    return false;
-                }
-
-                layer.closeAll();
-                console.log(name + "," + seg + "," + remark);
-                pageData.submitUpdateRole(modelObj.data.id,name,seg,remark);
-
-            },
-            cancel: function(){
-                //右上角关闭回调
-
-                //return false 开启该代码可禁止点击该按钮关闭
-            }
-        });
-    };
     //更新提交数据
-    pageData.submitUpdateRole = function(id,name,seg,remark){
-        common.sendOption.data = {
-            id:id,
-            name:name,
-            seg:seg,
-            remark:remark,
-        };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.update;
+    pageData.submitUpdate = function(data){
+        common.sendOption.data = data;
+        common.sendOption.url = common.url.web_root + common.url.model.permission.action + common.url.opt.update;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.updateComplete;
 
@@ -292,10 +274,6 @@ layui.use(['form','table','layer'],function () {
     $(function () {
 
 
-        //初始化第一页数据
-        // pageData.getTableData('role_list1');
-        // pageData.getTableData('role_list2');
-        // pageData.getTableData('role_list3');
 
         pageData.loadModelData();
         //添加权限按钮事件
@@ -308,7 +286,8 @@ layui.use(['form','table','layer'],function () {
         //修改模块按钮事件
         $(document.body).on('click','.update_model_btn',function () {
             var id = $(this).data('id');
-            var update_url = location.origin + '/page/model_update.html?id='+id;
+            // var update_url = location.origin + '/page/model_update.html?id='+id;
+            var update_url = common.url.page_root + common.url.model.model.page.update + '?id='+id;
             window.open(update_url);
         });
 

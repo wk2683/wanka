@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Pos extends BaseEntity implements Serializable {
     private String name              ;
     private String importUserName  ;
+    private String importUserId  ;
     private String bankName         ;
     private String cardNumber       ;
     private String rateId           ;
@@ -27,6 +28,14 @@ public class Pos extends BaseEntity implements Serializable {
 
     public void setImportUserName(String importUserName) {
         this.importUserName = importUserName;
+    }
+
+    public String getImportUserId() {
+        return importUserId;
+    }
+
+    public void setImportUserId(String importUserId) {
+        this.importUserId = importUserId;
     }
 
     public String getBankName() {

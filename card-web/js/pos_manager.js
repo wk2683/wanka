@@ -28,14 +28,14 @@ layui.use(['form','table','layer'],function () {
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.pos.action + common.url.opt.search  //数据源url
             , where: { userId: user.id, userName: user.name,searchKey:searchKey } //如果无需传递额外参数，可不加该参数
-            , method: common.sendMethod.POST // get | post 如果无需自定义HTTP类型，可不加该参数
+            , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
                           // toolbar: '#toolbarDemo' //指向自定义工具栏模板选择器
                           // toolbar: '<div>xxx</div>' //直接传入工具栏模板字符
                           // toolbar: true //仅开启工具栏，不显示左侧模板
                           // toolbar: 'default' //让工具栏左侧显示默认的内置模板
-            , toolbar: '#toolbarBase'// 'default'  //开启表格头部工具栏区域，该参数支持四种类型值：
+            , toolbar: '#toolbarSearch'// 'default'  //开启表格头部工具栏区域，该参数支持四种类型值：
             // filter: 显示筛选显示表头图标
             // exports: 显示导出图标
             // print: 显示打印图标
@@ -109,14 +109,16 @@ layui.use(['form','table','layer'],function () {
                 // pageData.openAddModel();
             }else if(layEvent === 'detail'){ //查看
                 //详情
-                var detail_url = location.origin + '/page/worker_detail.html?id='+data.id;
+                // var detail_url = location.origin + '/page/worker_detail.html?id='+data.id;
+                var detail_url = common.url.page_root +　common.url.model.pos.page.detail + '?id='+data.id;
                 window.open(detail_url);
             } else if(layEvent === 'delete'){ //删除
                 pageData.deleteConfirm(obj);
             } else if(layEvent === 'update'){ //编辑
                 //修改
                 // pageData.openUpdateModel(obj);
-                var detail_url = location.origin + '/page/worker_update.html?id='+data.id;
+                // var detail_url = location.origin + '/page/worker_update.html?id='+data.id;
+                var detail_url = common.url.page_root +　common.url.model.pos.page.update + '?id='+data.id;
                 window.open(detail_url);
             }
         });
@@ -255,7 +257,7 @@ layui.use(['form','table','layer'],function () {
     //提交删除
     pageData.deleteRole = function(obj){
         common.sendOption.data = { id:obj.data.id };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.delete;
+        common.sendOption.url = common.url.web_root + common.url.model.pos.action + common.url.opt.delete;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.deleteComplete;
         common.httpSend(common.sendOption);
@@ -270,14 +272,14 @@ layui.use(['form','table','layer'],function () {
 
         //初始化第一页数据
         pageData.getTableData('');
-        //添加按钮事件
-        $(document.body).on('click','#add_worker_btn',function () {
-            //详情
-            var detail_url = location.origin + '/page/worker_add.html';
-            window.open(detail_url);
-        });
 
         //添加按钮事件
+        $(document.body).on('click','#addBtn',function () {
+            var add_url = common.url.page_root + common.url.model.pos.page.add;
+            window.open(add_url);
+        });
+
+        //添加搜索事件
         $(document.body).on('click','#searchBtn',function () {
             var searchKey = $("input[name=searchKey]").val();
             if(!searchKey){

@@ -40,6 +40,7 @@ public class OptTypeServiceImpl implements OptTypeService {
 
     @Override
     public Integer update(OptType optType) {
+        optType.updateInit();
         return optTypeDao.update(optType);
     }
 

@@ -38,6 +38,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Integer update(Order order) {
+        order.updateInit();
         return orderDao.update(order);
     }
 

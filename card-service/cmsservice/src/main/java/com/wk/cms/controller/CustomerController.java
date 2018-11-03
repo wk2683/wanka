@@ -61,7 +61,7 @@ public class CustomerController  extends  BaseController{
         return responseGet(customer,this.getClass());
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @RequestMapping(value = "/search",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public BaseResponse search(Customer customer){

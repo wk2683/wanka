@@ -53,6 +53,7 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public Integer update(Worker worker) {
+        worker.updateInit();
         return workerDao.update(worker);
     }
 

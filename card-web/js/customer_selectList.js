@@ -16,7 +16,7 @@ layui.use(['form','table','layer'],function () {
         {field: 'name',     title: '姓名',        align:'center'},
         {field: 'idNumber', title: '身份证号',    align:'center'},
         {field: 'phone',    title: '手机',        align:'center'},
-        {field: 'workerId', title: '所属员工',    align:'center'}
+        // {field: 'workerId', title: '所属员工',    align:'center'}
     ]];
 
     pageData.getTableData = function(searchKey) {
@@ -26,7 +26,7 @@ layui.use(['form','table','layer'],function () {
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.customer.action + common.url.opt.search  //数据源url
             , where: { userId: user.id, userName: user.name ,searchKey:searchKey} //如果无需传递额外参数，可不加该参数
-            , method: common.sendMethod.POST // get | post 如果无需自定义HTTP类型，可不加该参数
+            , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
                           // toolbar: '#toolbarDemo' //指向自定义工具栏模板选择器

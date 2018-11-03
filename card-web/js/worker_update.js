@@ -14,7 +14,7 @@ layui.use(['form','layer','upload'],function () {
 
     pageData.worker = {};
 
-    pageData.worker.id = '';//初始化
+
 
     var uploadUrl = common.url.web_root + common.url.model.worker.action + common.url.opt.model.worker.uploadImg;
 
@@ -163,6 +163,7 @@ layui.use(['form','layer','upload'],function () {
 
     pageData.initWorkerInfo = function () {
         var p = common.util.getHrefParam();
+        pageData.worker.id = p.id;
         common.sendOption.data = {id:p.id};
         common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.get;
         common.sendOption.type = common.sendMethod.GET;
@@ -188,7 +189,7 @@ layui.use(['form','layer','upload'],function () {
         var orgName = common.util.findOrgNameFromSession(item.orgId);
 
         form.val("worker_form", {
-            "id": item.id
+            "id": pageData.worker.id
             ,"name": item.name
             ,"userName": item.userName
             ,"password": ""

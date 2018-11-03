@@ -38,6 +38,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public Integer update(Permission permission) {
+        permission.updateInit();
         return permissionDao.update(permission);
     }
 

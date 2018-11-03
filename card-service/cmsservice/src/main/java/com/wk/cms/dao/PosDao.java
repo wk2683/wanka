@@ -16,8 +16,8 @@ public interface PosDao {
 	 * @param pos
      * @return
      */
-	@Insert(" INSERT INTO wk.wk_pos(id, name, import_user_name, bank_name, card_number, rate_id, remark, seg, create_time, update_time, opt_id) VALUES \n" +
-			"(#{id}, #{name}, #{importUserName}, #{bankName}, #{cardNumber}, #{rateId}, #{remark}, #{seg}, #{createTime}, #{updateTime}, #{optId}) ")
+	@Insert(" INSERT INTO wk.wk_pos(id, name, import_user_name,import_user_id, bank_name, card_number, rate_id, remark, seg, create_time, update_time, opt_id) VALUES \n" +
+			"(#{id}, #{name}, #{importUserName},#{importUserId}, #{bankName}, #{cardNumber}, #{rateId}, #{remark}, #{seg}, #{createTime}, #{updateTime}, #{optId}) ")
 	Integer add(Pos pos);
 
     /**
@@ -33,7 +33,7 @@ public interface PosDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT id,name,import_user_name importUserName, bank_name bankName,card_number cardNumber , rate_id rateId ,  remark ,  seg , create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_pos WHERE ID=#{id} ")
+	@Select(" SELECT id,name,import_user_name importUserName,import_user_id importUserId, bank_name bankName,card_number cardNumber , rate_id rateId ,  remark ,  seg , create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_pos WHERE ID=#{id} ")
 	Pos get(String id);
 
 	/**

@@ -38,6 +38,7 @@ public class OrderTypeServiceImpl implements OrderTypeService {
 
     @Override
     public Integer update(OrderType orderType) {
+        orderType.updateInit();
         return orderTypeDao.update(orderType);
     }
 

@@ -1,4 +1,4 @@
-//新增POS机信息
+//POS详情信息
 
 
 layui.use(['form','layer','upload'],function () {
@@ -84,17 +84,70 @@ layui.use(['form','layer','upload'],function () {
         form.render('select');
     };
 
-    pageData.initBankList();
+
+    //加载数据
+    pageData.getData = function(){
+        var p = common.util.getHrefParam();//地址参数
+        common.sendOption.data = { id:p.id };
+        common.sendOption.url = common.url.web_root + common.url.model.pos.action + common.url.opt.get;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack =pageData.getComplete;
+        common.httpSend(common.sendOption);
+    };
+    //加载完成处理
+    pageData.getComplete = function (res) {
+        var resData = JSON.parse(res.responseText);
+        if(resData.code = common.code.RESPONSE_CODE_SUCCESS){
+            var item = JSON.parse(resData.data);
+            pageData.initDetail(item);
+        }else{
+            layer.msg(resData.msg,{anim:6},function () {
+                // history.back();
+            })
+        }
+    };
+    //显示数据
+    pageData.initDetail = function (pos) {
+
+        form.val('pos_form',{
+            'id':pos.id,
+            'name':pos.name,
+            'importUserName':pos.importUserName,
+            'importUserId':pos.importUserId,
+            'bankName':pos.bankName,
+            'cardNumber':pos.cardNumber,
+            'rateId':pos.rateId,
+            'rateId':pos.rateId,
+            'seg':pos.seg,
+            'remark':pos.remark,
+        });
+    };
+
+
+
+
+
+
+
+
+
+
+
+    pageData.getData();
+
+
+
+    // pageData.initBankList();
 
     //监听提交按钮 submit(btn_id)
-    form.on('submit(formAdd)', function(data){
-       pageData.submitAdd(data.field);
-        return false;
-    });
+    // form.on('submit(formAdd)', function(data){
+    //    pageData.submitAdd(data.field);
+    //     return false;
+    // });
     //点选用户（入账人）
-    $("input[name=importUserName]").click(function () {
-        pageData.openSelectUserMode();
-    });
+    // $("input[name=importUserName]").click(function () {
+    //     pageData.openSelectUserMode();
+    // });
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<初始化表单 结束<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 

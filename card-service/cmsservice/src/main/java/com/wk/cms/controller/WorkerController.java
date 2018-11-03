@@ -63,7 +63,7 @@ public class WorkerController extends  BaseController {
         return responseGet(worker,this.getClass());
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @RequestMapping(value = "/search",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public BaseResponse search(Worker worker){

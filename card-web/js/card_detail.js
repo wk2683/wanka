@@ -58,8 +58,11 @@ layui.use(['form','layer'],function () {
             'seg':card.seg,
             'remark':card.remark,
         });
+        common.util.initNameById(card.customerId,common.url.model.customer.action,$('input[name=customerName]'));
     };
 
+
+    //执行部分
     pageData.getData();
 
 });

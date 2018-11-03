@@ -41,6 +41,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Integer update(Account account) {
+        account.updateInit();
         return accountDao.update(account);
     }
 

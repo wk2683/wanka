@@ -7,7 +7,7 @@
     <!--//delete-->
     <!--//get-->
     <update id="update" parameterType="com.wk.entity.OptType">
-        UPDATE wk.wk_opt_type SET update_time =  #{update_time}
+        UPDATE wk.wk_opt_type SET update_time =  #{updateTime}
         <if test="  name != null and  name != '' "> , name =  #{name}</if>
         <if test="  remark != null and  remark != '' "> , remark =  #{remark}</if>
         <if test="  seg != null and  seg != '' "> , seg =  #{seg}</if>

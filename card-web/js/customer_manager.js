@@ -27,7 +27,7 @@ layui.use(['form','table','layer'],function () {
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.customer.action + common.url.opt.search  //数据源url
             , where: { userId: user.id, userName: user.name,searchKey:searchKey } //如果无需传递额外参数，可不加该参数
-            , method: common.sendMethod.POST // get | post 如果无需自定义HTTP类型，可不加该参数
+            , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
                           // toolbar: '#toolbarDemo' //指向自定义工具栏模板选择器
@@ -108,14 +108,16 @@ layui.use(['form','table','layer'],function () {
                 // pageData.openAddModel();
             }else if(layEvent === 'detail'){ //查看
                 //详情
-                var detail_url = location.origin + '/page/worker_detail.html?id='+data.id;
+                // var detail_url = location.origin + '/page/worker_detail.html?id='+data.id;
+                var detail_url = common.url.page_root + common.url.model.customer.page.detail +  '?id='+data.id;
                 window.open(detail_url);
             } else if(layEvent === 'delete'){ //删除
                 pageData.deleteConfirm(obj);
             } else if(layEvent === 'update'){ //编辑
                 //修改
                 // pageData.openUpdateModel(obj);
-                var detail_url = location.origin + '/page/worker_update.html?id='+data.id;
+                // var detail_url = location.origin + '/page/worker_update.html?id='+data.id;
+                var detail_url = common.url.page_root + common.url.model.customer.page.update +  '?id='+data.id;
                 window.open(detail_url);
             }
         });
@@ -247,14 +249,14 @@ layui.use(['form','table','layer'],function () {
             layer.close(index);
             //向服务端发送删除指令
             console.log("删除 id  =  "+obj.data.id);
-            pageData.deleteRole(obj);
+            pageData.submitDelete(obj);
             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
         });
     };
     //提交删除
-    pageData.deleteRole = function(obj){
+    pageData.submitDelete = function(obj){
         common.sendOption.data = { id:obj.data.id };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.delete;
+        common.sendOption.url = common.url.web_root + common.url.model.customer.action + common.url.opt.delete;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.deleteComplete;
         common.httpSend(common.sendOption);

@@ -46,6 +46,7 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public Integer update(Model model) {
+        model.updateInit();
         return modelDao.update( model);
     }
 
