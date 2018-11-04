@@ -7,20 +7,21 @@ import java.io.Serializable;
  */
 public class Account extends BaseEntity  implements Serializable{
 
-    private String accountName;
-    private String userName;
-    private String password;
-    private String cardNo;
-    private String webUserName;
-    private String webPassword;
-    private int seg;
+    private String name;//资金账户名称
+    private String userName;//姓名
+    private String userId;//姓名
+    private String bankName;// 银行名称
+    private String cardNumber;//卡号
+    private String webUserName;//网银登录名
+    private String webPassword;//网银登录密码
+    private Integer seg;
 
-    public String getAccountName() {
-        return accountName;
+    public String getName() {
+        return name;
     }
 
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUserName() {
@@ -31,20 +32,28 @@ public class Account extends BaseEntity  implements Serializable{
         this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getCardNo() {
-        return cardNo;
+    public String getBankName() {
+        return bankName;
     }
 
-    public void setCardNo(String cardNo) {
-        this.cardNo = cardNo;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     public String getWebUserName() {
@@ -63,11 +72,11 @@ public class Account extends BaseEntity  implements Serializable{
         this.webPassword = webPassword;
     }
 
-    public int getSeg() {
+    public Integer getSeg() {
         return seg;
     }
 
-    public void setSeg(int seg) {
+    public void setSeg(Integer seg) {
         this.seg = seg;
     }
 }

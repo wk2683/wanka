@@ -21,7 +21,14 @@ common.url = {
     page_root:'http://localhost:8003/',
     model:{
         bank: {action:'bank/',name:'银行'},
-        account:{ action:'account/',    name:'账户'},
+        account:{ action:'account/',    name:'账户',
+            page:{
+                manager:'page/account_manager.html',
+                add:'page/account_add.html',
+                detail:'page/account_detail.html',
+                update:'page/account_update.html'
+            }
+        },
         card:       {
             action:'card/',
             name:'信用卡',
@@ -319,6 +326,27 @@ common.menu = [
                             pid:"1",
                             type:"page",
                             url:"card_add.html"
+                        }
+                    ]
+                },
+                {
+                    id:"1",
+                    name:"资金账户管理",
+                    pid:"-1",
+                    children:[
+                        {
+                            id:"101",
+                            name:"资金账户列表",
+                            pid:"1",
+                            type:"page",
+                            url:"account_manager.html"
+                        },
+                        {
+                            id:"101",
+                            name:"新增资金账户",
+                            pid:"1",
+                            type:"page",
+                            url:"account_add.html"
                         }
                     ]
                 }

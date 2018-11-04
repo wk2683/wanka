@@ -17,8 +17,8 @@ public interface AccountDao {
      * @return
      */
 	@Insert(" INSERT INTO wk.wk_account " +
-			"(id, account_name, user_name, password, card_no, web_user_name, web_password, seg, create_time, update_time, opt_id) VALUES \n" +
-			"(#{id}, #{accountName}, #{userName}, #{password}, #{cardNo}, #{webUserName}, #{webPassword}, #{seg}, #{createTime}, #{updateTime}, #{optId}); ")
+			"(id, name, user_name,user_id,bank_name , card_number, web_user_name, web_password, seg, remark,create_time, update_time, opt_id) VALUES \n" +
+			"(#{id}, #{name}, #{userName},#{userId}, #{bankName}, #{cardNumber}, #{webUserName}, #{webPassword}, #{seg},#{remark}, #{createTime}, #{updateTime}, #{optId}); ")
 	Integer add(Account account);
 
     /**
@@ -34,7 +34,7 @@ public interface AccountDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT id, account_name accountName, user_name userName, password, card_no cardNo, web_user_name webUserName, web_password webPassword, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_account WHERE ID=#{id} ")
+	@Select(" SELECT id,  name, user_name userName,user_id userId,bank_name bankName,card_number cardNumber , web_user_name webUserName, web_password webPassword, seg,remark, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_account WHERE ID=#{id} ")
 	Account get(String id);
 
 	/**

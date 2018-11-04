@@ -8,13 +8,15 @@
     <!--//get-->
     <update id="update" parameterType="com.wk.entity.Account">
         UPDATE wk.wk_account  SET update_time =  #{updateTime}
-        <if test="  accountName != null and  accountName != '' "> , account_name =  #{accountName}</if>
+        <if test="  name != null and  name != '' "> , name =  #{name}</if>
         <if test="  userName != null and  userName != '' "> , user_name =  #{userName}</if>
-        <if test="  password != null and  password != '' "> , password =  #{password}</if>
-        <if test="  cardNo != null and  cardNo != '' "> , card_no =  #{cardNo}</if>
+        <if test="  userId != null and  userId != '' "> , user_id =  #{userId}</if>
+        <if test="  bankName != null and  bankName != '' "> , bank_name =  #{bankName}</if>
+        <if test="  cardNumber != null and  cardNumber != '' "> , card_number =  #{cardNumber}</if>
         <if test="  webUserName != null and  webUserName != '' "> , web_user_name =  #{webUserName}</if>
         <if test="  webPassword != null and  webPassword != '' "> , web_password =  #{webPassword}</if>
         <if test="  seg != null and  seg != '' "> , seg =  #{seg}</if>
+        <if test="  remark != null and  remark != '' "> , remark =  #{remark}</if>
         <if test="  optId != null and  optId != '' "> , opt_id =  #{optId} </if>
         WHERE id=#{id}
 
@@ -23,12 +25,12 @@
 
 
     <select id="search" resultType="com.wk.entity.Account" parameterType="com.wk.entity.Account">
-        SELECT id, account_name accountName, user_name userName, password, card_no cardNo, web_user_name webUserName, web_password webPassword, seg, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_account
+        SELECT id, name , user_name userName, bank_name bankName, card_number cardNumber, web_user_name webUserName, web_password webPassword, seg,remark, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_account
         <where>
-            <if test="  accountName != null and  accountName != '' "> AND  account_name =  #{accountName}</if>
+            <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
             <if test="  userName != null and  userName != '' "> AND  user_name =  #{userName}</if>
-            <if test="  password != null and  password != '' "> AND  password =  #{password}</if>
-            <if test="  cardNo != null and  cardNo != '' "> AND  card_no =  #{cardNo}</if>
+            <if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>
+            <if test="  cardNumber != null and  cardNumber != '' "> AND  card_number =  #{cardNumber}</if>
             <if test="  webUserName != null and  webUserName != '' "> AND  web_user_name =  #{webUserName}</if>
             <if test="  webPassword != null and  webPassword != '' "> AND  web_password =  #{webPassword}</if>
             <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
@@ -40,11 +42,11 @@
             <if test="searchKey != null and searchKey != '' ">
                 AND
                 (
-                account_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
                 user_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
-                card_no LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                card_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
         </where>  ORDER BY seg DESC, update_time DESC  limit #{pageStart},#{pageSize}
@@ -53,10 +55,10 @@
     <select id="searchCount" resultType="java.lang.Integer" parameterType="com.wk.entity.Account">
         SELECT COUNT(*) FROM wk.wk_account
         <where>
-            <if test="  accountName != null and  accountName != '' "> AND  account_name =  #{accountName}</if>
+            <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
             <if test="  userName != null and  userName != '' "> AND  user_name =  #{userName}</if>
-            <if test="  password != null and  password != '' "> AND  password =  #{password}</if>
-            <if test="  cardNo != null and  cardNo != '' "> AND  card_no =  #{cardNo}</if>
+            <if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>
+            <if test="  cardNumber != null and  cardNumber != '' "> AND  card_number =  #{cardNumber}</if>
             <if test="  webUserName != null and  webUserName != '' "> AND  web_user_name =  #{webUserName}</if>
             <if test="  webPassword != null and  webPassword != '' "> AND  web_password =  #{webPassword}</if>
             <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
@@ -68,11 +70,11 @@
             <if test="searchKey != null and searchKey != '' ">
                 AND
                 (
-                account_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
                 user_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
-                card_no LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                card_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
         </where>

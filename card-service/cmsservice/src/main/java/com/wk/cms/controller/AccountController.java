@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 账户信息控制类
+ * 资金账户信息控制类
  */
 @RestController
 @RequestMapping("/account")
@@ -49,7 +49,7 @@ public class AccountController extends  BaseController{
         return responseGet(account,this.getClass());
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @RequestMapping(value = "/search",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public BaseResponse search(Account account){

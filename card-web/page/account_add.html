@@ -3,7 +3,7 @@
 <!-- Head -->
 <head>
     <meta charset="utf-8" />
-    <title>新增POS机信息</title>
+    <title>新增资金账户信息</title>
 
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -56,7 +56,7 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
                                 <div class="widget-header ">
-                                    <span class="widget-caption">新增POS信息</span>
+                                    <span class="widget-caption">新增资金账户信息</span>
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize">
                                             <i class="fa fa-expand"></i>
@@ -73,11 +73,8 @@
                                     <!--表单开始-->
                                     <form class="layui-form layui-form-pane"  onsubmit="return false;">
 
-
-
-
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">名称</label>
+                                            <label class="layui-form-label">资金账户名称</label>
                                             <div class="layui-input-block">
                                                 <input type="text" name="name" required  lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
                                             </div>
@@ -85,10 +82,10 @@
 
 
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">入账人</label>
+                                            <label class="layui-form-label">姓名</label>
                                             <div class="layui-input-block">
-                                                <input type="text" name="importUserName" required  lay-verify="required" placeholder="点击选择人员" autocomplete="off" class="layui-input" readonly>
-                                                <input type="hidden" name="importUserId">
+                                                <input type="text" name="userName" required  lay-verify="required" placeholder="点击选择人员" autocomplete="off" class="layui-input" readonly>
+                                                <input type="hidden" name="userId">
                                             </div>
                                         </div>
 
@@ -119,11 +116,18 @@
                                         <!--</div>-->
 
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">费率</label>
+                                            <label class="layui-form-label">网银登录名</label>
                                             <div class="layui-input-inline">
-                                                <input type="text" name="rateId" required  lay-verify="required" placeholder="请输入小数" autocomplete="off" class="layui-input">
+                                                <input type="text" name="webUserName" required  lay-verify="required" placeholder="请输入网银登录名" autocomplete="off" class="layui-input">
                                             </div>
-                                            <div class="layui-form-mid layui-word-aux">%(如 0.04%，则输入0.04)</div>
+                                            <div class="layui-form-mid layui-word-aux"></div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">网银登录密码</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="webPassword" required  lay-verify="required" placeholder="请输入网银登录密码" autocomplete="off" class="layui-input">
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux"></div>
                                         </div>
 
                                         <div class="layui-form-item">
@@ -189,7 +193,7 @@
     <script src="../assets/js/datatable/datatables-init.js"></script>
     <script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
     <script src="../assets/js/bootbox/bootbox.js"></script>
-    <script src="../js/pos_add.js"></script>
+    <script src="../js/account_add.js"></script>
     <script>
         // InitiateSimpleDataTable.init();
         // InitiateEditableDataTable.init();
