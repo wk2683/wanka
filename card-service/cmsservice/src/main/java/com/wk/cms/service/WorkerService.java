@@ -60,5 +60,11 @@ public interface WorkerService {
 	 */
 	String uploadImg(MultipartFile file, String userId,String id) ;
 
-
+	/**
+	 * 登录
+	 * @param userName
+	 * @param password
+	 * @return
+	 */
+    Worker login(String userName, String password);
 }

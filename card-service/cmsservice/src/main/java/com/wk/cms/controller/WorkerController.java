@@ -98,5 +98,18 @@ public class WorkerController extends  BaseController {
         FileUtil.readImg(workerSourcePath,path,response);
     }
 
+    /**
+     * 登录
+     * @param userName
+     * @param password
+     * @return
+     */
+    @RequestMapping(value = "/login",method = RequestMethod.GET  )
+    @ResponseBody
+    @CrossOrigin
+    public BaseResponse login(@RequestParam(value = "userName") String userName , @RequestParam(value = "password") String password ){
+        Worker worker = workerService.login(userName,password);
+        return  responseGet(worker,this.getClass());
+    }
 
 }

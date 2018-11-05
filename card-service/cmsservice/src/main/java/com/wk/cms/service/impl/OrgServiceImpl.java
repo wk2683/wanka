@@ -30,8 +30,11 @@ public class OrgServiceImpl implements OrgService   {
     @Override
     public Integer delete(String id) {
         //删除所有子组织
+        Integer affectRows = orgDao.deleteByParentId(id);
         return orgDao.delete(id);
     }
+
+
 
     @Override
     public Org get(String id) {

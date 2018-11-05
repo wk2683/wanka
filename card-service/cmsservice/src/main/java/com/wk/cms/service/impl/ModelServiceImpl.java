@@ -66,4 +66,17 @@ public class ModelServiceImpl implements ModelService {
     public Integer searchCount(Model model) {
         return modelDao.searchCount(model);
     }
+
+    @Override
+    public List<Model> searchByRoleId(String roleId) {
+
+        List<Model> models = modelDao.searchByRoleId(roleId);
+        for(Model m : models){
+            List<Permission> permissions = permissionDao.getPermissionByInRole(m.getId(),roleId);
+            if(permissions != null && permissions.size()>0){
+                m.setPermissionList(permissions);
+            }
+        }
+        return models;
+    }
 }

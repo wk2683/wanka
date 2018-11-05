@@ -28,7 +28,7 @@ public class ModelController extends  BaseController {
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse delete(String id){
+    public BaseResponse delete(@RequestParam("id") String id){
         Integer affectRow = modelService.delete(id);
         return responseDelete(affectRow,id,this.getClass());
     }
@@ -44,7 +44,7 @@ public class ModelController extends  BaseController {
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse get(String id){
+    public BaseResponse get(@RequestParam("id")String id){
         Model model = modelService.get(id);
         return responseGet(model,this.getClass());
     }
@@ -54,10 +54,17 @@ public class ModelController extends  BaseController {
     @CrossOrigin
     public BaseResponse search(@RequestBody Model model){
         List<Model> models = modelService.search(model);
-        Integer total = 0;
-//        if(model.getPage()==1){
-//            total = modelService.searchCount(model);
-//        }
-        return responseSearch(models,total,model, this.getClass());
+        return responseSearch(models,0,model, this.getClass());
     }
+
+
+    //--------------------------以上是基本操作-----------------------
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin
+    public BaseResponse searchByRoleId(@RequestParam("roleId")String roleId){
+        List<Model> models = modelService.searchByRoleId(roleId);
+        return responseSearch(models,0,null, this.getClass());
+    }
+
 }

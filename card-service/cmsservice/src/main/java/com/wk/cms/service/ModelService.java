@@ -44,4 +44,11 @@ public interface ModelService {
 	List<Model> search(Model model);
 
 	Integer searchCount(Model model);
+
+	/**
+	 * 查角色下的模块和权限
+	 * @param roleId
+	 * @return
+	 */
+    List<Model> searchByRoleId(String roleId);
 }

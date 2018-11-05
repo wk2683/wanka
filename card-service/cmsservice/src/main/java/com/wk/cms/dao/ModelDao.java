@@ -56,4 +56,7 @@ public interface ModelDao {
 	 * @return 返回搜索到的记录总数
 	 */
 	Integer searchCount(Model model);
+
+
+    List<Model> searchByRoleId(String roleId);
 }

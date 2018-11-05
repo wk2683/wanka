@@ -2,6 +2,7 @@ package com.wk.cms.service.impl;
 
 import com.wk.cms.dao.WorkerDao;
 import com.wk.cms.service.WorkerService;
+import com.wk.cms.util.EncryptUtil;
 import com.wk.cms.util.FileUtil;
 import com.wk.entity.Worker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public String  add(Worker worker) {
         worker.addInit();
+        //密码加密
+        String pwd = EncryptUtil.string2MD5(worker.getPassword().trim());
+        worker.setPassword(pwd);
+
         Integer addRow = workerDao.add(worker);
         if(addRow>0){
             return worker.getId();
@@ -54,6 +59,10 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public Integer update(Worker worker) {
         worker.updateInit();
+        //密码加密
+        String pwd = EncryptUtil.string2MD5(worker.getPassword().trim());
+        worker.setPassword(pwd);
+
         return workerDao.update(worker);
     }
 
@@ -77,7 +86,21 @@ public class WorkerServiceImpl implements WorkerService {
         return FileUtil.uploadImg(file,workerSourcePath,id);
     }
 
-
+    @Override
+    public Worker login(String userName, String password) {
+        List<Worker> workers = workerDao.getByName(userName);
+        Worker worker = null;
+        String pwd = EncryptUtil.string2MD5(password.trim());
+        if(workers != null && workers.size()>0 ){
+            for(Worker w : workers){
+                if(w.getPassword().equals(pwd)){
+                    worker = w;
+                    break;
+                }
+            }
+        }
+        return worker;
+    }
 
 
 }

@@ -56,4 +56,7 @@ public interface WorkerDao {
 	 * @return
 	 */
 	Integer searchCount(Worker worker);
+
+	@Select(" SELECT id, org_id orgId, role_id roleId, user_name userName,password, name, id_number idNumber, phone, weixin, font_img fontImg, after_img afterImg, home_img homeImg, remark, seg,create_time createTime, update_time updateTime, opt_id optId   FROM wk.wk_worker WHERE user_name=#{userName} ")
+	List<Worker> getByName(String userName);
 }

@@ -57,4 +57,20 @@ public interface OrgDao {
 	 * @return 返回搜索到的记录总数
 	 */
 	Integer searchCount(Org org);
+
+	/**
+	 * 查询所有子组织
+	 * @param orgId
+	 * @return
+	 */
+	@Select(" SELECT  id,name,parents,parent_id parentId,remark,seg,create_time createTime,update_time updateTime,opt_id optId   FROM wk.wk_org " +
+			"WHERE parents LIKE LIKE CONCAT(CONCAT('%', #{orgId}),'%') ")
+	List<Org> getByParentId(String orgId);
+
+	/**
+	 * 删除所有子组织
+	 * @param orgId
+	 */
+	@Delete(" DELETE FROM parents LIKE LIKE CONCAT(CONCAT('%', #{orgId}),'%') ")
+	Integer deleteByParentId(String orgId);
 }

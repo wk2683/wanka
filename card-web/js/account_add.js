@@ -35,7 +35,7 @@ layui.use(['form','layer','upload'],function () {
         layer.open({
             type:2,
             title:'选择用户',
-            content: common.url.page_root + common.url.model.customer.page.selectList,
+            content: common.url.page_root + common.url.model.worker.page.selectList,
             area:[ ww+'px',hh+'px'],
             btn:['确定'],
             yes:function (index, layero) {
