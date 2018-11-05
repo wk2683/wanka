@@ -1,4 +1,9 @@
 
+nohup java -jar -Dspring.config.location=D:\Server\Root\config\cmsservice\application.yml  D:\Server\Root\cmsservice-0.0.1-SNAPSHOT.jar > D:\Server\Root\log\cmsservice\catalina.out 2>&1 &
+
+nohup java -jar -Dspring.config.location=D:\Server\Root\config\eurakserver\application.yml  D:\Server\Root\eurakserver-0.0.1-SNAPSHOT.jar > D:\Server\Root\log\eurakserver\catalina.out 2>&1 &
+
+
 模块
 	增加 OK
 	删除 OK
