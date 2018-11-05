@@ -59,7 +59,7 @@ public class ModelController extends  BaseController {
 
 
     //--------------------------以上是基本操作-----------------------
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @RequestMapping(value = "/searchByRoleId",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public BaseResponse searchByRoleId(@RequestParam("roleId")String roleId){

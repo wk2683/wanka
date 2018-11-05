@@ -283,6 +283,12 @@ layui.use(['form','table','layer'],function () {
             pageData.openAddModel(id,name);
         });
 
+        //新增模块按钮事件
+        $(document.body).on('click','.add_model_btn',function () {
+            var add_url = common.url.page_root + common.url.model.model.page.add;
+            window.open(add_url);
+        });
+
         //修改模块按钮事件
         $(document.body).on('click','.update_model_btn',function () {
             var id = $(this).data('id');

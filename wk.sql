@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 04/11/2018 10:31:33
+ Date: 05/11/2018 22:05:44
 */
 
 SET NAMES utf8mb4;
@@ -23,10 +23,9 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `wk_account`;
 CREATE TABLE `wk_account`  (
   `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '资金账户名称',
-  `user_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '员工姓名',
-  `user_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '员工ID',
-  `bank_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行名称',
+  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `user_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `bank_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `card_number` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `web_user_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `web_password` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -41,9 +40,7 @@ CREATE TABLE `wk_account`  (
 -- ----------------------------
 -- Records of wk_account
 -- ----------------------------
-INSERT INTO `wk_account` VALUES ('1f904b33-5215-4fdd-9e64-cfde3ab61edf', '中行103', '李四', '0b05b5e1-73b1-452f-ab1f-f1e4514d8c29', '中国银行', '1561561515615', NULL, NULL, 2, '远东传动', '2018-11-04 08:33:41', '2018-11-04 08:33:41', NULL);
-INSERT INTO `wk_account` VALUES ('6e4b3f3d-ac34-437e-8dca-8e187fe2d5f8', '工行105', '赵志国', 'c32900e7-49d2-47b5-845e-6c620f383cb4', '农业银行', '05616156156', NULL, NULL, 2, ' 地借助', '2018-11-04 08:34:39', '2018-11-04 08:34:39', NULL);
-INSERT INTO `wk_account` VALUES ('fjwoafjoweij', 'fiewjf', 'jfwiejf', NULL, 'jioji', 'o', 'ioj', 'oij', 21, 'abc', '2018-11-04 08:02:07', '2018-11-04 08:02:10', 'jio');
+INSERT INTO `wk_account` VALUES ('fjwoafjoweij', 'fiewjf', 'jfwiejf', 'jioji', 'o', 'ioj', 'oij', 21, NULL, '2018-11-05 14:06:08', '2018-11-05 14:06:05', 'jio');
 
 -- ----------------------------
 -- Table structure for wk_bank
@@ -101,9 +98,9 @@ CREATE TABLE `wk_card`  (
 -- Records of wk_card
 -- ----------------------------
 INSERT INTO `wk_card` VALUES ('22b4f34e-827b-4dd0-af0d-15f7151b1dec', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '中行', '张三', '165156', '1651', '中国银行', '515641561', '132', 5, 15, 50000.00, 20000.00, 0.02, 20.00, 0.06, 1, '161 51 51 561 6 ', 2, '2018-11-02 08:41:45', '2018-11-02 08:41:45', NULL);
-INSERT INTO `wk_card` VALUES ('55a287e3-2191-45b6-ae84-2584b36def2c', '21b2883c-a8a7-4fd5-a872-93dddf7dd1aa', 1, '招商信用卡', '张无忌', '4515684615', '1325648615', '工商银行', '646166', '123465456', 5, 20, 50000.00, 25000.00, 0.03, 20.00, 0.05, NULL, '博采众家之长', 2, '2018-11-04 06:17:19', '2018-11-04 06:17:19', NULL);
-INSERT INTO `wk_card` VALUES ('9d9091c7-58bc-40e4-8b3b-84863d41ef79', '0b05b5e1-73b1-452f-ab1f-f1e4514d8c29', 1, '中行', '张三', '156156', '1561', '农业银行', '651', '516', 156, 165, 15000.00, 5000.00, 0.03, 20.00, 0.06, 1, 'awf \n \ne地\n脸', 2, '2018-11-02 11:21:37', '2018-11-04 06:15:07', NULL);
+INSERT INTO `wk_card` VALUES ('9d9091c7-58bc-40e4-8b3b-84863d41ef79', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '中行', '张三', '156156', '1561', '农业银行', '651', '516', 156, 165, 15000.00, 5000.00, 0.03, 20.00, 0.06, 1, 'awf \n \ne地\n脸', 2, '2018-11-02 11:21:37', NULL, NULL);
 INSERT INTO `wk_card` VALUES ('abe58281-b616-463e-b820-14db053c7d99', 'c2896645-ab6e-4813-88d6-662968edbe8b', 2, '中行', '张三', '156156', '1561', '中国银行', '651', '516', 156, 165, 15000.00, 5000.00, 0.03, 20.00, 0.06, 1, 'awf \n \ne地\n脸', 2, '2018-11-02 08:43:02', '2018-11-02 08:43:02', NULL);
+INSERT INTO `wk_card` VALUES ('fde56175-6d9a-4804-9b1e-ce31597809bd', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '中行', '张三', '16545615', '165156', '中国银行', '4165515', '15', 15, 15, 51515.00, 1510.00, 0.03, 30.00, 0.60, 1, '216 1256 165 156 ', 1, '2018-11-02 08:38:26', '2018-11-02 08:38:26', NULL);
 
 -- ----------------------------
 -- Table structure for wk_customer
@@ -129,10 +126,8 @@ CREATE TABLE `wk_customer`  (
 -- ----------------------------
 -- Records of wk_customer
 -- ----------------------------
-INSERT INTO `wk_customer` VALUES ('0b05b5e1-73b1-452f-ab1f-f1e4514d8c29', '李四', '4549846', '13564875132', '284ea7b8-3699-493a-9520-e6b51e9a81bd', '656c1e0c-b422-428b-a00f-b9f2ae39ddf7/f48b3e7c-b086-49ac-b173-243f313cb71f.jpg', '656c1e0c-b422-428b-a00f-b9f2ae39ddf7/e539de2c-4bf8-4ce4-a167-b00aad9a5181.jpg', '656c1e0c-b422-428b-a00f-b9f2ae39ddf7/5d076639-5da4-4c46-83a9-24d3c6f8345c.jpg', 'fweaefew', 8, '2018-11-04 02:57:07', '2018-11-04 06:08:40', NULL);
-INSERT INTO `wk_customer` VALUES ('21b2883c-a8a7-4fd5-a872-93dddf7dd1aa', '李文文', '1566156', '15615315', '3deb04b6-6690-46fe-9f6a-90406055955e', '44fdb80e-8509-4641-aec1-c791b928b49c/c6110735-6570-4a48-a59f-799358e5d8c6.jpg', '44fdb80e-8509-4641-aec1-c791b928b49c/ae40d0a5-a6ce-46de-855d-0274ce03b90f.jpg', '44fdb80e-8509-4641-aec1-c791b928b49c/297b8b12-8bf5-4f31-be2f-8123d9249e51.jpg', '零散款式', 5, '2018-11-04 05:03:04', '2018-11-04 05:03:04', NULL);
+INSERT INTO `wk_customer` VALUES ('', NULL, '1', '1', '1', '11', '1', '1', '1', 1, '2018-11-01 08:45:09', '2018-11-01 08:45:11', NULL);
 INSERT INTO `wk_customer` VALUES ('c2896645-ab6e-4813-88d6-662968edbe8b', 'xxxx', '16165', '131656', '3deb04b6-6690-46fe-9f6a-90406055955e', '05f85c8d-9625-495d-9042-04fd924585d5/77272e6f-abe3-4e90-9b1e-bc699a4702e0.jpg', '05f85c8d-9625-495d-9042-04fd924585d5/dbd10184-8138-41f0-a49c-0f09b7d59f06.jpg', '05f85c8d-9625-495d-9042-04fd924585d5/83e2d06c-be61-4a18-84e7-dcad8f9279d8.jpg', 'ffewefwafew', 2, '2018-11-01 07:17:52', '2018-11-01 07:17:52', NULL);
-INSERT INTO `wk_customer` VALUES ('c32900e7-49d2-47b5-845e-6c620f383cb4', '赵志国', '456486561', '5156485156', 'c822257f-f561-4ba9-924b-50bc15156dec', '666cda3b-66f6-4a70-89e6-938e2c8ef0c4/474f02f8-3f62-4c64-af4b-fbff4e0f01ac.jpg', '666cda3b-66f6-4a70-89e6-938e2c8ef0c4/2b254f9f-08bf-4cb3-9589-dc278471de93.jpg', '666cda3b-66f6-4a70-89e6-938e2c8ef0c4/5ea2189e-5dc7-4822-ba42-5f585c6eeed3.jpg', '发我额驸 仍', 5, '2018-11-04 05:07:20', '2018-11-04 05:07:20', NULL);
 
 -- ----------------------------
 -- Table structure for wk_model
@@ -153,10 +148,15 @@ CREATE TABLE `wk_model`  (
 -- ----------------------------
 -- Records of wk_model
 -- ----------------------------
-INSERT INTO `wk_model` VALUES ('20454919-0bd3-465a-abde-eab630537f7d', '组织模块', NULL, '组织管理', 1, '2018-10-30 21:09:11', '2018-10-30 21:09:11', NULL);
-INSERT INTO `wk_model` VALUES ('8c7b81f5-a5b5-4dc8-bc19-14b382f64205', '员工管理', NULL, '员工管理，可以处理员工的添加，删除，修改，查询等待操作', 100, '2018-11-04 03:40:42', '2018-11-04 03:40:42', NULL);
-INSERT INTO `wk_model` VALUES ('c0755d36-1cb6-4b6a-afcf-a7dac5aef4e7', '订单模块', NULL, 'fafew fwef ef we', 1, '2018-10-31 09:05:18', '2018-11-03 22:30:56', NULL);
-INSERT INTO `wk_model` VALUES ('fe208d18-fd5a-4315-8ae4-3270d016e0a2', '客户模块', NULL, '客户模块是管理客户的操作', 1, '2018-11-03 21:14:23', '2018-11-04 03:47:12', NULL);
+INSERT INTO `wk_model` VALUES ('24c2a625-18ab-495c-885b-ae06f539a1e9', '组织管理', NULL, '系统组织树结构', 2, '2018-11-05 21:01:05', '2018-11-05 21:01:05', NULL);
+INSERT INTO `wk_model` VALUES ('5ca012d4-942b-46e7-9fa1-d4b500f51cb7', '信用卡管理', NULL, '信用卡管理模块', 40, '2018-11-05 21:36:05', '2018-11-05 21:36:05', NULL);
+INSERT INTO `wk_model` VALUES ('906b3ac8-b30f-47c8-8454-641bd02d57b8', '客户管理', NULL, '客户管理，增删查改', 10, '2018-11-05 21:24:56', '2018-11-05 21:25:11', NULL);
+INSERT INTO `wk_model` VALUES ('9ff50792-b092-4f1e-b5b9-9dce75651eff', '资金账户管理', NULL, '资金账户管理模块', 50, '2018-11-05 21:41:13', '2018-11-05 21:41:13', NULL);
+INSERT INTO `wk_model` VALUES ('b34bd8ad-48c6-452d-b743-b9cb8835ac33', '员工管理', NULL, '员工信息列表管理，增删查改', 4, '2018-11-05 21:05:17', '2018-11-05 21:05:17', NULL);
+INSERT INTO `wk_model` VALUES ('b681f67b-75dc-4734-9479-aa7fdfa4ec3a', '订单管理', NULL, '订单管理模块', 60, '2018-11-05 21:48:25', '2018-11-05 21:48:25', NULL);
+INSERT INTO `wk_model` VALUES ('d56a4fa3-0e85-4600-b9ad-b585a9cd4051', '角色管理', NULL, '角色的增删查改', 3, '2018-11-05 21:03:16', '2018-11-05 21:03:16', NULL);
+INSERT INTO `wk_model` VALUES ('e689a2b9-62d8-460f-819c-0ac53d041662', 'POS机管理', NULL, 'POS机管理，增删查改', 20, '2018-11-05 21:31:05', '2018-11-05 21:31:05', NULL);
+INSERT INTO `wk_model` VALUES ('f8d99f8e-fd37-4f7f-b732-7a56e5d028a5', '模块管理', NULL, '系统的各个模块定义', 1, '2018-11-05 20:45:11', '2018-11-05 20:45:11', NULL);
 
 -- ----------------------------
 -- Table structure for wk_opt_type
@@ -285,7 +285,6 @@ CREATE TABLE `wk_org`  (
 -- ----------------------------
 -- Records of wk_org
 -- ----------------------------
-INSERT INTO `wk_org` VALUES ('017686f2-f2d5-4a01-9fbb-26226cab6a10', '总公司4', '0', '0', '负责政府部门对接工作', 2, '2018-11-04 04:34:30', '2018-11-04 04:34:58', NULL);
 INSERT INTO `wk_org` VALUES ('1', '总公司1', '0', '0', 'jfweoifjewiof', 1, '2018-10-16 23:02:18', '2018-10-16 23:02:18', '8f269ec7-6ad4-48cc-a6d8-42a9d94ccd23');
 INSERT INTO `wk_org` VALUES ('2', '一级分公司1', '0,1', '1', '12', 1, '2018-10-23 01:12:03', '2018-10-23 01:12:03', '8f269ec7-6ad4-48cc-a6d8-42a9d94ccd23');
 INSERT INTO `wk_org` VALUES ('3', '一级分公司2', '0,1', '1', '12', 1, '2018-10-24 00:38:47', '2018-10-24 00:38:47', '8f269ec7-6ad4-48cc-a6d8-42a9d94ccd23');
@@ -293,7 +292,6 @@ INSERT INTO `wk_org` VALUES ('4', '总公司2', '0', '0', '12', 1, '2018-10-23 2
 INSERT INTO `wk_org` VALUES ('5', '一级分公司21', '0,4', '4', '12', 1, '2018-10-24 22:24:25', '2018-10-24 22:24:25', '8f269ec7-6ad4-48cc-a6d8-42a9d94ccd23');
 INSERT INTO `wk_org` VALUES ('5a23a6d9-6d6b-4a1e-9785-a57677bb44bf', '二级分公司', '0,1,3', '3', '工地', 1, '2018-10-28 20:26:00', '2018-10-28 20:26:00', NULL);
 INSERT INTO `wk_org` VALUES ('6', '一级分公司22', '0,4', '4', '12', 1, '2018-10-24 22:29:05', '2018-10-24 22:29:05', '8f269ec7-6ad4-48cc-a6d8-42a9d94ccd23');
-INSERT INTO `wk_org` VALUES ('e1632585-a80e-4108-afd5-91b5f47c6c24', '华南分部1', '0,017686f2-f2d5-4a01-9fbb-26226cab6a10', '017686f2-f2d5-4a01-9fbb-26226cab6a10', '华南地区业务处理', 1, '2018-11-04 04:36:03', '2018-11-04 04:36:24', NULL);
 
 -- ----------------------------
 -- Table structure for wk_permission
@@ -316,12 +314,68 @@ CREATE TABLE `wk_permission`  (
 -- ----------------------------
 -- Records of wk_permission
 -- ----------------------------
-INSERT INTO `wk_permission` VALUES ('2', '20454919-0bd3-465a-abde-eab630537f7d', 'q', '1', 'page', '1', 1, '2018-10-31 00:11:25', '2018-10-31 00:11:28', '1');
-INSERT INTO `wk_permission` VALUES ('3', '20454919-0bd3-465a-abde-eab630537f7d', 'hih', 'hiuhiu', 'click', 'huihu', 2, '2018-10-31 00:11:56', '2018-10-31 00:11:59', '1');
-INSERT INTO `wk_permission` VALUES ('839556e3-a6b0-42f4-90a5-0c17b5b5a92f', '8c7b81f5-a5b5-4dc8-bc19-14b382f64205', '新增员工', 'page/worker_add.html', NULL, '添加员工页面及操作', 1, '2018-11-04 03:48:54', '2018-11-04 03:48:54', NULL);
-INSERT INTO `wk_permission` VALUES ('9b455f3d-7a6b-480b-bbf0-7bd7037c649d', 'fe208d18-fd5a-4315-8ae4-3270d016e0a2', '客户管理', 'page/customer_manager.html', 'page', '用户列表页面', 1, '2018-11-03 21:15:09', '2018-11-04 04:20:41', NULL);
-INSERT INTO `wk_permission` VALUES ('ae0d0095-f1ee-44d4-9f85-371e599e1b76', '8c7b81f5-a5b5-4dc8-bc19-14b382f64205', '员工管理', 'page/worker_manager.html', NULL, '员工的新增、删除、修改、查询等待操作', 1, '2018-11-04 03:52:55', '2018-11-04 03:52:55', NULL);
-INSERT INTO `wk_permission` VALUES ('c0a6ec88-9a8b-454d-8ee1-966660487712', 'c0755d36-1cb6-4b6a-afcf-a7dac5aef4e7', '新增', 'page/order_add.html', NULL, '生成订单', 2, '2018-11-03 22:31:53', '2018-11-03 22:31:53', NULL);
+INSERT INTO `wk_permission` VALUES ('00406da9-5209-4963-a69b-95e034ec8bcf', 'e689a2b9-62d8-460f-819c-0ac53d041662', 'POS机删除', 'pos/delete', 'click', 'POS机删除 请求', 1, '2018-11-05 21:33:33', '2018-11-05 21:33:33', NULL);
+INSERT INTO `wk_permission` VALUES ('0823b3aa-6d77-4369-a5f5-3d816ab03ab1', '906b3ac8-b30f-47c8-8454-641bd02d57b8', '客户搜索', 'customer/search', 'click', '客户搜索请求', 1, '2018-11-05 22:00:07', '2018-11-05 22:00:07', NULL);
+INSERT INTO `wk_permission` VALUES ('0a680f3c-024a-49f2-b69b-63016bca024d', 'b681f67b-75dc-4734-9479-aa7fdfa4ec3a', '订单管理页面', 'page/order_manager.html', 'page', '订单管理页面', 60, '2018-11-05 21:48:57', '2018-11-05 21:48:57', NULL);
+INSERT INTO `wk_permission` VALUES ('0a909fd1-bcc9-4856-9d71-77bafca2d0e7', 'e689a2b9-62d8-460f-819c-0ac53d041662', 'POS机新增', 'pos/add', 'click', 'POS机新增请求', 1, '2018-11-05 21:32:43', '2018-11-05 21:32:43', NULL);
+INSERT INTO `wk_permission` VALUES ('0afeffce-4996-489a-bf6d-86a3d4121433', '24c2a625-18ab-495c-885b-ae06f539a1e9', '组织管理页面', 'page/org_manager.html', 'page', '组织树，增删查改', 1, '2018-11-05 21:01:51', '2018-11-05 21:01:51', NULL);
+INSERT INTO `wk_permission` VALUES ('0d531637-c37b-4269-b502-a13ef97a5968', '24c2a625-18ab-495c-885b-ae06f539a1e9', '组织修改', 'org/update', 'click', '组织修改请求', 12, '2018-11-05 21:21:11', '2018-11-05 21:21:11', NULL);
+INSERT INTO `wk_permission` VALUES ('19a68cf4-4592-4785-a9e5-0b6b359a6a63', 'b681f67b-75dc-4734-9479-aa7fdfa4ec3a', '订单删除', 'order/delete', 'click', '订单删除请求', 1, '2018-11-05 21:54:35', '2018-11-05 21:54:35', NULL);
+INSERT INTO `wk_permission` VALUES ('207b9351-e4f0-40fe-bd3a-1fdc3a3eda45', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33', '员工查询', 'worker/get', 'click', '查询一个员工信息', 1, '2018-11-05 21:14:14', '2018-11-05 21:14:14', NULL);
+INSERT INTO `wk_permission` VALUES ('27e876d0-0182-4be9-9a3d-0e0ac0306744', 'b681f67b-75dc-4734-9479-aa7fdfa4ec3a', '订单搜索', 'order/search', 'click', '订单搜索请求', 1, '2018-11-05 21:55:20', '2018-11-05 21:55:20', NULL);
+INSERT INTO `wk_permission` VALUES ('2981fe45-a18e-4e07-9e72-3859bfd64b11', 'b681f67b-75dc-4734-9479-aa7fdfa4ec3a', '订单新增页面', 'page/order_add.html', 'page', '订单新增页面', 50, '2018-11-05 21:52:54', '2018-11-05 21:52:54', NULL);
+INSERT INTO `wk_permission` VALUES ('29d3a02d-7bca-4195-a23c-ea8b443ceb75', 'e689a2b9-62d8-460f-819c-0ac53d041662', 'POS机新增页面', 'page/pos_add.html', 'page', 'POS机新增填写页面', 18, '2018-11-05 21:32:16', '2018-11-05 21:33:48', NULL);
+INSERT INTO `wk_permission` VALUES ('2db732bd-15f6-403f-bb66-1e97be1d31da', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33', '员工删除', 'worker/delete', 'click', '删除请求', 1, '2018-11-05 21:12:41', '2018-11-05 21:12:41', NULL);
+INSERT INTO `wk_permission` VALUES ('2faf78a7-fa11-4f3b-9999-5869f14491f6', 'f8d99f8e-fd37-4f7f-b732-7a56e5d028a5', '模块新增', 'model/add', 'click', '新增模块提交数据到后台的请求地址', 30, '2018-11-05 20:49:07', '2018-11-05 20:49:07', NULL);
+INSERT INTO `wk_permission` VALUES ('34b41684-73c4-408c-8c30-0273a3268a48', 'd56a4fa3-0e85-4600-b9ad-b585a9cd4051', '角色查询', 'role/get', 'click', '角色查询请求', 11, '2018-11-05 21:23:07', '2018-11-05 21:23:07', NULL);
+INSERT INTO `wk_permission` VALUES ('3528b554-2837-4127-ac39-4c8779c7b0c9', '906b3ac8-b30f-47c8-8454-641bd02d57b8', '客户新增页面', 'page/customer_add.html', 'page', '客户新增页面', 25, '2018-11-05 21:26:44', '2018-11-05 21:27:11', NULL);
+INSERT INTO `wk_permission` VALUES ('370c3f03-845c-4649-9954-3325716a807e', 'f8d99f8e-fd37-4f7f-b732-7a56e5d028a5', '模块新增页面', 'page/model_add.html', 'page', '添加一个新模块页面', 40, '2018-11-05 20:47:18', '2018-11-05 20:47:40', NULL);
+INSERT INTO `wk_permission` VALUES ('37a57edd-14c9-4541-88bc-784b06d740b6', '906b3ac8-b30f-47c8-8454-641bd02d57b8', '客户管理页面', 'page/customer_manager.html', 'page', '客户管理页面,增删查改', 30, '2018-11-05 21:25:54', '2018-11-05 21:25:54', NULL);
+INSERT INTO `wk_permission` VALUES ('37f3792e-b042-461f-81dd-bec5beae997f', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33', '员工新增页面', 'page/worker_add.html', 'page', '填写新加入员工信息页面', 28, '2018-11-05 21:06:25', '2018-11-05 21:16:31', NULL);
+INSERT INTO `wk_permission` VALUES ('42f17cc2-e502-4603-a573-be82d689e760', '5ca012d4-942b-46e7-9fa1-d4b500f51cb7', '信用卡管理页面', 'page/card_manager.html', 'page', '信用卡管理页面', 40, '2018-11-05 21:36:37', '2018-11-05 21:36:37', NULL);
+INSERT INTO `wk_permission` VALUES ('4315f908-1041-40e8-87b2-575cef86079e', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33', '员工搜索', 'worker/search', 'click', '搜索出列表', 11, '2018-11-05 21:15:08', '2018-11-05 21:15:08', NULL);
+INSERT INTO `wk_permission` VALUES ('48ff4405-63e6-44d5-9253-945333459cfa', '5ca012d4-942b-46e7-9fa1-d4b500f51cb7', '信用卡删除', 'card/delete', 'click', '信用卡删除请求', 1, '2018-11-05 21:38:14', '2018-11-05 21:38:14', NULL);
+INSERT INTO `wk_permission` VALUES ('495f9c39-cdeb-4a58-81da-c3ae715d8035', 'e689a2b9-62d8-460f-819c-0ac53d041662', 'POS机修改', 'pos/update', 'click', 'POS机修改', 1, '2018-11-05 21:33:08', '2018-11-05 21:33:08', NULL);
+INSERT INTO `wk_permission` VALUES ('4a0912b6-6182-4ca0-9fbf-aac7925f622e', 'f8d99f8e-fd37-4f7f-b732-7a56e5d028a5', '模块管理列表', 'page/model_manager.html', 'page', '显示所有的模块及模块对应的权限页面', 50, '2018-11-05 20:46:27', '2018-11-05 20:46:27', NULL);
+INSERT INTO `wk_permission` VALUES ('5b9f3ef1-19dc-48d1-9f53-4db964bf4739', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33', '员工详情信息', 'page/worker_detail.html', 'click', '详细信息页面，只可查看', 24, '2018-11-05 21:09:15', '2018-11-05 21:16:50', NULL);
+INSERT INTO `wk_permission` VALUES ('5d310b96-1c7b-4472-90c6-47ecbcf2eb44', 'd56a4fa3-0e85-4600-b9ad-b585a9cd4051', '角色管理页面', 'page/role_manager.html', 'page', '角色的增删查改', 1, '2018-11-05 21:03:58', '2018-11-05 21:03:58', NULL);
+INSERT INTO `wk_permission` VALUES ('5e72ded9-78b4-42a9-bb67-9e06b80f32ef', '9ff50792-b092-4f1e-b5b9-9dce75651eff', '资金账户搜索', 'account/search', 'click', '资金账户信息搜索请求', 1, '2018-11-05 21:46:50', '2018-11-05 21:46:50', NULL);
+INSERT INTO `wk_permission` VALUES ('60924bf9-862c-4ae5-9e19-fcaf90864a22', '906b3ac8-b30f-47c8-8454-641bd02d57b8', '客户新增', 'customer/add', 'click', '客户新增请求', 10, '2018-11-05 21:27:49', '2018-11-05 21:27:49', NULL);
+INSERT INTO `wk_permission` VALUES ('60ca75cd-45ec-4e36-b606-5618125f40db', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33', '员工修改页面', 'page/worker_update.html', 'page', '填写修改员工信息页面', 26, '2018-11-05 21:10:56', '2018-11-05 21:16:42', NULL);
+INSERT INTO `wk_permission` VALUES ('721470d6-8325-47b5-a0e1-e6ada4b0a5c7', '5ca012d4-942b-46e7-9fa1-d4b500f51cb7', '信用卡修改', 'card/update', 'click', '信用卡修改', 1, '2018-11-05 21:38:43', '2018-11-05 21:38:43', NULL);
+INSERT INTO `wk_permission` VALUES ('72da503e-9dc2-4f0b-b9d7-01307ef48afe', 'e689a2b9-62d8-460f-819c-0ac53d041662', 'POS机管理页面', 'page/pos_manager.html', 'page', 'POS机管理页面', 20, '2018-11-05 21:31:39', '2018-11-05 21:31:39', NULL);
+INSERT INTO `wk_permission` VALUES ('785eaa24-48da-4a5b-97d6-baaebe89c146', 'f8d99f8e-fd37-4f7f-b732-7a56e5d028a5', '模块删除', 'model/delete', 'click', '删除请求后台地址', 33, '2018-11-05 20:56:39', '2018-11-05 20:56:39', NULL);
+INSERT INTO `wk_permission` VALUES ('7a5be87d-0203-47de-b3e4-bd81e6c2e963', '9ff50792-b092-4f1e-b5b9-9dce75651eff', '资金账户修改', 'account/update', 'click', '资金账户修改', 1, '2018-11-05 21:45:38', '2018-11-05 21:45:38', NULL);
+INSERT INTO `wk_permission` VALUES ('8151b8eb-b266-4b3c-a2f4-4f8eb9fd6ffd', '24c2a625-18ab-495c-885b-ae06f539a1e9', '组织删除', 'org/delete', 'click', '组织删除', 13, '2018-11-05 21:21:34', '2018-11-05 21:21:34', NULL);
+INSERT INTO `wk_permission` VALUES ('86da73e7-c991-41c2-a2a9-423e5ea582da', '906b3ac8-b30f-47c8-8454-641bd02d57b8', '客户信息修改', 'customer/update', 'click', '客户信息修改请求', 11, '2018-11-05 21:29:37', '2018-11-05 21:29:37', NULL);
+INSERT INTO `wk_permission` VALUES ('89aed3d8-25d5-4d7f-ab40-3ae2287ec91b', 'b681f67b-75dc-4734-9479-aa7fdfa4ec3a', '订单查询', 'order/get', 'click', '订单查询请求', 1, '2018-11-05 21:54:56', '2018-11-05 21:54:56', NULL);
+INSERT INTO `wk_permission` VALUES ('8e0685f7-1619-44cf-8aaf-13322418eb24', '9ff50792-b092-4f1e-b5b9-9dce75651eff', '资金账户新增', 'account/add', 'click', '资金账户新增请求', 1, '2018-11-05 21:44:48', '2018-11-05 21:44:48', NULL);
+INSERT INTO `wk_permission` VALUES ('8eebc6ca-7a36-4c6e-8eb6-b08bce6283ab', '24c2a625-18ab-495c-885b-ae06f539a1e9', '组织查询', 'org/get', 'click', '组织查询', 14, '2018-11-05 21:22:04', '2018-11-05 21:22:04', NULL);
+INSERT INTO `wk_permission` VALUES ('9570f4b8-4320-411a-9017-7b65eab7881d', 'e689a2b9-62d8-460f-819c-0ac53d041662', 'POS机搜索', 'pos/search', 'click', 'POS机搜索', 1, '2018-11-05 21:34:31', '2018-11-05 21:34:31', NULL);
+INSERT INTO `wk_permission` VALUES ('990c3ec0-5740-4717-9d8c-03bc80b7bf07', '5ca012d4-942b-46e7-9fa1-d4b500f51cb7', '信用卡搜索', 'card/search', 'click', '信用卡搜索', 1, '2018-11-05 21:40:14', '2018-11-05 21:40:14', NULL);
+INSERT INTO `wk_permission` VALUES ('9c37b33b-98cd-4c0d-a88f-49c20e785f3f', '906b3ac8-b30f-47c8-8454-641bd02d57b8', '客户查询', 'customer/get', 'click', '客户查询请求', 1, '2018-11-05 21:59:42', '2018-11-05 21:59:42', NULL);
+INSERT INTO `wk_permission` VALUES ('a0e92d37-dbe6-4d5c-8731-ea234a6bad03', '24c2a625-18ab-495c-885b-ae06f539a1e9', '组织搜索', 'org/search', 'click', '组织搜索', 15, '2018-11-05 21:22:30', '2018-11-05 21:22:30', NULL);
+INSERT INTO `wk_permission` VALUES ('a1f4782a-91b6-4a13-9bfb-7bcacb9bb7ed', '906b3ac8-b30f-47c8-8454-641bd02d57b8', '客户删除', 'customer/delete', 'click', '客户删除请求', 1, '2018-11-05 21:59:17', '2018-11-05 21:59:17', NULL);
+INSERT INTO `wk_permission` VALUES ('a22ad731-3aea-471f-9f6f-77c736c569cb', '5ca012d4-942b-46e7-9fa1-d4b500f51cb7', '信用卡新增页面', 'page/card_add.html', 'page', '信用卡管理新增页面', 38, '2018-11-05 21:37:10', '2018-11-05 21:37:10', NULL);
+INSERT INTO `wk_permission` VALUES ('a51ccb15-0b06-4e91-b42d-89047e488412', '5ca012d4-942b-46e7-9fa1-d4b500f51cb7', '信用卡新增', 'card/add', 'click', '信用卡管理新增', 1, '2018-11-05 21:37:32', '2018-11-05 21:37:32', NULL);
+INSERT INTO `wk_permission` VALUES ('a56c42d9-3fd3-4ed1-85b1-fd5274b74e9e', '5ca012d4-942b-46e7-9fa1-d4b500f51cb7', '信用卡查询', 'card/get', 'click', '信用卡管理查询', 1, '2018-11-05 21:39:54', '2018-11-05 21:39:54', NULL);
+INSERT INTO `wk_permission` VALUES ('a5a10ec2-0bdc-4b93-ac2c-fc83babc7353', '9ff50792-b092-4f1e-b5b9-9dce75651eff', '资金账户新增页面', 'page/account_add.html', 'page', '资金账户新增页面', 40, '2018-11-05 21:42:51', '2018-11-05 21:42:51', NULL);
+INSERT INTO `wk_permission` VALUES ('ab2142fb-a20d-4255-9aa9-0440e23d03e3', '24c2a625-18ab-495c-885b-ae06f539a1e9', '组织新增', 'org/add', 'click', '组织新增请求', 10, '2018-11-05 21:20:45', '2018-11-05 21:20:45', NULL);
+INSERT INTO `wk_permission` VALUES ('ae559f35-73a8-44fe-969c-1bfd1a46ad30', 'd56a4fa3-0e85-4600-b9ad-b585a9cd4051', '角色新增', 'role/add', 'click', '角色新增请求', 10, '2018-11-05 21:18:21', '2018-11-05 21:18:21', NULL);
+INSERT INTO `wk_permission` VALUES ('afb19edd-fbdc-4cd2-865f-4a304ba3da33', 'b681f67b-75dc-4734-9479-aa7fdfa4ec3a', '订单修改', 'order/update', 'click', '订单修改请求', 1, '2018-11-05 21:54:07', '2018-11-05 21:54:07', NULL);
+INSERT INTO `wk_permission` VALUES ('b8e4a5cf-2b28-4884-b7af-f14bba82b539', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33', '员工修改', 'worker/update', 'click', '修改后台 请求地址', 1, '2018-11-05 21:11:34', '2018-11-05 21:11:34', NULL);
+INSERT INTO `wk_permission` VALUES ('bd43a25c-9a2e-46cd-b10d-ed9d18fb355c', 'd56a4fa3-0e85-4600-b9ad-b585a9cd4051', '角色删除', 'role/delete', 'click', '角色删除请求', 11, '2018-11-05 21:19:20', '2018-11-05 21:19:20', NULL);
+INSERT INTO `wk_permission` VALUES ('c2ace550-9ee8-41fe-98cd-b29a6ee4aa9f', '9ff50792-b092-4f1e-b5b9-9dce75651eff', '资金账户查询', 'account/get', 'click', '资金账户查询', 1, '2018-11-05 21:46:04', '2018-11-05 21:46:04', NULL);
+INSERT INTO `wk_permission` VALUES ('c8cdb2b7-4c95-451a-a91c-5ca55b258cc0', 'f8d99f8e-fd37-4f7f-b732-7a56e5d028a5', '模块修改', 'model/update', 'click', '提交修改数据到后台的请求地址', 31, '2018-11-05 20:55:08', '2018-11-05 20:55:08', NULL);
+INSERT INTO `wk_permission` VALUES ('cc09e43b-a2ce-4bc7-9a5e-d336dba260c4', 'd56a4fa3-0e85-4600-b9ad-b585a9cd4051', '角色搜索', 'role/search', 'click', '角色搜索请求', 12, '2018-11-05 21:23:43', '2018-11-05 21:23:43', NULL);
+INSERT INTO `wk_permission` VALUES ('d42892ee-e813-4f8f-bef8-2fe1fccd24b8', 'd56a4fa3-0e85-4600-b9ad-b585a9cd4051', '角色修改', 'role/update', 'click', '角色修改请求', 12, '2018-11-05 21:19:57', '2018-11-05 21:19:57', NULL);
+INSERT INTO `wk_permission` VALUES ('d7febddf-16aa-4259-b102-d12e162387b9', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33', '员工管理页面', 'page/worker_manager.html', 'page', '员工管理页面，可增删查改', 30, '2018-11-05 21:07:14', '2018-11-05 21:16:09', NULL);
+INSERT INTO `wk_permission` VALUES ('da198f37-7cd5-4ee7-8bec-f7c71a7e4370', 'e689a2b9-62d8-460f-819c-0ac53d041662', 'POS机查询', 'pos/get', 'click', 'POS机查询', 1, '2018-11-05 21:34:11', '2018-11-05 21:34:11', NULL);
+INSERT INTO `wk_permission` VALUES ('e1fff5a3-a2d7-4506-8471-82a20c1be973', '9ff50792-b092-4f1e-b5b9-9dce75651eff', '资金账户删除', 'account/delete', 'click', '资金账户删除请求', 1, '2018-11-05 21:45:12', '2018-11-05 21:45:12', NULL);
+INSERT INTO `wk_permission` VALUES ('ebb9dc27-61df-4a84-b7d9-1951a033c4e5', 'b681f67b-75dc-4734-9479-aa7fdfa4ec3a', '订单新增', 'order/add', 'click', '订单新增请求', 1, '2018-11-05 21:53:42', '2018-11-05 21:53:42', NULL);
+INSERT INTO `wk_permission` VALUES ('f2559fdd-68e4-4894-b0b4-405b014021ec', 'f8d99f8e-fd37-4f7f-b732-7a56e5d028a5', '模块修改页面', 'page/model_update.html', 'click', '填写修改模块信息页面', 39, '2018-11-05 20:50:18', '2018-11-05 20:58:24', NULL);
+INSERT INTO `wk_permission` VALUES ('f6d2315e-d2cb-4762-9412-f55563fbd1ef', '9ff50792-b092-4f1e-b5b9-9dce75651eff', '资金账户管理页面', 'page/account_manager.html', 'page', '资金账户管理页面', 50, '2018-11-05 21:42:17', '2018-11-05 21:42:17', NULL);
+INSERT INTO `wk_permission` VALUES ('fe15c1a7-d2ca-48be-8850-dc6e19fc7ceb', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33', '员工新增', 'worker/add', 'click', '新增请求地址', 1, '2018-11-05 21:08:38', '2018-11-05 21:08:38', NULL);
 
 -- ----------------------------
 -- Table structure for wk_pos
@@ -330,8 +384,8 @@ DROP TABLE IF EXISTS `wk_pos`;
 CREATE TABLE `wk_pos`  (
   `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `import_user_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `import_user_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `import_user_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '入账人ID(员工）',
+  `import_user_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '入账人名（员工）',
   `bank_name` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `card_number` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `rate_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -345,9 +399,8 @@ CREATE TABLE `wk_pos`  (
 -- ----------------------------
 -- Records of wk_pos
 -- ----------------------------
-INSERT INTO `wk_pos` VALUES ('570594e8-36d2-4d4f-a05f-a051ea02a4e4', '卡卡宝', '张三', NULL, '中行', '1665165', '0.3', '发我额驸脸', 1, '2018-11-03 23:14:15', '2018-11-03 23:14:15', NULL);
-INSERT INTO `wk_pos` VALUES ('b553794a-cf1c-425d-adaa-541417c7bbb1', '中行POS机111', '李四', '0b05b5e1-73b1-452f-ab1f-f1e4514d8c29', '农业银行', '134813464848', '0.02', '发我额驸  仍零用', 2, '2018-11-04 03:04:59', '2018-11-04 03:28:25', NULL);
-INSERT INTO `wk_pos` VALUES ('40c49025-1982-41cb-a1df-41eb747962a1', '成卡POS机', '李四', '0b05b5e1-73b1-452f-ab1f-f1e4514d8c29', '工商银行', '165461156156', '0.05', '埒地人夫脍代', 2, '2018-11-04 03:38:31', '2018-11-04 03:38:31', NULL);
+INSERT INTO `wk_pos` VALUES ('1', '1', NULL, '1', '1', '1', '1', '1', 1, '2018-11-01 09:04:58', '2018-11-01 09:05:02', '1');
+INSERT INTO `wk_pos` VALUES ('92e4bfed-83f6-44fe-a1e2-19853d7ed967', 'fwafewe', NULL, 'fewaf', 'fewfwea', 'fewaf', '0.3', 'fewafewafewa', 1, '2018-11-01 09:04:18', '2018-11-01 09:04:18', NULL);
 
 -- ----------------------------
 -- Table structure for wk_rate
@@ -387,8 +440,27 @@ CREATE TABLE `wk_role`  (
 -- ----------------------------
 -- Records of wk_role
 -- ----------------------------
-INSERT INTO `wk_role` VALUES ('238292fe-d2ea-427c-80b1-3962315b9e8e', '财务管理', '财务管理', 1, '2018-11-03 08:55:03', '2018-11-03 08:55:03', NULL);
-INSERT INTO `wk_role` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '系统管理员', 'fawfew fawfe fefa e', 2, '2018-10-28 11:10:08', '2018-11-03 08:55:16', NULL);
+INSERT INTO `wk_role` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'bnbbb', 'fawfew fawfe fefa e', 2, '2018-10-28 11:10:08', '2018-10-28 11:10:08', NULL);
+INSERT INTO `wk_role` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '老板', '投资人', 1, '2018-10-28 08:16:02', '2018-10-28 08:16:02', NULL);
+
+-- ----------------------------
+-- Table structure for wk_role_model
+-- ----------------------------
+DROP TABLE IF EXISTS `wk_role_model`;
+CREATE TABLE `wk_role_model`  (
+  `role_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色ID',
+  `model_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '模块ID',
+  PRIMARY KEY (`role_id`, `model_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色-模块权限关联表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of wk_role_model
+-- ----------------------------
+INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '1');
+INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '2');
+INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '4');
+INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '5');
+INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '6');
 
 -- ----------------------------
 -- Table structure for wk_role_permision
@@ -396,8 +468,8 @@ INSERT INTO `wk_role` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '系统管
 DROP TABLE IF EXISTS `wk_role_permision`;
 CREATE TABLE `wk_role_permision`  (
   `role_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `permision_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`role_id`) USING BTREE
+  `permision_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`role_id`, `permision_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限关联表\r\n' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -428,8 +500,9 @@ CREATE TABLE `wk_worker`  (
 -- ----------------------------
 -- Records of wk_worker
 -- ----------------------------
-INSERT INTO `wk_worker` VALUES ('284ea7b8-3699-493a-9520-e6b51e9a81bd', '1', 'b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'weixiaoxiao', '123456', '韦小晓', '4526851315', '13564876215', 'wx1235846', '284ea7b8-3699-493a-9520-e6b51e9a81bd/c11d3a82-80c6-48dd-b05e-08bd87407d9f.jpg', '284ea7b8-3699-493a-9520-e6b51e9a81bd/51921491-8ba4-4726-b18b-efcf59c552ff.jpg', '284ea7b8-3699-493a-9520-e6b51e9a81bd/93aebb90-76c3-4a56-9059-50fba2903b94.jpg', '20181103入职', 8, '2018-11-04 04:52:01', '2018-11-04 04:53:24', NULL);
-INSERT INTO `wk_worker` VALUES ('3deb04b6-6690-46fe-9f6a-90406055955e', '1', 'b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'fweaf', '323232132', '马云', 'fweaf', 'fwea', 'fweaf', '3deb04b6-6690-46fe-9f6a-90406055955e/f1cfd82d-48a7-4edc-a0a2-d8404d1ab253.jpg', '3deb04b6-6690-46fe-9f6a-90406055955e/e4e06d85-a07d-4bd0-8530-6092e71adee0.jpg', '3deb04b6-6690-46fe-9f6a-90406055955e/eae0bae8-2366-495a-9010-7e61fc0d1e85.jpg', 'fawewea fawe fwe fewaf awe 222', 2, '2018-10-29 23:09:27', NULL, NULL);
-INSERT INTO `wk_worker` VALUES ('c822257f-f561-4ba9-924b-50bc15156dec', '1', 'b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'zhangsanfeng', '123456', '张三丰', '15665561', '13568421568', 'wein1582', 'c822257f-f561-4ba9-924b-50bc15156dec/f805457c-b406-4f20-ac56-f73f641d916f.jpg', 'c822257f-f561-4ba9-924b-50bc15156dec/f2b9cdf4-de08-4024-93c3-5ab8ec2c94ce.jpg', 'c822257f-f561-4ba9-924b-50bc15156dec/2368fce7-b0fe-42c5-854a-7724d58a8897.jpg', '43242r23r323rvr23vr32', 2, '2018-11-03 09:06:04', NULL, NULL);
+INSERT INTO `wk_worker` VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', 1, '2018-10-28 20:53:33', '2018-10-28 20:53:37', '1');
+INSERT INTO `wk_worker` VALUES ('1cc7901a-c73e-4ff4-adec-bfde3659fc65', NULL, NULL, 'uesr_name', '123456', '张三', '4165464165115615', '13564258796', NULL, NULL, NULL, NULL, '20181102', 1, '2018-11-02 08:21:12', '2018-11-02 08:21:12', NULL);
+INSERT INTO `wk_worker` VALUES ('3deb04b6-6690-46fe-9f6a-90406055955e', '1', 'f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', 'fweaf', 'fweaf', 'fwea333', 'fweaf', 'fwea', 'fweaf', '3deb04b6-6690-46fe-9f6a-90406055955e/50e2de71-791e-483e-a51f-e4b0a516edeb.jpg', '3deb04b6-6690-46fe-9f6a-90406055955e/fc05159f-731a-493a-ae9a-7c8d2cda8972.jpg', '3deb04b6-6690-46fe-9f6a-90406055955e/469d0cad-1ca1-467d-ad24-cd2f51f91056.jpeg', 'fawewea fawe fwe fewaf awe 222', 2, '2018-10-29 23:09:27', NULL, NULL);
+INSERT INTO `wk_worker` VALUES ('b78c71ea-0051-44cc-9bd3-e021b0e1d16d', NULL, NULL, 'uesr_name', '123456', '张三', '168461654612641964', '13165161', NULL, NULL, NULL, NULL, '123165465185 ', 2, '2018-11-02 08:23:28', '2018-11-02 08:23:28', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

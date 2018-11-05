@@ -62,7 +62,7 @@ public interface PermissionDao {
 	 * @param modelId 模块ID
 	 * @return
 	 */
-	@Select(" SELECT  id, model_id modelId, name, action, opt_type optType, remark, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_permission WHERE model_id=#{modelId} ORDER BY seg ASC ")
+	@Select(" SELECT  id, model_id modelId, name, action, opt_type optType, remark, seg, create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_permission WHERE model_id=#{modelId} ORDER BY seg DESC ")
 	List<Permission> getPermissionByModelId(String modelId);
 
 	/**
@@ -72,4 +72,12 @@ public interface PermissionDao {
 	 */
 	@Delete(" DELETE FROM wk.wk_permission WHERE model_id=#{modelId}  ")
 	Integer deletePermissionByModelId(String modelId);
+
+	/**
+	 * 根据模块ID和角色ID查询权限列表
+	 * @param modelId
+	 * @param roleId
+	 * @return
+	 */
+	List<Permission> getPermissionByInRole(String modelId, String roleId);
 }
