@@ -52,5 +52,40 @@ public class RoleServiceImpl implements RoleService {
         return roleDao.searchCount(role);
     }
 
+    /**
+     *
+     * @param roleId
+     * @return
+     */
+    @Override
+    public List<String> getModelPermission(String roleId) {
+        List<String> modelIds = roleDao.getModelIds(roleId);
+        if(modelIds != null ){
+            List<String > permissionIds = roleDao.getPermissionIds(roleId);
+            modelIds.addAll(permissionIds);
+        }
+        return modelIds;
+    }
+
+    @Override
+    public Integer selectPermission(String roleId, String permissionId) {
+        return roleDao.selectPermission(roleId,permissionId);
+    }
+
+    @Override
+    public Integer unselectPermission(String roleId, String permissionId) {
+        return roleDao.unselectPermission(roleId,permissionId);
+    }
+
+    @Override
+    public Integer selectModel(String roleId, String modeId) {
+        return roleDao.selectModel(roleId,modeId);
+    }
+
+    @Override
+    public Integer unselectModel(String roleId, String modeId) {
+        return roleDao.unselectModel(roleId,modeId);
+    }
+
 
 }

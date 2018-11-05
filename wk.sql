@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 05/11/2018 22:05:44
+ Date: 06/11/2018 07:37:04
 */
 
 SET NAMES utf8mb4;
@@ -456,21 +456,29 @@ CREATE TABLE `wk_role_model`  (
 -- ----------------------------
 -- Records of wk_role_model
 -- ----------------------------
-INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '1');
-INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '2');
-INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '4');
-INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '5');
-INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '6');
+INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '24c2a625-18ab-495c-885b-ae06f539a1e9');
+INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '906b3ac8-b30f-47c8-8454-641bd02d57b8');
+INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33');
+INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', 'b681f67b-75dc-4734-9479-aa7fdfa4ec3a');
+INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', 'd56a4fa3-0e85-4600-b9ad-b585a9cd4051');
+INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', 'f8d99f8e-fd37-4f7f-b732-7a56e5d028a5');
 
 -- ----------------------------
--- Table structure for wk_role_permision
+-- Table structure for wk_role_permission
 -- ----------------------------
-DROP TABLE IF EXISTS `wk_role_permision`;
-CREATE TABLE `wk_role_permision`  (
+DROP TABLE IF EXISTS `wk_role_permission`;
+CREATE TABLE `wk_role_permission`  (
   `role_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `permision_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`role_id`, `permision_id`) USING BTREE
+  `permission_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`role_id`, `permission_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限关联表\r\n' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of wk_role_permission
+-- ----------------------------
+INSERT INTO `wk_role_permission` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '0a680f3c-024a-49f2-b69b-63016bca024d');
+INSERT INTO `wk_role_permission` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '37a57edd-14c9-4541-88bc-784b06d740b6');
+INSERT INTO `wk_role_permission` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '42f17cc2-e502-4603-a573-be82d689e760');
 
 -- ----------------------------
 -- Table structure for wk_worker

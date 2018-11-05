@@ -115,6 +115,10 @@ layui.use(['form','table','layer'],function () {
             } else if(layEvent === 'update'){ //编辑
                 //修改
                 pageData.openUpdateModel(obj);
+            }else if(layEvent == 'tomp'){
+                //分配权限
+                var tomp_url = common.url.page_root + common.url.model.role.page.tomp + '?roleId='+ data.id;
+                window.open(tomp_url);
             }
         });
         //监听 增 删 改

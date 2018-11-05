@@ -50,4 +50,43 @@ public interface RoleService {
      * @return
      */
     Integer searchCount(Role role);
+
+    /**
+     * 查询角色下的模块ID和权限ID
+     * @param roleId
+     * @return
+     */
+    List<String> getModelPermission(String roleId);
+
+    /**
+     * 选择权限
+     * @param roleId
+     * @param permissionId
+     * @return
+     */
+    Integer selectPermission(String roleId, String permissionId);
+
+    /**
+     * 取消选择权限
+     * @param roleId
+     * @param permissionId
+     * @return
+     */
+    Integer unselectPermission(String roleId, String permissionId);
+
+    /**
+     * 选择模块
+     * @param roleId
+     * @param modeId
+     * @return
+     */
+    Integer selectModel(String roleId, String modeId);
+
+    /**
+     * 取消选择模块
+     * @param roleId
+     * @param modeId
+     * @return
+     */
+    Integer unselectModel(String roleId, String modeId);
 }

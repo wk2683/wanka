@@ -76,7 +76,15 @@ common.url = {
             }
         },
         rate:       {action:'rate/',       name:'费率'},
-        role:       {action:'role/',       name:'角色'},
+        role:       {
+            action:'role/',
+            name:'角色',
+            page:{
+                manager:'page/role_manager.html',
+                add:'page/role_add.html',
+                tomp:'page/role_model_manager.html',//分配权限
+            }
+        },
         worker:     {
             action:'worker/',
             name:'员工',
@@ -104,6 +112,13 @@ common.url = {
             },
             bank:{
                 load:'load'
+            },
+            role:{
+                getModelPermission:'getModelPermission',
+                selectPermission:'selectPermission',
+                unselectPermission:'unselectPermission',
+                selectModel:'selectModel',
+                unselectModel:'unselectModel',
             }
         }
     }

@@ -159,4 +159,30 @@ public class  BaseController {
         }
         return response;
     }
+
+    /**
+     *  响应查询角色下的模块和权限ID
+     * @param modelPermissionIds
+     * @param roleId
+     * @param t
+     * @return
+     */
+    protected BaseResponse responseModelPermissionOfRole(List<String> modelPermissionIds,String roleId, Class t){
+        BaseResponse response = new BaseResponse();
+        String loggerInfo = "\n"+ t.getName() + " search model and permission of role id= ["+ roleId + "]  \n";
+        if(modelPermissionIds != null && modelPermissionIds.size()>0){
+            response.setCode(Globel.RESPONSE_CODE_SUCCESS);
+            response.setMsg(Globel.CONTROLLER_OPT_SEARCH + Globel.RESPONSE_MSG_SUCCESS);
+            String entityListJson = JSONObject.toJSONString(modelPermissionIds);
+            response.setData(entityListJson);
+
+            loggerInfo += " info : " +entityListJson;
+        }else{
+            response.setCode(Globel.RESPONSE_CODE_FAILE);
+            response.setMsg(Globel.CONTROLLER_OPT_SEARCH + Globel.RESPONSE_MSG_FAILE);
+            loggerInfo += " info : null " ;
+        }
+        logger.info(loggerInfo);
+        return response;
+    }
 }

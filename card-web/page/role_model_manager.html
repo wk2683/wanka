@@ -32,6 +32,11 @@
     <script src="../assets/js/skins.min.js"></script>
     <style type="text/css">
         .layui-table-tool-temp{position: absolute;top:10px;left:10px;}
+
+        /*.layui-table th{text-align: center;}*/
+        /*选择框连线全显示*/
+        .layui-form-checkbox i{border: 1px solid #d2d2d2;}
+        /*.select_model{margin-top: 7px; margin-right: 10px;float: left;}*/
     </style>
 </head>
 <!-- /Head -->
@@ -88,76 +93,20 @@
     </div>
 
 
-    <!--添加model 开始-->
-    <div style="width:1px;height: 1px;">
-        <form class="layui-form layui-form-pane"   lay-filter="permission_form"  action="" id="add_form" style="padding: 15px;">
-            <div class="layui-form-item">
-                <label class="layui-form-label">模块名</label>
-                <div class="layui-input-block">
-                    <input type="text" name="modelName"   class="layui-input" readonly>
-                    <input type="hidden" name="modelId"  >
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">操作名称</label>
-                <div class="layui-input-block">
-                    <input type="text" name="name" required  lay-verify="required" placeholder="请输入操作名称" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">操作类型</label>
-                <div class="layui-input-block">
-                    <select name="optType" lay-verify="required">
-                        <option value="page">页面访问</option>
-                        <option value="click">点击按钮</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">请求地址</label>
-                <div class="layui-input-block">
-                    <input type="text" name="action" required  lay-verify="required" placeholder="请输入请求地址" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">排序值</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="seg" required lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">显示数字大的排在前面</div>
-            </div>
 
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">描述</label>
-                <div class="layui-input-block">
-                    <textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
-                </div>
-            </div>
 
-            <!--<div class="layui-form-item">-->
-                <!--<div class="layui-input-block">-->
-                    <!--<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>-->
-                <!--</div>-->
-            <!--</div>-->
 
-        </form>
-    </div>
-    <!--添加model 结束-->
 
-    <!--表格中每一行的操作按钮：-->
-    <script type="text/html" id="toolbarRight">
-        <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
-            <button class="layui-btn layui-btn-normal layui-btn-xs" lay-event="update">编辑</button>
-        </div>
+
+    <!--表格每一行选择：-->
+    <script type="text/html" id="indexTemplate">
+        {{# if(d.checked==true ){  }}
+        <input type="checkbox" id="{{ d.id }}"  class="select_permission"  lay-event="checkbox_permission" checked/>
+        {{# }else{ }}
+        <input type="checkbox" id="{{ d.id }}"  class="select_permission"  lay-event="checkbox_permission"/>
+        {{# }  }}
     </script>
 
-    <!--表格左上角的操作按钮：-->
-    <script type="text/html" id="toolbarBase">
-        <div >
-            权限列表
-        </div>
-    </script>
 
     <!--Basic Scripts-->
     <script src="../assets/js/jquery-2.0.3.min.js"></script>
