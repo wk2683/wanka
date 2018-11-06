@@ -24,7 +24,7 @@ layui.use(['form','table','layer'],function () {
 
     //加载模块（包括 权限）数据，
     pageData.loadModelData = function(){
-        common.sendOption.data = {page:1,limit: 1000,userId:user.id };//加载所有模块
+        common.sendOption.data = {page:1,pageSize:1000,limit: 1000,userId:user.id };//加载所有模块
         common.sendOption.url = common.url.web_root + common.url.model.model.action + common.url.opt.search;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.loadComplete;
@@ -130,15 +130,17 @@ layui.use(['form','table','layer'],function () {
         if(resData.code == common.code.RESPONSE_CODE_SUCCESS) {
             var permissionIds2role = resData.data;//角色下的模块与权限数组字符串
             pageData.permissionIds2role = permissionIds2role;
-            pageData.loadModelData();
+
         }else{
-            layer.alert('读取角色信息失败',{anim:6},function () {
-                if(window.close){
-                    window.close();
-                }
-                history.back();
-            })
+            pageData.permissionIds2role = '[]';
+            // layer.alert('读取角色信息失败',{anim:6},function () {
+            //     if(window.close){
+            //         window.close();
+            //     }
+            //     history.back();
+            // })
         }
+        pageData.loadModelData();
     };
     //选择与取消选择权限点击处理
     pageData.checkPermission = function(tag){

@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 06/11/2018 07:37:04
+ Date: 06/11/2018 08:16:33
 */
 
 SET NAMES utf8mb4;
@@ -440,7 +440,7 @@ CREATE TABLE `wk_role`  (
 -- ----------------------------
 -- Records of wk_role
 -- ----------------------------
-INSERT INTO `wk_role` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'bnbbb', 'fawfew fawfe fefa e', 2, '2018-10-28 11:10:08', '2018-10-28 11:10:08', NULL);
+INSERT INTO `wk_role` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '系统管理员', '所有操作权限', 2, '2018-10-28 11:10:08', '2018-11-06 07:56:27', NULL);
 INSERT INTO `wk_role` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '老板', '投资人', 1, '2018-10-28 08:16:02', '2018-10-28 08:16:02', NULL);
 
 -- ----------------------------
@@ -456,6 +456,15 @@ CREATE TABLE `wk_role_model`  (
 -- ----------------------------
 -- Records of wk_role_model
 -- ----------------------------
+INSERT INTO `wk_role_model` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '24c2a625-18ab-495c-885b-ae06f539a1e9');
+INSERT INTO `wk_role_model` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '5ca012d4-942b-46e7-9fa1-d4b500f51cb7');
+INSERT INTO `wk_role_model` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '906b3ac8-b30f-47c8-8454-641bd02d57b8');
+INSERT INTO `wk_role_model` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '9ff50792-b092-4f1e-b5b9-9dce75651eff');
+INSERT INTO `wk_role_model` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33');
+INSERT INTO `wk_role_model` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'b681f67b-75dc-4734-9479-aa7fdfa4ec3a');
+INSERT INTO `wk_role_model` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'd56a4fa3-0e85-4600-b9ad-b585a9cd4051');
+INSERT INTO `wk_role_model` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'e689a2b9-62d8-460f-819c-0ac53d041662');
+INSERT INTO `wk_role_model` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'f8d99f8e-fd37-4f7f-b732-7a56e5d028a5');
 INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '24c2a625-18ab-495c-885b-ae06f539a1e9');
 INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '906b3ac8-b30f-47c8-8454-641bd02d57b8');
 INSERT INTO `wk_role_model` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33');
@@ -476,6 +485,68 @@ CREATE TABLE `wk_role_permission`  (
 -- ----------------------------
 -- Records of wk_role_permission
 -- ----------------------------
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '00406da9-5209-4963-a69b-95e034ec8bcf');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '0823b3aa-6d77-4369-a5f5-3d816ab03ab1');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '0a680f3c-024a-49f2-b69b-63016bca024d');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '0a909fd1-bcc9-4856-9d71-77bafca2d0e7');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '0afeffce-4996-489a-bf6d-86a3d4121433');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '0d531637-c37b-4269-b502-a13ef97a5968');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '19a68cf4-4592-4785-a9e5-0b6b359a6a63');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '207b9351-e4f0-40fe-bd3a-1fdc3a3eda45');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '27e876d0-0182-4be9-9a3d-0e0ac0306744');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '2981fe45-a18e-4e07-9e72-3859bfd64b11');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '29d3a02d-7bca-4195-a23c-ea8b443ceb75');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '2db732bd-15f6-403f-bb66-1e97be1d31da');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '2faf78a7-fa11-4f3b-9999-5869f14491f6');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '34b41684-73c4-408c-8c30-0273a3268a48');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '3528b554-2837-4127-ac39-4c8779c7b0c9');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '370c3f03-845c-4649-9954-3325716a807e');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '37a57edd-14c9-4541-88bc-784b06d740b6');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '37f3792e-b042-461f-81dd-bec5beae997f');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '42f17cc2-e502-4603-a573-be82d689e760');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '4315f908-1041-40e8-87b2-575cef86079e');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '48ff4405-63e6-44d5-9253-945333459cfa');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '495f9c39-cdeb-4a58-81da-c3ae715d8035');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '4a0912b6-6182-4ca0-9fbf-aac7925f622e');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '5b9f3ef1-19dc-48d1-9f53-4db964bf4739');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '5d310b96-1c7b-4472-90c6-47ecbcf2eb44');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '5e72ded9-78b4-42a9-bb67-9e06b80f32ef');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '60924bf9-862c-4ae5-9e19-fcaf90864a22');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '60ca75cd-45ec-4e36-b606-5618125f40db');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '721470d6-8325-47b5-a0e1-e6ada4b0a5c7');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '72da503e-9dc2-4f0b-b9d7-01307ef48afe');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '785eaa24-48da-4a5b-97d6-baaebe89c146');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '7a5be87d-0203-47de-b3e4-bd81e6c2e963');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '8151b8eb-b266-4b3c-a2f4-4f8eb9fd6ffd');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '86da73e7-c991-41c2-a2a9-423e5ea582da');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '89aed3d8-25d5-4d7f-ab40-3ae2287ec91b');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '8e0685f7-1619-44cf-8aaf-13322418eb24');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '8eebc6ca-7a36-4c6e-8eb6-b08bce6283ab');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '9570f4b8-4320-411a-9017-7b65eab7881d');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '990c3ec0-5740-4717-9d8c-03bc80b7bf07');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '9c37b33b-98cd-4c0d-a88f-49c20e785f3f');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'a0e92d37-dbe6-4d5c-8731-ea234a6bad03');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'a1f4782a-91b6-4a13-9bfb-7bcacb9bb7ed');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'a22ad731-3aea-471f-9f6f-77c736c569cb');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'a51ccb15-0b06-4e91-b42d-89047e488412');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'a56c42d9-3fd3-4ed1-85b1-fd5274b74e9e');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'a5a10ec2-0bdc-4b93-ac2c-fc83babc7353');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'ab2142fb-a20d-4255-9aa9-0440e23d03e3');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'ae559f35-73a8-44fe-969c-1bfd1a46ad30');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'afb19edd-fbdc-4cd2-865f-4a304ba3da33');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'b8e4a5cf-2b28-4884-b7af-f14bba82b539');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'bd43a25c-9a2e-46cd-b10d-ed9d18fb355c');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'c2ace550-9ee8-41fe-98cd-b29a6ee4aa9f');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'c8cdb2b7-4c95-451a-a91c-5ca55b258cc0');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'cc09e43b-a2ce-4bc7-9a5e-d336dba260c4');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'd42892ee-e813-4f8f-bef8-2fe1fccd24b8');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'd7febddf-16aa-4259-b102-d12e162387b9');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'da198f37-7cd5-4ee7-8bec-f7c71a7e4370');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'e1fff5a3-a2d7-4506-8471-82a20c1be973');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'ebb9dc27-61df-4a84-b7d9-1951a033c4e5');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'f2559fdd-68e4-4894-b0b4-405b014021ec');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'f6d2315e-d2cb-4762-9412-f55563fbd1ef');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'fe15c1a7-d2ca-48be-8850-dc6e19fc7ceb');
 INSERT INTO `wk_role_permission` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '0a680f3c-024a-49f2-b69b-63016bca024d');
 INSERT INTO `wk_role_permission` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '37a57edd-14c9-4541-88bc-784b06d740b6');
 INSERT INTO `wk_role_permission` VALUES ('f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', '42f17cc2-e502-4603-a573-be82d689e760');
@@ -508,9 +579,6 @@ CREATE TABLE `wk_worker`  (
 -- ----------------------------
 -- Records of wk_worker
 -- ----------------------------
-INSERT INTO `wk_worker` VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', 1, '2018-10-28 20:53:33', '2018-10-28 20:53:37', '1');
-INSERT INTO `wk_worker` VALUES ('1cc7901a-c73e-4ff4-adec-bfde3659fc65', NULL, NULL, 'uesr_name', '123456', '张三', '4165464165115615', '13564258796', NULL, NULL, NULL, NULL, '20181102', 1, '2018-11-02 08:21:12', '2018-11-02 08:21:12', NULL);
-INSERT INTO `wk_worker` VALUES ('3deb04b6-6690-46fe-9f6a-90406055955e', '1', 'f1c8eb9c-7f3f-4193-a8d6-4f7a498ad713', 'fweaf', 'fweaf', 'fwea333', 'fweaf', 'fwea', 'fweaf', '3deb04b6-6690-46fe-9f6a-90406055955e/50e2de71-791e-483e-a51f-e4b0a516edeb.jpg', '3deb04b6-6690-46fe-9f6a-90406055955e/fc05159f-731a-493a-ae9a-7c8d2cda8972.jpg', '3deb04b6-6690-46fe-9f6a-90406055955e/469d0cad-1ca1-467d-ad24-cd2f51f91056.jpeg', 'fawewea fawe fwe fewaf awe 222', 2, '2018-10-29 23:09:27', NULL, NULL);
-INSERT INTO `wk_worker` VALUES ('b78c71ea-0051-44cc-9bd3-e021b0e1d16d', NULL, NULL, 'uesr_name', '123456', '张三', '168461654612641964', '13165161', NULL, NULL, NULL, NULL, '123165465185 ', 2, '2018-11-02 08:23:28', '2018-11-02 08:23:28', NULL);
+INSERT INTO `wk_worker` VALUES ('b78c71ea-0051-44cc-9bd3-e021b0e1d16d', '1', 'b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'administrator', '111111111111111111', '1399999999', 'weixin1998', NULL, NULL, NULL, '123165465185 ', 1000, '2018-11-02 08:23:28', '2018-11-06 08:15:07', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
