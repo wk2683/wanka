@@ -3,6 +3,9 @@ nohup java -jar -Dspring.config.location=D:\Server\Root\config\cmsservice\applic
 
 nohup java -jar -Dspring.config.location=D:\Server\Root\config\eurakserver\application.yml  D:\Server\Root\eurakserver-0.0.1-SNAPSHOT.jar > D:\Server\Root\log\eurakserver\catalina.out 2>&1 &
 
+配置Apache https://
+参考：https://blog.csdn.net/tdcqfyl/article/details/79023431
+
 
 模块
 	增加 OK
