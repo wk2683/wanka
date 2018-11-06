@@ -801,7 +801,7 @@ common.initCommonStyle = function(){
         '    .widget-body{padding:0px;} \n' +                       //panel 面板body 与 form 空的处理
         '    .layui-table, .layui-table-view{margin:0px 0px;} \n' + //layui-table上下边距太大
         '    form{padding:10px } \n' +                              //表单边距
-        '   .layui-table-tool{padding:0} \n' +                      //表格上的搜索条撑开太大的处理
+        '   .layui-table-tool{padding:0;z-index: 180;} \n' +        //表格上的搜索条撑开太大的处理,z-index挡住头条下拉菜单
         '</style>';
 
     $(document.head).append(style);
