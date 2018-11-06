@@ -20,6 +20,8 @@ common.sendOption = {
 };
 common.opt = {};
 common.opt.names = {add:'新增',update:'修改',manager:'管理',detail:'详情'};
+common.opt.status = ['已关闭','新增','完成','业务中'];
+common.opt.orderTypes = ['其它','还款','消费','取现刷卡','取现转账'];
 common.url = {
     web_root:'http://localhost:8002/',
     page_root:'http://localhost:8003/',
@@ -1150,6 +1152,55 @@ common.util.initNameById = function (id,model_action,showDom) {
     };
     common.httpSend(common.sendOption);
 };
+//获取订单状态名称 ,参数 status 为整数
+common.util.getStatusName = function(status){
+    return common.opt.status[status];
+};
+common.util.getStatusOptions = function(selectTagName){
+    var len = common.opt.status.length;
+    var options = '<option value="">选择订单状态</option>';
+    for(var i=0;i<len;i++){
+        var item = common.opt.status[i];
+        options += '<option value="'+i+'">'+item+'</option>';
+    }
+    if(selectTagName) {
+        $("select[name="+selectTagName+"]").html(options);
+    }
+    return options;
+};
+
+common.util.getOrderTypeOptions = function(selectTagName){
+    var len = common.opt.orderTypes.length;
+    var options = '<option value="">选择订单类型</option>';
+    for(var i=0;i<len;i++){
+        var item = common.opt.orderTypes[i];
+        options += '<option value="'+i+'">'+item+'</option>';
+    }
+    if(selectTagName) {
+        $("select[name="+selectTagName+"]").html(options);
+    }
+    return options;
+};
+
+//获取订单类型名称 ,参数 orderType 为整数
+common.util.getOrderTypeName = function(orderType){
+    return common.opt.orderTypes[orderType];
+}
+/**
+ * 初始化时间选择控件
+ * @param laydate  时间控件工具对象
+ * @param domId 时间控制DOMid
+ * @param dataType 时间类型
+ */
+common.util.initSelectDate = function(laydate,domId,dataType){
+    if(!dataType){
+        dataType = 'datetime';// 日期 + 时间
+    }
+    laydate.render({
+        elem: '#'+domId
+        ,type: dataType
+    });
+}
 //注销登录
 common.logout = function () {
   sessionStorage.user = null;

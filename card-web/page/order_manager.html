@@ -70,7 +70,7 @@
                                     <div class="layui-form" >
 
                                         <div class="layui-inline">
-                                            <select name="city" lay-verify="">
+                                            <select name="type" >
                                                 <option value="">订单类型</option>
                                                 <option value="010">北京</option>
                                                 <option value="021">上海</option>
@@ -79,7 +79,7 @@
                                         </div>
 
                                         <div class="layui-inline">
-                                            <select name="city" lay-verify="" lay-search>
+                                            <select name="status" >
                                                 <option value="">订单状态</option>
                                                 <option value="010">layer</option>
                                                 <option value="021">form</option>
@@ -177,15 +177,22 @@
     </script>
     <!-- 表头搜索 模板 end -->
 
-    <!--表格中每一行的操作按钮：-->
+    <!--表格中每一行的操作按钮-->
     <script type="text/html" id="toolbarRight">
         <div class="layui-btn-container">
             <button class="layui-btn layui-btn-xs" lay-event="detail">详情</button>
             <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
             <button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>
+            <button class="layui-btn layui-btn-xs" lay-event="import">记入账</button>
+            <button class="layui-btn layui-btn-xs" lay-event="export">记出账</button>
         </div>
     </script>
 
+
+    <!--表格中每一行的状态-->
+    <script type="text/html" id="statusTemplate">
+        {{ common.opt.status[d.status] }}
+    </script>
     <!--Basic Scripts-->
     <script src="../assets/js/jquery-2.0.3.min.js"></script>
     <script src="../common/js/module/common.js"></script>

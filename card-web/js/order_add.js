@@ -69,16 +69,25 @@ layui.use(['form','layer','upload'],function () {
     };
 
 
-    //点选客户
-    $("input[name=customerName]").click(function () {
-        pageData.openCustomerSelectModel();
-    });
 
-    //监听提交按钮 submit(btn_id)
-    form.on('submit(formAdd)', function(data){
-       pageData.submitAdd(data.field);
-        return false;
-    });
+    $(function () {
+
+        common.util.getOrderTypeOptions('type');
+        form.render('select');
+
+        //点选客户
+        $("input[name=customerName]").click(function () {
+            pageData.openCustomerSelectModel();
+        });
+
+        //监听提交按钮 submit(btn_id)
+        form.on('submit(formAdd)', function(data){
+            pageData.submitAdd(data.field);
+            return false;
+        });
+
+    })
+
 
 
 

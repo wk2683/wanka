@@ -13,18 +13,17 @@ layui.use(['form','table','layer','laydate'],function () {
     var pageData = {};
 
     var tableHeader = [[ //表头
-        {field: 'id',       title: 'ID', align:'center',width:'8%'},
-        {field: 'customerId',       title: '下单人ID', align:'center'},
-        {field: 'type',       title: '订单类型', align:'center'},
-        {field: 'total',       title: '订单总额', align:'center'},
-        {field: 'rate',       title: '手续费率', align:'center'},
+        {field: 'id',        title: 'ID', align:'center',width:'8%'},
+        {field: 'customerId',title: '下单人ID', align:'center'},
+        {field: 'type',      title: '订单类型', align:'center'},
+        {field: 'total',     title: '订单总额', align:'center'},
+        {field: 'rate',      title: '手续费率', align:'center'},
         {field: 'fee',       title: '手续费', align:'center'},
-        {field: 'discount',       title: '优惠金额', align:'center'},
-        {field: 'realFee',       title: '实收手续费', align:'center'},
-        {field: 'status',       title: '订单状态', align:'center'},
-        {field: 'remark',       title: '备注', align:'center'},
-
-        ,{fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {field: 'discount',  title: '优惠金额', align:'center'},
+        {field: 'realFee',   title: '实收手续费', align:'center'},
+        {field: 'status',    title: '订单状态', align:'center',templet:'#statusTemplate'},
+        {field: 'remark',    title: '备注', align:'center'},
+        ,{fixed: 'right',  align:'center',width:250, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     pageData.getTableData = function(searchObj) {
@@ -270,18 +269,33 @@ layui.use(['form','table','layer','laydate'],function () {
     pageData.deleteComplete = function(res){
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_DELETE);
     };
+    pageData.initSelectStatus = function(){
+        var len = common.opt.status.length;
+        var options = '<option value="">选择状态</option>';
+        for(var i=0;i<len;i++){
+            var item = common.opt.status[i];
+            options += '<option value="'+i+'">'+item+'</option>';
+        }
+        console.log(options);
+        $("select[name=status]").html(options);
+        // form.render('select');
+
+    };
+
 
     pageData.initSearchDate = function(){
-        //日期时间选择器
-        laydate.render({
-            elem: '#start_time'
-            ,type: 'datetime'
-        });
-        //日期时间选择器
-        laydate.render({
-            elem: '#end_time'
-            ,type: 'datetime'
-        });
+        common.util.initSelectDate(laydate,'start_time');
+        common.util.initSelectDate(laydate,'end_time');
+        // //日期时间选择器
+        // laydate.render({
+        //     elem: '#start_time'
+        //     ,type: 'datetime'
+        // });
+        // //日期时间选择器
+        // laydate.render({
+        //     elem: '#end_time'
+        //     ,type: 'datetime'
+        // });
     };
     //条件搜索订单
     pageData.searchOrder = function(){
@@ -324,6 +338,11 @@ layui.use(['form','table','layer','laydate'],function () {
     };
 
     $(function () {
+
+        // pageData.initSelectStatus();
+        common.util.getStatusOptions('status');
+        common.util.getOrderTypeOptions('type');
+        form.render('select');
 
         pageData.initSearchDate();
         //初始化第一页数据
