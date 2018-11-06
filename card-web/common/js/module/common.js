@@ -10,6 +10,7 @@ common.sendDataType = {
 common.sendContentType = {
     postContentTyppe:'application/json;charset=UTF-8' //POST 提交要设置contentType，不然后台接收异常
 };
+
 //调用公共请求方法应该要设置的参数
 common.sendOption = {
     url:'',
@@ -17,6 +18,8 @@ common.sendOption = {
     data:null,
     completeCallBack:''
 };
+common.opt = {};
+common.opt.names = {add:'新增',update:'修改',manager:'管理',detail:'详情'};
 common.url = {
     web_root:'http://localhost:8002/',
     page_root:'http://localhost:8003/',
@@ -558,6 +561,8 @@ common.initTopNav = function (user) {
     emailList = '';
     taskList = '';
 
+    var userHomeImg = common.url.web_root +common.url.model.worker.action + common.url.opt.model.worker.readImg + '?path=' + user.homeImg;
+
     var topNavHtml = '<div class="navbar">\n' +
                         '        <div class="navbar-inner">\n' +
                         '            <div class="navbar-container">\n' +
@@ -682,7 +687,7 @@ common.initTopNav = function (user) {
                         '                                <a class="login-area dropdown-toggle" data-toggle="dropdown">\n' +
                         '                                    <div class="avatar" title="View your public profile">\n' +
                         // '                                        <img src="../common/image/default_user.jpg">\n' +
-                        '                                        <img src="'+(common.url.web_root + common.url.opt.model.worker.readImg + '?path=' + user.homeImg) + '">\n ' +
+                        '                                        <img src="'+ userHomeImg+ '">\n ' +
                         '                                    </div>\n' +
                         '                                    <section>\n' +
                         '                                        <h2><span class="profile"><span>'+user.name+'</span></span></h2>\n' +
@@ -690,38 +695,13 @@ common.initTopNav = function (user) {
                         '                                </a>\n' +
                         '                                <!--Login Area Dropdown-->\n' +
                         '                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">\n' +
-                        '                                    <li class="username"><a>David Stevenson</a></li>\n' +
-                        '                                    <li class="email"><a>David.Stevenson@live.com</a></li>\n' +
-                        '                                    <!--Avatar Area-->\n' +
                         '                                    <li>\n' +
                         '                                        <div class="avatar-area">\n' +
-                        '                                            <img src="assets/img/avatars/adam-jansen.jpg" class="avatar">\n' +
-                        '                                            <span class="caption">Change Photo</span>\n' +
+                        '                                            <img src="'+userHomeImg+'" class="avatar">\n' +
+                        // '                                            <span class="caption">Change Photo</span>\n' +
                         '                                        </div>\n' +
                         '                                    </li>\n' +
-                        '                                    <!--Avatar Area-->\n' +
-                        '                                    <li class="edit">\n' +
-                        '                                        <a href="profile.html" class="pull-left">Profile</a>\n' +
-                        '                                        <a href="#" class="pull-right">Setting</a>\n' +
-                        '                                    </li>\n' +
-                        '                                    <!--Theme Selector Area-->\n' +
-                        '                                    <li class="theme-area">\n' +
-                        '                                        <ul class="colorpicker" id="skin-changer">\n' +
-                        '                                            <li><a class="colorpick-btn" href="#" style="background-color:#5DB2FF;" rel="assets/css/skins/blue.min.css"></a></li>\n' +
-                        '                                            <li><a class="colorpick-btn" href="#" style="background-color:#2dc3e8;" rel="assets/css/skins/azure.min.css"></a></li>\n' +
-                        '                                            <li><a class="colorpick-btn" href="#" style="background-color:#03B3B2;" rel="assets/css/skins/teal.min.css"></a></li>\n' +
-                        '                                            <li><a class="colorpick-btn" href="#" style="background-color:#53a93f;" rel="assets/css/skins/green.min.css"></a></li>\n' +
-                        '                                            <li><a class="colorpick-btn" href="#" style="background-color:#FF8F32;" rel="assets/css/skins/orange.min.css"></a></li>\n' +
-                        '                                            <li><a class="colorpick-btn" href="#" style="background-color:#cc324b;" rel="assets/css/skins/pink.min.css"></a></li>\n' +
-                        '                                            <li><a class="colorpick-btn" href="#" style="background-color:#AC193D;" rel="assets/css/skins/darkred.min.css"></a></li>\n' +
-                        '                                            <li><a class="colorpick-btn" href="#" style="background-color:#8C0095;" rel="assets/css/skins/purple.min.css"></a></li>\n' +
-                        '                                            <li><a class="colorpick-btn" href="#" style="background-color:#0072C6;" rel="assets/css/skins/darkblue.min.css"></a></li>\n' +
-                        '                                            <li><a class="colorpick-btn" href="#" style="background-color:#585858;" rel="assets/css/skins/gray.min.css"></a></li>\n' +
-                        '                                            <li><a class="colorpick-btn" href="#" style="background-color:#474544;" rel="assets/css/skins/black.min.css"></a></li>\n' +
-                        '                                            <li><a class="colorpick-btn" href="#" style="background-color:#001940;" rel="assets/css/skins/deepblue.min.css"></a></li>\n' +
-                        '                                        </ul>\n' +
-                        '                                    </li>\n' +
-                        '                                    <!--/Theme Selector Area-->\n' +
+
                         '                                    <li class="dropdown-footer">\n' +
                         '                                        <a href="javascript:void(0);" onclick="common.logout();">退出</a>\n' +
                         '                                    </li>\n' +
@@ -779,26 +759,25 @@ common.initLeftSilder = function () {
 };
 
 //初始化地图导航
-common.initMapNav = function () {
+common.initMapNav = function (modelName) {
     var mapNavHtml = '<div class="page-breadcrumbs">\n' +
                         '                    <ul class="breadcrumb">\n' +
                         '                        <li>\n' +
                         '                            <i class="fa fa-home"></i>\n' +
-                        '                            <a href="#">Home</a>\n' +
+                        // '                            <a href="'+ common.url.page_root +'">Home</a>\n' +
+                        '                            <a href="">Home</a>\n' +
                         '                        </li>\n' +
-                        '                        <li class="active">{{Dashboard}}</li>\n' +
+                        '                        <li class="active">'+modelName+'</li>\n' +
                         '                    </ul>\n' +
                         '                </div>';
     $("div.page-content").prepend(mapNavHtml);
 };
 
 //初始化细分导航和页面控制工具
-common.initMiniNavTool = function () {
+common.initMiniNavTool = function (modelName) {
     var miniNavToolHtml = '<div class="page-header position-relative">\n' +
                             '                    <div class="header-title">\n' +
-                            '                        <h1>\n' +
-                            '                            {{Dashboard}}' +
-                            '                        </h1>\n' +
+                            '                        <h1>'+modelName+'</h1>\n' +
                             '                    </div>\n' +
                             '                    <!--Header Buttons-->\n' +
                             '                    <div class="header-buttons">\n' +
@@ -819,13 +798,36 @@ common.initMiniNavTool = function () {
 common.initCommonStyle = function(){
     var style =
         '<style type="text/css">' +
-        '    .widget-body{padding:0px;} \n' + //panel 面板body 与 form 空的处理
+        '    .widget-body{padding:0px;} \n' +                       //panel 面板body 与 form 空的处理
         '    .layui-table, .layui-table-view{margin:0px 0px;} \n' + //layui-table上下边距太大
-        '    form{padding:10px } \n' +           //表单边距
-        '   .layui-table-tool{padding:0} \n' +  //表格上的搜索条撑开太大的处理
+        '    form{padding:10px } \n' +                              //表单边距
+        '   .layui-table-tool{padding:0} \n' +                      //表格上的搜索条撑开太大的处理
         '</style>';
 
     $(document.head).append(style);
+};
+//从地址获取模块名称
+common.getModelNames = function(){
+    var start = location.pathname.lastIndexOf("/");
+    var end = location.pathname.indexOf(".");
+    var names = location.pathname.substring(start+1,end);
+    names = names.split("_");
+
+    var modelName = common.url.model[names[0]].name;
+
+    var modelName2 = common.opt.names[names[1]];
+    if(!modelName2){
+        modelName2 += common.url.model[names[1]].name;
+    }
+
+    if(names.length>2){
+        var name2 = common.opt.names[names[2]];
+        if(!name2){
+            name2 = common.url.model[names[2]].name;
+        }
+        modelName2 += name2;
+    }
+    return [modelName,modelName+modelName2];
 };
 //统一初始化
 common.initCom = function () {
@@ -853,8 +855,10 @@ common.initCom = function () {
 
     common.initLeftSilder();//div.page-container 第一个子节点 侧边菜单
 
-    common.initMiniNavTool();//div.page-content 第二个子节点
-    common.initMapNav();//div.page-content 第一个子节点
+    var modelNames = common.getModelNames();
+
+    common.initMiniNavTool(modelNames[1]);//div.page-content 第二个子节点
+    common.initMapNav(modelNames[0]);//div.page-content 第一个子节点
     common.initCommonStyle();//加上样式
 
 
