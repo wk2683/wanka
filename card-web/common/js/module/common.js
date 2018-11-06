@@ -91,6 +91,7 @@ common.url = {
             page:{
                 manager:'page/worker_manager.html',
                 add:'page/worker_add.html',
+                detail:'page/worker_detail.html',
                 selectList:'page/worker_selectList.html'
             }
         }
@@ -104,7 +105,8 @@ common.url = {
         model:{
             worker:{
                 uploadImg:'uploadImg',//上传图片
-                readImg:'readImg'//读图片流
+                readImg:'readImg',//读图片流
+                login:'login'
             },
             customer:{
                 uploadImg:'uploadImg',
@@ -826,6 +828,24 @@ common.initCommonStyle = function(){
 };
 //统一初始化
 common.initCom = function () {
+
+    var userJSONString = sessionStorage.user;
+    var logined = true;
+    if(!userJSONString){
+        logined = false;
+    }
+
+    var user = JSON.parse(userJSONString);
+    if(!user || !user.id || !user.name ){
+        logined = false;
+    }
+
+    if(!logined){
+        var login_url = common.url.page_root + 'login.html';
+        window.location.href = login_url;
+    }
+
+
     common.initTopNav();//body 第二个子节点 顶部导航
     common.initLoadingDom();//body 第一个子节点 加载提示节点
     common.initModelDom();//body 最前面加载模态框节点
