@@ -20,6 +20,7 @@ common.sendOption = {
 common.url = {
     web_root:'http://localhost:8002/',
     page_root:'http://localhost:8003/',
+    page_login:'login.html',
     model:{
         bank: {action:'bank/',name:'银行'},
         account:{ action:'account/',    name:'账户',
@@ -427,7 +428,7 @@ common.initModelDom = function () {
     $(document.body).prepend(modelHtml);
 };
 //初始化头条
-common.initTopNav = function () {
+common.initTopNav = function (user) {
 
     var emailList =    '                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">\n' +
         '                                    <li>\n' +
@@ -680,10 +681,11 @@ common.initTopNav = function () {
                         '                            <li>\n' +
                         '                                <a class="login-area dropdown-toggle" data-toggle="dropdown">\n' +
                         '                                    <div class="avatar" title="View your public profile">\n' +
-                        '                                        <img src="../common/image/default_user.jpg">\n' +
+                        // '                                        <img src="../common/image/default_user.jpg">\n' +
+                        '                                        <img src="'+(common.url.web_root + common.url.opt.model.worker.readImg + '?path=' + user.homeImg) + '">\n ' +
                         '                                    </div>\n' +
                         '                                    <section>\n' +
-                        '                                        <h2><span class="profile"><span>{{用户名}}</span></span></h2>\n' +
+                        '                                        <h2><span class="profile"><span>'+user.name+'</span></span></h2>\n' +
                         '                                    </section>\n' +
                         '                                </a>\n' +
                         '                                <!--Login Area Dropdown-->\n' +
@@ -721,9 +723,7 @@ common.initTopNav = function () {
                         '                                    </li>\n' +
                         '                                    <!--/Theme Selector Area-->\n' +
                         '                                    <li class="dropdown-footer">\n' +
-                        '                                        <a href="login.html">\n' +
-                        '                                            Sign out\n' +
-                        '                                        </a>\n' +
+                        '                                        <a href="javascript:void(0);" onclick="common.logout();">退出</a>\n' +
                         '                                    </li>\n' +
                         '                                </ul>\n' +
                         '                                <!--/Login Area Dropdown-->\n' +
@@ -842,12 +842,12 @@ common.initCom = function () {
     }
 
     if(!logined){
-        var login_url = common.url.page_root + 'login.html';
+        var login_url = common.url.page_root + common.url.page_login;
         window.location.href = login_url;
     }
 
 
-    common.initTopNav();//body 第二个子节点 顶部导航
+    common.initTopNav(user);//body 第二个子节点 顶部导航
     common.initLoadingDom();//body 第一个子节点 加载提示节点
     common.initModelDom();//body 最前面加载模态框节点
 
@@ -856,6 +856,8 @@ common.initCom = function () {
     common.initMiniNavTool();//div.page-content 第二个子节点
     common.initMapNav();//div.page-content 第一个子节点
     common.initCommonStyle();//加上样式
+
+
 };
 common.renderLeftMeun = function (navArrayData) {
     var navLeftMeun = '';
@@ -1134,4 +1136,10 @@ common.util.initNameById = function (id,model_action,showDom) {
 
     };
     common.httpSend(common.sendOption);
-}
+};
+//注销登录
+common.logout = function () {
+  sessionStorage.user = null;
+  sessionStorage.removeItem('user');
+  window.location.href = common.url.page_root + common.url.page_login;
+};

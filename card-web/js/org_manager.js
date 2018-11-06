@@ -232,8 +232,8 @@ layui.use(['tree','form','table','layer'],function () {
             var data = JSON.parse(resData.data);
             var orginTree = common.util.covert2TreeJSON(data,0);
             //暂时在这里保存，事实上应该在登录时保存这些数据
-            // sessionStorage.setItem(common.session.key.orgData,resData.data);
-            // sessionStorage.setItem(common.session.key.orgTree,JSON.stringify(orginTree));
+            sessionStorage.setItem(common.session.key.orgData,resData.data);
+            sessionStorage.setItem(common.session.key.orgTree,JSON.stringify(orginTree));
 
             var len = data.length;
             for(var i=0;i<len;i++){

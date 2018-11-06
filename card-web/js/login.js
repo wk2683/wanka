@@ -37,7 +37,8 @@ layui.use(['form','layer','upload'],function () {
              pageData.initConfig(resData.data);
          }else{
              layer.alert('登录失败',{anim:6},function () {
-                 console.log("登录失败")
+                 console.log("登录失败");
+                 layer.closeAll();
              })
          }
     };
