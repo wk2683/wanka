@@ -1,5 +1,6 @@
 var common = {};//公共体
 common.web_logo = '../common/image/logo.png';
+common.sysName = '启成万卡';
 
 common.sendMethod = {GET :'GET',POST:'POST'};
 common.sendDataType = {
@@ -563,7 +564,7 @@ common.initTopNav = function () {
                         '                <div class="navbar-header pull-left">\n' +
                         '                    <a href="#" class="navbar-brand">\n' +
                         '                        <small>\n' +
-                        '                            <img src="'+common.web_logo+'" alt="" />\n' +
+                        '                            <img src="'+common.web_logo+'" alt=""  style="width: 40px;"/><span style="margin-left: 10px;">'+common.sysName+'</span>\n' +
                         '                        </small>\n' +
                         '                    </a>\n' +
                         '                </div>\n' +
