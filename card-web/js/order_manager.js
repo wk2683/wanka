@@ -1,38 +1,39 @@
 //角色管理脚本
 
 
-layui.use(['form','table','layer'],function () {
+layui.use(['form','table','layer','laydate'],function () {
 
 
     var table = layui.table;
     var layer = layui.layer;
     var form = layui.form;
+    var laydate = layui.laydate;
     var user = layui.sessionData('user');
 
     var pageData = {};
 
     var tableHeader = [[ //表头
-        {field: 'orgId',       title: '组织ID', align:'center',width:'8%'},
-        {field: 'roleId',       title: '角色ID', align:'center',width:'8%'},
-        {field: 'userName',       title: '用户名', align:'center',width:'8%'},
-        {field: 'password',       title: '密码', align:'center',width:'8%'},
-        {field: 'name',       title: '姓名', align:'center',width:'8%'},
-        {field: 'idNumber',       title: '身份证号', align:'center',width:'8%'},
-        {field: 'phone',       title: '手机', align:'center',width:'8%'},
-        {field: 'weixin',       title: '微信号', align:'center',width:'8%'},
-        {field: 'fontImg',       title: '身份证正面', align:'center',width:'8%'},
-        {field: 'afterImg',       title: '身份证背面', align:'center',width:'8%'},
-        {field: 'homeImg',       title: '全身照', align:'center',width:'8%'}
+        {field: 'id',       title: 'ID', align:'center',width:'8%'},
+        {field: 'customerId',       title: '下单人ID', align:'center'},
+        {field: 'type',       title: '订单类型', align:'center'},
+        {field: 'total',       title: '订单总额', align:'center'},
+        {field: 'rate',       title: '手续费率', align:'center'},
+        {field: 'fee',       title: '手续费', align:'center'},
+        {field: 'discount',       title: '优惠金额', align:'center'},
+        {field: 'realFee',       title: '实收手续费', align:'center'},
+        {field: 'status',       title: '订单状态', align:'center'},
+        {field: 'remark',       title: '备注', align:'center'},
+
         ,{fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
-    pageData.getTableData = function() {
+    pageData.getTableData = function(searchObj) {
         //执行渲染
         table.render({
-            elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
+            elem: '#order_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
-            , url: common.url.web_root + common.url.model.worker.action + common.url.opt.search  //数据源url
-            , where: { userId: user.id, userName: user.name } //如果无需传递额外参数，可不加该参数
+            , url: common.url.web_root + common.url.model.order.action + common.url.opt.search  //数据源url
+            , where: searchObj //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.POST // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
@@ -40,7 +41,7 @@ layui.use(['form','table','layer'],function () {
                           // toolbar: '<div>xxx</div>' //直接传入工具栏模板字符
                           // toolbar: true //仅开启工具栏，不显示左侧模板
                           // toolbar: 'default' //让工具栏左侧显示默认的内置模板
-            , toolbar: '#toolbarBase'// 'default'  //开启表格头部工具栏区域，该参数支持四种类型值：
+            , toolbar: '#toolbarSearch'// 'default'  //开启表格头部工具栏区域，该参数支持四种类型值：
             // filter: 显示筛选显示表头图标
             // exports: 显示导出图标
             // print: 显示打印图标
@@ -104,7 +105,7 @@ layui.use(['form','table','layer'],function () {
         //《《《《《《《《《《《《《《表格初始化完成
 
         //监听工具条
-        table.on('tool(roleTableEvent)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        table.on('tool(orderTableEvent)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
@@ -270,16 +271,74 @@ layui.use(['form','table','layer'],function () {
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_DELETE);
     };
 
+    pageData.initSearchDate = function(){
+        //日期时间选择器
+        laydate.render({
+            elem: '#start_time'
+            ,type: 'datetime'
+        });
+        //日期时间选择器
+        laydate.render({
+            elem: '#end_time'
+            ,type: 'datetime'
+        });
+    };
+    //条件搜索订单
+    pageData.searchOrder = function(){
+        var searchObj = {};
+        //订单类型
+        var type = $("select[name=orderType]").val();
+        if(type && type.length>0){
+            searchObj.type= type;
+        }
+        //订单状态
+        var status = $("select[name=status]").val();
+        if(status && status.length>0){
+            searchObj.status= status;
+        }
+        //下订单人（客户）
+        var userId = $("input[name=userId]").val();
+        if(userId && userId.length>0){
+            searchObj.userId= userId;
+        }
+
+        //下单开始时间
+        var start_time = $("input[name=start_time]").val();
+        if(start_time && start_time.length>0){
+            searchObj.startCreateTime= start_time;
+        }
+
+        //下单结束时间
+        var end_time = $("input[name=end_time]").val();
+        if(end_time && end_time.length>0){
+            searchObj.endCreateTime= end_time;
+        }
+
+        //下单结束时间
+        var searchKey = $("input[name=searchKey]").val();
+        if(searchKey && searchKey.length>0){
+            searchObj.searchKey= searchKey;
+        }
+
+        pageData.getTableData(searchObj);
+    };
+
     $(function () {
 
-
+        pageData.initSearchDate();
         //初始化第一页数据
-        pageData.getTableData();
+        pageData.getTableData({});
+
+        //搜索按钮事件
+        $(document.body).on('click','#searchBtn',function () {
+            pageData.searchOrder();
+        });
+
         //添加按钮事件
-        $(document.body).on('click','#add_worker_btn',function () {
-            //详情
-            var detail_url = location.origin + '/page/worker_add.html';
-            window.open(detail_url);
+        $(document.body).on('click','#add_order_btn',function () {
+            //新增
+            var add_url = common.url.page_root + common.url.model.order.page.add;
+            window.open(add_url);
         });
     });
 });

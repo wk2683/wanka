@@ -52,7 +52,7 @@
                             <div class="widget">
                                 <div class="widget-header ">
                                     <span class="widget-caption">订单列表</span>
-                                    <button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>
+                                    <!--<button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>-->
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize">
                                             <i class="fa fa-expand"></i>
@@ -66,7 +66,48 @@
                                     </div>
                                 </div>
                                 <div class="widget-body">
-                                    <table id="role_list" lay-filter="roleTableEvent"></table>
+                                    <!--搜索框开始-->
+                                    <div class="layui-form" >
+
+                                        <div class="layui-inline">
+                                            <select name="city" lay-verify="">
+                                                <option value="">订单类型</option>
+                                                <option value="010">北京</option>
+                                                <option value="021">上海</option>
+                                                <option value="0571">杭州</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="layui-inline">
+                                            <select name="city" lay-verify="" lay-search>
+                                                <option value="">订单状态</option>
+                                                <option value="010">layer</option>
+                                                <option value="021">form</option>
+                                                <option value="0571" >layim</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="layui-inline">
+                                            <input type="text" name="userName" class="layui-input"  placeholder="下单人">
+                                            <input type="hidden" name="userId" >
+                                        </div>
+
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label" style="width:100px;">下单时间:</label>
+                                            <div class="layui-input-inline" style="width: 150px;margin-top:2px;">
+                                                <input type="text" name="price_min" class="layui-input" id="start_time" placeholder="选择时间">
+                                            </div>
+                                            <div class="layui-form-mid">-</div>
+                                            <div class="layui-input-inline" style="width: 150px;margin-top:2px;">
+                                                <input type="text" name="price_max" class="layui-input" id="end_time" placeholder="选择时间">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <!--搜索框 结束-->
+
+                                    <table id="order_list" lay-filter="orderTableEvent"></table>
                                 </div>
                             </div>
                         </div>
@@ -115,6 +156,26 @@
         </form>
     </div>
     <!--添加model 结束-->
+
+
+    <!-- 表头搜索 模板-->
+    <script type="text/html" id="toolbarSearch">
+        <div  style="text-align: left;">
+
+            <form class="layui-form" lay-filter="search_form" onsubmit="return false;">
+                <div class="layui-inline">
+                    <div class="layui-form-mid"></div>
+                    <div class="layui-input-inline" style="width: 300px;">
+                        <input type="text" name="searchKey" placeholder="关键字:备注" autocomplete="off" class="layui-input">
+                    </div>
+                    <button class="layui-btn" id="searchBtn">搜索</button>
+                    <button class="layui-btn" id="add_order_btn">添加</button>
+                </div>
+            </form>
+
+        </div>
+    </script>
+    <!-- 表头搜索 模板 end -->
 
     <!--表格中每一行的操作按钮：-->
     <script type="text/html" id="toolbarRight">

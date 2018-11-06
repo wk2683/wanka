@@ -66,7 +66,16 @@ common.url = {
             }
         },
         optType:    {action:'optType/',    name:'操作类型'},
-        order:      {action:'order/',      name:'订单'},
+        order:      {
+            action:'order/',
+            name:'订单',
+            page:{
+                manager:'page/order_manager.html',
+                add:'page/order_add.html',
+                detail:'page/order_detail.html',
+                update:'page/order_update.html'
+            }
+        },
         orderType:  {action:'orderType/',  name:'订单类型'},
         org:        {action:'org/',        name:'组织'},
         permission: {action:'permission/', name:'权限'},

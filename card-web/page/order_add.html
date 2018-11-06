@@ -74,65 +74,65 @@
                                     <form class="layui-form layui-form-pane"  onsubmit="return false;">
 
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">选择角色</label>
+                                            <label class="layui-form-label">下单客户</label>
                                             <div class="layui-input-block">
-                                                <select name="roleId" id="roleId" lay-verify="required"></select>
-                                            </div>
-                                        </div>
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">所在组织</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="orgName"  id="orgName"  lay-verify="required" placeholder="请选择组织"  class="layui-input" readonly>
-                                                <input type="hidden" name="orgId" value="1"  >
+                                                <input type="text" name="customerName"  id="customerName"  lay-verify="required" placeholder="请选择客户"  class="layui-input" readonly>
+                                                <input type="hidden" name="customerId" value="1"  >
                                             </div>
                                         </div>
 
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">用户名</label>
+                                            <label class="layui-form-label">订单类型</label>
+                                            <div class="layui-input-block">
+                                                <select name="type" id="type" lay-verify="required">
+                                                    <option value="1">还款</option>
+                                                    <option value="2">消费</option>
+                                                    <option value="3">取现刷卡</option>
+                                                    <option value="4">取现转账</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">订单总额</label>
                                             <div class="layui-input-inline">
-                                                <input type="text" name="userName"  required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-                                                <input id="id" name="id" type="hidden">
+                                                <input type="text" name="total" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input">
                                             </div>
-                                            <div class="layui-form-mid layui-word-aux">8-16位的数字、字母、下划线组合</div>
+                                            <div class="layui-form-mid layui-word-aux">元</div>
                                         </div>
 
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">密码</label>
+                                            <label class="layui-form-label">手续费率</label>
                                             <div class="layui-input-inline">
-                                                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                                                <input type="text" name="rate" required  lay-verify="required" placeholder="请输入小数" autocomplete="off" class="layui-input">
                                             </div>
-                                            <div class="layui-form-mid layui-word-aux">8-16位的数字、字母、下划线组合</div>
-                                        </div>
-
-
-
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">姓名</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
-                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">% （输入小数，如：0.05%，则输入0.05）</div>
                                         </div>
 
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">身份证号</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="idNumber" required  lay-verify="required" placeholder="请输入身份证号" autocomplete="off" class="layui-input">
+                                            <label class="layui-form-label">手续费</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="fee" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input">
                                             </div>
+                                            <div class="layui-form-mid layui-word-aux">元</div>
                                         </div>
 
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">手机号</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="phone" required  lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                                            <label class="layui-form-label">优惠金额</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="discount" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input">
                                             </div>
+                                            <div class="layui-form-mid layui-word-aux">元</div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">实收手续费</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="realFee" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input">
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">元</div>
                                         </div>
 
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">微信号</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="weixin" required  lay-verify="required" placeholder="请输入微信号" autocomplete="off" class="layui-input">
-                                            </div>
-                                        </div>
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">排序值</label>
                                             <div class="layui-input-inline">
@@ -142,60 +142,6 @@
                                         </div>
 
 
-
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">身份证正面</label>
-                                            <div class="layui-input-block">
-                                                <input type="hidden" name="fontImg" id="fontImg">
-                                                <div class="layui-upload">
-                                                    <button type="button" class="layui-btn" id="fontImgBtn" style="width: 100%;">上传照片</button>
-                                                    <div class="layui-upload-list">
-                                                        <img class="layui-upload-img" id="fontImgTag" style="width: 100%;">
-                                                        <p id="fontImgText"></p>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">身份证背面</label>
-                                            <div class="layui-input-block">
-                                                <input type="hidden" name="afterImg" id="afterImg">
-                                                <div class="layui-upload">
-                                                    <button type="button" class="layui-btn" id="afterImgBtn" style="width: 100%;">上传照片</button>
-                                                    <div class="layui-upload-list">
-                                                        <img class="layui-upload-img" id="afterImgTag"  style="width: 100%;">
-                                                        <p id="afterImgText"></p>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">全身照</label>
-                                            <div class="layui-input-block">
-                                                <input type="hidden" name="homeImg" id="homeImg">
-                                                <div class="layui-upload">
-                                                    <button type="button" class="layui-btn" id="homeImgBtn" style="width: 100%;">上传照片</button>
-                                                    <div class="layui-upload-list">
-                                                        <img class="layui-upload-img" id="homeImgTag"  style="width: 100%;">
-                                                        <p id="homeImgText"></p>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-
-                                        <!--<div class="layui-form-item">-->
-                                            <!--<label class="layui-form-label">性别</label>-->
-                                            <!--<div class="layui-input-block">-->
-                                                <!--<input type="radio" name="sex" value="男" title="男">-->
-                                                <!--<input type="radio" name="sex" value="女" title="女" checked>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
 
 
                                         <div class="layui-form-item layui-form-text">

@@ -8,7 +8,7 @@
     <!--//get-->
     <update id="update" parameterType="com.wk.entity.Order">
         UPDATE wk.wk_order SET update_time =  #{updateTime}
-        <if test="  userId != null and  userId != '' "> , user_id =  #{userId}</if>
+        <if test="  customerId != null and  customerId != '' "> , customer_id =  #{customerId}</if>
         <if test="  type != null and  type != '' "> , type =  #{type}</if>
         <if test="  total != null and  total != '' "> , total =  #{total}</if>
         <if test="  rate != null and  rate != '' "> , rate =  #{rate}</if>
@@ -18,7 +18,7 @@
         <if test="  status != null and  status != '' "> , status =  #{status}</if>
         <if test="  remark != null and  remark != '' "> , remark =  #{remark}</if>
         <if test="  seg != null and  seg != '' "> , seg =  #{seg}</if>
-        <if test="  optId) != null and  optId) != '' "> , opt_id) =  #{optId}  </if>
+        <if test="  optId != null and  optId != '' "> , opt_id) =  #{optId}  </if>
         WHERE id=(#{id}
 
     </update>
@@ -26,9 +26,9 @@
 
 
     <select id="search" resultType="com.wk.entity.Order" parameterType="com.wk.entity.Order">
-        SELECT id, user_id userId, type, total, rate, fee, discount, real_fee realFee, status, remark, seg, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_order
+        SELECT id, customer_id customerId, type, total, rate, fee, discount, real_fee realFee, status, remark, seg, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_order
         <where>
-            <if test="  userId != null and  userId != '' "> AND  user_id =  #{userId}</if>
+            <if test="  customerId != null and  customerId != '' "> AND  customer_id =  #{customerId}</if>
             <if test="  type != null and  type != '' "> AND  type =  #{type}</if>
             <if test="  total != null and  total != '' "> AND  total =  #{total}</if>
             <if test="  rate != null and  rate != '' "> AND  rate =  #{rate}</if>
@@ -50,7 +50,7 @@
     <select id="searchCount" resultType="java.lang.Integer" parameterType="com.wk.entity.Order">
         SELECT COUNT(*) FROM wk.wk_order
         <where>
-            <if test="  userId != null and  userId != '' "> AND  user_id =  #{userId}</if>
+            <if test="  customerId != null and  customerId != '' "> AND  customer_id =  #{customerId}</if>
             <if test="  type != null and  type != '' "> AND  type =  #{type}</if>
             <if test="  total != null and  total != '' "> AND  total =  #{total}</if>
             <if test="  rate != null and  rate != '' "> AND  rate =  #{rate}</if>

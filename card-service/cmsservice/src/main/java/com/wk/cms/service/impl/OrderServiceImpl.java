@@ -18,6 +18,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String add(Order order) {
         order.addInit();
+        order.setStatus(1);
         Integer addRow = orderDao.add(order);
         if(addRow>0){
             return order.getId();

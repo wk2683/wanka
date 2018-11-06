@@ -97,3 +97,6 @@ nohup java -jar -Dspring.config.location=D:\Server\Root\config\eurakserver\appli
 
 上传文件路径配置 得根据服务器情况修改
 
+
+订单表 user_id 修改成 customerId   因为是客户下的单，对应客户ID
+
