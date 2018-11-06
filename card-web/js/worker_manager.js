@@ -32,7 +32,7 @@ layui.use(['form','table','layer'],function () {
             elem: '#worker_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.worker.action + common.url.opt.search  //数据源url
-            , where: { userId: user.id, userName: user.name ,searchKey:searchKey} //如果无需传递额外参数，可不加该参数
+            , where: { userId: user.id ,searchKey:searchKey} //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
@@ -69,7 +69,7 @@ layui.use(['form','table','layer'],function () {
             , limits: [10,  30, 50,100,200] //可选择设定每页数量
             , loading: true //true | false 是否显示加载条
             , title: '角色表' //定义table大标题（比如导出时则为文件名）
-            , text: {none: '<button class="layui-btn  layui-btn-fluid" lay-event="add">添加第一个角色</button>'} //空数据时提示信息
+            , text: {none: '<button class="layui-btn  layui-btn-fluid" lay-event="add">添加第一个用户</button>'} //空数据时提示信息
             // ,initSort:'' //默认排序字段
             // ,id:'table tag id' //设置table 标签的id值  （因为正常也没有id而可以通过class渲染表格）
             , skin: 'row' //行边框风格 line | row | nob
@@ -112,6 +112,8 @@ layui.use(['form','table','layer'],function () {
             if(layEvent === 'add'){
                 //添加
                 // pageData.openAddModel();
+                var add_url = common.url.page_root + common.url.model.worker.page.add
+                window.open(add_url);
             }else if(layEvent === 'detail'){ //查看
                 //详情
                 var detail_url = location.origin + '/page/worker_detail.html?id='+data.id;
