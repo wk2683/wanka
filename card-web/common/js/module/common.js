@@ -955,9 +955,9 @@ common.httpSend = function (options) {
         var user = JSON.parse(sessionStorage.user);
         if (user && user.id && user.userName){
             if (!options.data.userId || !options.data.userName) {
-                options.data.userId = user.id;//从sessionStage里提取
-                options.data.userName = user.userName;//从sessionStage里提取
-                options.data.name = user.name;//从sessionStage里提取
+                options.data.optId = user.id;//从sessionStage里提取
+                options.data.optName = user.userName;//从sessionStage里提取
+                // options.data.name = user.name;//从sessionStage里提取
             }
         }
     }

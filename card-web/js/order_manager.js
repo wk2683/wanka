@@ -15,7 +15,7 @@ layui.use(['form','table','layer','laydate'],function () {
     var tableHeader = [[ //表头
         {field: 'id',        title: 'ID', align:'center',width:'8%'},
         {field: 'customerId',title: '下单人ID', align:'center'},
-        {field: 'type',      title: '订单类型', align:'center'},
+        {field: 'type',      title: '订单类型', align:'center',templet:'#orderTypeTemplate'},
         {field: 'total',     title: '订单总额', align:'center'},
         {field: 'rate',      title: '手续费率', align:'center'},
         {field: 'fee',       title: '手续费', align:'center'},
@@ -114,15 +114,14 @@ layui.use(['form','table','layer','laydate'],function () {
                 // pageData.openAddModel();
             }else if(layEvent === 'detail'){ //查看
                 //详情
-                var detail_url = location.origin + '/page/worker_detail.html?id='+data.id;
+                var detail_url = common.url.page_root + common.url.model.order.page.detail + '?id='+obj.data.id;
                 window.open(detail_url);
             } else if(layEvent === 'delete'){ //删除
                 pageData.deleteConfirm(obj);
             } else if(layEvent === 'update'){ //编辑
                 //修改
-                // pageData.openUpdateModel(obj);
-                var detail_url = location.origin + '/page/worker_update.html?id='+data.id;
-                window.open(detail_url);
+               var update_url = common.url.page_root + common.url.model.order.page.update + '?id='+obj.data.id;
+                location.href = update_url;
             }
         });
         //监听 增 删 改
@@ -248,26 +247,26 @@ layui.use(['form','table','layer','laydate'],function () {
 
     //确认删除
     pageData.deleteConfirm = function(obj){
-        layer.confirm('真的删除行么', function(index){
+        layer.confirm('确定关闭订单吗？', function(index){
 
             layer.close(index);
             //向服务端发送删除指令
             console.log("删除 id  =  "+obj.data.id);
-            pageData.deleteRole(obj);
+            pageData.deleteSubmit(obj);
             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
         });
     };
     //提交删除
-    pageData.deleteRole = function(obj){
+    pageData.deleteSubmit = function(obj){
         common.sendOption.data = { id:obj.data.id };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.delete;
+        common.sendOption.url = common.url.web_root + common.url.model.order.action + common.url.opt.delete;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.deleteComplete;
         common.httpSend(common.sendOption);
     };
     //删除返回后处理
     pageData.deleteComplete = function(res){
-        common.noDataResponse(res,common.optName.CONTROLLER_OPT_DELETE);
+        common.noDataResponse(res,'关闭');
     };
     pageData.initSelectStatus = function(){
         var len = common.opt.status.length;

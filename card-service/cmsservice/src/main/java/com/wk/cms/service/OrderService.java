@@ -15,12 +15,13 @@ public interface OrderService {
      */
 	String add(Order order);
 
-    /**
-     * 删
+	/**
+	 * 设置为关闭
 	 * @param id
-     * @return
-     */
-	Integer delete(String id);
+	 * @param optId
+	 * @return
+	 */
+	Integer delete(String id,String optId);
 
     /**
      * 查

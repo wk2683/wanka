@@ -28,8 +28,8 @@ public class OrderController  extends  BaseController{
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse delete(String id){
-        Integer affectRow = orderService.delete(id);
+    public BaseResponse delete(@RequestParam("id")String id,@RequestParam("optId")String optId){
+        Integer affectRow = orderService.delete(id,optId);
         return responseDelete(affectRow,id,this.getClass());
     }
 

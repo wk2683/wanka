@@ -1,9 +1,7 @@
 package com.wk.cms.dao;
 
 import com.wk.entity.Order;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -25,8 +23,8 @@ public interface OrderDao {
 	 * @param id
      * @return
      */
-	@Delete(" DELETE FROM wk.wk_order WHERE ID=#{id} ")
-	Integer delete(String id);
+	@Update(" UPDATE  wk.wk_order SET status=0,update_time=NOW(),opt_id=#{optId} WHERE ID=#{id} ")
+	Integer delete(@Param("id")String id, @Param("optId")String optId);
 
     /**
      * 查

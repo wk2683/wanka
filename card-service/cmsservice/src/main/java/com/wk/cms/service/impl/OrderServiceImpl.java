@@ -28,8 +28,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Integer delete(String id) {
-        return orderDao.delete(id);
+    public Integer delete(String id,String optId) {
+        return orderDao.delete(id,optId);
     }
 
     @Override
