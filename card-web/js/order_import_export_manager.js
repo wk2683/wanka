@@ -12,21 +12,23 @@ layui.use(['form','layer','upload'],function () {
 
     var pageData = {};
 
+    //出账表头
+    var exportTableHeader = [[
+        {field: 'exportDatae',title: '下单人ID', align:'center'},
+        {field: 'type',title: '下单人ID', align:'center'},
+        {field: 'exportAccountId',title: '下单人ID', align:'center'},
+        {field: 'importAccountId',title: '下单人ID', align:'center'},
+        {field: 'cardPassword',title: '下单人ID', align:'center'},
+        {field: 'name',title: '下单人ID', align:'center'},
+        {field: 'cardNumber',title: '下单人ID', align:'center'},
+        {field: 'importBill',title: '下单人ID', align:'center'},
+        {field: 'rate',title: '下单人ID', align:'center'},
+        {field: 'fee',title: '下单人ID', align:'center'},
+        {field: 'remark',title: '下单人ID', align:'center'},
+        {fixed: 'right',  align:'center',width:200, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+    ]];
 
 
-    pageData.submitUpdate = function(param){
-        common.sendOption.data = param;
-        common.sendOption.url = common.url.web_root + common.url.model.order.action + common.url.opt.update;
-        common.sendOption.type = common.sendMethod.POST;
-        common.sendOption.completeCallBack =pageData.addComplete;
-
-        common.httpSend(common.sendOption);
-    }
-
-    pageData.addComplete = function(res){
-
-        common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE,common.url.model.order.page.manager);
-    };
     //打开选择客户
     pageData.openCustomerSelectModel = function(){
         var ww = $(window).width();

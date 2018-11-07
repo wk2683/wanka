@@ -23,7 +23,7 @@ layui.use(['form','table','layer','laydate'],function () {
         {field: 'realFee',   title: '实收手续费', align:'center'},
         {field: 'status',    title: '订单状态', align:'center',templet:'#statusTemplate'},
         {field: 'remark',    title: '备注', align:'center'},
-        ,{fixed: 'right',  align:'center',width:200, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {fixed: 'right',  align:'center',width:200, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     pageData.getTableData = function(searchObj) {

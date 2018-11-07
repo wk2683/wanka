@@ -7,6 +7,13 @@ common.sendDataType = {
     JSON:'json',
     STRING:'string',
 };
+common.formatDateType = {
+    year:'year',
+    month:'month',
+    date:'date',
+    time:'time',
+    datetime:'datetime',
+};
 common.sendContentType = {
     postContentTyppe:'application/json;charset=UTF-8' //POST 提交要设置contentType，不然后台接收异常
 };

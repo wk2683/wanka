@@ -16,8 +16,8 @@ public interface CardDao {
 	 * @param card
      * @return
      */
-	@Insert(" INSERT INTO wk.wk_card(id, self,customer_id ,card_name, name, id_number, phone, bank_name, card_number, password, bill_date, replay_date, total, bill, replay_rate, mini_fee, cash_rate, income, remark, seg, create_time, update_time, opt_id) VALUES \n" +
-			"(#{id}, #{self},#{customerId}, #{cardName}, #{name}, #{idNumber}, #{phone}, #{bankName}, #{cardNumber}, #{password}, #{billDate}, #{replayDate}, #{total}, #{bill}, #{replayRate}, #{miniFee}, #{cashRate}, #{income}, #{remark}, #{seg}, #{createTime}, #{updateTime}, #{optId}) ")
+	@Insert(" INSERT INTO wk.wk_card(id, self,customer_id ,card_name, name, id_number, phone, bank_name, card_number, password, bill_date, replay_date, valid_date,total, bill, replay_rate, mini_fee, cash_rate, income, remark, seg, create_time, update_time, opt_id) VALUES \n" +
+			"(#{id}, #{self},#{customerId}, #{cardName}, #{name}, #{idNumber}, #{phone}, #{bankName}, #{cardNumber}, #{password}, #{billDate}, #{replayDate},#{validDate}, #{total}, #{bill}, #{replayRate}, #{miniFee}, #{cashRate}, #{income}, #{remark}, #{seg}, #{createTime}, #{updateTime}, #{optId}) ")
 	Integer add(Card card);
 
     /**
@@ -45,6 +45,7 @@ public interface CardDao {
 			"        password,\n" +
 			"        bill_date billDate,\n" +
 			"        replay_date replayDate,\n" +
+			"        valid_date validDate,\n" +
 			"        total,\n" +
 			"        bill,\n" +
 			"        replay_rate replayRate,\n" +

@@ -19,6 +19,7 @@
         <if test="  password != null and  password != '' "> , password =  #{password}</if>
         <if test="  billDate != null and  billDate != '' "> , bill_date =  #{billDate}</if>
         <if test="  replayDate != null and  replayDate != '' "> , replay_date =  #{replayDate}</if>
+        <if test="  validDate != null and  validDate != '' "> , valid_date =  #{validDate}</if>
         <if test="  total != null and  total != '' "> , total =  #{total}</if>
         <if test="  bill != null and  bill != '' "> , bill =  #{bill}</if>
         <if test="  replayRate != null and  replayRate != '' "> , replay_rate =  #{replayRate}</if>
@@ -47,6 +48,7 @@
         password,
         bill_date billDate,
         replay_date replayDate,
+        valid_date validDate,
         total,
         bill,
         replay_rate replayRate,

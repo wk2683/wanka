@@ -2,6 +2,7 @@ package com.wk.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 客户信用卡信息
@@ -19,6 +20,7 @@ public class Card extends BaseEntity implements Serializable {
     private String password    ;
     private Integer billDate   ;
     private Integer replayDate ;
+    private String validDate ;//有效期
     private BigDecimal total       ;//总额
     private BigDecimal bill        ;//账单金额
     private BigDecimal replayRate ;//还款费率
@@ -116,6 +118,14 @@ public class Card extends BaseEntity implements Serializable {
         this.replayDate = replayDate;
     }
 
+    public String getValidDate() {
+        return validDate;
+    }
+
+    public void setValidDate(String validDate) {
+        this.validDate = validDate;
+    }
+
     public BigDecimal getTotal() {
         return total;
     }
@@ -139,6 +149,8 @@ public class Card extends BaseEntity implements Serializable {
     public void setReplayRate(BigDecimal replayRate) {
         this.replayRate = replayRate;
     }
+
+
 
     public BigDecimal getMiniFee() {
         return miniFee;

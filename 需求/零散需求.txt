@@ -100,3 +100,10 @@ nohup java -jar -Dspring.config.location=D:\Server\Root\config\eurakserver\appli
 
 订单表 user_id 修改成 customerId   因为是客户下的单，对应客户ID
 
+
+比如06/22到期
+
+选择日期的时候，2022-06-30到期，然后提前一个月提醒，此卡将过期
+
+
+

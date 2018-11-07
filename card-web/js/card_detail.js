@@ -49,6 +49,7 @@ layui.use(['form','layer'],function () {
             'password':card.password,
             'billDate':card.billDate,
             'replayDate':card.replayDate,
+            'validDate':card.validDate,
             'total':card.total,
             'bill':card.bill,
             'replayRate':card.replayRate,

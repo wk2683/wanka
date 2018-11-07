@@ -1,10 +1,10 @@
 //新增员工
 
 
-layui.use(['form','layer'],function () {
+layui.use(['form','layer','laydate'],function () {
 
 
-
+    var laydate = layui.laydate;
     var layer = layui.layer;
     var form = layui.form;
     var user = layui.sessionData('user');
@@ -165,5 +165,6 @@ layui.use(['form','layer'],function () {
         pageData.openSelectUserMode();
     });
 
+    common.util.initSelectDate(laydate,'validDate',common.formatDateType.month);
 
 });

@@ -25,6 +25,7 @@ layui.use(['form','table','layer'],function () {
         {field: 'password',     title: '密码', align:'center'},
         {field: 'billDate',     title: '账单日', align:'center'},
         {field: 'replayDate',   title: '还款日', align:'center'},
+        {field: 'validDate',   title: '有效期', align:'center'},
         {field: 'total',        title: '总额', align:'center'},
         {field: 'bill',         title: '账单金额', align:'center'},
         {field: 'replayRate',   title: '还款费率',     align:'center'},
