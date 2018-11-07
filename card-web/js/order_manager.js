@@ -23,7 +23,7 @@ layui.use(['form','table','layer','laydate'],function () {
         {field: 'realFee',   title: '实收手续费', align:'center'},
         {field: 'status',    title: '订单状态', align:'center',templet:'#statusTemplate'},
         {field: 'remark',    title: '备注', align:'center'},
-        ,{fixed: 'right',  align:'center',width:250, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        ,{fixed: 'right',  align:'center',width:200, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     pageData.getTableData = function(searchObj) {
@@ -109,11 +109,10 @@ layui.use(['form','table','layer','laydate'],function () {
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
             console.log("点击事件......"+layEvent);
-            if(layEvent === 'add'){
-                //添加
-                // pageData.openAddModel();
-            }else if(layEvent === 'detail'){ //查看
-                //详情
+            if(layEvent === 'export_import'){//记账
+                var imexport_url = common.url.page_root + common.url.model.order.page.imexport + '?id='+obj.data.id;
+                location.href = imexport_url;
+            }else if(layEvent === 'detail'){ //查看详情
                 var detail_url = common.url.page_root + common.url.model.order.page.detail + '?id='+obj.data.id;
                 window.open(detail_url);
             } else if(layEvent === 'delete'){ //删除

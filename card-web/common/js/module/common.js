@@ -19,7 +19,7 @@ common.sendOption = {
     completeCallBack:''
 };
 common.opt = {};
-common.opt.names = {add:'新增',update:'修改',manager:'管理',detail:'详情'};
+common.opt.names = {add:'新增',update:'修改',manager:'管理',detail:'详情',import:'入账',export:'出账'};
 common.opt.status = ['已关闭','新增','完成','业务中'];
 common.opt.orderTypes = ['其它','还款','消费','取现刷卡','取现转账'];
 common.url = {
@@ -75,7 +75,8 @@ common.url = {
                 manager:'page/order_manager.html',
                 add:'page/order_add.html',
                 detail:'page/order_detail.html',
-                update:'page/order_update.html'
+                update:'page/order_update.html',
+                imexport:'page/order_import_export_manager.html'
             }
         },
         orderType:  {action:'orderType/',  name:'订单类型'},
