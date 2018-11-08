@@ -10,7 +10,7 @@
         UPDATE wk.wk_order_import SET update_time =  #{updateTime}
         <if test=" id != null and  id != '' " >,id = #{id}</if>
         <if test=" orderId != null and  orderId != '' " >, order_id  = #{orderId}</if>
-        <if test=" exportDatae != null and  exportDatae != '' " >, export_datae = #{exportDatae}</if>
+        <if test=" exportDate != null and  exportDate != '' " >, export_date = #{exportDate}</if>
         <if test=" type != null and  type != '' " >, type = #{type}</if>
         <if test=" posId != null and  posId != '' " >, pos_id = #{posId}</if>
         <if test=" mallName != null and  mallName != '' " >, mall_name = #{mallName}</if>
@@ -35,7 +35,7 @@
         SELECT
         id id,
         order_id  orderId,
-        export_datae exportDatae,
+        export_date exportDate,
         type type,
         pos_id posId,
         mall_name mallName,
@@ -56,7 +56,7 @@
         <where>
 
             <if test=" orderId != null and  orderId != '' " >AND  order_id  = #{orderId}</if>
-            <if test=" exportDatae != null and  exportDatae != '' " >AND  export_datae = #{exportDatae}</if>
+            <if test=" exportDate != null and  exportDate != '' " >AND  export_date = #{exportDate}</if>
             <if test=" type != null and  type != '' " >AND  type = #{type}</if>
             <if test=" posId != null and  posId != '' " >AND  pos_id = #{posId}</if>
             <if test=" mallName != null and  mallName != '' " >AND  mall_name = #{mallName}</if>
@@ -92,7 +92,7 @@
         SELECT COUNT(*)   FROM wk.wk_order_import
         <where>
             <if test=" orderId != null and  orderId != '' " >AND  order_id  = #{orderId}</if>
-            <if test=" exportDatae != null and  exportDatae != '' " >AND  export_datae = #{exportDatae}</if>
+            <if test=" exportDate != null and  exportDate != '' " >AND  export_date = #{exportDate}</if>
             <if test=" type != null and  type != '' " >AND  type = #{type}</if>
             <if test=" posId != null and  posId != '' " >AND  pos_id = #{posId}</if>
             <if test=" mallName != null and  mallName != '' " >AND  mall_name = #{mallName}</if>

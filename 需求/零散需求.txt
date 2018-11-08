@@ -110,5 +110,7 @@ nohup java -jar -Dspring.config.location=D:\Server\Root\config\eurakserver\appli
 
 资金表 加了　 user_id
 
+订单表费率 变成 3位小数 
+
 
 

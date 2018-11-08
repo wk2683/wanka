@@ -1,8 +1,8 @@
 //订单出入账管理
 
 
-layui.use(['form','layer','table'],function () {
-
+layui.use(['form','layer','table','util'],function () {
+    var util = layui.util;
     var layer = layui.layer;
     var form = layui.form;
     var table = layui.table;
@@ -13,10 +13,12 @@ layui.use(['form','layer','table'],function () {
     //出账表头
     var exportTableHeader = [[
         {field: 'id',title: 'ID', align:'center'},
-        {field: 'exportDatae',title: '日期', align:'center'},
+        {field: 'exportDate',title: '日期', align:'center'},
         {field: 'type',title: '操作类型', align:'center'},
-        {field: 'exportAccountId',title: '转出账户', align:'center'},
-        {field: 'importAccountId',title: '转入账户', align:'center'},
+        // {field: 'exportAccountId',title: '转出账户', align:'center'},
+        {field: 'exportAccountName',title: '转出账户', align:'center'},
+        // {field: 'importAccountId',title: '转入账户', align:'center'},
+        {field: 'importAccountName',title: '转入账户', align:'center'},
         {field: 'cardPassword',title: '卡密码', align:'center'},
         {field: 'name',title: '姓名', align:'center'},
         {field: 'cardNumber',title: '卡号', align:'center'},
@@ -28,9 +30,8 @@ layui.use(['form','layer','table'],function () {
     ]];
     //入账表头
     var importTableHeader = [[
-        {field: 'id',title: '日期', align:'center'},
-        // {field: 'orderId',title: '日期', align:'center'},
-        {field: 'exportDatae',title: '日期', align:'center'},
+        {field: 'id',title: 'ID', align:'center'},
+        {field: 'exportDate',title: '日期', align:'center'},
         {field: 'type',title: '操作类型', align:'center'},
         {field: 'posId',title: 'POS机名称', align:'center'},
         {field: 'mallName',title: '商户名称', align:'center'},
@@ -149,6 +150,19 @@ layui.use(['form','layer','table'],function () {
 
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
+
+                if(data && data.length>0){
+                    var len = data.length;
+                    for(var i=0;i<len;i++){
+                        var item = data[i];
+                        if(item.exportDate){
+                            item.exportDate = util.toDateString(new Date(item.exportDate),'yyyy-MM-dd HH:mm')
+                        }
+                        item.type = common.opt.orderTypes[item.type];
+
+                    }
+                }
+
                 return {
                     "code": 0,// res.status, //解析接口状态
                     "msg": '',// res.message, //解析提示文本
@@ -161,9 +175,58 @@ layui.use(['form','layer','table'],function () {
             , size: 'sm'  //小尺寸 sm | lg
         });
 
+        var filterTable = 'orderExportTableEvent';
+        if(tableId.indexOf('import')>0){
+            filterTable = 'orderImportTableEvent';
+        }
+        //监听工具条
+        table.on('tool('+filterTable+')', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+            console.log("点击事件......"+layEvent);
+            if(layEvent === 'delete'){ //删除
+                pageData.deleteConfirm(obj);
+            } else if(layEvent === 'update'){ //编辑
+                //修改
+                var update_url = common.url.page_root + common.url.model.orderExport.page.update + '?id='+obj.data.id + '&orderId='+obj.data.orderId;
+                location.href = update_url;
+            }
+        });
 
 
     };
+
+    //确认删除
+    pageData.deleteConfirm = function(obj){
+        layer.confirm('确定删除吗？', function(index){
+
+            layer.close(index);
+            //向服务端发送删除指令
+            console.log("删除 id  =  "+obj.data.id);
+            pageData.deleteSubmit(obj);
+            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+        });
+    };
+    //提交删除
+    pageData.deleteSubmit = function(obj){
+        common.sendOption.data = { id:obj.data.id };
+        common.sendOption.url = common.url.web_root + common.url.model.orderExport.action + common.url.opt.delete;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack =pageData.deleteComplete;
+        common.httpSend(common.sendOption);
+    };
+    //删除返回后处理
+    pageData.deleteComplete = function(res){
+        common.noDataResponse(res,common.optName.CONTROLLER_OPT_DELETE);
+    };
+
+
+
+
+
+
+
 
     //获取出账
     pageData.getExport = function(searchObj){
@@ -197,12 +260,12 @@ layui.use(['form','layer','table'],function () {
         //添加按钮事件
         $(document.body).on('click','.addBtn',function () {
             var exportTable = $(this).closest(".widget-body").find("#order_export_list");
-
-            var add_url = common.url.page_root + common.url.model.orderExport.page.add;
+            var p = common.util.getHrefParam();
+            var add_url = common.url.page_root + common.url.model.orderExport.page.add + '?orderId='+p.id;
             if(exportTable.length>0){
 
             }else {
-                add_url = common.url.page_root + common.url.model.orderImport.page.add;
+                add_url = common.url.page_root + common.url.model.orderImport.page.add + '?orderId'+p.id;
             }
             window.open(add_url);
         });

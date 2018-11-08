@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ public interface OrderExportDao {
      * @return
      */
 	@Insert(" INSERT INTO wk.wk_order_export\n" +
-			"(id, order_id, export_datae, type, export_account_id, import_account_id, card_password, name, card_number, import_bill, rate, fee, remark, seg, create_time, update_time, opt_id) VALUES \n" +
-			"(#{id},#{orderId},#{exportDatae},#{type},#{exportAccountId},#{importAccountId},#{cardPassword},#{name},#{cardNumber},#{importBill},#{rate},#{fee},#{remark},#{seg},#{createTime},#{updateTime},#{optId)) ")
-	Integer add(OrderExport orderExport);
+			"(id, order_id, export_date, type, export_account_id, import_account_id, card_password, name, card_number, import_bill, rate, fee, remark, seg, create_time, update_time, opt_id) VALUES \n" +
+			"(#{id},#{orderId},#{exportDate},#{type},#{exportAccountId},#{importAccountId},#{cardPassword},#{name},#{cardNumber},#{importBill},#{rate},#{fee},#{remark},#{seg},#{createTime},#{updateTime},#{optId}) ")
+	Integer add( OrderExport orderExport);
 
     /**
      * 删
@@ -36,25 +37,29 @@ public interface OrderExportDao {
      * @return
      */
 	@Select(" SELECT  " +
-			"\n" +
-			"id, \n" +
-			"order_id orderId, \n" +
-			"export_datae exportDatae, \n" +
-			"type, \n" +
-			"export_account_id exportAccountId,\n" +
-			"import_account_id importAccountId, \n" +
-			"card_password cardPassword, \n" +
-			"name, \n" +
-			"card_number cardNumber, \n" +
-			"import_bill importBill, \n" +
-			"rate, \n" +
-			"fee, \n" +
-			"remark, \n" +
-			"seg, \n" +
-			"create_time createTime,\n" +
-			" update_time updateTime, \n" +
-			" opt_id optId " +
-			" FROM wk.wk_order_export WHERE id=#{id} ")
+			"export.id, \n" +
+			"export.order_id orderId, \n" +
+			"export.export_date exportDate, \n" +
+			"export.type, \n" +
+			"export.export_account_id exportAccountId,\n" +
+			"account1.name exportAccountName,\n" +
+			"export.import_account_id importAccountId, \n" +
+			"account2.name importAccountName, \n" +
+			"export.card_password cardPassword, \n" +
+			"export.name, \n" +
+			"export.card_number cardNumber, \n" +
+			"export.import_bill importBill, \n" +
+			"export.rate, \n" +
+			"export.fee, \n" +
+			"export.remark, \n" +
+			"export.seg, \n" +
+			"export.create_time createTime,\n" +
+			"export.update_time updateTime, \n" +
+			"export.opt_id optId " +
+			" FROM wk.wk_order_export export " +
+			" LEFT JOIN wk.wk_account account1 ON account1.id = export.export_account_id " +
+			" LEFT JOIN wk.wk_account account2 ON account2.id = export.import_account_id " +
+			" WHERE export.id=#{id} ")
 	OrderExport get(String id);
 
 	/**

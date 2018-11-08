@@ -1,10 +1,9 @@
 //修改订单出账
 
 
-layui.use(['form','layer','upload'],function () {
-
-
-    var upload = layui.upload;
+layui.use(['form','layer','util','laydate'],function () {
+    var util = layui.util;
+    var laydate = layui.laydate;
     var layer = layui.layer;
     var form = layui.form;
     var user = layui.sessionData('user');
@@ -15,56 +14,23 @@ layui.use(['form','layer','upload'],function () {
 
 
     pageData.submitAdd = function(param){
+        if(param.exportDate){
+            var d = new Date(param.exportDate);
+            param.exportDate = d.getTime();
+        }
         common.sendOption.data = param;
-        common.sendOption.url = common.url.web_root + common.url.model.orderExport.action + common.url.opt.add;
+        common.sendOption.url = common.url.web_root + common.url.model.orderExport.action + common.url.opt.update;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.addComplete;
         common.httpSend(common.sendOption);
     }
 
     pageData.addComplete = function(res){
-        common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD,common.url.model.order.page.manager);
+        var p = common.util.getHrefParam();
+        var order_export_url = common.url.model.order.page.imexport + '?id=' + p.orderId;
+        common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE,order_export_url);
     };
-    //打开选择客户
-    pageData.openCustomerSelectModel = function(){
-        var ww = $(window).width();
-        ww = ww*0.8;
-        var hh = $(window).height();
-        hh = hh*0.8;
-        layer.open({
-            type:2,
-            title:'选择用户',
-            content: common.url.page_root + common.url.model.customer.page.selectList,
-            area:[ ww+'px',hh+'px'],
-            btn:['确定'],
-            yes:function (index, layero) {
-                console.log("点击了确定");
-                pageData.showSelectCustomers();
-                layer.close(index);//关掉自己
-            }
-        })
-    };
-    //显示选择的客户
-    pageData.showSelectCustomers = function(){
-        var len = window.frames.length;
-        var selectUsers = 0;
-        for(var i=0;i<len;i++){
-            if(window.frames[i].getSelectUsers && typeof  window.frames[i].getSelectUsers == "function"){
-                selectUsers = window.frames[i].getSelectUsers();    //[{id,name},...]
-                break;
-            }
-        }
-        if(selectUsers.length>1){
-            layer.msg('只能选择一个用户哦~',{anim:6},function () {
-                pageData.openSelectUserMode();
-            });
 
-            return false;
-        }
-        var selectUser = selectUsers[0];
-        $("input[name=customerId]").val(selectUser.id);
-        $("input[name=customerName]").val(selectUser.name);
-    };
     //打开选择资金账户
     pageData.openAccountSelectModel = function(prev){
 
@@ -96,8 +62,8 @@ layui.use(['form','layer','upload'],function () {
             }
         }
         if(selectUsers.length>1){
-            layer.msg('只能选择一个用户哦~',{anim:6},function () {
-                pageData.openSelectUserMode();
+            layer.msg('只能选择一个账户哦~',{anim:6},function () {
+                pageData.openAccountSelectModel();
             });
 
             return false;
@@ -108,64 +74,64 @@ layui.use(['form','layer','upload'],function () {
     };
 
 
-
-    //加载数据
-    pageData.getData = function(){
-        var p = common.util.getHrefParam();//地址参数
-        common.sendOption.data = { id:p.id };
+    pageData.getData = function(id){
+        common.sendOption.data = {id:id};
         common.sendOption.url = common.url.web_root + common.url.model.orderExport.action + common.url.opt.get;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.getComplete;
         common.httpSend(common.sendOption);
     };
-    //加载完成处理
-    pageData.getComplete = function (res) {
+
+    pageData.getComplete = function(res){
         var resData = JSON.parse(res.responseText);
-        if(resData.code = common.code.RESPONSE_CODE_SUCCESS){
-            var item = JSON.parse(resData.data);
-            pageData.initDetail(item);
+        if(resData.code == common.code.RESPONSE_CODE_SUCCESS){
+            pageData.renderData(JSON.parse(resData.data));
         }else{
-            layer.msg(resData.msg,{anim:6},function () {
-                // history.back();
+            layer.msg('加载数据失败',{anim: 6},function () {
+                history.back()
             })
         }
     };
-    //显示数据
-    pageData.initDetail = function (item) {
+    pageData.renderData = function(data){
 
         form.val('export_form',{
-            id:item.id,
-            orderId:item.orderId,
-            exportDatae:item.exportDatae,
-            type:item.type,
-            exportAccountId:item.exportAccountId,
-            importAccountId:item.importAccountId,
-            cardPassword:item.cardPassword,
-            name:item.name,
-            cardNumber:item.cardNumber,
-            importBill:item.importBill,
-            rate:item.rate,
-            fee:item.fee,
-            remark:item.remark
-        });
-        //获取一些id对应的名称
+            id:data.id,
+            exportDate:util.toDateString(data.exportDate,'yyyy-MM-dd HH:mm'),
+            type:data.type,
+            exportAccountId:data.exportAccountId,
+            exportAccountName:data.exportAccountName,
+            importAccountId:data.importAccountId ,
+            importAccountName:data.importAccountName ,
+            cardPassword:data.cardPassword,
+            name:data.name ,
+            cardNumber:data.cardNumber,
+            importBill:data.importBill,
+            rate:data.rate ,
+            fee:data.fee,
+            seg:data.seg,
+            remark:data.remark
+        })
+
+        form.render();
     };
 
 
-
-
     $(function () {
+        //保存地址上的参数
+        var p = common.util.getHrefParam();
+        $("input[name=id]").val(p.id);
+        $("input[name=orderId]").val(p.orderId);
+
+
 
         //初始化日期控件
-        common.util.initSelectDate(laydate,'exportDatae',common.formatDateType.datetime);
+        common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
         //初始化操作类型
         common.util.getOrderTypeOptions('type');
-        form.render('select');
+        //初始化手续费率选择
+        common.util.getRatesOptions('rate');
+        // form.render('select');
 
-        //点选客户
-        $("input[name=customerName]").click(function () {
-            pageData.openCustomerSelectModel();
-        });
 
         //点选转出
         $("input[name=exportAccountName]").click(function () {
@@ -177,14 +143,16 @@ layui.use(['form','layer','upload'],function () {
             pageData.openAccountSelectModel('importAccount');
         });
 
-        //初始化手续费率选择
-        common.util.getRatesOptions('rate');
+
+
 
         //监听提交按钮 submit(btn_id)
         form.on('submit(formAdd)', function(data){
             pageData.submitAdd(data.field);
             return false;
         });
+
+        pageData.getData(p.id);
 
     })
 

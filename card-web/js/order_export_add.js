@@ -1,9 +1,9 @@
 //新增订单出账
 
 
-layui.use(['form','layer','upload'],function () {
+layui.use(['form','layer','upload','laydate'],function () {
 
-
+    var laydate = layui.laydate;
     var upload = layui.upload;
     var layer = layui.layer;
     var form = layui.form;
@@ -15,6 +15,10 @@ layui.use(['form','layer','upload'],function () {
 
 
     pageData.submitAdd = function(param){
+        if(param.exportDate){
+            var d = new Date(param.exportDate);
+            param.exportDate = d.getTime();
+        }
         common.sendOption.data = param;
         common.sendOption.url = common.url.web_root + common.url.model.orderExport.action + common.url.opt.add;
         common.sendOption.type = common.sendMethod.POST;
@@ -23,48 +27,11 @@ layui.use(['form','layer','upload'],function () {
     }
 
     pageData.addComplete = function(res){
-        common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD,common.url.model.order.page.manager);
+        var p = common.util.getHrefParam();
+        var order_export_url = common.url.model.order.page.imexport + '?id=' + p.orderId;
+        common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD,order_export_url);
     };
-    //打开选择客户
-    pageData.openCustomerSelectModel = function(){
-        var ww = $(window).width();
-        ww = ww*0.8;
-        var hh = $(window).height();
-        hh = hh*0.8;
-        layer.open({
-            type:2,
-            title:'选择用户',
-            content: common.url.page_root + common.url.model.customer.page.selectList,
-            area:[ ww+'px',hh+'px'],
-            btn:['确定'],
-            yes:function (index, layero) {
-                console.log("点击了确定");
-                pageData.showSelectCustomers();
-                layer.close(index);//关掉自己
-            }
-        })
-    };
-    //显示选择的客户
-    pageData.showSelectCustomers = function(){
-        var len = window.frames.length;
-        var selectUsers = 0;
-        for(var i=0;i<len;i++){
-            if(window.frames[i].getSelectUsers && typeof  window.frames[i].getSelectUsers == "function"){
-                selectUsers = window.frames[i].getSelectUsers();    //[{id,name},...]
-                break;
-            }
-        }
-        if(selectUsers.length>1){
-            layer.msg('只能选择一个用户哦~',{anim:6},function () {
-                pageData.openSelectUserMode();
-            });
 
-            return false;
-        }
-        var selectUser = selectUsers[0];
-        $("input[name=customerId]").val(selectUser.id);
-        $("input[name=customerName]").val(selectUser.name);
-    };
     //打开选择资金账户
     pageData.openAccountSelectModel = function(prev){
 
@@ -96,8 +63,8 @@ layui.use(['form','layer','upload'],function () {
             }
         }
         if(selectUsers.length>1){
-            layer.msg('只能选择一个用户哦~',{anim:6},function () {
-                pageData.openSelectUserMode();
+            layer.msg('只能选择一个账户哦~',{anim:6},function () {
+                pageData.openAccountSelectModel();
             });
 
             return false;
@@ -110,17 +77,14 @@ layui.use(['form','layer','upload'],function () {
 
 
     $(function () {
-
+        var p = common.util.getHrefParam();
+        $("input[name=orderId]").val(p.orderId);
         //初始化日期控件
-        common.util.initSelectDate(laydate,'exportDatae',common.formatDateType.datetime);
+        common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
         //初始化操作类型
         common.util.getOrderTypeOptions('type');
-        form.render('select');
 
-        //点选客户
-        $("input[name=customerName]").click(function () {
-            pageData.openCustomerSelectModel();
-        });
+
 
         //点选转出
         $("input[name=exportAccountName]").click(function () {
@@ -134,6 +98,7 @@ layui.use(['form','layer','upload'],function () {
 
         //初始化手续费率选择
         common.util.getRatesOptions('rate');
+        form.render('select');
 
         //监听提交按钮 submit(btn_id)
         form.on('submit(formAdd)', function(data){

@@ -18,9 +18,9 @@ public interface OrderImportDao {
      * @return
      */
 	@Insert(" INSERT INTO wk.wk_order_import\n" +
-			"(id, order_id, export_datae, type, pos_id, mall_name, consume_account_id, bill, consume_type, result, rate, fee, import_bill, should_bill, remark, seg, create_time, update_time, opt_id) \n" +
+			"(id, order_id, export_Date, type, pos_id, mall_name, consume_account_id, bill, consume_type, result, rate, fee, import_bill, should_bill, remark, seg, create_time, update_time, opt_id) \n" +
 			"VALUES \n" +
-			"(#{id},#{orderId},#{exportDatae},#{type},#{posId},#{mallName},#{consumeAccountId},#{bill},#{consumeType},#{result},#{rate},#{fee},#{importBill},#{shouldBill},#{remark},#{seg},#{createTime},#{updateTime},#{optId}) \n" +
+			"(#{id},#{orderId},#{exportDate},#{type},#{posId},#{mallName},#{consumeAccountId},#{bill},#{consumeType},#{result},#{rate},#{fee},#{importBill},#{shouldBill},#{remark},#{seg},#{createTime},#{updateTime},#{optId}) \n" +
 			"\n ")
 	Integer add(OrderImport orderImport);
 
@@ -40,7 +40,7 @@ public interface OrderImportDao {
 	@Select(" SELECT  " +
 			"id id,\n" +
 			" order_id  orderId,\n" +
-			" export_datae exportDatae,\n" +
+			" export_date exportDate,\n" +
 			" type type,\n" +
 			" pos_id posId,\n" +
 			" mall_name mallName,\n" +

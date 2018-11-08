@@ -136,7 +136,7 @@ layui.use(['form','layer','upload'],function () {
         form.val('export_form',{
             id:item.id,
             orderId:item.orderId,
-            exportDatae:item.exportDatae,
+            exportDate:item.exportDate,
             type:item.type,
             exportAccountId:item.exportAccountId,
             importAccountId:item.importAccountId,
@@ -157,7 +157,7 @@ layui.use(['form','layer','upload'],function () {
     $(function () {
 
         //初始化日期控件
-        common.util.initSelectDate(laydate,'exportDatae',common.formatDateType.datetime);
+        common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
         //初始化操作类型
         common.util.getOrderTypeOptions('type');
         form.render('select');

@@ -5,6 +5,8 @@ eureka:
 server:
   port: 8002
 spring:
+  jackson:
+    date-format:  yyyy-MM-dd HH:mm:ss
   application:
     name: cmsservice
   datasource:

@@ -7,9 +7,9 @@
     <!--//delete-->
     <!--//get-->
     <update id="update" parameterType="com.wk.entity.OrderExport">
-        UPDATE wk.wk_order_export SET update_time =  #{updateTime}
+        UPDATE wk.wk_order_export SET update_time =  #{updateTime}, export_date = #{ exportDate}
         <if test="orderId != null and orderId != '' ">, order_id = #{orderId} </if>
-        <if test="exportDatae != null and exportDatae != '' ">, export_datae = #{ exportDatae} </if>
+
         <if test="type != null and type != 0 ">, type = #{type} </if>
         <if test="exportAccountId != null and exportAccountId != '' ">, export_account_id = #{ exportAccountId} </if>
         <if test="importAccountId != null and importAccountId != '' ">, import_account_id = #{ importAccountId} </if>
@@ -29,53 +29,56 @@
 
 
     <select id="search" resultType="com.wk.entity.OrderExport" parameterType="com.wk.entity.OrderExport">
-        SELECT id,
-        order_id orderId,
-        export_datae exportDatae,
-        type,
-        export_account_id exportAccountId,
-        import_account_id importAccountId,
-        card_password cardPassword,
-        name,
-        card_number cardNumber,
-        import_bill importBill,
-        rate,
-        fee,
-        remark,
-        seg,
-        create_time createTime,
-        update_time updateTime,
-        opt_id optId  FROM wk.wk_order_export
+        SELECT
+        export.id,
+        export.order_id orderId,
+        export.export_date exportDate,
+        export.type,
+        export.export_account_id exportAccountId,
+        account1.name exportAccountName,
+        export.import_account_id importAccountId,
+        account2.name importAccountName,
+        export.card_password cardPassword,
+        export.name,
+        export.card_number cardNumber,
+        export.import_bill importBill,
+        export.rate,
+        export.fee,
+        export.remark,
+        export.seg,
+        export.create_time createTime,
+        export.update_time updateTime,
+        export.opt_id optId  FROM wk.wk_order_export export
+        LEFT JOIN wk.wk_account account1 ON account1.id = export.export_account_id
+        LEFT JOIN wk.wk_account account2 ON account2.id = export.import_account_id
         <where>
-            <if test="orderId != null and orderId != '' ">AND  order_id = #{orderId} </if>
-            <if test="exportDatae != null and exportDatae != '' ">AND  export_datae = #{ exportDatae} </if>
-            <if test="type != null and type != 0 ">AND  type = #{type} </if>
-            <if test="exportAccountId != null and exportAccountId != '' ">AND  export_account_id = #{ exportAccountId} </if>
-            <if test="importAccountId != null and importAccountId != '' ">AND  import_account_id = #{ importAccountId} </if>
-            <if test="cardPassword != null and cardPassword != '' ">AND  card_password = #{ cardPassword} </if>
-            <if test="name != null and name != '' ">AND  name = #{name} </if>
-            <if test="cardNumber != null and cardNumber != '' ">AND  card_number = #{ cardNumber} </if>
-            <if test="importBill != null and importBill != '' ">AND  import_bill = #{ importBill} </if>
-            <if test="rate != null and rate != '' ">AND  rate = #{rate} </if>
-            <if test="fee != null and fee != '' ">AND  fee = #{fee} </if>
-            <if test="remark != null and remark != '' ">AND  remark = #{remark} </if>
-            <if test="seg != null and seg != '' ">AND  seg = #{seg} </if>
-            <if test="optId != null and optId != '' ">AND  opt_id = #{ optId }</if>
-            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
-            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
-            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+            <if test="orderId != null and orderId != '' ">AND  export.order_id = #{orderId} </if>
+            <if test="exportDate != null and exportDate != '' ">AND  export.export_date = #{ exportDate} </if>
+            <if test="type != null and type != 0 ">AND  export.type = #{type} </if>
+            <if test="exportAccountId != null and exportAccountId != '' ">AND  export.export_account_id = #{ exportAccountId} </if>
+            <if test="importAccountId != null and importAccountId != '' ">AND  export.import_account_id = #{ importAccountId} </if>
+            <if test="cardPassword != null and cardPassword != '' ">AND  export.card_password = #{ cardPassword} </if>
+            <if test="name != null and name != '' ">AND export. name = #{name} </if>
+            <if test="cardNumber != null and cardNumber != '' ">AND  export.card_number = #{ cardNumber} </if>
+            <if test="importBill != null and importBill != '' ">AND  export.import_bill = #{ importBill} </if>
+            <if test="rate != null and rate != '' ">AND  export.rate = #{rate} </if>
+            <if test="fee != null and fee != '' ">AND  export.fee = #{fee} </if>
+            <if test="remark != null and remark != '' ">AND  export.remark = #{remark} </if>
+            <if test="seg != null and seg != '' ">AND  export.seg = #{seg} </if>
+            <if test="optId != null and optId != '' ">AND  export.opt_id = #{ optId }</if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> export.create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> export.create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> export.update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> export.update_time &lt; #{endUpdateTime}</if>
             <if test="searchKey != null and searchKey != '' ">
                 AND
                 (
-                cardNumber LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                export.cardNumber LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
-                phone LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                OR
-                id_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                export.name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
-        </where>  ORDER BY  update_time DESC  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY  export.update_time DESC  limit #{pageStart},#{pageSize}
     </select>
 
 
@@ -83,7 +86,7 @@
         SELECT COUNT(*)   FROM wk.wk_order_export
         <where>
             <if test="orderId != null and orderId != '' ">AND  order_id = #{orderId} </if>
-            <if test="exportDatae != null and exportDatae != '' ">AND  export_datae = #{ exportDatae} </if>
+            <if test="exportDate != null and exportDate != '' ">AND  export_datae = #{ exportDate} </if>
             <if test="type != null and type != 0 ">AND  type = #{type} </if>
             <if test="exportAccountId != null and exportAccountId != '' ">AND  export_account_id = #{ exportAccountId} </if>
             <if test="importAccountId != null and importAccountId != '' ">AND  import_account_id = #{ importAccountId} </if>
@@ -105,9 +108,7 @@
                 (
                 cardNumber LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
-                phone LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                OR
-                id_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
         </where>

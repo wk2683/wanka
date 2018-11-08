@@ -25,7 +25,7 @@ public class OrderImport extends  BaseEntity implements Serializable {
      * 应该刷余额（=还入金额总和-消费金额总和）
      */
     private String orderId;
-    private Date exportDatae;
+    private Date exportDate;
     private Integer type;
     private String posId;
     private String mallName;
@@ -47,12 +47,12 @@ public class OrderImport extends  BaseEntity implements Serializable {
         this.orderId = orderId;
     }
 
-    public Date getExportDatae() {
-        return exportDatae;
+    public Date getExportDate() {
+        return exportDate;
     }
 
-    public void setExportDatae(Date exportDatae) {
-        this.exportDatae = exportDatae;
+    public void setExportDate(Date exportDate) {
+        this.exportDate = exportDate;
     }
 
     public Integer getType() {

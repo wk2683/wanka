@@ -23,10 +23,12 @@ public class OrderExport extends  BaseEntity implements Serializable {
      * 手续费
      */
     private String orderId;
-    private Date exportDatae;
+    private Date exportDate;
     private Integer type;
     private String exportAccountId;
+    private String exportAccountName;
     private String importAccountId;
+    private String importAccountName;
     private String cardPassword;
     private String name;
     private String cardNumber;
@@ -43,12 +45,12 @@ public class OrderExport extends  BaseEntity implements Serializable {
         this.orderId = orderId;
     }
 
-    public Date getExportDatae() {
-        return exportDatae;
+    public Date getExportDate() {
+        return exportDate;
     }
 
-    public void setExportDatae(Date exportDatae) {
-        this.exportDatae = exportDatae;
+    public void setExportDate(Date exportDate) {
+        this.exportDate = exportDate;
     }
 
     public Integer getType() {
@@ -73,6 +75,22 @@ public class OrderExport extends  BaseEntity implements Serializable {
 
     public void setImportAccountId(String importAccountId) {
         this.importAccountId = importAccountId;
+    }
+
+    public String getExportAccountName() {
+        return exportAccountName;
+    }
+
+    public void setExportAccountName(String exportAccountName) {
+        this.exportAccountName = exportAccountName;
+    }
+
+    public String getImportAccountName() {
+        return importAccountName;
+    }
+
+    public void setImportAccountName(String importAccountName) {
+        this.importAccountName = importAccountName;
     }
 
     public String getCardPassword() {
