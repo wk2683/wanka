@@ -3,7 +3,7 @@
 <!-- Head -->
 <head>
     <meta charset="utf-8" />
-    <title>新增订单出账</title>
+    <title>修改订单入账</title>
 
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -56,7 +56,7 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
                                 <div class="widget-header ">
-                                    <span class="widget-caption">新增订单出账</span>
+                                    <span class="widget-caption">修改订单入账</span>
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize">
                                             <i class="fa fa-expand"></i>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="widget-body">
                                     <!--表单开始-->
-                                    <form class="layui-form layui-form-pane"  onsubmit="return false;">
+                                    <form class="layui-form layui-form-pane"  lay-filter="export_form"   onsubmit="return false;">
                                         <input type="hidden" name="id">
                                         <input type="hidden" name="orderId">
 
@@ -222,7 +222,7 @@
     <script src="../assets/js/datatable/datatables-init.js"></script>
     <script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
     <script src="../assets/js/bootbox/bootbox.js"></script>
-    <script src="../js/order_export_add.js"></script>
+    <script src="../js/order_import_update.js"></script>
     <script>
         // InitiateSimpleDataTable.init();
         // InitiateEditableDataTable.init();

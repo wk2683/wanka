@@ -1,4 +1,4 @@
-//新增订单出账
+//修改订单出账
 
 
 layui.use(['form','layer','upload'],function () {
@@ -106,6 +106,51 @@ layui.use(['form','layer','upload'],function () {
         $("input[name="+prev+"Id]").val(selectUser.id);
         $("input[name="+prev+"Name]").val(selectUser.name);
     };
+
+
+
+    //加载数据
+    pageData.getData = function(){
+        var p = common.util.getHrefParam();//地址参数
+        common.sendOption.data = { id:p.id };
+        common.sendOption.url = common.url.web_root + common.url.model.orderExport.action + common.url.opt.get;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack =pageData.getComplete;
+        common.httpSend(common.sendOption);
+    };
+    //加载完成处理
+    pageData.getComplete = function (res) {
+        var resData = JSON.parse(res.responseText);
+        if(resData.code = common.code.RESPONSE_CODE_SUCCESS){
+            var item = JSON.parse(resData.data);
+            pageData.initDetail(item);
+        }else{
+            layer.msg(resData.msg,{anim:6},function () {
+                // history.back();
+            })
+        }
+    };
+    //显示数据
+    pageData.initDetail = function (item) {
+
+        form.val('export_form',{
+            id:item.id,
+            orderId:item.orderId,
+            exportDatae:item.exportDatae,
+            type:item.type,
+            exportAccountId:item.exportAccountId,
+            importAccountId:item.importAccountId,
+            cardPassword:item.cardPassword,
+            name:item.name,
+            cardNumber:item.cardNumber,
+            importBill:item.importBill,
+            rate:item.rate,
+            fee:item.fee,
+            remark:item.remark
+        });
+        //获取一些id对应的名称
+    };
+
 
 
 

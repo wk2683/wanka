@@ -91,11 +91,21 @@ common.url = {
         },
         orderExport:{
             action:'orderExport/',
-            name:'订单出账'
+            name:'订单出账',
+            page:{
+                add:'page/order_export_add.html',
+                detail:'page/order_export_detail.html',
+                update:'page/order_export_update.html'
+            }
         },
         orderImport:{
             action:'orderImport/',
-            name:'订单入账'
+            name:'订单入账',
+            page:{
+                add:'page/order_import_add.html',
+                detail:'page/order_import_detail.html',
+                update:'page/order_import_update.html'
+            }
         },
         orderType:  {action:'orderType/',  name:'订单类型'},
         org:        {action:'org/',        name:'组织'},
@@ -1157,6 +1167,7 @@ common.util.initNameById = function (id,model_action,showDom) {
 common.util.getStatusName = function(status){
     return common.opt.status[status];
 };
+//初始化状态option
 common.util.getStatusOptions = function(selectTagName){
     var len = common.opt.status.length;
     var options = '<option value="">选择订单状态</option>';
@@ -1169,13 +1180,26 @@ common.util.getStatusOptions = function(selectTagName){
     }
     return options;
 };
-
+//初始化订单类型（操作类型）option
 common.util.getOrderTypeOptions = function(selectTagName){
     var len = common.opt.orderTypes.length;
     var options = '<option value="">选择订单类型</option>';
     for(var i=0;i<len;i++){
         var item = common.opt.orderTypes[i];
         options += '<option value="'+i+'">'+item+'</option>';
+    }
+    if(selectTagName) {
+        $("select[name="+selectTagName+"]").html(options);
+    }
+    return options;
+};
+//初始化费率选择option
+common.util.getRatesOptions = function(selectTagName){
+    var len = common.opt.rates.length;
+    var options = '<option value="0">选择费率</option>';
+    for(var i=0;i<len;i++){
+        var item = common.opt.rates[i];
+        options += '<option value="'+item+'">'+item+'</option>';
     }
     if(selectTagName) {
         $("select[name="+selectTagName+"]").html(options);

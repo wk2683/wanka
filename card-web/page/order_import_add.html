@@ -3,7 +3,7 @@
 <!-- Head -->
 <head>
     <meta charset="utf-8" />
-    <title>新增订单出账</title>
+    <title>新增订单入账</title>
 
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -56,7 +56,7 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
                                 <div class="widget-header ">
-                                    <span class="widget-caption">新增订单出账</span>
+                                    <span class="widget-caption">新增订单入账</span>
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize">
                                             <i class="fa fa-expand"></i>
@@ -90,7 +90,7 @@
                                         </div>
 
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">转出账户</label>
+                                            <label class="layui-form-label">POS机名称</label>
                                             <div class="layui-input-block">
                                                 <input type="text" name="exportAccountName"  id="exportAccountName"  lay-verify="required" placeholder="请选择账户"  class="layui-input" readonly>
                                                 <input type="hidden" name="exportAccountId" value="1"  >
@@ -98,7 +98,7 @@
                                         </div>
 
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">转入账户</label>
+                                            <label class="layui-form-label">商户名称</label>
                                             <div class="layui-input-block">
                                                 <input type="text" name="importAccountName"  id="importAccountName"  lay-verify="required" placeholder="请选择账户"  class="layui-input" readonly>
                                                 <input type="hidden" name="importAccountId" value="1"  >
@@ -222,7 +222,7 @@
     <script src="../assets/js/datatable/datatables-init.js"></script>
     <script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
     <script src="../assets/js/bootbox/bootbox.js"></script>
-    <script src="../js/order_export_add.js"></script>
+    <script src="../js/order_import_add.js"></script>
     <script>
         // InitiateSimpleDataTable.init();
         // InitiateEditableDataTable.init();
