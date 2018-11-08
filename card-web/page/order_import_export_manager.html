@@ -40,217 +40,223 @@
 <!-- Body -->
 <body>
 
-    <!-- Main Container -->
-    <div class="main-container container-fluid">
-        <!-- Page Container -->
-        <div class="page-container">
+<!-- Main Container -->
+<div class="main-container container-fluid">
+    <!-- Page Container -->
+    <div class="page-container">
 
-            <!-- Page Content -->
-            <div class="page-content">
+        <!-- Page Content -->
+        <div class="page-content">
 
-                <!-- Page Body -->
-                <div class="page-body">
+            <!-- Page Body -->
+            <div class="page-body">
 
-                    <!--订单信息-->
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12">
-                            <div class="widget">
-                                <div class="widget-header ">
-                                    <span class="widget-caption">订单订单出入账管理</span>
-                                    <div class="widget-buttons">
-                                        <a href="#" data-toggle="maximize">
-                                            <i class="fa fa-expand"></i>
-                                        </a>
-                                        <a href="#" data-toggle="collapse">
-                                            <i class="fa fa-minus"></i>
-                                        </a>
-                                        <a href="#" data-toggle="dispose">
-                                            <i class="fa fa-times"></i>
-                                        </a>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="widget">
+                            <div class="widget-header ">
+                                <span class="widget-caption">订单详情信息</span>
+                                <div class="widget-buttons">
+                                    <a href="#" data-toggle="maximize">
+                                        <i class="fa fa-expand"></i>
+                                    </a>
+                                    <a href="#" data-toggle="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </a>
+                                    <a href="#" data-toggle="dispose">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="widget-body">
+                                <!--表单开始-->
+                                <form class="layui-form layui-form-pane" lay-filter="order_form"  onsubmit="return false;">
+                                    <input type="hidden" name="id" id="id">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">下单客户</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="customerName"  id="customerName"  lay-verify="required" placeholder="请选择客户"  class="layui-input" readonly>
+                                            <input type="hidden" name="customerId" value="1"  >
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="widget-body">
-                                    <!--表单开始-->
-                                    <form class="layui-form layui-form-pane" lay-filter="order_form"  onsubmit="return false;">
-                                        <input type="hidden" name="id" id="id">
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">下单客户</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="customerName"  id="customerName"  lay-verify="required" placeholder="请选择客户"  class="layui-input" readonly>
-                                                <input type="hidden" name="customerId" value="1"  >
-                                            </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">订单类型</label>
+                                        <div class="layui-input-block">
+                                            <input  name="type" class="layui-input"  lay-verify="required" readonly/>
+                                            <!--<select name="type" id="type" lay-verify="required"> </select>-->
                                         </div>
+                                    </div>
 
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">订单类型</label>
-                                            <div class="layui-input-block">
-                                                <input  name="type" class="layui-input"  lay-verify="required" readonly/>
-                                                <!--<select name="type" id="type" lay-verify="required"> </select>-->
-                                            </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">订单状态</label>
+                                        <div class="layui-input-block">
+                                            <input  name="status" class="layui-input"  lay-verify="required" readonly/>
+                                            <!--<select name="type" id="type" lay-verify="required"> </select>-->
                                         </div>
+                                    </div>
 
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">订单状态</label>
-                                            <div class="layui-input-block">
-                                                <input  name="status" class="layui-input"  lay-verify="required" readonly/>
-                                                <!--<select name="type" id="type" lay-verify="required"> </select>-->
-                                            </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">订单总额</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="total" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input" readonly>
                                         </div>
+                                        <div class="layui-form-mid layui-word-aux">元</div>
+                                    </div>
 
-
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">订单总额</label>
-                                            <div class="layui-input-inline">
-                                                <input type="text" name="total" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input" readonly>
-                                            </div>
-                                            <div class="layui-form-mid layui-word-aux">元</div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">手续费率</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="rate" required  lay-verify="required" placeholder="请输入小数" autocomplete="off" class="layui-input" readonly>
                                         </div>
+                                        <div class="layui-form-mid layui-word-aux">% （输入小数，如：0.05%，则输入0.05）</div>
+                                    </div>
 
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">手续费率</label>
-                                            <div class="layui-input-inline">
-                                                <input type="text" name="rate" required  lay-verify="required" placeholder="请输入小数" autocomplete="off" class="layui-input" readonly>
-                                            </div>
-                                            <div class="layui-form-mid layui-word-aux">% （输入小数，如：0.05%，则输入0.05）</div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">手续费</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="fee" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input" readonly>
                                         </div>
+                                        <div class="layui-form-mid layui-word-aux">元</div>
+                                    </div>
 
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">手续费</label>
-                                            <div class="layui-input-inline">
-                                                <input type="text" name="fee" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input" readonly>
-                                            </div>
-                                            <div class="layui-form-mid layui-word-aux">元</div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">优惠金额</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="discount" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input" readonly>
                                         </div>
-
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">优惠金额</label>
-                                            <div class="layui-input-inline">
-                                                <input type="text" name="discount" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input" readonly>
-                                            </div>
-                                            <div class="layui-form-mid layui-word-aux">元</div>
+                                        <div class="layui-form-mid layui-word-aux">元</div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">实收手续费</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="realFee" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input" readonly>
                                         </div>
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">实收手续费</label>
-                                            <div class="layui-input-inline">
-                                                <input type="text" name="realFee" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input" readonly>
-                                            </div>
-                                            <div class="layui-form-mid layui-word-aux">元</div>
+                                        <div class="layui-form-mid layui-word-aux">元</div>
+                                    </div>
+
+                                    <div class="layui-form-item layui-form-text">
+                                        <label class="layui-form-label" style="width:37%;">备注</label>
+                                        <div class="layui-input-block" style="width:37%;">
+                                            <textarea name="remark" placeholder="请输入内容" class="layui-textarea" readonly></textarea>
                                         </div>
+                                    </div>
 
-                                        <div class="layui-form-item layui-form-text">
-                                            <label class="layui-form-label" style="width:37%;">备注</label>
-                                            <div class="layui-input-block" style="width:37%;">
-                                                <textarea name="remark" placeholder="请输入内容" class="layui-textarea" readonly></textarea>
-                                            </div>
-                                        </div>
-
-                                    </form>
+                                </form>
 
 
-                                    <!--表单结束-->
-                                </div>
+                                <!--表单结束-->
                             </div>
                         </div>
                     </div>
-                    <!--订单信息end-->
-
-
-                    <!--出账管理-->
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12">
-                            <div class="widget">
-                                <div class="widget-header ">
-                                    <span class="widget-caption">订单出账列表</span>
-                                    <!--<button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>-->
-                                    <div class="widget-buttons">
-                                        <a href="#" data-toggle="maximize">
-                                            <i class="fa fa-expand"></i>
-                                        </a>
-                                        <a href="#" data-toggle="collapse">
-                                            <i class="fa fa-minus"></i>
-                                        </a>
-                                        <a href="#" data-toggle="dispose">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="widget-body">
-                                    <table id="order_exort_list" lay-filter="orderExportTableEvent"></table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--出账管理 end -->
-
-                    <!--入账管理-->
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12">
-                            <div class="widget">
-                                <div class="widget-header ">
-                                    <span class="widget-caption">订单入账列表</span>
-                                    <!--<button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>-->
-                                    <div class="widget-buttons">
-                                        <a href="#" data-toggle="maximize">
-                                            <i class="fa fa-expand"></i>
-                                        </a>
-                                        <a href="#" data-toggle="collapse">
-                                            <i class="fa fa-minus"></i>
-                                        </a>
-                                        <a href="#" data-toggle="dispose">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="widget-body">
-                                    <table id="order_import_list" lay-filter="orderImportTableEvent"></table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--入账管理 end -->
                 </div>
-                <!-- /Page Body -->
+
+                <!--出账管理-->
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="widget">
+                            <div class="widget-header ">
+                                <span class="widget-caption">订单出账列表</span>
+                            </div>
+                            <div class="widget-body">
+                                <table id="order_export_list" lay-filter="orderExportTableEvent"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--出账管理 end -->
+
+                <!--入账管理-->
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="widget">
+                            <div class="widget-header ">
+                                <span class="widget-caption">订单入账列表</span>
+                            </div>
+                            <div class="widget-body">
+                                <table id="order_import_list" lay-filter="orderImportTableEvent"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--入账管理 end -->
             </div>
-            <!-- /Page Content -->
+            <!-- /Page Body -->
         </div>
-        <!-- /Page Container -->
-        <!-- Main Container -->
+        <!-- /Page Content -->
+    </div>
+    <!-- /Page Container -->
+    <!-- Main Container -->
+
+</div>
+
+
+<!--添加model 开始-->
+<div style="width:1px;height: 1px;">
+    <ul id="org_tree"></ul>
+
+    <!--出账表单-->
+    <!--出账表单 end -->
+
+    <!--入账表单-->
+    <!--入账表单 end -->
+</div>
+<!--添加model 结束-->
+
+<!-- 表头搜索 模板-->
+<script type="text/html" id="toolbarSearch">
+    <div  style="text-align: left;">
+
+        <form class="layui-form" lay-filter="search_form" onsubmit="return false;">
+            <div class="layui-inline">
+                <div class="layui-form-mid"></div>
+                <div class="layui-input-inline" style="width: 300px;">
+                    <input type="text" name="searchKey" placeholder="关键字" autocomplete="off" class="layui-input">
+                </div>
+                <button class="layui-btn searchBtn">搜索</button>
+                <button class="layui-btn" id="addBtn">添加</button>
+            </div>
+        </form>
 
     </div>
+</script>
+<!-- 表头搜索 模板 end -->
 
-
-    <!--添加model 开始-->
-    <div style="width:1px;height: 1px;">
-        <ul id="org_tree"></ul>
+<!--表格中每一行的操作按钮：-->
+<script type="text/html" id="toolbarRight">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
+        <button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>
     </div>
-    <!--添加model 结束-->
+</script>
 
 
+<!--Basic Scripts-->
+<script src="../assets/js/jquery-2.0.3.min.js"></script>
+<script src="../common/js/module/common.js"></script>
+<script >common.initCom();</script>
+<script src="../assets/js/bootstrap.min.js"></script>
 
-    <!--Basic Scripts-->
-    <script src="../assets/js/jquery-2.0.3.min.js"></script>
-    <script src="../common/js/module/common.js"></script>
-    <script >common.initCom();</script>
-    <script src="../assets/js/bootstrap.min.js"></script>
+<!--Beyond Scripts-->
+<script src="../assets/js/beyond.min.js"></script>
 
-    <!--Beyond Scripts-->
-    <script src="../assets/js/beyond.min.js"></script>
-
-    <!--Page Related Scripts-->
-    <script src="../assets/js/datatable/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/datatable/ZeroClipboard.js"></script>
-    <script src="../assets/js/datatable/dataTables.tableTools.min.js"></script>
-    <script src="../assets/js/datatable/dataTables.bootstrap.min.js"></script>
-    <script src="../assets/js/datatable/datatables-init.js"></script>
-    <script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
-    <script src="../assets/js/bootbox/bootbox.js"></script>
-    <script src="../js/order_detail.js"></script>
-    <script>
-        // InitiateSimpleDataTable.init();
-        // InitiateEditableDataTable.init();
-        // InitiateExpandableDataTable.init();
-        // InitiateSearchableDataTable.init();
-    </script>
+<!--Page Related Scripts-->
+<script src="../assets/js/datatable/jquery.dataTables.min.js"></script>
+<script src="../assets/js/datatable/ZeroClipboard.js"></script>
+<script src="../assets/js/datatable/dataTables.tableTools.min.js"></script>
+<script src="../assets/js/datatable/dataTables.bootstrap.min.js"></script>
+<script src="../assets/js/datatable/datatables-init.js"></script>
+<script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
+<script src="../assets/js/bootbox/bootbox.js"></script>
+<script src="../js/order_import_export_manager.js"></script>
+<script>
+    // InitiateSimpleDataTable.init();
+    // InitiateEditableDataTable.init();
+    // InitiateExpandableDataTable.init();
+    // InitiateSearchableDataTable.init();
+</script>
 
 </body>
 <!--  /Body -->

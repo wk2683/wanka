@@ -63,7 +63,7 @@ layui.use(['form','table','layer'],function () {
             , limits: [10,  30, 50,100,200] //可选择设定每页数量
             , loading: true //true | false 是否显示加载条
             , title: '角色表' //定义table大标题（比如导出时则为文件名）
-            , text: {none: '<button class="layui-btn  layui-btn-fluid" lay-event="add">添加第一个角色</button>'} //空数据时提示信息
+            , text: {none: '无数据'} //空数据时提示信息
             // ,initSort:'' //默认排序字段
             // ,id:'table tag id' //设置table 标签的id值  （因为正常也没有id而可以通过class渲染表格）
             , skin: 'row' //行边框风格 line | row | nob

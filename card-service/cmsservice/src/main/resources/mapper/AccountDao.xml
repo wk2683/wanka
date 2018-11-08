@@ -27,9 +27,9 @@
     <select id="search" resultType="com.wk.entity.Account" parameterType="com.wk.entity.Account">
         SELECT id, name , user_name userName, bank_name bankName, card_number cardNumber, web_user_name webUserName, web_password webPassword, seg,remark, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_account
         <where>
-            <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
-            <if test="  userName != null and  userName != '' "> AND  user_name =  #{userName}</if>
-            <if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>
+            <!--<if test="  name != null and  name != '' "> AND  name =  #{name}</if>-->
+            <!--<if test="  userName != null and  userName != '' "> AND  user_name =  #{userName}</if>-->
+            <!--<if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>-->
             <if test="  cardNumber != null and  cardNumber != '' "> AND  card_number =  #{cardNumber}</if>
             <if test="  webUserName != null and  webUserName != '' "> AND  web_user_name =  #{webUserName}</if>
             <if test="  webPassword != null and  webPassword != '' "> AND  web_password =  #{webPassword}</if>
@@ -55,9 +55,9 @@
     <select id="searchCount" resultType="java.lang.Integer" parameterType="com.wk.entity.Account">
         SELECT COUNT(*) FROM wk.wk_account
         <where>
-            <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
-            <if test="  userName != null and  userName != '' "> AND  user_name =  #{userName}</if>
-            <if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>
+            <!--<if test="  name != null and  name != '' "> AND  name =  #{name}</if>-->
+            <!--<if test="  userName != null and  userName != '' "> AND  user_name =  #{userName}</if>-->
+            <!--<if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>-->
             <if test="  cardNumber != null and  cardNumber != '' "> AND  card_number =  #{cardNumber}</if>
             <if test="  webUserName != null and  webUserName != '' "> AND  web_user_name =  #{webUserName}</if>
             <if test="  webPassword != null and  webPassword != '' "> AND  web_password =  #{webPassword}</if>

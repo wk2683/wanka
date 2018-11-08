@@ -44,4 +44,10 @@ public interface RateService {
 	List<Rate> search(Rate rate);
 
 	Integer searchCount(Rate rate);
+
+	/**
+	 * 加载所有的费率
+	 * @return
+	 */
+    List<Rate> load();
 }

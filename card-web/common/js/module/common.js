@@ -26,9 +26,11 @@ common.sendOption = {
     completeCallBack:''
 };
 common.opt = {};
-common.opt.names = {add:'新增',update:'修改',manager:'管理',detail:'详情',import:'入账',export:'出账'};
-common.opt.status = ['已关闭','新增','完成','业务中'];
-common.opt.orderTypes = ['其它','还款','消费','取现刷卡','取现转账'];
+common.opt.names = {add:'新增',update:'修改',manager:'管理',detail:'详情',import:'入账',export:'出账'};//页面导航名称
+common.opt.status = ['已关闭','新增','完成','业务中'];//订单状态
+common.opt.orderTypes = ['其它','还款','消费','取现刷卡','取现转账'];//操作类型-订单详情的操作类型
+common.opt.consumeTypes = ['其它','正常刷卡','双免闪付'];//消费类型
+common.opt.rates = [0.38,0.60,1.20];//费率表
 common.url = {
     web_root:'http://localhost:8002/',
     page_root:'http://localhost:8003/',
@@ -40,7 +42,8 @@ common.url = {
                 manager:'page/account_manager.html',
                 add:'page/account_add.html',
                 detail:'page/account_detail.html',
-                update:'page/account_update.html'
+                update:'page/account_update.html',
+                selectList:'page/account_selectList.html'
             }
         },
         card:       {
@@ -85,6 +88,14 @@ common.url = {
                 update:'page/order_update.html',
                 imexport:'page/order_import_export_manager.html'
             }
+        },
+        orderExport:{
+            action:'orderExport/',
+            name:'订单出账'
+        },
+        orderImport:{
+            action:'orderImport/',
+            name:'订单入账'
         },
         orderType:  {action:'orderType/',  name:'订单类型'},
         org:        {action:'org/',        name:'组织'},
@@ -150,24 +161,6 @@ common.url = {
     }
 };
 
-//已经定义在一起
-// common.name = {
-//     model: {
-//         account:'账户信息',
-//         card:'信用卡信息',
-//         customer:'客户信息',
-//         model:'模块信息',
-//         optType:'操作类型',
-//         order:'订单',
-//         orderType:'订单类型',
-//         org:'组织',
-//         permission:'权限',
-//         pos:'POS机',
-//         rate:'费率',
-//         role:'角色',
-//         worker:'员工信息'
-//     }
-// };
 
 common.code = {
     RESPONSE_CODE_SUCCESS:8001,

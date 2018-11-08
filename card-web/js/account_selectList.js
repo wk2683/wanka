@@ -1,4 +1,4 @@
-//角色管理脚本
+//资金账户选择管理脚本
 
 
 layui.use(['form','table','layer'],function () {
@@ -12,11 +12,16 @@ layui.use(['form','table','layer'],function () {
     var pageData = {};
 
     var tableHeader = [[ //表头
-        {field: 'id',       title: '序号',        align:'center',width:'8%',templet:'#indexTemplate'},
-        {field: 'name',     title: '姓名',        align:'center'},
-        {field: 'idNumber', title: '身份证号',    align:'center'},
-        {field: 'phone',    title: '手机',        align:'center'},
-        // {field: 'workerId', title: '所属员工',    align:'center'}
+        {field: 'id',       title: '序号',        align:'center',width:100,templet:'#indexTemplate'}
+        ,{field: 'name',     title: '资金账户名称', align:'center'}
+        ,{field: 'userName',     title: '姓名', align:'center'}
+        ,{field: 'bankName',     title: '银行名称', align:'center'}
+        ,{field: 'cardNumber',     title: '卡号', align:'center'}
+        ,{field: 'webUserName',     title: '网银登录称', align:'center'}
+        ,{field: 'webPassword',     title: '网银登录密码', align:'center'}
+        ,{field: 'seg',      title: '排序', align:'center',}
+        ,{field: 'remark',   title: '备注', align:'center',with:100}
+
     ]];
 
     pageData.getTableData = function(searchKey) {
@@ -24,7 +29,7 @@ layui.use(['form','table','layer'],function () {
         table.render({
             elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
-            , url: common.url.web_root + common.url.model.customer.action + common.url.opt.search  //数据源url
+            , url: common.url.web_root + common.url.model.account.action + common.url.opt.search  //数据源url
             , where: { userId: user.id, userName: user.name ,searchKey:searchKey} //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
@@ -62,7 +67,7 @@ layui.use(['form','table','layer'],function () {
             , limits: [10,  30, 50,100,200] //可选择设定每页数量
             , loading: true //true | false 是否显示加载条
             , title: '角色表' //定义table大标题（比如导出时则为文件名）
-            , text: {none: '无数据'} //空数据时提示信息
+            , text: {none: '无资金账户'} //空数据时提示信息
             // ,initSort:'' //默认排序字段
             // ,id:'table tag id' //设置table 标签的id值  （因为正常也没有id而可以通过class渲染表格）
             , skin: 'row' //行边框风格 line | row | nob

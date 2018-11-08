@@ -6,6 +6,7 @@ import com.wk.entity.Rate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -59,5 +60,18 @@ public class RateController  extends  BaseController{
             total = rateService.searchCount(rate);
         }
         return responseSearch(rates,total,rate, this.getClass());
+    }
+
+    /**
+     * 加载所有银行信息
+     * @return
+     */
+    @RequestMapping(value = "/load")
+    @ResponseBody
+    @CrossOrigin
+    public BaseResponse load(){
+        List<Rate> rates = rateService.load();
+
+        return responseSearch(rates,0,null, this.getClass());
     }
 }

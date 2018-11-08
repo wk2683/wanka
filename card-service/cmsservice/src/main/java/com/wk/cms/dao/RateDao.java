@@ -56,4 +56,11 @@ public interface RateDao {
 	 * @return 返回搜索到的记录总数
 	 */
 	Integer searchCount(Rate rate);
+
+	/**
+	 * 加载所有的费率
+	 * @return
+	 */
+	@Select(" SELECT * FROM wk.wk_rate  ")
+	List<Rate> load();
 }
