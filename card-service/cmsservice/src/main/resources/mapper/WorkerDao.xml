@@ -34,6 +34,7 @@
         org.name orgName,
         worker.role_id roleId,
         role.name roleName,
+        worker.user_name userName,
         worker.name,
         worker.id_number idNumber,
         worker.phone,

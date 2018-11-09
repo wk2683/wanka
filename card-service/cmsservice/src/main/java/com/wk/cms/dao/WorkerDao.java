@@ -39,6 +39,7 @@ public interface WorkerDao {
 			"        org.name orgName,\n" +
 			"        worker.role_id roleId,\n" +
 			"        role.name roleName,\n" +
+			"        worker.user_name userName,\n" +
 			"        worker.name,\n" +
 			"        worker.id_number idNumber,\n" +
 			"        worker.phone,\n" +
@@ -83,6 +84,8 @@ public interface WorkerDao {
 			"        org.name orgName,\n" +
 			"        worker.role_id roleId,\n" +
 			"        role.name roleName,\n" +
+			"        worker.user_name userName,\n" +
+			"        worker.password password,\n" +
 			"        worker.name,\n" +
 			"        worker.id_number idNumber,\n" +
 			"        worker.phone,\n" +
