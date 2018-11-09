@@ -334,7 +334,7 @@ common.menu = [
                 },
                 {
                     id:"1",
-                    name:"POS信息管理",
+                    name:"POS机信息管理",
                     pid:"-1",
                     children:[
                         {
@@ -768,7 +768,7 @@ common.initTopNav = function (user) {
 };
 
 //初始化左边导航
-common.initLeftSilder = function () {
+common.initLeftSilder = function (modelNames) {
     var topNavSearch = '<div class="sidebar-header-wrapper">\n' +
         '                    <input type="text" class="searchinput" />\n' +
         '                    <i class="searchicon fa fa-search"></i>\n' +
@@ -776,7 +776,7 @@ common.initLeftSilder = function () {
         '                </div>';
 
 
-    var meun = common.renderLeftMeun(common.menu );
+    var meun = common.renderLeftMeun(common.menu,modelNames );
     var leftSilderHtml = '<div class="page-sidebar" id="sidebar">' + topNavSearch + meun + '</div>';
     $("div.page-container").prepend(leftSilderHtml);
 };
@@ -852,41 +852,8 @@ common.getModelNames = function(){
     }
     return [modelName,modelName+modelName2];
 };
-//统一初始化
-common.initCom = function () {
 
-    var userJSONString = sessionStorage.user;
-    var logined = true;
-    if(!userJSONString){
-        logined = false;
-    }
-
-    var user = JSON.parse(userJSONString);
-    if(!user || !user.id || !user.name ){
-        logined = false;
-    }
-
-    if(!logined){
-        var login_url = common.url.page_root + common.url.page_login;
-        window.location.href = login_url;
-    }
-
-
-    common.initTopNav(user);//body 第二个子节点 顶部导航
-    common.initLoadingDom();//body 第一个子节点 加载提示节点
-    common.initModelDom();//body 最前面加载模态框节点
-
-    common.initLeftSilder();//div.page-container 第一个子节点 侧边菜单
-
-    var modelNames = common.getModelNames();
-
-    common.initMiniNavTool(modelNames[1]);//div.page-content 第二个子节点
-    common.initMapNav(modelNames[0]);//div.page-content 第一个子节点
-    common.initCommonStyle();//加上样式
-
-
-};
-common.renderLeftMeun = function (navArrayData) {
+common.renderLeftMeun = function (navArrayData,modelNames) {
     var navLeftMeun = '';
     if(!navArrayData){
         bootbox.dialog({
@@ -900,7 +867,12 @@ common.renderLeftMeun = function (navArrayData) {
     for(var i=0;i<len;i++){
         var item = navArrayData[i];
         var submeun = common.getSubMeun(item);
-        navLeftMeun += '<li>' +
+        var liClassName = '';
+        if(modelNames && modelNames.length==2 && item.name.indexOf(modelNames[0])>=0 ) {
+            liClassName = ' class="active open" ';
+        }
+
+        navLeftMeun += '<li '+liClassName+'>' +
                         '   <a href="#" class="menu-dropdown">\n' +
                         '       <i class="menu-icon glyphicon glyphicon-tasks"></i>\n' +
                         '       <span class="menu-text"> '+item.name+' </span>\n' +
@@ -928,8 +900,12 @@ common.getSubMeun = function (meunItem) {
     var li_list = '';
     for(var i=0;i<sublen;i++){
         var item = itemList[i];
+        var liClass = '';
+        if(location.pathname.indexOf(item.url)>=0){
+            liClass = ' class="active" ';
+        }
         if(item.type=='page'){
-            li_list += '<li>\n' +
+            li_list += '<li '+ liClass +'>\n' +
                         '   <a href="'+item.url+'" class="menu-dropdown">\n' +
                         '       <span class="menu-text">'+item.name+'</span>\n' +
                         '   </a>' +
@@ -938,7 +914,43 @@ common.getSubMeun = function (meunItem) {
     }
     var ul_html = '<ul class="submenu">' + li_list + '</ul>';
     return ul_html;
-}
+};
+
+//统一初始化
+common.initCom = function () {
+
+    var userJSONString = sessionStorage.user;
+    var logined = true;
+    if(!userJSONString){
+        logined = false;
+    }
+
+    var user = JSON.parse(userJSONString);
+    if(!user || !user.id || !user.name ){
+        logined = false;
+    }
+
+    if(!logined){
+        var login_url = common.url.page_root + common.url.page_login;
+        window.location.href = login_url;
+    }
+
+
+    common.initTopNav(user);//body 第二个子节点 顶部导航
+    common.initLoadingDom();//body 第一个子节点 加载提示节点
+    common.initModelDom();//body 最前面加载模态框节点
+
+    var modelNames = common.getModelNames();
+
+    common.initLeftSilder(modelNames);//div.page-container 第一个子节点 侧边菜单
+
+    common.initMiniNavTool(modelNames[1]);//div.page-content 第二个子节点
+    common.initMapNav(modelNames[0]);//div.page-content 第一个子节点
+    common.initCommonStyle();//加上样式
+
+
+};
+
 //
 //内部参照 http://jquery.cuishifeng.cn/jQuery.Ajax.html
 //options = {url,data,success,error}
