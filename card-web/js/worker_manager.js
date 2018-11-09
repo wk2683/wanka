@@ -12,8 +12,10 @@ layui.use(['form','table','layer'],function () {
     var pageData = {};
 
     var tableHeader = [[ //表头
-        {field: 'orgId',       title: '组织ID', align:'center',width:'8%'},
-        {field: 'roleId',       title: '角色ID', align:'center',width:'8%'},
+        // {field: 'orgId',       title: '组织ID', align:'center',width:'8%'},
+        {field: 'orgName',       title: '组织', align:'center',width:'8%'},
+        // {field: 'roleId',       title: '角色ID', align:'center',width:'8%'},
+        {field: 'roleName',       title: '角色', align:'center',width:'8%'},
         {field: 'userName',       title: '用户名', align:'center',width:'8%'},
         {field: 'password',       title: '密码', align:'center',width:'8%'},
         {field: 'name',       title: '姓名', align:'center',width:'8%'},

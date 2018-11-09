@@ -7,7 +7,9 @@ import java.io.Serializable;
  */
 public class Worker extends BaseEntity implements Serializable {
     private String orgId    ;
+    private String orgName    ;
     private String roleId   ;
+    private String roleName   ;
     private String userName ;
     private String password  ;
     private String name      ;
@@ -33,6 +35,22 @@ public class Worker extends BaseEntity implements Serializable {
 
     public void setRoleId(String roleId) {
         this.roleId = roleId;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public String getUserName() {

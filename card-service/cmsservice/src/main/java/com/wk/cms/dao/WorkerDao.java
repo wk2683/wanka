@@ -33,7 +33,27 @@ public interface WorkerDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT id, org_id orgId, role_id roleId, user_name userName, name, id_number idNumber, phone, weixin, font_img fontImg, after_img afterImg, home_img homeImg, remark, seg,create_time createTime, update_time updateTime, opt_id optId   FROM wk.wk_worker WHERE ID=#{id} ")
+	@Select(" SELECT\n" +
+			"        worker.id,\n" +
+			"        worker.org_id orgId,\n" +
+			"        org.name orgName,\n" +
+			"        worker.role_id roleId,\n" +
+			"        role.name roleName,\n" +
+			"        worker.name,\n" +
+			"        worker.id_number idNumber,\n" +
+			"        worker.phone,\n" +
+			"        worker.weixin,\n" +
+			"        worker.font_img fontImg,\n" +
+			"        worker.after_img afterImg,\n" +
+			"        worker.home_img homeImg,\n" +
+			"        worker.remark,\n" +
+			"        worker.seg,\n" +
+			"        worker.create_time createTime,\n" +
+			"        worker.update_time updateTime,\n" +
+			"        worker.opt_id optId\n" +
+			"        FROM wk.wk_worker worker\n" +
+			"        LEFT JOIN wk.wk_org org ON org.id = worker.org_id\n" +
+			"        LEFT JOIN wk.wk_role role ON role.id = worker.role_id WHERE worker.id=#{id} ")
 	Worker get(String id);
 
 	/**
@@ -57,6 +77,26 @@ public interface WorkerDao {
 	 */
 	Integer searchCount(Worker worker);
 
-	@Select(" SELECT id, org_id orgId, role_id roleId, user_name userName,password, name, id_number idNumber, phone, weixin, font_img fontImg, after_img afterImg, home_img homeImg, remark, seg,create_time createTime, update_time updateTime, opt_id optId   FROM wk.wk_worker WHERE user_name=#{userName} ")
+	@Select(" SELECT\n" +
+			"        worker.id,\n" +
+			"        worker.org_id orgId,\n" +
+			"        org.name orgName,\n" +
+			"        worker.role_id roleId,\n" +
+			"        role.name roleName,\n" +
+			"        worker.name,\n" +
+			"        worker.id_number idNumber,\n" +
+			"        worker.phone,\n" +
+			"        worker.weixin,\n" +
+			"        worker.font_img fontImg,\n" +
+			"        worker.after_img afterImg,\n" +
+			"        worker.home_img homeImg,\n" +
+			"        worker.remark,\n" +
+			"        worker.seg,\n" +
+			"        worker.create_time createTime,\n" +
+			"        worker.update_time updateTime,\n" +
+			"        worker.opt_id optId\n" +
+			"        FROM wk.wk_worker worker\n" +
+			"        LEFT JOIN wk.wk_org org ON org.id = worker.org_id\n" +
+			"        LEFT JOIN wk.wk_role role ON role.id = worker.role_id WHERE worker.user_name=#{userName} ")
 	List<Worker> getByName(String userName);
 }

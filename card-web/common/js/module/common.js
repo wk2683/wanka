@@ -271,7 +271,7 @@ common.menu = [
                 },
                 {
                     id:"1",
-                    name:"用户管理",
+                    name:"用户(员工）管理",
                     pid:"-1",
                     children:[
                         {
