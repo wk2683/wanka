@@ -177,7 +177,8 @@ layui.use(['form','table','layer'],function () {
     };
     //添加完成后动作
     pageData.addComplete = function(res){
-            common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD);
+        common.util.loadRoles();//更新session里的角色
+        common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD);
     };
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>更新操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -237,6 +238,7 @@ layui.use(['form','table','layer'],function () {
     };
     //更新完成后动作
     pageData.updateComplete = function(res){
+        common.util.loadRoles();//更新session里的角色
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE);
     };
 
@@ -263,6 +265,7 @@ layui.use(['form','table','layer'],function () {
     };
     //删除返回后处理
     pageData.deleteComplete = function(res){
+        common.util.loadRoles();//更新session里的角色
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_DELETE);
     };
 

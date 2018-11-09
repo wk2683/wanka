@@ -119,13 +119,13 @@ layui.use(['form','layer','table','util'],function () {
 
                 //如果是异步请求数据方式，res即为你接口返回的信息。
                 //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                console.log(res);
+                //console.log(res);
 
                 //得到当前页码
-                console.log(curr);
+                //console.log(curr);
 
                 //得到数据总量
-                console.log(count);
+                //console.log(count);
 
                 //生成分页条(无特别处理，则不用额外写分页条代码)
                 if(curr==1 ) {

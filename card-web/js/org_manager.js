@@ -121,6 +121,7 @@ layui.use(['tree','form','table','layer'],function () {
     };
     //添加完成后动作
     pageData.addComplete = function(res){
+        common.util.loadOrgs();//更新session中的组织
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD);
     };
 
@@ -189,6 +190,7 @@ layui.use(['tree','form','table','layer'],function () {
     };
     //更新完成后动作
     pageData.updateComplete = function(res){
+        common.util.loadOrgs();//更新session中的组织
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE);
     };
 
@@ -215,6 +217,7 @@ layui.use(['tree','form','table','layer'],function () {
     };
     //删除返回后处理
     pageData.deleteComplete = function(res){
+        common.util.loadOrgs();//更新session中的组织
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_DELETE);
     };
     //加载数据

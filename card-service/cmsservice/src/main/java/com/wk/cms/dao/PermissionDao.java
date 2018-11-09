@@ -3,6 +3,7 @@ package com.wk.cms.dao;
 import com.wk.entity.Permission;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -79,5 +80,20 @@ public interface PermissionDao {
 	 * @param roleId
 	 * @return
 	 */
-	List<Permission> getPermissionByInRole(String modelId, String roleId);
+	@Select(" SELECT\n" +
+			"            permission.id,\n" +
+			"            permission.model_id modelId,\n" +
+			"            permission.name,\n" +
+			"            permission.action,\n" +
+			"            permission.opt_type optType,\n" +
+			"            permission.remark,\n" +
+			"            permission.seg,\n" +
+			"            permission.create_time createTime,\n" +
+			"            permission.update_time updateTime,\n" +
+			"            permission.opt_id optId\n" +
+			"            FROM wk.wk_permission permission\n" +
+			"            LEFT JOIN wk.wk_role_permission role ON role.permission_id = permission.id\n" +
+			"            WHERE permission.model_id = #{modelId} AND role.role_id=#{roleId}\n" +
+			"        ORDER BY permission.seg DESC, permission.update_time DESC  ")
+	List<Permission> getPermissionByInRole(@Param("modelId") String modelId, @Param("roleId")String roleId);
 }

@@ -153,8 +153,8 @@ layui.use(['form','table','layer'],function () {
         var inputDom = $(tag).prev();
         var id = $(inputDom).attr('id');
 
-        console.log("id="+id);
-        console.log("checked="+checked);
+        //console.log("id="+id);
+        //console.log("checked="+checked);
 
         if(checked){
             pageData.selectPermission(pageData.roleId,id);//选中
@@ -187,8 +187,8 @@ layui.use(['form','table','layer'],function () {
 
         var id = $(tag).attr('id');
 
-        console.log("id="+id);
-        console.log("checked="+checked);
+        //console.log("id="+id);
+        //console.log("checked="+checked);
 
         if(checked){
             pageData.selectModel(pageData.roleId,id);//选中

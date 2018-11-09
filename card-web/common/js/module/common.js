@@ -1261,6 +1261,40 @@ common.util.initSelectDate = function(laydate,domId,dataType){
         ,type: dataType
     });
 }
+
+//无参加载组织
+common.util.loadOrgs = function(){
+    common.sendOption.data = {};
+    common.sendOption.url = common.url.web_root + common.url.model.org.action + common.url.opt.search;
+    common.sendOption.type = common.sendMethod.POST;
+    common.sendOption.completeCallBack =common.util.loadOrgsComplete;
+    common.httpSend(common.sendOption);
+};
+//加载组织完成后处理--保存到session
+common.util.loadOrgsComplete = function(res){
+    var resData = JSON.parse(res.responseText);
+    var data = JSON.parse(resData.data);
+    var orginTree = common.util.covert2TreeJSON(data,0);
+    //暂时在这里保存，事实上应该在登录时保存这些数据
+    sessionStorage.setItem(common.session.key.orgData,resData.data);
+    sessionStorage.setItem(common.session.key.orgTree,JSON.stringify(orginTree));
+};
+//无参加载角色
+common.util.loadRoles = function () {
+    common.sendOption.data = {};
+    common.sendOption.url = common.url.web_root + common.url.model.role.action + common.url.opt.search;
+    common.sendOption.type = common.sendMethod.GET;
+    common.sendOption.completeCallBack =common.util.loadRolesComplete;
+    common.httpSend(common.sendOption);
+};
+//加载完成处理-保存到session
+common.util.loadRolesComplete = function(res){
+    var resData = JSON.parse(res.responseText);
+    sessionStorage.setItem(common.session.key.roleData,resData.data);
+};
+
+
+
 //注销登录
 common.logout = function () {
   sessionStorage.user = null;

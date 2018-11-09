@@ -57,6 +57,22 @@ public interface ModelDao {
 	 */
 	Integer searchCount(Model model);
 
-
+	/**
+	 * 查询角色下的模块
+	 * @param roleId
+	 * @return
+	 */
+	@Select(" SELECT\n" +
+			"        model.id,\n" +
+			"        model.name,\n" +
+			"        model.remark,\n" +
+			"        model.seg,\n" +
+			"        model.create_time createTime,\n" +
+			"        model.update_time updateTime,\n" +
+			"        model.opt_id optId\n" +
+			"        FROM wk.wk_model model\n" +
+			"        LEFT JOIN wk.wk_role_model role ON role.model_id = model.id\n" +
+			"        WHERE role.role_id = #{roleId}\n" +
+			"        ORDER BY model.seg DESC, model.update_time DESC    ")
     List<Model> searchByRoleId(String roleId);
 }
