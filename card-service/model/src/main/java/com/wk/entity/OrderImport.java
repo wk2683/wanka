@@ -28,8 +28,10 @@ public class OrderImport extends  BaseEntity implements Serializable {
     private Date exportDate;
     private Integer type;
     private String posId;
+    private String posName;
     private String mallName;
     private String consumeAccountId;
+    private String consumeAccountName;
     private BigDecimal bill;
     private Integer consumeType;
     private Integer result;
@@ -85,6 +87,23 @@ public class OrderImport extends  BaseEntity implements Serializable {
 
     public void setConsumeAccountId(String consumeAccountId) {
         this.consumeAccountId = consumeAccountId;
+    }
+
+
+    public String getPosName() {
+        return posName;
+    }
+
+    public void setPosName(String posName) {
+        this.posName = posName;
+    }
+
+    public String getConsumeAccountName() {
+        return consumeAccountName;
+    }
+
+    public void setConsumeAccountName(String consumeAccountName) {
+        this.consumeAccountName = consumeAccountName;
     }
 
     public BigDecimal getBill() {

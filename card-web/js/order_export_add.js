@@ -64,7 +64,7 @@ layui.use(['form','layer','upload','laydate'],function () {
         }
         if(selectUsers.length>1){
             layer.msg('只能选择一个账户哦~',{anim:6},function () {
-                pageData.openAccountSelectModel();
+                pageData.openAccountSelectModel(prev);
             });
 
             return false;

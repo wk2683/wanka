@@ -110,14 +110,15 @@ common.url = {
         orderType:  {action:'orderType/',  name:'订单类型'},
         org:        {action:'org/',        name:'组织'},
         permission: {action:'permission/', name:'权限'},
-        pos:        {
+        pos:{
             action:'pos/',
             name:'POS机',
             page:{
                 manager:'page/pos_manager.html',
                 add:'page/pos_add.html',
                 detail:'page/pos_detail.html',
-                update:'page/pos_update.html'
+                update:'page/pos_update.html',
+                selectList:'page/pos_selectList.html'
             }
         },
         rate:       {action:'rate/',       name:'费率'},
@@ -1194,12 +1195,16 @@ common.util.getOrderTypeOptions = function(selectTagName){
     return options;
 };
 //初始化费率选择option
-common.util.getRatesOptions = function(selectTagName){
+common.util.getRatesOptions = function(selectTagName,selectValue){
     var len = common.opt.rates.length;
     var options = '<option value="0">选择费率</option>';
     for(var i=0;i<len;i++){
         var item = common.opt.rates[i];
-        options += '<option value="'+item+'">'+item+'</option>';
+        var selected = '';
+        if(selectValue && selectValue == item){
+            selected = 'selected';
+        }
+        options += '<option value="'+item+'" '+selected+'>'+item+'</option>';
     }
     if(selectTagName) {
         $("select[name="+selectTagName+"]").html(options);
@@ -1211,6 +1216,24 @@ common.util.getRatesOptions = function(selectTagName){
 common.util.getOrderTypeName = function(orderType){
     return common.opt.orderTypes[orderType];
 }
+
+//消费类型的下拉选项
+common.util.getConsumeTypeOptions = function(selectTagName,selectValue){
+    var len = common.opt.consumeTypes.length;
+    var options = '<option value="">选择消费方式</option>';
+    for(var i=0;i<len;i++){
+        var item = common.opt.consumeTypes[i];
+        var selected = '';
+        if(selectValue && selectValue == i){
+            selected = 'selected';
+        }
+        options += '<option value="'+i+'" '+selected+'>'+item+'</option>';
+    }
+    if(selectTagName) {
+        $("select[name="+selectTagName+"]").html(options);
+    }
+    return options;
+};
 /**
  * 初始化时间选择控件
  * @param laydate  时间控件工具对象

@@ -33,9 +33,11 @@ layui.use(['form','layer','table','util'],function () {
         {field: 'id',title: 'ID', align:'center'},
         {field: 'exportDate',title: '日期', align:'center'},
         {field: 'type',title: '操作类型', align:'center'},
-        {field: 'posId',title: 'POS机名称', align:'center'},
+        // {field: 'posId',title: 'POS机名称', align:'center'},
+        {field: 'posName',title: 'POS机名称', align:'center'},
         {field: 'mallName',title: '商户名称', align:'center'},
-        {field: 'consumeAccountId',title: '消费账户', align:'center'},
+        // {field: 'consumeAccountId',title: '消费账户', align:'center'},
+        {field: 'consumeAccountName',title: '消费账户', align:'center'},
         {field: 'bill',title: '消费金额', align:'center'},
         {field: 'consumeType',title: '消费方式', align:'center'},
         {field: 'result',title: '操作结果', align:'center'},
@@ -100,7 +102,7 @@ layui.use(['form','layer','table','util'],function () {
             , cols: tableHeader //表头
             , url: url  //数据源url
             , where: searchObj //如果无需传递额外参数，可不加该参数
-            , method: common.sendMethod.POST // get | post 如果无需自定义HTTP类型，可不加该参数
+            , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
                           // toolbar: '#toolbarDemo' //指向自定义工具栏模板选择器
@@ -186,10 +188,13 @@ layui.use(['form','layer','table','util'],function () {
             var tr = obj.tr; //获得当前行 tr 的DOM对象
             console.log("点击事件......"+layEvent);
             if(layEvent === 'delete'){ //删除
-                pageData.deleteConfirm(obj);
+                pageData.deleteConfirm(obj,tableId);
             } else if(layEvent === 'update'){ //编辑
                 //修改
                 var update_url = common.url.page_root + common.url.model.orderExport.page.update + '?id='+obj.data.id + '&orderId='+obj.data.orderId;
+                if(tableId.indexOf('import')>0){
+                    update_url = common.url.page_root + common.url.model.orderImport.page.update + '?id='+obj.data.id + '&orderId='+obj.data.orderId;
+                }
                 location.href = update_url;
             }
         });
@@ -198,20 +203,23 @@ layui.use(['form','layer','table','util'],function () {
     };
 
     //确认删除
-    pageData.deleteConfirm = function(obj){
+    pageData.deleteConfirm = function(obj,tableId){
         layer.confirm('确定删除吗？', function(index){
 
             layer.close(index);
             //向服务端发送删除指令
             console.log("删除 id  =  "+obj.data.id);
-            pageData.deleteSubmit(obj);
+            pageData.deleteSubmit(obj,tableId);
             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
         });
     };
     //提交删除
-    pageData.deleteSubmit = function(obj){
+    pageData.deleteSubmit = function(obj,tableId){
         common.sendOption.data = { id:obj.data.id };
         common.sendOption.url = common.url.web_root + common.url.model.orderExport.action + common.url.opt.delete;
+        if(tableId.indexOf('import')>0){
+            common.sendOption.url = common.url.web_root + common.url.model.orderImport.action + common.url.opt.delete;
+        }
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.deleteComplete;
         common.httpSend(common.sendOption);
@@ -265,7 +273,7 @@ layui.use(['form','layer','table','util'],function () {
             if(exportTable.length>0){
 
             }else {
-                add_url = common.url.page_root + common.url.model.orderImport.page.add + '?orderId'+p.id;
+                add_url = common.url.page_root + common.url.model.orderImport.page.add + '?orderId='+p.id;
             }
             window.open(add_url);
         });

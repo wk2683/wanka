@@ -49,7 +49,7 @@ public class OrderExportController extends  BaseController{
         return responseGet(order,this.getClass());
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @RequestMapping(value = "/search",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public BaseResponse search(OrderExport orderExport){

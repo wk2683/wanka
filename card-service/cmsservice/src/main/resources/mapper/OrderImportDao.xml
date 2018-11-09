@@ -7,10 +7,9 @@
     <!--//delete-->
     <!--//get-->
     <update id="update" parameterType="com.wk.entity.OrderImport">
-        UPDATE wk.wk_order_import SET update_time =  #{updateTime}
+        UPDATE wk.wk_order_import SET update_time =  #{updateTime}, export_date = #{exportDate}
         <if test=" id != null and  id != '' " >,id = #{id}</if>
         <if test=" orderId != null and  orderId != '' " >, order_id  = #{orderId}</if>
-        <if test=" exportDate != null and  exportDate != '' " >, export_date = #{exportDate}</if>
         <if test=" type != null and  type != '' " >, type = #{type}</if>
         <if test=" posId != null and  posId != '' " >, pos_id = #{posId}</if>
         <if test=" mallName != null and  mallName != '' " >, mall_name = #{mallName}</if>
@@ -33,58 +32,61 @@
 
     <select id="search" resultType="com.wk.entity.OrderImport" parameterType="com.wk.entity.OrderImport">
         SELECT
-        id id,
-        order_id  orderId,
-        export_date exportDate,
-        type type,
-        pos_id posId,
-        mall_name mallName,
-        consume_account_id consumeAccountId,
-        bill bill,
-        consume_type consumeType,
-        result result,
-        rate rate,
-        fee fee,
-        import_bill importBill,
-        should_bill shouldBill,
-        remark remark,
-        seg seg,
-        create_time createTime,
-        update_time updateTime,
-        opt_id optId
-        FROM wk.wk_order_import
+        import.id id,
+        import.order_id  orderId,
+        import.export_date exportDate,
+        import.type type,
+        import.pos_id posId,
+        pos.name posName,
+        import.mall_name mallName,
+        import.consume_account_id consumeAccountId,
+        account.name consumeAccountName,
+        import.bill bill,
+        import.consume_type consumeType,
+        import.result result,
+        import.rate rate,
+        import.fee fee,
+        import.import_bill importBill,
+        import.should_bill shouldBill,
+        import.remark remark,
+        import.seg seg,
+        import.create_time createTime,
+        import.update_time updateTime,
+        import.opt_id optId
+        FROM wk.wk_order_import import
+        LEFT JOIN wk.wk_account account ON account.id = import.consume_account_id
+        LEFT JOIN wk.wk_pos pos ON pos.id = import.pos_id
         <where>
+            <if test=" orderId != null and  orderId != '' " >AND import.order_id  = #{orderId}</if>
+            <if test=" exportDate != null and exportDate != '' " >AND import.export_date = #{exportDate}</if>
+            <if test=" type != null and  type != '' " >AND import.type = #{type}</if>
+            <if test=" posId != null and  posId != '' " >AND import.pos_id = #{posId}</if>
+            <if test=" mallName != null and  mallName != '' " >AND import.mall_name = #{mallName}</if>
+            <if test=" consumeAccountId != null and  consumeAccountId != '' " >AND import.consume_account_id = #{consumeAccountId}</if>
+            <if test=" bill != null and  bill != '' " >AND import.bill = #{bill}</if>
+            <if test=" consumeType != null and  consumeType != '' " >AND import.consume_type = #{consumeType}</if>
+            <if test=" result != null and  result != '' " >AND import.result = #{result}</if>
+            <if test=" rate != null and  rate != '' " >AND import.rate = #{rate}</if>
+            <if test=" fee != null and  fee != '' " >AND import.fee = #{fee}</if>
+            <if test=" importBill != null and  importBill != '' " >AND import.import_bill = #{importBill}</if>
+            <if test=" shouldBill != null and  shouldBill != '' " >AND import.should_bill = #{shouldBill}</if>
 
-            <if test=" orderId != null and  orderId != '' " >AND  order_id  = #{orderId}</if>
-            <if test=" exportDate != null and  exportDate != '' " >AND  export_date = #{exportDate}</if>
-            <if test=" type != null and  type != '' " >AND  type = #{type}</if>
-            <if test=" posId != null and  posId != '' " >AND  pos_id = #{posId}</if>
-            <if test=" mallName != null and  mallName != '' " >AND  mall_name = #{mallName}</if>
-            <if test=" consumeAccountId != null and  consumeAccountId != '' " >AND  consume_account_id = #{consumeAccountId}</if>
-            <if test=" bill != null and  bill != '' " >AND  bill = #{bill}</if>
-            <if test=" consumeType != null and  consumeType != '' " >AND  consume_type = #{consumeType}</if>
-            <if test=" result != null and  result != '' " >AND  result = #{result}</if>
-            <if test=" rate != null and  rate != '' " >AND  rate = #{rate}</if>
-            <if test=" fee != null and  fee != '' " >AND  fee = #{fee}</if>
-            <if test=" importBill != null and  importBill != '' " >AND  import_bill = #{importBill}</if>
-            <if test=" shouldBill != null and  shouldBill != '' " >AND  should_bill = #{shouldBill}</if>
-
-            <if test="remark != null and remark != '' ">AND  remark = #{remark} </if>
-            <if test="seg != null and seg != '' ">AND  seg = #{seg} </if>
-            <if test="optId != null and optId != '' ">AND  opt_id = #{ optId }</if>
-            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
-            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
-            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+            <if test="remark != null and remark != '' ">AND import.remark = #{remark} </if>
+            <if test="seg != null and seg != '' ">AND import.seg = #{seg} </if>
+            <if test="optId != null and optId != '' ">AND import.opt_id = #{ optId }</if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> import.create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> import.create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> import.update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> import.update_time &lt; #{endUpdateTime}</if>
             <if test="searchKey != null and searchKey != '' ">
                 AND
                 (
-                mallName LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                import.mallName LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
-                remark LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                import.remark LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
-        </where>  ORDER BY  update_time DESC  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY  import.update_time DESC  limit #{pageStart},#{pageSize}
     </select>
 
 

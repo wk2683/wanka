@@ -38,26 +38,31 @@ public interface OrderImportDao {
      * @return
      */
 	@Select(" SELECT  " +
-			"id id,\n" +
-			" order_id  orderId,\n" +
-			" export_date exportDate,\n" +
-			" type type,\n" +
-			" pos_id posId,\n" +
-			" mall_name mallName,\n" +
-			" consume_account_id consumeAccountId,\n" +
-			" bill bill,\n" +
-			" consume_type consumeType,\n" +
-			" result result,\n" +
-			" rate rate,\n" +
-			" fee fee,\n" +
-			" import_bill importBill,\n" +
-			" should_bill shouldBill,\n" +
-			" remark remark,\n" +
-			" seg seg,\n" +
-			" create_time createTime,\n" +
-			" update_time updateTime,\n" +
-			" opt_id optId " +
-			" FROM wk.wk_order_import WHERE id=#{id} ")
+			" import.id id,\n" +
+			" import.order_id  orderId,\n" +
+			" import.export_date exportDate,\n" +
+			" import.type type,\n" +
+			" import.pos_id posId,\n" +
+			" pos.name posName,\n" +
+			" import.mall_name mallName,\n" +
+			" import.consume_account_id consumeAccountId,\n" +
+			" account.name consumeAccountName,\n" +
+			" import.bill bill,\n" +
+			" import.consume_type consumeType,\n" +
+			" import.result result,\n" +
+			" import.rate rate,\n" +
+			" import.fee fee,\n" +
+			" import.import_bill importBill,\n" +
+			" import.should_bill shouldBill,\n" +
+			" import.remark remark,\n" +
+			" import.seg seg,\n" +
+			" import.create_time createTime,\n" +
+			" import.update_time updateTime,\n" +
+			" import.opt_id optId " +
+			" FROM wk.wk_order_import import " +
+			" LEFT JOIN wk.wk_account account ON account.id = import.consume_account_id " +
+			" LEFT JOIN wk.wk_pos pos ON pos.id = import.pos_id " +
+			"WHERE import.id=#{id} ")
 	OrderImport get(String id);
 
 	/**

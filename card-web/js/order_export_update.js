@@ -63,7 +63,7 @@ layui.use(['form','layer','util','laydate'],function () {
         }
         if(selectUsers.length>1){
             layer.msg('只能选择一个账户哦~',{anim:6},function () {
-                pageData.openAccountSelectModel();
+                pageData.openAccountSelectModel(prev);
             });
 
             return false;
@@ -87,7 +87,7 @@ layui.use(['form','layer','util','laydate'],function () {
         if(resData.code == common.code.RESPONSE_CODE_SUCCESS){
             pageData.renderData(JSON.parse(resData.data));
         }else{
-            layer.msg('加载数据失败',{anim: 6},function () {
+            layer.alert('加载数据失败',{anim: 6},function () {
                 history.back()
             })
         }
