@@ -80,7 +80,14 @@
                                                 <input type="hidden" name="customerId" value="1"  >
                                             </div>
                                         </div>
-
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">信用卡</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="cardName"  id="cardName"  lay-verify="required" placeholder="请选择客户"  class="layui-input" readonly>
+                                                <input type="hidden" name="cardId" value="1"  >
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">只加载下单客户名下的信用卡出来选择</div>
+                                        </div>
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">订单类型</label>
                                             <div class="layui-input-block">

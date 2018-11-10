@@ -1,3 +1,4 @@
+
 var common = {};//公共体
 common.web_logo = '../common/image/logo.png';
 common.sysName = '启成万卡';
@@ -54,7 +55,8 @@ common.url = {
                 manager:'page/card_manager.html',
                 add:'page/card_add.html',
                 detail:'page/card_detail.html',
-                update:'page/card_update.html'
+                update:'page/card_update.html',
+                selectList:'page/card_selectList.html'
             }
         },
         customer:   {
@@ -179,6 +181,10 @@ common.url = {
     }
 };
 
+
+if(!sessionStorage.user){
+    location.href = common.url.page_login;
+}
 
 common.code = {
     RESPONSE_CODE_SUCCESS:8001,

@@ -28,26 +28,32 @@ layui.use(['form','layer','upload'],function () {
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE,common.url.model.order.page.manager);
     };
     //打开选择客户
-    pageData.openCustomerSelectModel = function(){
+    pageData.openSelectModel = function(modelName){
         var ww = $(window).width();
         ww = ww*0.8;
         var hh = $(window).height();
         hh = hh*0.8;
+        var url = common.url.page_root + common.url.model.customer.page.selectList;
+        if(modelName=='customer'){
+
+        }else if(modelName=='card'){
+            url = common.url.page_root + common.url.model.card.page.selectList
+        }
         layer.open({
             type:2,
             title:'选择用户',
-            content: common.url.page_root + common.url.model.customer.page.selectList,
+            content: url,
             area:[ ww+'px',hh+'px'],
             btn:['确定'],
             yes:function (index, layero) {
                 console.log("点击了确定");
-                pageData.showSelectCustomers();
+                pageData.showSelect(modelName);
                 layer.close(index);//关掉自己
             }
         })
     };
     //显示选择的客户
-    pageData.showSelectCustomers = function(){
+    pageData.showSelect = function(modelName){
         var len = window.frames.length;
         var selectUsers = 0;
         for(var i=0;i<len;i++){
@@ -58,14 +64,14 @@ layui.use(['form','layer','upload'],function () {
         }
         if(selectUsers.length>1){
             layer.msg('只能选择一个用户哦~',{anim:6},function () {
-                pageData.openSelectUserMode();
+                pageData.openSelectModel(modelName);
             });
 
             return false;
         }
         var selectUser = selectUsers[0];
-        $("input[name=customerId]").val(selectUser.id);
-        $("input[name=customerName]").val(selectUser.name);
+        $("input[name="+modelName+"Id]").val(selectUser.id);
+        $("input[name="+modelName+"Name]").val(selectUser.name);
     };
 
     //获取详情
@@ -122,7 +128,12 @@ layui.use(['form','layer','upload'],function () {
 
         //点选客户
         $("input[name=customerName]").click(function () {
-            pageData.openCustomerSelectModel();
+            pageData.openSelectModel('customer');
+        });
+
+        //点选客户
+        $("input[name=cardName]").click(function () {
+            pageData.openSelectModel('card');
         });
 
         //监听提交按钮 submit(btn_id)
