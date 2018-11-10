@@ -113,4 +113,6 @@ nohup java -jar -Dspring.config.location=D:\Server\Root\config\eurakserver\appli
 订单表费率 变成 3位小数 
 
 
+修改了商户表和银行表一样
+
 

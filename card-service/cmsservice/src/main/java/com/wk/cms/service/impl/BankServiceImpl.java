@@ -19,6 +19,17 @@ public class BankServiceImpl implements BankService {
 
 
     @Override
+    public String add(Bank bank) {
+        bank.addInit();
+        Integer affectRow = bankDao.add(bank);
+        if(affectRow>0){
+            return  bank.getId();
+        }else{
+            return "";
+        }
+    }
+
+    @Override
     public List<Bank> load() {
         return bankDao.load();
     }

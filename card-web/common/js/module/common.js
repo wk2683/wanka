@@ -37,6 +37,7 @@ common.url = {
     page_login:'login.html',
     model:{
         bank: {action:'bank/',name:'银行'},
+        mall: {action:'mall/',name:'商户'},
         account:{ action:'account/',    name:'账户',
             page:{
                 manager:'page/account_manager.html',
@@ -159,6 +160,9 @@ common.url = {
                 readImg:'readImg'
             },
             bank:{
+                load:'load'
+            },
+            mall:{
                 load:'load'
             },
             role:{
@@ -1182,6 +1186,50 @@ common.util.findOrgNameFromSession = function (id) {
         }
     }
 };
+//新增一个商户信息
+common.util.addMall = function (mallName) {
+    common.sendOption.data = {name:mallName};
+    common.sendOption.url = common.url.web_root + common.url.model.mall.action + common.url.opt.add;
+    common.sendOption.type = common.sendMethod.GET;
+    common.sendOption.completeCallBack =function (res) {
+        var resData = JSON.parse(res.responseText);
+        if(resData.code == common.code.RESPONSE_CODE_SUCCESS){
+            common.util.loadMallList();
+        }else{
+            console.log("添加商户失败");
+        }
+    };
+    common.httpSend(common.sendOption);
+}
+//加载商户列表(加载完成，数据保存到Session,调用（如果有）处理数据函数)
+common.util.loadMallList = function(initMallSelectFun){
+    common.sendOption.url = common.url.web_root + common.url.model.mall.action + common.url.opt.model.mall.load;
+    common.sendOption.type = common.sendMethod.GET;
+    common.sendOption.completeCallBack =function (res) {
+        var resData = JSON.parse(res.responseText);
+        sessionStorage.bankList = resData.data;
+        if(initMallSelectFun){
+            initMallSelectFun();
+        }
+    };
+    common.httpSend(common.sendOption);
+};
+
+//新增一个银行信息
+common.util.addBank = function (bankName) {
+    common.sendOption.data = {name:bankName};
+    common.sendOption.url = common.url.web_root + common.url.model.bank.action + common.url.opt.add;
+    common.sendOption.type = common.sendMethod.GET;
+    common.sendOption.completeCallBack =function (res) {
+        var resData = JSON.parse(res.responseText);
+        if(resData.code == common.code.RESPONSE_CODE_SUCCESS){
+            common.util.loadBankList();
+        }else{
+            console.log("添加银行失败");
+        }
+    };
+    common.httpSend(common.sendOption);
+}
 //加载银行列表(加载完成，数据保存到Session,调用（如果有）处理数据函数)
 common.util.loadBankList = function(initBankSelectFun){
     common.sendOption.url = common.url.web_root + common.url.model.bank.action + common.url.opt.model.bank.load;
@@ -1189,7 +1237,9 @@ common.util.loadBankList = function(initBankSelectFun){
     common.sendOption.completeCallBack =function (res) {
         var resData = JSON.parse(res.responseText);
         sessionStorage.bankList = resData.data;
-        initBankSelectFun();
+        if(initBankSelectFun){
+            initBankSelectFun();
+        }
     };
     common.httpSend(common.sendOption);
 };

@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 09/11/2018 08:18:19
+ Date: 10/11/2018 11:41:16
 */
 
 SET NAMES utf8mb4;
@@ -100,7 +100,7 @@ CREATE TABLE `wk_card`  (
 -- ----------------------------
 -- Records of wk_card
 -- ----------------------------
-INSERT INTO `wk_card` VALUES ('148c3c93-a731-4cd4-bd3a-de4acae82d1b', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '赵鹏运', '共时晃', '165156', '1515615616', '农业银行', '161561', '133123', 2, 20, '2018-11', 50000.00, 4000.00, 0.04, 60.00, 0.06, 1, '肤', 2, '2018-11-07 11:17:39', '2018-11-07 11:17:39', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk_card` VALUES ('148c3c93-a731-4cd4-bd3a-de4acae82d1b', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '赵鹏运', '共时晃', '165156', '1515615616', '农业银行', '161561', '133123', 2, 20, '2018-11', 50000.00, 4000.00, 0.04, 60.00, 0.06, 2, '肤', 2, '2018-11-07 11:17:39', '2018-11-10 09:55:10', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
 INSERT INTO `wk_card` VALUES ('22b4f34e-827b-4dd0-af0d-15f7151b1dec', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '中行', '张三', '165156', '1651', '中国银行', '515641561', '132', 5, 15, '2018-11-07', 50000.00, 20000.00, 0.02, 20.00, 0.06, 1, '161 51 51 561 6 ', 2, '2018-11-02 08:41:45', '2018-11-02 08:41:45', NULL);
 INSERT INTO `wk_card` VALUES ('9d9091c7-58bc-40e4-8b3b-84863d41ef79', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '中行', '张三', '156156', '1561', '农业银行', '651', '516', 156, 165, '2018-11-14', 15000.00, 5000.00, 0.03, 20.00, 0.06, 1, 'awf \n \ne地\n脸', 2, '2018-11-02 11:21:37', NULL, NULL);
 INSERT INTO `wk_card` VALUES ('abe58281-b616-463e-b820-14db053c7d99', 'c2896645-ab6e-4813-88d6-662968edbe8b', 2, '中行', '张三', '156156', '1561', '中国银行', '651', '516', 156, 165, '2018-11', 15000.00, 5000.00, 0.03, 20.00, 0.06, 1, 'awf \n \ne地\n脸', 2, '2018-11-02 08:43:02', '2018-11-07 11:15:00', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
@@ -139,9 +139,12 @@ INSERT INTO `wk_customer` VALUES ('c2896645-ab6e-4813-88d6-662968edbe8b', '刘�
 DROP TABLE IF EXISTS `wk_mall`;
 CREATE TABLE `wk_mall`  (
   `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户名称',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户名称',
+  `nick_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户简称',
+  `seg` int(10) NULL DEFAULT NULL COMMENT '排序值',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商户名称表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商户列表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wk_model

@@ -8,6 +8,8 @@ import java.util.List;
  * 银行信息
  */
 public interface BankService {
+
+	String add(Bank bank);
 	/**
 	 * 加载所有银行信息
 	 * @return

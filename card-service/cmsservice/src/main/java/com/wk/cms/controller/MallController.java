@@ -2,39 +2,41 @@ package com.wk.cms.controller;
 
 import com.wk.bean.BaseResponse;
 import com.wk.cms.service.BankService;
+import com.wk.cms.service.MallService;
 import com.wk.entity.Bank;
+import com.wk.entity.Mall;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
- * 银行信息控制类
+ * 商户信息控制类
  */
 @RestController
-@RequestMapping("/bank")
-public class BankController extends  BaseController{
+@RequestMapping("/mall")
+public class MallController extends  BaseController{
     @Autowired
-    private BankService bankService;
+    private MallService mallService;
 
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse  add(@RequestBody Bank bank){
-        String id = bankService.add(bank);
-        return responseAdd(bank,id,this.getClass());
+    public BaseResponse  add(@RequestBody Mall mall){
+        String id = mallService.add(mall);
+        return responseAdd(mall,id,this.getClass());
     }
 
     /**
-     * 加载所有银行信息
+     * 加载所有商户信息
      * @return
      */
     @RequestMapping(value = "/load")
     @ResponseBody
     @CrossOrigin
     public BaseResponse load(){
-        List<Bank> banks = bankService.load();
-        return responseSearch(banks,0,null, this.getClass());
+        List<Mall> malls = mallService.load();
+        return responseSearch(malls,0,null, this.getClass());
     }
 }
