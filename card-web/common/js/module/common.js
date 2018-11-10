@@ -182,7 +182,8 @@ common.url = {
 };
 
 
-if(!sessionStorage.user){
+if(!sessionStorage.user && location.pathname.indexOf("login.html")<0 ){
+
     location.href = common.url.page_login;
 }
 
@@ -344,28 +345,7 @@ common.menu = [
                             url:"customer_add.html"
                         }
                     ]
-                },
-                {
-                    id:"1",
-                    name:"POS机信息管理",
-                    pid:"-1",
-                    children:[
-                        {
-                            id:"101",
-                            name:"POS机信息管理",
-                            pid:"1",
-                            type:"page",
-                            url:"pos_manager.html"
-                        },
-                        {
-                            id:"101",
-                            name:"新增POS机信息",
-                            pid:"1",
-                            type:"page",
-                            url:"pos_add.html"
-                        }
-                    ]
-                },
+                },                
                 {
                     id:"1",
                     name:"信用卡管理",
@@ -384,6 +364,27 @@ common.menu = [
                             pid:"1",
                             type:"page",
                             url:"card_add.html"
+                        }
+                    ]
+                },
+				{
+                    id:"1",
+                    name:"POS机信息管理",
+                    pid:"-1",
+                    children:[
+                        {
+                            id:"101",
+                            name:"POS机信息管理",
+                            pid:"1",
+                            type:"page",
+                            url:"pos_manager.html"
+                        },
+                        {
+                            id:"101",
+                            name:"新增POS机信息",
+                            pid:"1",
+                            type:"page",
+                            url:"pos_add.html"
                         }
                     ]
                 },
