@@ -11,6 +11,7 @@ public class Card extends BaseEntity implements Serializable {
 
     private Integer self     ;
     private String customerId   ;
+    private String customerName   ;
     private String cardName   ;
     private String name        ;
     private String idNumber   ;
@@ -44,6 +45,14 @@ public class Card extends BaseEntity implements Serializable {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getCardName() {

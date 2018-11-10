@@ -15,7 +15,8 @@ layui.use(['form','table','layer'],function () {
     var tableHeader = [[ //表头
         {field: 'id',           title: '序号', align:'center',templet:'#indexTemplate'},
         {field: 'self',         title: '本人卡', align:'center',templet:'#selfTemplate'},
-        {field: 'customerId',   title: '所属客户', align:'center'},
+        // {field: 'customerId',   title: '所属客户', align:'center'},
+        {field: 'customerName',   title: '所属客户', align:'center'},
         {field: 'cardName',     title: '密码', align:'center'},
         {field: 'name',         title: '姓名',     align:'center'},
         {field: 'idNumber',     title: '身份证号', align:'center'},

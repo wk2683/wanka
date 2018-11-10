@@ -36,66 +36,74 @@
 
     <select id="search" resultType="com.wk.entity.Card" parameterType="com.wk.entity.Card">
         SELECT
-        id,
-        self,
-        customer_id customerId,
-        card_name cardName,
-        name,
-        id_number idNumber,
-        phone,
-        bank_name bankName,
-        card_number cardNumber,
-        password,
-        bill_date billDate,
-        replay_date replayDate,
-        valid_date validDate,
-        total,
-        bill,
-        replay_rate replayRate,
-        mini_fee miniFee,
-        cash_rate cashRate,
-        income, remark, seg, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_card
+        card.id,
+        card.self,
+        card.customer_id customerId,
+        customer.name customerName,
+        card.card_name cardName,
+        card.name,
+        card.id_number idNumber,
+        card.phone,
+        card.bank_name bankName,
+        card.card_number cardNumber,
+        card.password,
+        card.bill_date billDate,
+        card.replay_date replayDate,
+        card.valid_date validDate,
+        card.total,
+        card.bill,
+        card.replay_rate replayRate,
+        card.mini_fee miniFee,
+        card.cash_rate cashRate,
+        card.income,
+        card.remark,
+        card.seg,
+        card.create_time createTime,
+        card.update_time updateTime,
+        card.opt_id optId
+        FROM wk.wk_card card
+        LEFT JOIN wk.wk_customer customer  ON customer.id=card.customer_id
         <where>
-            <if test="  self != null and  self != '' "> AND  self =  #{self}</if>
-            <if test="  cardName != null and  cardName != '' "> AND  card_name =  #{cardName}</if>
-            <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
-            <if test="  idNumber != null and  idNumber != '' "> AND  id_number =  #{idNumber}</if>
-            <if test="  phone != null and  phone != '' "> AND  phone =  #{phone}</if>
-            <if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>
-            <if test="  cardNumber != null and  cardNumber != '' "> AND  card_number =  #{cardNumber}</if>
-            <if test="  password != null and  password != '' "> AND  password =  #{password}</if>
-            <if test="  billDate != null and  billDate != 0 "> AND  bill_date =  #{billDate}</if>
-            <if test="  replayDate != null and  replayDate != 0 "> AND  replay_date =  #{replayDate}</if>
-            <if test="  total != null and  total != '' "> AND  total =  #{total}</if>
-            <if test="  bill != null and  bill != '' "> AND  bill =  #{bill}</if>
-            <if test="  replayRate != null and  replayRate != '' "> AND  replay_rate =  #{replayRate}</if>
-            <if test="  miniFee != null and  miniFee != '' "> AND  mini_fee =  #{miniFee}</if>
-            <if test="  cashRate != null and  cashRate != '' "> AND  cash_rate =  #{cashRate}</if>
-            <if test="  income != null and  income != '' "> AND  income =  #{income}</if>
-            <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
-            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
-            <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId} </if>
-            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
-            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
-            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+            <if test="  self != null and  self != '' "> AND  card.self =  #{self}</if>
+            <if test="  cardName != null and  cardName != '' "> AND  card.card_name =  #{cardName}</if>
+            <if test="  name != null and  name != '' "> AND  card.name =  #{name}</if>
+            <if test="  idNumber != null and  idNumber != '' "> AND  card.id_number =  #{idNumber}</if>
+            <if test="  phone != null and  phone != '' "> AND  card.phone =  #{phone}</if>
+            <if test="  bankName != null and  bankName != '' "> AND  card.bank_name =  #{bankName}</if>
+            <if test="  cardNumber != null and  cardNumber != '' "> AND  card.card_number =  #{cardNumber}</if>
+            <if test="  password != null and  password != '' "> AND  card.password =  #{password}</if>
+            <if test="  billDate != null and  billDate != 0 "> AND  card.bill_date =  #{billDate}</if>
+            <if test="  replayDate != null and  replayDate != 0 "> AND  card.replay_date =  #{replayDate}</if>
+            <if test="  total != null and  total != '' "> AND  card.total =  #{total}</if>
+            <if test="  bill != null and  bill != '' "> AND  card.bill =  #{bill}</if>
+            <if test="  replayRate != null and  replayRate != '' "> AND  card.replay_rate =  #{replayRate}</if>
+            <if test="  miniFee != null and  miniFee != '' "> AND  card.mini_fee =  #{miniFee}</if>
+            <if test="  cashRate != null and  cashRate != '' "> AND  card.cash_rate =  #{cashRate}</if>
+            <if test="  income != null and  income != '' "> AND  card.income =  #{income}</if>
+            <if test="  remark != null and  remark != '' "> AND  card.remark =  #{remark}</if>
+            <if test="  seg != null and  seg != 0 "> AND  card.seg =  #{seg}</if>
+            <if test="  optId != null and  optId != '' "> AND  card.opt_id =  #{optId} </if>
+            <if test=" startCreateTime != null and startCreateTime != '' ">AND card.create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' ">AND card.create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' ">AND card.update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' ">AND card.update_time &lt; #{endUpdateTime}</if>
             <if test="searchKey != null and searchKey != '' ">
                 AND
                 (
-                    name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                card.name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                     OR
-                    card_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                card.card_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                     OR
-                    phone LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                card.phone LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                     OR
-                    id_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                card.id_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                     OR
-                    bank_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                card.bank_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                     OR
-                    card_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                card.card_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
-        </where>  ORDER BY seg DESC, update_time DESC  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY card.seg DESC, card.update_time DESC  limit #{pageStart},#{pageSize}
     </select>
 
 
