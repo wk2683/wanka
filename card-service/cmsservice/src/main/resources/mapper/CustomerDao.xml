@@ -24,40 +24,50 @@
 
 
     <select id="search" resultType="com.wk.entity.Customer" parameterType="com.wk.entity.Customer">
-        SELECT id, name,
-        id_number idNumber,
-        phone,
-        worker_id workerId,
-        font_img fontImg,
-        after_img afterImg,
-        home_img homeImg,
-        remark, seg, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_customer
+
+        SELECT
+        customer.id,
+        customer.name,
+        customer.id_number idNumber,
+        customer.phone,
+        customer.worker_id workerId,
+        worker.name workerName,
+        customer.font_img fontImg,
+        customer.after_img afterImg,
+        customer.home_img homeImg,
+        customer.remark,
+        customer.seg,
+        customer.create_time createTime,
+        customer.update_time updateTime,
+        customer.opt_id optId
+        FROM wk.wk_customer customer
+        LEFT JOIN wk.wk_worker worker ON worker.id = customer.worker_id
         <where>
-            <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
-            <if test="  idNumber != null and  idNumber != '' "> AND  id_number =  #{idNumber}</if>
-            <if test="  phone != null and  phone != '' "> AND  phone =  #{phone}</if>
-            <if test="  workerId != null and  workerId != '' "> AND  worker_id =  #{workerId}</if>
-            <if test="  fontImg != null and  fontImg != '' "> AND  font_img =  #{fontImg}</if>
-            <if test="  afterImg != null and  afterImg != '' "> AND  after_img =  #{afterImg}</if>
-            <if test="  homeImg != null and  homeImg != '' "> AND  home_img =  #{homeImg}</if>
-            <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
-            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
-            <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
-            <if test=" startCreateTime != null and startCreateTime != '' "> AND  create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' "> AND  create_time &lt; #{startCreateTime}</if>
-            <if test=" startUpdateTime != null and startUpdateTime != '' "> AND  update_time &gt; #{startUpdateTime}</if>
-            <if test=" endUpdateTime != null and endUpdateTime != '' "> AND  update_time &lt; #{endUpdateTime}</if>
+            <if test="  name != null and  name != '' "> AND  customer.name =  #{name}</if>
+            <if test="  idNumber != null and  idNumber != '' "> AND  customer.id_number =  #{idNumber}</if>
+            <if test="  phone != null and  phone != '' "> AND  customer.phone =  #{phone}</if>
+            <if test="  workerId != null and  workerId != '' "> AND  customer.worker_id =  #{workerId}</if>
+            <if test="  fontImg != null and  fontImg != '' "> AND  customer.font_img =  #{fontImg}</if>
+            <if test="  afterImg != null and  afterImg != '' "> AND  customer.after_img =  #{afterImg}</if>
+            <if test="  homeImg != null and  homeImg != '' "> AND  customer.home_img =  #{homeImg}</if>
+            <if test="  remark != null and  remark != '' "> AND  customer.remark =  #{remark}</if>
+            <if test="  seg != null and  seg != 0 "> AND  customer.seg =  #{seg}</if>
+            <if test="  optId != null and  optId != '' "> AND  customer.opt_id =  #{optId}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' "> AND  customer.create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' "> AND  customer.create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' "> AND  customer.update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' "> AND  customer.update_time &lt; #{endUpdateTime}</if>
             <if test="searchKey != null and searchKey != '' ">
                 AND
                 (
-                    name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                customer.name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                     OR
-                    phone LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                customer.phone LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                     OR
-                    id_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                customer.id_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
-        </where>  ORDER BY seg DESC, update_time DESC  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY customer.seg DESC, customer.update_time DESC  limit #{pageStart},#{pageSize}
     </select>
 
 

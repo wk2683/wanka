@@ -29,6 +29,12 @@ layui.use(['form','layer','laydate'],function () {
     };
 
     pageData.submitUpdate = function(param){
+        if(!param.income){
+            param.income = 2;
+        }
+        if(!param.self){
+            param.self = 2;
+        }
         common.sendOption.data = param;
         common.sendOption.url = common.url.web_root + common.url.model.card.action + common.url.opt.update;
         common.sendOption.type = common.sendMethod.POST;

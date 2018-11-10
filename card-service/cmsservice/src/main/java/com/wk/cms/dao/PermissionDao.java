@@ -96,4 +96,16 @@ public interface PermissionDao {
 			"            WHERE permission.model_id = #{modelId} AND role.role_id=#{roleId}\n" +
 			"        ORDER BY permission.seg DESC, permission.update_time DESC  ")
 	List<Permission> getPermissionByInRole(@Param("modelId") String modelId, @Param("roleId")String roleId);
+
+	/**
+	 * 获取一个角色下的所有action
+	 * @param roleId
+	 * @return
+	 */
+	@Select(" SELECT\n" +
+			"            permission.action \n" +
+			"            FROM wk.wk_permission permission\n" +
+			"            LEFT JOIN wk.wk_role_permission role ON role.permission_id = permission.id\n" +
+			"            WHERE  role.role_id=#{roleId}")
+	List<String> getUserActionInRole(String roleId);
 }

@@ -167,6 +167,9 @@ common.url = {
                 unselectPermission:'unselectPermission',
                 selectModel:'selectModel',
                 unselectModel:'unselectModel',
+            },
+            permission:{
+                getUserActionInRole:'getUserActionInRole'
             }
         }
     }
@@ -959,6 +962,22 @@ common.initCom = function () {
  * @param options 必填的 {url,completeCallBack}
  */
 common.httpSend = function (options) {
+
+    if(sessionStorage.user && !common.permissionFilter(options)){
+        if(layui) {
+            layui.use('layer', function () {
+                layer.closeAll();
+                layer.alert('您无权限操作', {anim: 6}, function () {
+                    console.log("无权限操作");
+                    return false;
+                })
+            });
+        }else{
+            alert("您无权限操作");
+        }
+        return false;
+    }
+
     //设置一些默认值
     if(!options.errorCallBack){
         options.errorCallBack = common.errorCallBack;
@@ -1002,7 +1021,23 @@ common.httpSend = function (options) {
     }
     $.ajax(ajaxOption);
 
-}
+};
+//请求权限拦截
+common.permissionFilter = function (options) {
+    if(options.url.indexOf("login")>0 ||
+        !sessionStorage.getItem(common.session.key.orgData) ||
+        !sessionStorage.getItem(common.session.key.roleData) ||
+        !sessionStorage.getItem(common.session.key.permissionData)
+    ) {
+        return true;//登录请求直接通过
+    }
+  var url = options.url.split("8002/");
+  var actions = sessionStorage.getItem(common.session.key.permissionData);
+  if(actions.indexOf(url[1])>=0){
+      return true;//有权限
+  }
+  return false;//无权限
+};
 /**
  * 默认发送前处理
  * @param xhr
@@ -1010,6 +1045,7 @@ common.httpSend = function (options) {
 common.defaultBeforeSend = function (xhr) {
     console.log("请求之前");
     $(".loading-container").removeClass("loading-inactive");
+
 };
 
 /**
@@ -1291,6 +1327,31 @@ common.util.loadRoles = function () {
 common.util.loadRolesComplete = function(res){
     var resData = JSON.parse(res.responseText);
     sessionStorage.setItem(common.session.key.roleData,resData.data);
+};
+
+//加载登录用户的所有权限action
+common.util.loadPermissions = function () {
+    if(sessionStorage.user) {
+        var worker = JSON.parse(sessionStorage.user);
+        common.sendOption.data = {};
+        common.sendOption.url = common.url.web_root + common.url.model.permission.action + common.url.opt.model.permission.getUserActionInRole;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack = common.util.loadPermissionsComplete;
+        common.httpSend(common.sendOption);
+    }else{
+        if(layui){
+            layui.use('layer',function () {
+                layer.alert('登录已经过期',{anim:6},function () {
+                    location.href = common.url.page_root + common.url.page_login;
+                })
+            })
+        }
+    }
+};
+//加载完成处理-保存到session
+common.util.loadPermissionsComplete = function(res){
+    var resData = JSON.parse(res.responseText);
+    sessionStorage.setItem(common.session.key.permissionData,resData.data);
 };
 
 

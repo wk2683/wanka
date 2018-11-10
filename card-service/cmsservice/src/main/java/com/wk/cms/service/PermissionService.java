@@ -45,4 +45,11 @@ public interface PermissionService {
 	List<Permission> search(Permission permission);
 
 	Integer searchCount(Permission permission);
+
+	/**
+	 * 获取一个角色一的所有权限action
+	 * @param roleId
+	 * @return 返回所有权限的action 集合
+	 */
+	List<String> getUserActionInRole(String roleId);
 }

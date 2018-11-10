@@ -16,7 +16,8 @@ layui.use(['form','table','layer'],function () {
         {field: 'name',     title: '姓名',        align:'center'},
         {field: 'idNumber', title: '身份证号',    align:'center'},
         {field: 'phone',    title: '手机',        align:'center'},
-        {field: 'workerId', title: '所属员工',    align:'center'},
+        //{field: 'workerId', title: '所属员工',    align:'center'},
+        {field: 'workerName', title: '所属员工',    align:'center'},
         {fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 

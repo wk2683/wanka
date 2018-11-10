@@ -35,7 +35,7 @@ layui.use(['form','layer','upload'],function () {
         layer.open({
             type:2,
             title:'选择用户',
-            content: common.url.page_root + common.url.model.customer.page.selectList,
+            content: common.url.page_root + common.url.model.worker.page.selectList,
             area:[ ww+'px',hh+'px'],
             btn:['确定'],
             yes:function (index, layero) {
@@ -91,7 +91,7 @@ layui.use(['form','layer','upload'],function () {
        pageData.submitAdd(data.field);
         return false;
     });
-    //点选用户（入账人）
+    //点选用户（入账人）--选择员工
     $("input[name=importUserName]").click(function () {
         pageData.openSelectUserMode();
     });

@@ -51,4 +51,9 @@ public class PermissionServiceImpl implements PermissionService {
     public Integer searchCount(Permission permission) {
         return permissionDao.searchCount(permission);
     }
+
+    @Override
+    public List<String> getUserActionInRole(String roleId) {
+        return permissionDao.getUserActionInRole(roleId);
+    }
 }

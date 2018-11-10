@@ -60,4 +60,17 @@ public class PermissionController extends  BaseController {
         }
         return responseSearch(permissions,total,permission, this.getClass());
     }
+
+    /**
+     * 查询一个角色下的所有权限的action(仅仅返回权限的action值的数组)
+     * @param roleId
+     * @return
+     */
+    @RequestMapping(value = "/getUserActionInRole",method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public BaseResponse getUserActionInRole(String roleId){
+        List<String> actions = permissionService.getUserActionInRole(roleId);
+        return responseModelPermissionOfRole(actions,roleId,this.getClass());
+    }
 }

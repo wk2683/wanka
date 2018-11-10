@@ -10,6 +10,7 @@ public class Customer extends BaseEntity implements Serializable {
     private String idNumber ;
     private String phone     ;
     private String workerId ;
+    private String workerName ;
     private String fontImg  ;
     private String afterImg ;
     private String homeImg  ;
@@ -46,6 +47,14 @@ public class Customer extends BaseEntity implements Serializable {
 
     public void setWorkerId(String workerId) {
         this.workerId = workerId;
+    }
+
+    public String getWorkerName() {
+        return workerName;
+    }
+
+    public void setWorkerName(String workerName) {
+        this.workerName = workerName;
     }
 
     public String getFontImg() {

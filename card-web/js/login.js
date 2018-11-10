@@ -42,9 +42,24 @@ layui.use(['form','layer','upload'],function () {
              })
          }
     };
+    //加载用户角色下的所有权限
+    pageData.loadPermissions = function (worker) {
+        common.sendOption.data = {roleId:worker.roleId};
+        common.sendOption.url = common.url.web_root + common.url.model.permission.action + common.url.opt.model.permission.getUserActionInRole;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack =pageData.loadPermissionComplete;
 
-    pageData.loadRoles = function (userId) {
-        common.sendOption.data = {userId:userId};
+        common.httpSend(common.sendOption);
+    };
+
+    pageData.loadPermissionComplete = function (res) {
+        var resData = JSON.parse(res.responseText);
+        sessionStorage.setItem(common.session.key.permissionData,resData.data);
+        pageData.loadRoles();
+    }
+    pageData.loadRoles = function () {
+        // var worker = JSON.parse(sessionStorage.user);
+        common.sendOption.data = {};
         common.sendOption.url = common.url.web_root + common.url.model.role.action + common.url.opt.search;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.loadRolesComplete;
@@ -58,8 +73,8 @@ layui.use(['form','layer','upload'],function () {
         pageData.loadOrgs();
     };
 
-    pageData.loadOrgs = function (userId) {
-        common.sendOption.data = {userId:userId};
+    pageData.loadOrgs = function () {
+        common.sendOption.data = {};
         common.sendOption.url = common.url.web_root + common.url.model.org.action + common.url.opt.search;
         common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =pageData.loadOrgsComplete;
@@ -85,10 +100,12 @@ layui.use(['form','layer','upload'],function () {
 
     pageData.initConfig = function (workerJsonString) {
         var worker = JSON.parse(workerJsonString);
-        //加载角色
-        // sessionStorage.setItem(common.session.key.roleData,res.data);
-        pageData.loadRoles(worker.id);
+        pageData.loadPermissions(worker);
+        //加载角色(回调中完成)
+        // pageData.loadRoles();
         //加载组织(回调完成)
-
+        // pageData.loadOrgs();
+        //进入登录用户详情页面(回调中完成)
+        // pageData.toWorkerDetail();
     }
 });

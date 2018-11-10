@@ -161,6 +161,7 @@ layui.use(['form','table','layer'],function () {
         }else{
             pageData.unselectPermission(pageData.roleId,id);//取消选中
         }
+        // common.util.loadPermissions();//重新加载登录人员的权限 （没必要，会自己设死自己 ）
     };
     //提交选择权限
     pageData.selectPermission = function(roleId,permissionId){
