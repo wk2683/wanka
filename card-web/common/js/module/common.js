@@ -180,11 +180,12 @@ common.url = {
         }
     }
 };
+common.url.unneedFilterUrl = ['bank/load'];
 
 
 if(!sessionStorage.user && location.pathname.indexOf("login.html")<0 ){
 
-    location.href = common.url.page_login;
+    location.href = common.url.page_root + common.url.page_login;
 }
 
 common.code = {
@@ -345,7 +346,7 @@ common.menu = [
                             url:"customer_add.html"
                         }
                     ]
-                },                
+                },
                 {
                     id:"1",
                     name:"信用卡管理",
@@ -1043,11 +1044,30 @@ common.permissionFilter = function (options) {
         return true;//登录请求直接通过
     }
   var url = options.url.split("8002/");
+  //无须权限的请求
+  if(common.isUnneedFilter(url[1])){
+        return true;
+  }
   var actions = sessionStorage.getItem(common.session.key.permissionData);
   if(actions.indexOf(url[1])>=0){
       return true;//有权限
   }
   return false;//无权限
+};
+//是否不需要过虑权限
+common.isUnneedFilter = function(url){
+  if(url.indexOf("?")>0){
+      var urlArr = url.split("?");
+      url = urlArr[0];
+  }
+  var urls = common.url.unneedFilterUrl;
+  var len = urls.length;
+  for(var i=0;i<len;i++){
+      if(urls[i]==url){
+          return true;//不需要过虑
+      }
+  }
+  return false;
 };
 /**
  * 默认发送前处理
