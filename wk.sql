@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 10/11/2018 11:41:16
+ Date: 13/11/2018 10:48:25
 */
 
 SET NAMES utf8mb4;
@@ -60,10 +60,21 @@ CREATE TABLE `wk_bank`  (
 -- ----------------------------
 -- Records of wk_bank
 -- ----------------------------
-INSERT INTO `wk_bank` VALUES ('aaaa', '农业银行', '农行', 1, NULL);
-INSERT INTO `wk_bank` VALUES ('fawffawefaewfewa', '中国银行', '中行', 1, NULL);
-INSERT INTO `wk_bank` VALUES ('jfowejfi', '工商银行', '工行', 1, NULL);
-INSERT INTO `wk_bank` VALUES ('ofiwaefowofo', '建设银行', '建行', 1, NULL);
+INSERT INTO `wk_bank` VALUES ('aaaafaewffefef', '农业银行', '农行', 97, NULL);
+INSERT INTO `wk_bank` VALUES ('aeffefaeffwefaf', '交通银行', '交行', 96, NULL);
+INSERT INTO `wk_bank` VALUES ('awefwffewafef', '光大银行', '光大银行', 85, NULL);
+INSERT INTO `wk_bank` VALUES ('fawffawefaewfe', '中国银行', '中行', 99, NULL);
+INSERT INTO `wk_bank` VALUES ('fef51f5ew15fe', '中信银行', '中信银行', 1, NULL);
+INSERT INTO `wk_bank` VALUES ('fewfvgregergg', '招商银行', '招行', 90, NULL);
+INSERT INTO `wk_bank` VALUES ('fjaopjfaohfai', '中国邮政储蓄银行', '邮政银行', 1, NULL);
+INSERT INTO `wk_bank` VALUES ('fjawoefjoijojife', '浦发银行', '浦发银行', 1, NULL);
+INSERT INTO `wk_bank` VALUES ('fweafjawoefj', '民生银行', '民生银行', 75, NULL);
+INSERT INTO `wk_bank` VALUES ('fwefpfmaweh', '桂中农村合作银行', '桂中农村合作银行', 1, NULL);
+INSERT INTO `wk_bank` VALUES ('ifwaofjfijioejfp', '兴业银行', '兴业银行', 1, NULL);
+INSERT INTO `wk_bank` VALUES ('jfoawjfijfejifejio', '柳州银行', '柳州银行', 80, NULL);
+INSERT INTO `wk_bank` VALUES ('jfowejfifwefewf', '工商银行', '工行', 100, NULL);
+INSERT INTO `wk_bank` VALUES ('ofijawofmowaj', '华夏银行', '华夏银行', 1, NULL);
+INSERT INTO `wk_bank` VALUES ('ofiwaefowofoe', '建设银行', '建行', 98, NULL);
 
 -- ----------------------------
 -- Table structure for wk_card
@@ -72,7 +83,7 @@ DROP TABLE IF EXISTS `wk_card`;
 CREATE TABLE `wk_card`  (
   `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `customer_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '客户ID',
-  `self` int(1) NULL DEFAULT NULL COMMENT '是否客户自己的卡。1为是，其它为否',
+  `self` int(1) NULL DEFAULT 1 COMMENT '是否客户自己的卡。1为是，其它为否',
   `card_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `name` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `id_number` char(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -88,9 +99,11 @@ CREATE TABLE `wk_card`  (
   `replay_rate` decimal(3, 2) NULL DEFAULT NULL,
   `mini_fee` decimal(10, 2) NULL DEFAULT NULL,
   `cash_rate` decimal(3, 2) NULL DEFAULT NULL,
-  `income` int(11) NULL DEFAULT NULL,
+  `income` int(11) NULL DEFAULT 1 COMMENT '是否在公司，1-在，其它为不在',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `seg` int(11) NULL DEFAULT NULL,
+  `lock` int(1) NULL DEFAULT 0 COMMENT '是否正在被操作（锁定），1-是，其它值为否',
+  `lock_worker_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作的员工ID',
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   `opt_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -100,11 +113,11 @@ CREATE TABLE `wk_card`  (
 -- ----------------------------
 -- Records of wk_card
 -- ----------------------------
-INSERT INTO `wk_card` VALUES ('148c3c93-a731-4cd4-bd3a-de4acae82d1b', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '赵鹏运', '共时晃', '165156', '1515615616', '农业银行', '161561', '133123', 2, 20, '2018-11', 50000.00, 4000.00, 0.04, 60.00, 0.06, 2, '肤', 2, '2018-11-07 11:17:39', '2018-11-10 09:55:10', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
-INSERT INTO `wk_card` VALUES ('22b4f34e-827b-4dd0-af0d-15f7151b1dec', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '中行', '张三', '165156', '1651', '中国银行', '515641561', '132', 5, 15, '2018-11-07', 50000.00, 20000.00, 0.02, 20.00, 0.06, 1, '161 51 51 561 6 ', 2, '2018-11-02 08:41:45', '2018-11-02 08:41:45', NULL);
-INSERT INTO `wk_card` VALUES ('9d9091c7-58bc-40e4-8b3b-84863d41ef79', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '中行', '张三', '156156', '1561', '农业银行', '651', '516', 156, 165, '2018-11-14', 15000.00, 5000.00, 0.03, 20.00, 0.06, 1, 'awf \n \ne地\n脸', 2, '2018-11-02 11:21:37', NULL, NULL);
-INSERT INTO `wk_card` VALUES ('abe58281-b616-463e-b820-14db053c7d99', 'c2896645-ab6e-4813-88d6-662968edbe8b', 2, '中行', '张三', '156156', '1561', '中国银行', '651', '516', 156, 165, '2018-11', 15000.00, 5000.00, 0.03, 20.00, 0.06, 1, 'awf \n \ne地\n脸', 2, '2018-11-02 08:43:02', '2018-11-07 11:15:00', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
-INSERT INTO `wk_card` VALUES ('fde56175-6d9a-4804-9b1e-ce31597809bd', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '中行', '张三', '16545615', '165156', '中国银行', '4165515', '15', 15, 15, '2018-11-29', 51515.00, 1510.00, 0.03, 30.00, 0.60, 1, '216 1256 165 156 ', 1, '2018-11-02 08:38:26', '2018-11-02 08:38:26', NULL);
+INSERT INTO `wk_card` VALUES ('148c3c93-a731-4cd4-bd3a-de4acae82d1b', 'c2896645-ab6e-4813-88d6-662968edbe8c', 1, '工行信用卡', '共时晃', '165156', '1515615616', '农业银行', '161561', '133123', 2, 20, '2018-11', 50000.00, 4000.00, 0.04, 60.00, 0.06, 2, '肤', 2, 0, NULL, '2018-11-07 11:17:39', '2018-11-10 09:55:10', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk_card` VALUES ('22b4f34e-827b-4dd0-af0d-15f7151b1dec', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '中行信用卡1', '张三', '165156', '1651', '中国银行', '515641561', '132', 5, 15, '2018-11-07', 50000.00, 20000.00, 0.02, 20.00, 0.06, 1, '161 51 51 561 6 ', 2, 0, NULL, '2018-11-02 08:41:45', '2018-11-02 08:41:45', NULL);
+INSERT INTO `wk_card` VALUES ('9d9091c7-58bc-40e4-8b3b-84863d41ef79', 'c2896645-ab6e-4813-88d6-662968edbe8c', 1, '中行信用卡', '张三', '156156', '1561', '农业银行', '651', '516', 156, 165, '2018-11-14', 15000.00, 5000.00, 0.03, 20.00, 0.06, 1, 'awf \n \ne地\n脸', 2, 0, NULL, '2018-11-02 11:21:37', NULL, NULL);
+INSERT INTO `wk_card` VALUES ('abe58281-b616-463e-b820-14db053c7d99', 'c2896645-ab6e-4813-88d6-662968edbe8b', 2, '中行信用卡2', '张三', '156156', '1561', '中国银行', '651', '516', 156, 165, '2018-11', 15000.00, 5000.00, 0.03, 20.00, 0.06, 1, 'awf \n \ne地\n脸', 2, 0, NULL, '2018-11-02 08:43:02', '2018-11-07 11:15:00', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk_card` VALUES ('fde56175-6d9a-4804-9b1e-ce31597809bd', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, '中行信用卡3', '张三', '16545615', '165156', '中国银行', '4165515', '15', 15, 15, '2018-11-29', 51515.00, 1510.00, 0.03, 30.00, 0.60, 1, '216 1256 165 156 ', 1, 0, NULL, '2018-11-02 08:38:26', '2018-11-02 08:38:26', NULL);
 
 -- ----------------------------
 -- Table structure for wk_customer
@@ -130,8 +143,8 @@ CREATE TABLE `wk_customer`  (
 -- ----------------------------
 -- Records of wk_customer
 -- ----------------------------
-INSERT INTO `wk_customer` VALUES ('', '项羽', '11651651561', '13625865421', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d', '11', '1', '1', '1替 地', 1, '2018-11-01 08:45:09', '2018-11-07 07:54:41', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
 INSERT INTO `wk_customer` VALUES ('c2896645-ab6e-4813-88d6-662968edbe8b', '刘备', '16165', '131656', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d', '05f85c8d-9625-495d-9042-04fd924585d5/77272e6f-abe3-4e90-9b1e-bc699a4702e0.jpg', '05f85c8d-9625-495d-9042-04fd924585d5/dbd10184-8138-41f0-a49c-0f09b7d59f06.jpg', '05f85c8d-9625-495d-9042-04fd924585d5/83e2d06c-be61-4a18-84e7-dcad8f9279d8.jpg', 'ffewefwafew', 2, '2018-11-01 07:17:52', '2018-11-07 07:53:59', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk_customer` VALUES ('c2896645-ab6e-4813-88d6-662968edbe8c', '项羽', '11651651561', '13625865421', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d', '11', '1', '1', '1替 地', 1, '2018-11-01 08:45:09', '2018-11-07 07:54:41', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
 
 -- ----------------------------
 -- Table structure for wk_mall
@@ -202,13 +215,14 @@ DROP TABLE IF EXISTS `wk_order`;
 CREATE TABLE `wk_order`  (
   `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `customer_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '下单人(客户）',
+  `card_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '信用卡ID',
   `type` int(11) NULL DEFAULT NULL COMMENT '订单类型',
   `total` decimal(10, 2) NULL DEFAULT NULL,
   `rate` decimal(3, 3) NULL DEFAULT NULL,
   `fee` decimal(10, 2) NULL DEFAULT NULL,
   `discount` decimal(10, 2) NULL DEFAULT NULL,
   `real_fee` decimal(10, 2) NULL DEFAULT NULL,
-  `status` int(11) NULL DEFAULT NULL,
+  `status` int(11) NULL DEFAULT NULL COMMENT '0-4对应：\'已关闭\',\'新增\',\'完成\',\'业务中\',\'操作完成\'',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `seg` int(11) NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
@@ -220,10 +234,10 @@ CREATE TABLE `wk_order`  (
 -- ----------------------------
 -- Records of wk_order
 -- ----------------------------
-INSERT INTO `wk_order` VALUES ('1', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, 1.00, 0.999, 1.00, 1.00, 1.00, 1, '1', 1, '2018-11-06 22:27:53', '2018-11-07 08:31:12', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
-INSERT INTO `wk_order` VALUES ('101ff879-300e-422f-9add-fab003fbafb7', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, 1561561.00, 0.050, 50.00, 10.00, 40.00, 0, '亲朋', 2, '2018-11-07 00:17:25', '2018-11-09 08:11:35', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
-INSERT INTO `wk_order` VALUES ('727bdc76-94ec-4fd2-aca6-a1b424ff1e64', 'c2896645-ab6e-4813-88d6-662968edbe8b', 1, 1651561.00, 0.040, 10.00, 40.00, 30.00, 2, 'new user', 2, '2018-11-07 00:22:23', '2018-11-07 00:22:23', NULL);
-INSERT INTO `wk_order` VALUES ('d053d43e-7b28-490c-8ec7-320a2c2a9d14', 'c2896645-ab6e-4813-88d6-662968edbe8b', 2, 4651561.00, 0.040, 50.00, 10.00, 40.00, 3, '2018', 2, '2018-11-07 05:47:09', '2018-11-07 08:03:04', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk_order` VALUES ('1', 'c2896645-ab6e-4813-88d6-662968edbe8b', '22b4f34e-827b-4dd0-af0d-15f7151b1dec', 1, 1.00, 0.999, 1.00, 1.00, 1.00, 1, '1', 1, '2018-11-06 22:27:53', '2018-11-07 08:31:12', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk_order` VALUES ('101ff879-300e-422f-9add-fab003fbafb7', 'c2896645-ab6e-4813-88d6-662968edbe8b', '148c3c93-a731-4cd4-bd3a-de4acae82d1b', 1, 1561561.00, 0.050, 50.00, 10.00, 40.00, 0, '亲朋', 2, '2018-11-07 00:17:25', '2018-11-09 08:11:35', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk_order` VALUES ('727bdc76-94ec-4fd2-aca6-a1b424ff1e64', 'c2896645-ab6e-4813-88d6-662968edbe8b', '148c3c93-a731-4cd4-bd3a-de4acae82d1b', 1, 1651561.00, 0.040, 10.00, 40.00, 30.00, 2, 'new user', 2, '2018-11-07 00:22:23', '2018-11-07 00:22:23', NULL);
+INSERT INTO `wk_order` VALUES ('d053d43e-7b28-490c-8ec7-320a2c2a9d14', 'c2896645-ab6e-4813-88d6-662968edbe8b', '22b4f34e-827b-4dd0-af0d-15f7151b1dec', 2, 4651561.00, 0.040, 50.00, 10.00, 40.00, 3, '2018', 2, '2018-11-07 05:47:09', '2018-11-07 08:03:04', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
 
 -- ----------------------------
 -- Table structure for wk_order_export
@@ -384,6 +398,7 @@ INSERT INTO `wk_permission` VALUES ('4315f908-1041-40e8-87b2-575cef86079e', 'b34
 INSERT INTO `wk_permission` VALUES ('48ff4405-63e6-44d5-9253-945333459cfa', '5ca012d4-942b-46e7-9fa1-d4b500f51cb7', '信用卡删除', 'card/delete', 'click', '信用卡删除请求', 1, '2018-11-05 21:38:14', '2018-11-05 21:38:14', NULL);
 INSERT INTO `wk_permission` VALUES ('495f9c39-cdeb-4a58-81da-c3ae715d8035', 'e689a2b9-62d8-460f-819c-0ac53d041662', 'POS机修改', 'pos/update', 'click', 'POS机修改', 1, '2018-11-05 21:33:08', '2018-11-05 21:33:08', NULL);
 INSERT INTO `wk_permission` VALUES ('4a0912b6-6182-4ca0-9fbf-aac7925f622e', 'f8d99f8e-fd37-4f7f-b732-7a56e5d028a5', '模块管理列表', 'page/model_manager.html', 'page', '显示所有的模块及模块对应的权限页面', 50, '2018-11-05 20:46:27', '2018-11-05 20:46:27', NULL);
+INSERT INTO `wk_permission` VALUES ('5575b044-3603-4cee-aec4-9b12380c6df5', 'f8d99f8e-fd37-4f7f-b732-7a56e5d028a5', '模块查询', 'model/search', 'click', '请求后台加载整个模块', 1, '2018-11-12 08:23:17', '2018-11-12 08:23:17', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
 INSERT INTO `wk_permission` VALUES ('5b9f3ef1-19dc-48d1-9f53-4db964bf4739', 'b34bd8ad-48c6-452d-b743-b9cb8835ac33', '员工详情信息', 'page/worker_detail.html', 'click', '详细信息页面，只可查看', 24, '2018-11-05 21:09:15', '2018-11-05 21:16:50', NULL);
 INSERT INTO `wk_permission` VALUES ('5d310b96-1c7b-4472-90c6-47ecbcf2eb44', 'd56a4fa3-0e85-4600-b9ad-b585a9cd4051', '角色管理页面', 'page/role_manager.html', 'page', '角色的增删查改', 1, '2018-11-05 21:03:58', '2018-11-05 21:03:58', NULL);
 INSERT INTO `wk_permission` VALUES ('5e72ded9-78b4-42a9-bb67-9e06b80f32ef', '9ff50792-b092-4f1e-b5b9-9dce75651eff', '资金账户搜索', 'account/search', 'click', '资金账户信息搜索请求', 1, '2018-11-05 21:46:50', '2018-11-05 21:46:50', NULL);
@@ -556,6 +571,7 @@ INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a',
 INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '48ff4405-63e6-44d5-9253-945333459cfa');
 INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '495f9c39-cdeb-4a58-81da-c3ae715d8035');
 INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '4a0912b6-6182-4ca0-9fbf-aac7925f622e');
+INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '5575b044-3603-4cee-aec4-9b12380c6df5');
 INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '5b9f3ef1-19dc-48d1-9f53-4db964bf4739');
 INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '5d310b96-1c7b-4472-90c6-47ecbcf2eb44');
 INSERT INTO `wk_role_permission` VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', '5e72ded9-78b4-42a9-bb67-9e06b80f32ef');
