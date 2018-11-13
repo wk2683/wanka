@@ -4,6 +4,7 @@ import com.wk.entity.Card;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -51,7 +52,12 @@ public interface CardDao {
 			"        replay_rate replayRate,\n" +
 			"        mini_fee miniFee,\n" +
 			"        cash_rate cashRate, \n" +
-			"        income, remark, seg, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_card WHERE ID=#{id} ")
+			"        income, " +
+			"		 remark, " +
+			"		 seg, " +
+			"		 lock, " +
+			"		 lock_worker_id lockWorkerId, " +
+			"create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_card WHERE ID=#{id} ")
 	Card get(String id);
 
 	/**
@@ -74,4 +80,12 @@ public interface CardDao {
 	 * @return 返回搜索到的记录总数
 	 */
 	Integer searchCount(Card card);
+
+	/**
+	 * 锁与解锁卡操作
+	 * @param card
+	 * @return
+	 */
+	@Update(" UPDATE wk.wk_card SET lock=#{lock},lock_worker_id=#{lockWorkerId},update_time=#{updateTime},opt_id=#{optId} WHERE id=#{id} ")
+	Integer lock(Card card);
 }

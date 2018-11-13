@@ -65,7 +65,7 @@ public class CardServiceImpl implements CardService {
      * @return
      */
     @Override
-    public List<Card> importExcelt(MultipartFile file, String userId) {
+    public List<Card> importExcel(MultipartFile file, String userId) {
 
         ImportParams params = new ImportParams();
         params.setTitleRows(1);
@@ -88,5 +88,10 @@ public class CardServiceImpl implements CardService {
 //        }
         return  cards;
 
+    }
+
+    @Override
+    public Integer lock(Card card) {
+        return cardDao.lock(card);
     }
 }

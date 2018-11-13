@@ -52,6 +52,13 @@ public interface CardService {
 	 * @param userId 导入操作的用户ID
 	 * @return
 	 */
-	List<Card> importExcelt(MultipartFile file, String userId);
+	List<Card> importExcel(MultipartFile file, String userId);
+
+	/**
+	 * 锁与解锁卡
+	 * @param card {id,lock,lock_worker_id,update_time,opt_id}
+	 * @return
+	 */
+	Integer lock(Card card);
 
 }

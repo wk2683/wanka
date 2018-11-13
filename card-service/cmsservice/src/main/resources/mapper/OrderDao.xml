@@ -9,6 +9,7 @@
     <update id="update" parameterType="com.wk.entity.Order">
         UPDATE wk.wk_order SET update_time =  #{updateTime}
         <if test="  customerId != null and  customerId != '' "> , customer_id =  #{customerId}</if>
+        <if test="  cardId != null and  cardId != '' "> , card_id =  #{cardId}</if>
         <if test="  type != null and  type != '' "> , type =  #{type}</if>
         <if test="  total != null and  total != '' "> , total =  #{total}</if>
         <if test="  rate != null and  rate != '' "> , rate =  #{rate}</if>
@@ -26,24 +27,46 @@
 
 
     <select id="search" resultType="com.wk.entity.Order" parameterType="com.wk.entity.Order">
-        SELECT id, customer_id customerId, type, total, rate, fee, discount, real_fee realFee, status, remark, seg, create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_order
+        SELECT
+        orders.id,
+        orders.customer_id customerId,
+        customer.name customerName,
+        orders.card_id cardId,
+        card.card_name cardName,
+        orders.type,
+        orders.total,
+        orders.rate,
+        orders.fee,
+        orders.discount,
+        orders.real_fee realFee,
+        orders.status,
+        orders.remark,
+        orders.seg,
+        orders.create_time createTime,
+        orders.update_time updateTime,
+        orders.opt_id optId
+        FROM wk.wk_order orders
+        LEFT JOIN wk.wk_customer customer ON customer.id = orders.customer_id
+        LEFT JOIN wk.wk_card card ON card.id = orders.card_id
+
         <where>
-            <if test="  customerId != null and  customerId != '' "> AND  customer_id =  #{customerId}</if>
-            <if test="  type != null and  type != '' "> AND  type =  #{type}</if>
-            <if test="  total != null and  total != '' "> AND  total =  #{total}</if>
-            <if test="  rate != null and  rate != '' "> AND  rate =  #{rate}</if>
-            <if test="  fee != null and  fee != '' "> AND  fee =  #{fee}</if>
-            <if test="  discount != null and  discount != '' "> AND  discount =  #{discount}</if>
-            <if test="  realFee != null and  realFee != '' "> AND  real_fee =  #{realFee}</if>
-            <if test="  status != null and  status != '' "> AND  status =  #{status}</if>
-            <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
-            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
-            <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
-            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
-            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
-            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
-        </where>  ORDER BY seg DESC, update_time DESC  limit #{pageStart},#{pageSize}
+            <if test="  customerId != null and  customerId != '' "> AND  orders.customer_id =  #{customerId}</if>
+            <if test="  cardId != null and  cardId != '' "> AND  orders.card_id =  #{cardId}</if>
+            <if test="  type != null and  type != '' "> AND  orders.type =  #{type}</if>
+            <if test="  total != null and  total != '' "> AND  orders.total =  #{total}</if>
+            <if test="  rate != null and  rate != '' "> AND  orders.rate =  #{rate}</if>
+            <if test="  fee != null and  fee != '' "> AND  orders.fee =  #{fee}</if>
+            <if test="  discount != null and  discount != '' "> AND  orders.discount =  #{discount}</if>
+            <if test="  realFee != null and  realFee != '' "> AND  orders.real_fee =  #{realFee}</if>
+            <if test="  status != null and  status != '' "> AND  orders.status =  #{status}</if>
+            <if test="  remark != null and  remark != '' "> AND  orders.remark =  #{remark}</if>
+            <if test="  seg != null and  seg != 0 "> AND  orders.seg =  #{seg}</if>
+            <if test="  optId != null and  optId != '' "> AND  orders.opt_id =  #{optId}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' ">AND orders.create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' ">AND orders.create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' ">AND orders.update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' ">AND orders.update_time &lt; #{endUpdateTime}</if>
+        </where>  ORDER BY orders.seg DESC, orders.update_time DESC  limit #{pageStart},#{pageSize}
     </select>
 
 
@@ -51,6 +74,7 @@
         SELECT COUNT(*) FROM wk.wk_order
         <where>
             <if test="  customerId != null and  customerId != '' "> AND  customer_id =  #{customerId}</if>
+            <if test="  cardId != null and  cardId != '' "> AND  card_id =  #{cardId}</if>
             <if test="  type != null and  type != '' "> AND  type =  #{type}</if>
             <if test="  total != null and  total != '' "> AND  total =  #{total}</if>
             <if test="  rate != null and  rate != '' "> AND  rate =  #{rate}</if>
@@ -61,10 +85,10 @@
             <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
             <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
             <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
-            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
-            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
-            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' ">AND  create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' ">AND  create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' ">AND  update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' ">AND  update_time &lt; #{endUpdateTime}</if>
         </where>
     </select>
 

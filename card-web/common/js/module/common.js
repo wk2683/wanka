@@ -28,7 +28,7 @@ common.sendOption = {
 };
 common.opt = {};
 common.opt.names = {add:'新增',update:'修改',manager:'管理',detail:'详情',import:'入账',export:'出账'};//页面导航名称
-common.opt.status = ['已关闭','新增','完成','业务中'];//订单状态
+common.opt.status = ['已关闭','新增','完成','业务中','操作完成'];//订单状态
 common.opt.orderTypes = ['其它','还款','消费','取现刷卡','取现转账'];//操作类型-订单详情的操作类型
 common.opt.consumeTypes = ['其它','正常刷卡','双免闪付'];//消费类型
 common.opt.rates = [0.38,0.60,1.20];//费率表
@@ -184,8 +184,16 @@ common.url.unneedFilterUrl = ['bank/load'];
 
 
 if(!sessionStorage.user && location.pathname.indexOf("login.html")<0 ){
+    if(typeof layui == 'object'){
+        layui.use('layer',function () {
+            layer.alert('登录已经过期',{anim:6},function () {
+                location.href = common.url.page_root + common.url.page_login;
+            })
+        })
+    }else {
+        location.href = common.url.page_root + common.url.page_login;
+    }
 
-    location.href = common.url.page_root + common.url.page_login;
 }
 
 common.code = {

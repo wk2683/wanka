@@ -28,7 +28,7 @@ layui.use(['form','layer','upload'],function () {
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE,common.url.model.order.page.manager);
     };
     //打开选择客户
-    pageData.openSelectModel = function(modelName){
+    pageData.openSelectModel = function(modelName,customerId){
         var ww = $(window).width();
         ww = ww*0.8;
         var hh = $(window).height();
@@ -37,7 +37,7 @@ layui.use(['form','layer','upload'],function () {
         if(modelName=='customer'){
 
         }else if(modelName=='card'){
-            url = common.url.page_root + common.url.model.card.page.selectList
+            url = common.url.page_root + common.url.model.card.page.selectList+'?customerId='+customerId
         }
         layer.open({
             type:2,
@@ -103,6 +103,9 @@ layui.use(['form','layer','upload'],function () {
         form.val('order_form',{
             id:data.id,
             customerId:data.customerId,
+            customerName:data.customerName,
+            cardId:data.cardId,
+            cardName:data.cardName,
             type:data.type,
             total:data.total,
             rate:data.rate,
@@ -113,8 +116,8 @@ layui.use(['form','layer','upload'],function () {
             remark:data.remark,
         });
         form.render();
-        //显示下单客户名
-        common.util.initNameById(data.customerId,common.url.model.customer.action,$("input[name=customerName]"));
+        //显示下单客户名后台查询了
+        // common.util.initNameById(data.customerId,common.url.model.customer.action,$("input[name=customerName]"));
     };
 
 
@@ -133,7 +136,12 @@ layui.use(['form','layer','upload'],function () {
 
         //点选客户
         $("input[name=cardName]").click(function () {
-            pageData.openSelectModel('card');
+            var customerId = $("input[name=customerId]").val();
+            if(!customerId){
+                layer.msg("先选择客户");
+                return false;
+            }
+            pageData.openSelectModel('card',customerId);
         });
 
         //监听提交按钮 submit(btn_id)

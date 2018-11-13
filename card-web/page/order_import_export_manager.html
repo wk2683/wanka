@@ -77,7 +77,15 @@
                                         <label class="layui-form-label">下单客户</label>
                                         <div class="layui-input-block">
                                             <input type="text" name="customerName"  id="customerName"  lay-verify="required" placeholder="请选择客户"  class="layui-input" readonly>
-                                            <input type="hidden" name="customerId" value="1"  >
+                                            <input type="hidden" name="customerId" value=""  >
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">信用卡</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="cardName"  id="cardName"  lay-verify="required" placeholder="请选择客户"  class="layui-input" readonly>
+                                            <input type="hidden" name="cardId" value=""  >
                                         </div>
                                     </div>
 
@@ -144,6 +152,14 @@
                                         </div>
                                     </div>
 
+                                    <div class="layui-form-item layui-form-text">
+                                        <button class="layui-btn layui-btn-fluid layui-btn-danger">此信用卡正常被[张三]操作中</button>
+                                    </div>
+                                    <div class="layui-form-item layui-form-text">
+                                        <button class="layui-btn layui-btn-fluid">释放操作信用卡</button>
+                                    </div>
+
+
                                 </form>
 
 
@@ -158,7 +174,7 @@
                     <div class="col-xs-12 col-md-12">
                         <div class="widget">
                             <div class="widget-header ">
-                                <span class="widget-caption">订单出账列表</span>
+                                <span class="widget-caption">还款操作记录</span>
                             </div>
                             <div class="widget-body">
                                 <table id="order_export_list" lay-filter="orderExportTableEvent"></table>
@@ -173,7 +189,7 @@
                     <div class="col-xs-12 col-md-12">
                         <div class="widget">
                             <div class="widget-header ">
-                                <span class="widget-caption">订单入账列表</span>
+                                <span class="widget-caption">消费操作记录</span>
                             </div>
                             <div class="widget-body">
                                 <table id="order_import_list" lay-filter="orderImportTableEvent"></table>
@@ -207,19 +223,19 @@
 
 <!-- 表头搜索 模板-->
 <script type="text/html" id="toolbarSearch">
-    <div  style="text-align: left;">
+    <div  style="text-align: left;padding-left:20px;padding-top:5px;">
 
-        <form class="layui-form" lay-filter="search_form" onsubmit="return false;">
-            <div class="layui-inline">
-                <div class="layui-form-mid"></div>
-                <div class="layui-input-inline" style="width: 300px;">
-                    <input type="text" name="searchKey" placeholder="关键字" autocomplete="off" class="layui-input">
-                </div>
-                <button class="layui-btn searchBtn">搜索</button>
-                <button class="layui-btn addBtn">添加</button>
-            </div>
-        </form>
-
+        <!--<form class="layui-form" lay-filter="search_form" onsubmit="return false;">-->
+            <!--<div class="layui-inline">-->
+                <!--<div class="layui-form-mid"></div>-->
+                <!--<div class="layui-input-inline" style="width: 300px;">-->
+                    <!--<input type="text" name="searchKey" placeholder="关键字" autocomplete="off" class="layui-input">-->
+                <!--</div>-->
+                <!--<button class="layui-btn searchBtn">搜索</button>-->
+                <!---->
+            <!--</div>-->
+        <!--</form>-->
+        <button class="layui-btn addBtn">添加</button>
     </div>
 </script>
 <!-- 表头搜索 模板 end -->

@@ -17,13 +17,13 @@ layui.use(['form','table','layer'],function () {
         {field: 'self',         title: '本人卡', align:'center',width:100,templet:'#selfTemplate'},
         // {field: 'customerId',   title: '所属客户', align:'center'},
         {field: 'customerName',   title: '所属客户',width:100, align:'center'},
-        {field: 'cardName',     title: '卡名称',width:100, align:'center'},
-        {field: 'name',         title: '姓名',width:100,     align:'center'},
-        {field: 'idNumber',     title: '身份证号',width:100, align:'center'},
-        {field: 'phone',        title: '手机号',width:100, align:'center'},
-        {field: 'bankName',     title: '发卡银行',width:100, align:'center'},
-        {field: 'cardNumber',   title: '卡号',width:100, align:'center'},
-        {field: 'password',     title: '密码',width:100, align:'center'},
+        {field: 'cardName',     title: '卡名称',width:150, align:'center'},
+        {field: 'name',         title: '姓名',width:150,     align:'center'},
+        {field: 'idNumber',     title: '身份证号',width:200, align:'center'},
+        {field: 'phone',        title: '手机号',width:150, align:'center'},
+        {field: 'bankName',     title: '发卡银行',width:150, align:'center'},
+        {field: 'cardNumber',   title: '卡号',width:200, align:'center'},
+        {field: 'password',     title: '密码',width:150, align:'center'},
         {field: 'billDate',     title: '账单日',width:100, align:'center'},
         {field: 'replayDate',   title: '还款日',width:100, align:'center'},
         {field: 'validDate',   title: '有效期',width:100, align:'center'},
@@ -35,13 +35,17 @@ layui.use(['form','table','layer'],function () {
 
     ]];
 
-    pageData.getTableData = function(searchKey) {
+    pageData.getTableData = function(searchKey,customerId) {
+        var data = { userId: user.id, userName: user.name ,searchKey:searchKey};
+        if(customerId){
+            data.customerId = customerId;
+        }
         //执行渲染
         table.render({
             elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.card.action + common.url.opt.search  //数据源url
-            , where: { userId: user.id, userName: user.name ,searchKey:searchKey} //如果无需传递额外参数，可不加该参数
+            , where: data //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
@@ -110,8 +114,14 @@ layui.use(['form','table','layer'],function () {
 
 
     $(function () {
+
+        var customerId = '';
+        var p = common.util.getHrefParam();
+        if(p.customerId){
+            customerId = p.customerId;
+        }
         //初始化第一页数据
-        pageData.getTableData('');
+        pageData.getTableData('',customerId);
 
         //搜索按钮事件
         $(document.body).on('click','#searchBtn',function () {

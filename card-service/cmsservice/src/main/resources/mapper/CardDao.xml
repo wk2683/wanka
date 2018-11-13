@@ -28,6 +28,8 @@
         <if test="  income != null and  income != '' "> , income =  #{income}</if>
         <if test="  remark != null and  remark != '' "> , remark =  #{remark}</if>
         <if test="  seg != null and  seg != '' "> , seg =  #{seg}</if>
+        <if test="  lock != null and  lock != '' "> , lock =  #{lock}</if>
+        <if test="  lockWorkerId != null and  lockWorkerId != '' "> , lockWorkerId =  #{lock_worker_id}</if>
         <if test="  optId != null and  optId != '' "> , opt_id =  #{optId}  </if>
         WHERE id=#{id}
     </update>
@@ -58,6 +60,8 @@
         card.income,
         card.remark,
         card.seg,
+        card.lock,
+        card.lock_worker_id lockWorkerId,
         card.create_time createTime,
         card.update_time updateTime,
         card.opt_id optId
@@ -65,6 +69,7 @@
         LEFT JOIN wk.wk_customer customer  ON customer.id=card.customer_id
         <where>
             <if test="  self != null and  self != '' "> AND  card.self =  #{self}</if>
+            <if test="  customerId != null and  customerId != '' "> AND  card.customer_id =  #{customerId}</if>
             <if test="  cardName != null and  cardName != '' "> AND  card.card_name =  #{cardName}</if>
             <if test="  name != null and  name != '' "> AND  card.name =  #{name}</if>
             <if test="  idNumber != null and  idNumber != '' "> AND  card.id_number =  #{idNumber}</if>
@@ -111,6 +116,7 @@
         SELECT COUNT(*) FROM wk.wk_card
         <where>
             <if test="  self != null and  self != '' "> AND  self =  #{self}</if>
+            <if test="  customerId != null and  customerId != '' "> AND  customer_id =  #{customerId}</if>
             <if test="  cardName != null and  cardName != '' "> AND  card_name =  #{cardName}</if>
             <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
             <if test="  idNumber != null and  idNumber != '' "> AND  id_number =  #{idNumber}</if>
@@ -129,10 +135,10 @@
             <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
             <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
             <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId} </if>
-            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
-            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
-            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' ">AND  create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' ">AND  create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' ">AND  update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' ">AND  update_time &lt; #{endUpdateTime}</if>
             <if test="searchKey != null and searchKey != '' ">
                 AND
                 (

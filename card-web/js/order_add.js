@@ -27,8 +27,13 @@ layui.use(['form','layer','upload'],function () {
 
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD,common.url.model.order.page.manager);
     };
-    //打开选择客户
-    pageData.openSelectModel = function(modelName){
+
+    /**
+     * 打开选择客户 或者选择信用卡
+     * @param modelName  模块名，选择客户时为 customer ,选择信用卡时为 card
+     * @param customerId 客户ID，选择信用卡时才会有
+     */
+    pageData.openSelectModel = function(modelName,customerId){
         var ww = $(window).width();
         ww = ww*0.8;
         var hh = $(window).height();
@@ -37,7 +42,7 @@ layui.use(['form','layer','upload'],function () {
         if(modelName=='customer'){
 
         }else if(modelName=='card'){
-            url = common.url.page_root + common.url.model.card.page.selectList;
+            url = common.url.page_root + common.url.model.card.page.selectList+'?customerId='+customerId;
         }
         layer.open({
             type:2,
@@ -90,7 +95,12 @@ layui.use(['form','layer','upload'],function () {
 
         //点选下单的信用卡
         $("input[name=cardName]").click(function () {
-            pageData.openSelectModel('card');
+            var customerId = $("input[name=customerId]").val();
+            if(!customerId){
+                layer.msg("先选择客户");
+                return false;
+            }
+            pageData.openSelectModel('card',customerId);
         });
 
         //监听提交按钮 submit(btn_id)

@@ -73,6 +73,9 @@ layui.use(['form','layer','table'],function () {
         form.val('order_form',{
             id:data.id,
             customerId:data.customerId,
+            customerName:data.customerName,
+            cardId:data.cardId,
+            cardName:data.cardName,
             type: common.opt.orderTypes[data.type],
             total:data.total,
             rate:data.rate,
@@ -84,7 +87,7 @@ layui.use(['form','layer','table'],function () {
         });
         form.render();
         //显示下单客户名
-        common.util.initNameById(data.customerId,common.url.model.customer.action,$("input[name=customerName]"));
+        // common.util.initNameById(data.customerId,common.url.model.customer.action,$("input[name=customerName]"));
     };
 
 

@@ -8,6 +8,9 @@ import java.math.BigDecimal;
  */
 public class Order extends BaseEntity implements Serializable {
     private String customerId ;//下单客户ID
+    private String customerName ;//下单客户姓名
+    private String cardId ;//下单的信用卡
+    private String cardName ;//下单的信用卡名称
     private Integer type    ;//订单类型
     private BigDecimal total   ;//订单总金额
     private BigDecimal rate    ;//手续 费率
@@ -24,6 +27,30 @@ public class Order extends BaseEntity implements Serializable {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
+    public String getCardName() {
+        return cardName;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
     }
 
     public Integer getType() {

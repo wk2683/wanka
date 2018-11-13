@@ -60,4 +60,18 @@ public class CardController  extends  BaseController{
         }
         return responseSearch(cards,total,card, this.getClass());
     }
+
+    /**
+     * 锁与解锁卡操作
+     * @param card {id,lock,lock_worker_id,update_time,opt_id}
+     * @return
+     */
+    @RequestMapping(value = "/lock",method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin
+    public BaseResponse lock(@RequestBody Card card){
+        Integer affectRow = cardService.lock(card);
+        return responseUpdate(affectRow,card,this.getClass());
+    }
+
 }

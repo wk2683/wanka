@@ -74,14 +74,14 @@
             <if test="remark != null and remark != '' ">AND import.remark = #{remark} </if>
             <if test="seg != null and seg != '' ">AND import.seg = #{seg} </if>
             <if test="optId != null and optId != '' ">AND import.opt_id = #{ optId }</if>
-            <if test=" startCreateTime != null and startCreateTime != '' "> import.create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' "> import.create_time &lt; #{startCreateTime}</if>
-            <if test=" startUpdateTime != null and startUpdateTime != '' "> import.update_time &gt; #{startUpdateTime}</if>
-            <if test=" endUpdateTime != null and endUpdateTime != '' "> import.update_time &lt; #{endUpdateTime}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' ">AND  create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' ">AND  create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' ">AND  update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' ">AND  update_time &lt; #{endUpdateTime}</if>
             <if test="searchKey != null and searchKey != '' ">
                 AND
                 (
-                import.mallName LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                import.mall_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
                 import.remark LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
@@ -110,14 +110,14 @@
             <if test="remark != null and remark != '' ">AND  remark = #{remark} </if>
             <if test="seg != null and seg != '' ">AND  seg = #{seg} </if>
             <if test="optId != null and optId != '' ">AND  opt_id = #{ optId }</if>
-            <if test=" startCreateTime != null and startCreateTime != '' "> create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' "> create_time &lt; #{startCreateTime}</if>
-            <if test=" startUpdateTime != null and startUpdateTime != '' "> update_time &gt; #{startUpdateTime}</if>
-            <if test=" endUpdateTime != null and endUpdateTime != '' "> update_time &lt; #{endUpdateTime}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' ">AND  create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' ">AND  create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' ">AND  update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' ">AND  update_time &lt; #{endUpdateTime}</if>
             <if test="searchKey != null and searchKey != '' ">
                 AND
                 (
-                mallName LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                mall_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
                 remark LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
