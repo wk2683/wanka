@@ -83,7 +83,7 @@ nohup java -jar -Dspring.config.location=D:\Server\Root\config\eurakserver\appli
 			
 			
 
-
+订单增加了信用卡关联（OK）
 
 
 

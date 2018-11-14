@@ -94,6 +94,10 @@ layui.use(['form','layer','upload'],function () {
 
     pageData.toWorkerDetail = function(){
         var worker_detail = common.url.page_root + common.url.model.worker.page.detail + '?id='+pageData.worker.id;
+        if(sessionStorage.directUrl){
+            worker_detail = sessionStorage.directUrl;
+            sessionStorage.removeItem('directUrl');
+        }
         location.href = worker_detail;
         // window.open(worker_detail);
     };

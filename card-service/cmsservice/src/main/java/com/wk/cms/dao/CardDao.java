@@ -34,30 +34,36 @@ public interface CardDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT id,\n" +
-			"        self,\n" +
-			"        customer_id customerId,\n" +
-			"        card_name cardName,\n" +
-			"        name,\n" +
-			"        id_number idNumber,\n" +
-			"        phone,\n" +
-			"        bank_name bankName,\n" +
-			"        card_number cardNumber,\n" +
-			"        password,\n" +
-			"        bill_date billDate,\n" +
-			"        replay_date replayDate,\n" +
-			"        valid_date validDate,\n" +
-			"        total,\n" +
-			"        bill,\n" +
-			"        replay_rate replayRate,\n" +
-			"        mini_fee miniFee,\n" +
-			"        cash_rate cashRate, \n" +
-			"        income, " +
-			"		 remark, " +
-			"		 seg, " +
-			"		 lock, " +
-			"		 lock_worker_id lockWorkerId, " +
-			"create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_card WHERE ID=#{id} ")
+	@Select(" SELECT \n" +
+			"card.id,\n" +
+			"card.self,\n" +
+			"card.customer_id customerId,\n" +
+			"card.card_name cardName,\n" +
+			"card.name,\n" +
+			"card.id_number idNumber,\n" +
+			"card.phone,\n" +
+			"card.bank_name bankName,\n" +
+			"card.card_number cardNumber,\n" +
+			"card.password,\n" +
+			"card.bill_date billDate,\n" +
+			"card.replay_date replayDate,\n" +
+			"card.valid_date validDate,\n" +
+			"card.total,\n" +
+			"card.bill,\n" +
+			"card.replay_rate replayRate,\n" +
+			"card.mini_fee miniFee,\n" +
+			"card.cash_rate cashRate, \n" +
+			"card.income, \t\t \n" +
+			"card.remark, \t\t \n" +
+			"card.seg, \t\t \n" +
+			"card.lock, \t\t \n" +
+			"card.lock_worker_id lockWorkerId, \n" +
+			"worker.name lockWorkerName, \n" +
+			"card.create_time createTime, \n" +
+			"card.update_time updateTime, \n" +
+			"card.opt_id optId \n" +
+			"FROM wk.wk_card card \n" +
+			"LEFT JOIN wk.wk_worker worker ON worker.id=card.lock_worker_id  WHERE card.id=#{id} ")
 	Card get(String id);
 
 	/**

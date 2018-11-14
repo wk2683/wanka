@@ -62,11 +62,13 @@
         card.seg,
         card.lock,
         card.lock_worker_id lockWorkerId,
+        worker.name lockWorkerName,
         card.create_time createTime,
         card.update_time updateTime,
         card.opt_id optId
         FROM wk.wk_card card
         LEFT JOIN wk.wk_customer customer  ON customer.id=card.customer_id
+        LEFT JOIN wk.wk_worker worker  ON worker.id=card.lock_worker_id
         <where>
             <if test="  self != null and  self != '' "> AND  card.self =  #{self}</if>
             <if test="  customerId != null and  customerId != '' "> AND  card.customer_id =  #{customerId}</if>

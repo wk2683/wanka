@@ -15,6 +15,8 @@ layui.use(['form','table','layer'],function () {
     var tableHeader = [[ //表头
         {field: 'id',           title: '序号', align:'center',templet:'#indexTemplate'},
         {field: 'self',         title: '本人卡', align:'center',width:100,templet:'#selfTemplate'},
+        {field: 'lock',         title: '操作状态', align:'center',width:100,templet:'#lockTemplate'},
+        {field: 'lockWorkerName',         title: '操作员工', align:'center',width:100,templet:'#lockWorkerTemplate'},
         // {field: 'customerId',   title: '所属客户', align:'center'},
         {field: 'customerName',   title: '所属客户',width:100, align:'center'},
         {field: 'cardName',     title: '卡名称',width:100, align:'center'},
@@ -102,6 +104,14 @@ layui.use(['form','table','layer'],function () {
             // }
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
+                var unlock = false;//有释放卡的权力
+                if(user.roleName.indexOf('系统管理')>-1 || user.roleName.indexOf('财务')>-1 || user.roleName.indexOf('老板')>-1){
+                    unlock = true;
+                }
+                var len = data.length;
+                for(var i=0;i<len;i++){
+                    data[i].unlock = unlock;
+                }
                 return {
                     "code": 0,// res.status, //解析接口状态
                     "msg": '',// res.message, //解析提示文本
@@ -134,6 +144,8 @@ layui.use(['form','table','layer'],function () {
                 //修改
                 var update_url = common.url.page_root + common.url.model.card.page.update + '?id='+data.id;
                 window.open(update_url);
+            }else if(layEvent === 'unlock'){//释放卡
+                pageData.unlock(obj);
             }
         });
         //监听 增 删 改
@@ -166,6 +178,10 @@ layui.use(['form','table','layer'],function () {
     //删除返回后处理
     pageData.deleteComplete = function(res){
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_DELETE);
+    };
+    //释放卡
+    pageData.unlock = function(obj){
+        alert("未写实现")
     };
 
     $(function () {

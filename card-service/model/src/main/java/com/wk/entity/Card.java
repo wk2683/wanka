@@ -32,6 +32,7 @@ public class Card extends BaseEntity implements Serializable {
     private Integer seg         ;
     private Integer lock;       //信用卡是否正在被操作
     private String lockWorkerId;//操作信用卡的员工ID
+    private String lockWorkerName;//操作信用卡的员工ID
 
     public Integer getSelf() {
         return self;
@@ -219,5 +220,13 @@ public class Card extends BaseEntity implements Serializable {
 
     public void setLockWorkerId(String lockWorkerId) {
         this.lockWorkerId = lockWorkerId;
+    }
+
+    public String getLockWorkerName() {
+        return lockWorkerName;
+    }
+
+    public void setLockWorkerName(String lockWorkerName) {
+        this.lockWorkerName = lockWorkerName;
     }
 }

@@ -29,7 +29,9 @@ common.sendOption = {
 common.opt = {};
 common.opt.names = {add:'新增',update:'修改',manager:'管理',detail:'详情',import:'入账',export:'出账'};//页面导航名称
 common.opt.status = ['已关闭','新增','完成','业务中','操作完成'];//订单状态
-common.opt.orderTypes = ['其它','还款','消费','取现刷卡','取现转账'];//操作类型-订单详情的操作类型
+common.opt.orderTypes = ['','YK','TX','YK+TX','其它'];//订单类型(第一个位置为空，为适应数据库上类型从1开始，下两个同义)
+common.opt.orderExportTypes = ['','还款','取现转账'];//操作出账类型-订单详情的操作类型
+common.opt.orderImportTypes = ['','消费','取现刷卡'];//操作入账类型-订单详情的操作类型
 common.opt.consumeTypes = ['其它','正常刷卡','双免闪付'];//消费类型
 common.opt.rates = [0.38,0.60,1.20];//费率表
 common.url = {
@@ -184,6 +186,7 @@ common.url.unneedFilterUrl = ['bank/load'];
 
 
 if(!sessionStorage.user && location.pathname.indexOf("login.html")<0 ){
+    sessionStorage.directUrl = location.href;
     if(typeof layui == 'object'){
         layui.use('layer',function () {
             layer.alert('登录已经过期',{anim:6},function () {
@@ -1317,8 +1320,8 @@ common.util.getStatusOptions = function(selectTagName){
 //初始化订单类型（操作类型）option
 common.util.getOrderTypeOptions = function(selectTagName){
     var len = common.opt.orderTypes.length;
-    var options = '<option value="">选择订单类型</option>';
-    for(var i=0;i<len;i++){
+    var options = '';
+    for(var i=1;i<len;i++){
         var item = common.opt.orderTypes[i];
         options += '<option value="'+i+'">'+item+'</option>';
     }
@@ -1327,6 +1330,34 @@ common.util.getOrderTypeOptions = function(selectTagName){
     }
     return options;
 };
+//出入类型
+common.util.getOrderExportTypeOptions = function(selectTagName){
+    var len = common.opt.orderExportTypes.length;
+    var options = '';
+    for(var i=1;i<len;i++){
+        var item = common.opt.orderExportTypes[i];
+        options += '<option value="'+i+'">'+item+'</option>';
+    }
+    if(selectTagName) {
+        $("select[name="+selectTagName+"]").html(options);
+    }
+    return options;
+};
+//入账类型
+common.util.getOrderImportTypeOptions = function(selectTagName){
+    var len = common.opt.orderImportTypes.length;
+    var options = '';
+    for(var i=1;i<len;i++){
+        var item = common.opt.orderImportTypes[i];
+        options += '<option value="'+i+'">'+item+'</option>';
+    }
+    if(selectTagName) {
+        $("select[name="+selectTagName+"]").html(options);
+    }
+    return options;
+};
+
+
 //初始化费率选择option
 common.util.getRatesOptions = function(selectTagName,selectValue){
     var len = common.opt.rates.length;
