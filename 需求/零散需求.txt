@@ -83,7 +83,7 @@ nohup java -jar -Dspring.config.location=D:\Server\Root\config\eurakserver\appli
 			
 			
 
-订单增加了信用卡关联（OK）
+订单增加了信用卡关联（OK）  新增，修改、查询，记账
 
 
 
@@ -116,7 +116,7 @@ nohup java -jar -Dspring.config.location=D:\Server\Root\config\eurakserver\appli
 
 修改了商户表和银行表一样
 
-POS信息，关联员工
+POS信息，关联员工 （OK）
 
 订单类型： 1-YK 养卡，2-TX 套现 ,3-YK+TX 养卡套现（只显示字母）。选定类型后，在记录出账-入账时自动限定（无须选择）
 
@@ -135,3 +135,5 @@ POS信息，关联员工
 
 20181110 当一张卡在被操作时，其它人不可以操作
 		被操作状态认定：进入订单记账页面则认为订单对应的卡被操作，只有锁定卡本人、财务、系统管理员可以释放卡，释放后其他人才可以操作
+		
+配置好权限  （锁与解锁）

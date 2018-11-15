@@ -181,7 +181,28 @@ layui.use(['form','table','layer'],function () {
     };
     //释放卡
     pageData.unlock = function(obj){
-        alert("未写实现")
+        var param = {
+            id:obj.data.id,
+            lock:2,
+            lockWorkerId:user.id,
+        };
+        common.sendOption.data = param;
+        common.sendOption.url = common.url.web_root + common.url.model.card.action + common.url.opt.model.card.lock;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack = function(res){
+            var resData = JSON.parse(res.responseText);
+            if( resData.code == common.code.RESPONSE_CODE_SUCCESS ){
+                layer.msg('释放卡成功！',function () {
+                   //提示完成后动作
+                    var lockBtn = $(obj.tr).find(".lock-btn");
+                    lockBtn.prev().css({color:'green'}).text('空闲');
+                    lockBtn.hide();//隐藏（或者移除）都可以
+                });
+            }else{
+                layer.msg('释放操作失败，刷新后再操作');
+            }
+        };
+        common.httpSend(common.sendOption);
     };
 
     $(function () {

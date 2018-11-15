@@ -154,20 +154,21 @@ common.url = {
         update:'update',
         search:'search',
         model:{
-            worker:{
-                uploadImg:'uploadImg',//上传图片
-                readImg:'readImg',//读图片流
-                login:'login'
+            bank:{
+                load:'load'
+            },
+            card:{
+              lock:'lock'  //锁与解锁卡
             },
             customer:{
                 uploadImg:'uploadImg',
                 readImg:'readImg'
             },
-            bank:{
-                load:'load'
-            },
             mall:{
                 load:'load'
+            },
+            permission:{
+                getUserActionInRole:'getUserActionInRole'
             },
             role:{
                 getModelPermission:'getModelPermission',
@@ -176,8 +177,10 @@ common.url = {
                 selectModel:'selectModel',
                 unselectModel:'unselectModel',
             },
-            permission:{
-                getUserActionInRole:'getUserActionInRole'
+            worker:{
+                uploadImg:'uploadImg',//上传图片
+                readImg:'readImg',//读图片流
+                login:'login'
             }
         }
     }

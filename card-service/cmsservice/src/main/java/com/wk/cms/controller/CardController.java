@@ -66,7 +66,7 @@ public class CardController  extends  BaseController{
      * @param card {id,lock,lock_worker_id,update_time,opt_id}
      * @return
      */
-    @RequestMapping(value = "/lock",method = RequestMethod.POST)
+    @RequestMapping(value = "/lock",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public BaseResponse lock(@RequestBody Card card){

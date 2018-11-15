@@ -90,12 +90,86 @@ layui.use(['form','layer','table','util'],function () {
             remark:data.remark,
         });
         form.render();
-        //显示下单客户名
+        //显示下单客户名（已经修改为关联查询出相应名称）
         // common.util.initNameById(data.customerId,common.url.model.customer.action,$("input[name=customerName]"));
+        //查询出卡的信息并锁定
+        pageData.getCard(data.cardId);
     };
+    //获取信用卡信息
+    pageData.getCard = function(id){
+        common.sendOption.data = { id:id };
+        common.sendOption.url = common.url.web_root + common.url.model.card.action + common.url.opt.get;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack = function (res) {
+            var resData = JSON.parse(res.responseText);
+            if(resData.code == common.code.RESPONSE_CODE_SUCCESS ){
+                var card =  JSON.parse(resData.data);
+                pageData.card = card;//保存信用卡信息
+                pageData.initCardInfo(card);
+            }
+        };
+        common.httpSend(common.sendOption);
+    };
+    //初始化信用卡信息（判断是否锁定，是否是自己锁定）
+    pageData.initCardInfo = function(card){
+        if(card.lock && card.lock==1){
+            if(card.lockWorkerId == user.id){//自己曾经编辑
 
-
-
+            }else{//他人编辑，您不能操作
+                var info = '此订单的信用卡:\n' +
+                    '信用卡名称：'+ card.cardName +' \n ' +
+                    '卡号：'+ card.cardNumber +'\n' +
+                    '持卡人：'+ card.name +' \n' +
+                    '正在被[ '+ card.lockWorkerName +' ]操作，\n一张卡不可以被同时操作，\n确定返回上一步选择其它订单.';
+                layer.alert(info,function () {
+                    history.back();
+                })
+            }
+        }else{
+            //无人操作，则先去锁定卡
+            pageData.lockCard(card);
+        }
+    };
+    //锁上与放卡 参数card为卡信息，lock=1为锁卡，其它为放卡
+    pageData.lockCard = function(card,lock){
+        if(!lock){
+            lock = 1;
+        }
+        var param = {
+            id:card.id,
+            lock:lock,
+            lockWorkerId:user.id,
+        };
+        common.sendOption.data = param;
+        common.sendOption.url = common.url.web_root + common.url.model.card.action + common.url.opt.model.card.lock;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack = function(res){
+            var resData = JSON.parse(res.responseText);
+            if( resData.code == common.code.RESPONSE_CODE_SUCCESS ){
+                if(lock==1) {//锁卡
+                    layer.msg('锁定卡成功！');
+                }else{//放卡
+                    layer.alert('信用卡已经释放,即将返回上一步',function () {
+                        history.back();
+                    });
+                }
+            }else{
+                if(lock==1) {//锁卡
+                    layer.alert('锁定卡失败,即将返回上一步', function () {
+                        history.back();
+                    });
+                }else{//放卡
+                    layer.alert('释放卡失败,确定后自动刷新再试', function () {
+                        location.href = location.href;
+                    });
+                }
+            }
+            if(pageData.card){
+                pageData.card.lock = lock;
+            }
+        };
+        common.httpSend(common.sendOption);
+    };
 
     //表格加载数据
     pageData.bindData2Table = function(tableId,tableHeader,searchObj,url){
@@ -262,10 +336,12 @@ layui.use(['form','layer','table','util'],function () {
     };
 
     $(function () {
+
+        //加载订单信息
         pageData.getData();
-
+        //加载出账信息
         pageData.getExport();
-
+        //加载入账信息
         pageData.getImport();
 
         //添加按钮事件
@@ -282,7 +358,7 @@ layui.use(['form','layer','table','util'],function () {
         });
 
 
-        //添加按钮事件
+        //搜索按钮事件（区分于出入账的搜索）
         $(document.body).on('click','.searchBtn',function () {
 
             var mainDom = $(this).closest(".layui-form");
@@ -300,6 +376,10 @@ layui.use(['form','layer','table','util'],function () {
                 pageData.getImport(searchObj);
             }
 
+        });
+
+        $(".unlock-btn").click(function () {
+            pageData.lockCard(pageData.card,2);//解锁卡
         });
 
     })

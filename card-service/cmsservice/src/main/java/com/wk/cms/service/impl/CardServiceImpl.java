@@ -92,6 +92,7 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public Integer lock(Card card) {
+        card.updateInit();
         return cardDao.lock(card);
     }
 }
