@@ -1401,7 +1401,7 @@ common.util.getOrderTypeName = function(orderType){
 common.util.getConsumeTypeOptions = function(selectTagName,selectValue){
     var len = common.opt.consumeTypes.length;
     var options = '<option value="">选择消费方式</option>';
-    for(var i=0;i<len;i++){
+    for(var i=1;i<len;i++){
         var item = common.opt.consumeTypes[i];
         var selected = '';
         if(selectValue && selectValue == i){

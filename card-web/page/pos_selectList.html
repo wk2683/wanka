@@ -105,7 +105,7 @@
 
     <!--第一列选择模板-->
     <script type="text/html" id="indexTemplate">
-        <input type="checkbox" name="select_customer" value="{{ d.id }}" data-name="{{ d.name }}"> &nbsp;
+        <input type="checkbox" name="select_customer" value="{{ d.id }}" data-name="{{ d.name }}" data-rate1="{{d.rate1}}" data-rate2="{{d.rate2}}"> &nbsp;
         {{ d.LAY_INDEX }}
     </script>
     <!--第一列选择模板 end -->
@@ -132,7 +132,7 @@
         function getSelectUsers() {
             var users = [];
             $("input[name=select_customer]:checked").each(function () {
-                users.push({id:this.value,name:$(this).data('name')});
+                users.push({id:this.value,name:$(this).data('name'),rate1:$(this).data('rate1'),rate2:$(this).data('rate2')});
             });
             return users;
         }

@@ -17,7 +17,9 @@ layui.use(['form','table','layer'],function () {
         {field: 'importUserName',       title: '入账人姓名', align:'center'},
         {field: 'bankName',       title: '所在银行名称', align:'center'},
         {field: 'cardNumber',       title: '卡号', align:'center'},
-        {field: 'rateId',       title: '费率', align:'center'},
+        // {field: 'rateId',       title: '费率', align:'center'},
+        {field: 'rate1',       title: '正常费率', align:'center'},
+        {field: 'rate2',       title: '双免费率', align:'center'},
         {fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 

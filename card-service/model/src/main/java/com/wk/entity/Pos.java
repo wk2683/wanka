@@ -1,6 +1,7 @@
 package com.wk.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * POS信息
@@ -12,6 +13,8 @@ public class Pos extends BaseEntity implements Serializable {
     private String bankName         ;
     private String cardNumber       ;
     private String rateId           ;
+    private BigDecimal rate1           ;//正常费率
+    private BigDecimal rate2           ;//双免费率
     private Integer seg               ;
 
     public String getName() {
@@ -60,6 +63,22 @@ public class Pos extends BaseEntity implements Serializable {
 
     public void setRateId(String rateId) {
         this.rateId = rateId;
+    }
+
+    public BigDecimal getRate1() {
+        return rate1;
+    }
+
+    public void setRate1(BigDecimal rate1) {
+        this.rate1 = rate1;
+    }
+
+    public BigDecimal getRate2() {
+        return rate2;
+    }
+
+    public void setRate2(BigDecimal rate2) {
+        this.rate2 = rate2;
     }
 
     public Integer getSeg() {

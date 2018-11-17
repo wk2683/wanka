@@ -14,6 +14,8 @@
         <if test="  bankName != null and  bankName != '' "> , bank_name =  #{bankName}</if>
         <if test="  cardNumber != null and  cardNumber != '' "> , card_number =  #{cardNumber}</if>
         <if test="  rateId != null and  rateId != '' "> , rate_id =  #{rateId}</if>
+        <if test="  rate1 != null and  rate1 != '' "> , rate1 =  #{rate1}</if>
+        <if test="  rate2 != null and  rate2 != '' "> , rate2 =  #{rate2}</if>
         <if test="  remark != null and  remark != '' "> , remark =  #{remark}</if>
         <if test="  seg != null and  seg != '' "> , seg =  #{seg}</if>
         <if test="  optId != null and  optId != '' "> , opt_id =  #{optId}  </if>
@@ -21,13 +23,15 @@
     </update>
 
     <select id="search" resultType="com.wk.entity.Pos" parameterType="com.wk.entity.Pos">
-        SELECT id,name,import_user_name importUserName,import_user_id importUserId, bank_name bankName,card_number cardNumber , rate_id rateId ,  remark ,  seg , create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_pos
+        SELECT id,name,import_user_name importUserName,import_user_id importUserId, bank_name bankName,card_number cardNumber , rate_id rateId ,rate1,rate2,  remark ,  seg , create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_pos
         <where>
             <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
             <if test="  importUserName != null and  importUserName != '' "> AND  import_user_name =  #{importUserName}</if>
             <if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>
             <if test="  cardNumber != null and  cardNumber != '' "> AND  card_number =  #{cardNumber}</if>
             <if test="  rateId != null and  rateId != '' "> AND  rate_id =  #{rateId}</if>
+            <if test="  rate1 != null and  rate1 != '' "> AND  rate1 =  #{rate1}</if>
+            <if test="  rate2 != null and  rate2 != '' "> AND  rate2 =  #{rate2}</if>
             <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
             <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
             <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>

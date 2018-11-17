@@ -86,8 +86,10 @@ layui.use(['form','layer','upload','laydate'],function () {
         //初始化日期控件
         common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
         //初始化操作类型
-        common.util.getOrderTypeOptions('type');
+        // common.util.getOrderTypeOptions('type');
+        common.util.getOrderImportTypeOptions('type',p.type);
 
+        //消费方式
         common.util.getConsumeTypeOptions('consumeType')
 
 
