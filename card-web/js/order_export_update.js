@@ -70,7 +70,7 @@ layui.use(['form','layer','util','laydate'],function () {
         }
         var selectUser = selectUsers[0];
         $("input[name="+prev+"Id]").val(selectUser.id);
-        $("input[name="+prev+"Name]").val(selectUser.name);
+        $("input[name="+prev+"Name]").val(selectUser.name + ' ' + selectUsers.cardNumber);
     };
 
 
@@ -127,9 +127,10 @@ layui.use(['form','layer','util','laydate'],function () {
         //初始化日期控件
         common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
         //初始化操作类型
-        common.util.getOrderTypeOptions('type');
+        // common.util.getOrderTypeOptions('type');
+        common.util.getOrderExportTypeOptions('type',p.type);
         //初始化手续费率选择
-        common.util.getRatesOptions('rate');
+        // common.util.getRatesOptions('rate');
         // form.render('select');
 
 
@@ -138,11 +139,16 @@ layui.use(['form','layer','util','laydate'],function () {
             pageData.openAccountSelectModel('exportAccount');
         });
 
-        //点选转入
-        $("input[name=importAccountName]").click(function () {
-            pageData.openAccountSelectModel('importAccount');
-        });
-
+        // //点选转入
+        // $("input[name=importAccountName]").click(function () {
+        //     pageData.openAccountSelectModel('importAccount');
+        // });
+        var card = JSON.parse(sessionStorage.orderCard);
+        $("input[name=importAccountName]").val(card.cardName);
+        $("input[name=importAccountId]").val(card.id);
+        $("input[name=name]").val(card.name);
+        $("input[name=cardNumber]").val(card.cardNumber);
+        $("input[name=bankName]").val(card.bankName);
 
 
 

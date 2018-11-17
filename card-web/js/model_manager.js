@@ -15,7 +15,7 @@ layui.use(['form','table','layer'],function () {
     var tableHeader = [[ //表头
         {field: 'id',       title: 'ID', align:'center',width:'8%'},
         {field: 'name',       title: '权限名称', align:'center',width:'18%'},
-        {field: 'action',       title: '操作', align:'center'},
+        {field: 'action',       title: '操作', align:'left'},
         {field: 'optType',       title: '操作类型', align:'center',width:'8%'},
         {field: 'seg',       title: '排序值', align:'center',width:'8%'},
         {field: 'remark',       title: '备注', align:'center'},
@@ -95,6 +95,7 @@ layui.use(['form','table','layer'],function () {
             , toolbar: '#toolbarBase'// 'default'  //开启表格头部工具栏区域，该参数支持四种类型值：
             , defaultToolbar:['filter', 'print', 'exports']// 选择显示字段，打印，导出
             ,data:pdata //  把已经数据给表格，不用表格自己请求后台取数据
+            , limit: 100 //每页显示数量
             , skin: 'row' //行边框风格 line | row | nob
             , even: true  //隔行背景 true | false
             // , size: 'sm'  //小尺寸 sm | lg

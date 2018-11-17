@@ -192,7 +192,7 @@ layui.use(['form','table','layer'],function () {
         common.sendOption.completeCallBack = function(res){
             var resData = JSON.parse(res.responseText);
             if( resData.code == common.code.RESPONSE_CODE_SUCCESS ){
-                layer.msg('释放卡成功！',function () {
+                layer.msg('释放卡成功！',{anim:5},function () {
                    //提示完成后动作
                     var lockBtn = $(obj.tr).find(".lock-btn");
                     lockBtn.prev().css({color:'green'}).text('空闲');

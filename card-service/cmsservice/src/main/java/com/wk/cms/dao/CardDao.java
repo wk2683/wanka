@@ -92,6 +92,6 @@ public interface CardDao {
 	 * @param card
 	 * @return
 	 */
-	@Update(" UPDATE wk.wk_card SET lock=#{lock},lock_worker_id=#{lockWorkerId},update_time=#{updateTime},opt_id=#{optId} WHERE id=#{id} ")
+	@Update(" UPDATE wk.wk_card SET `lock`=#{lock},lock_worker_id=#{lockWorkerId},update_time=#{updateTime},opt_id=#{optId} WHERE id=#{id} ")
 	Integer lock(Card card);
 }

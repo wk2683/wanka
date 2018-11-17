@@ -995,6 +995,7 @@ common.httpSend = function (options) {
                 layer.closeAll();
                 layer.alert('您无权限操作', {anim: 6}, function () {
                     console.log("无权限操作");
+                    layer.closeAll();
                     return false;
                 })
             });
@@ -1333,13 +1334,19 @@ common.util.getOrderTypeOptions = function(selectTagName){
     }
     return options;
 };
-//出入类型
-common.util.getOrderExportTypeOptions = function(selectTagName){
+//出账类型
+common.util.getOrderExportTypeOptions = function(selectTagName,orderType){
     var len = common.opt.orderExportTypes.length;
     var options = '';
-    for(var i=1;i<len;i++){
-        var item = common.opt.orderExportTypes[i];
-        options += '<option value="'+i+'">'+item+'</option>';
+    if(orderType && orderType == 1){//'YK'
+        options = '<option value="1">'+common.opt.orderExportTypes[1]+'</option>';
+    }else if(orderType && orderType == 2){//'TX'
+        options = '<option value="1">'+common.opt.orderExportTypes[2]+'</option>';
+    }else {
+        for (var i = 1; i < len; i++) {
+            var item = common.opt.orderExportTypes[i];
+            options += '<option value="' + i + '">' + item + '</option>';
+        }
     }
     if(selectTagName) {
         $("select[name="+selectTagName+"]").html(options);
@@ -1347,12 +1354,18 @@ common.util.getOrderExportTypeOptions = function(selectTagName){
     return options;
 };
 //入账类型
-common.util.getOrderImportTypeOptions = function(selectTagName){
+common.util.getOrderImportTypeOptions = function(selectTagName,orderType){
     var len = common.opt.orderImportTypes.length;
     var options = '';
-    for(var i=1;i<len;i++){
-        var item = common.opt.orderImportTypes[i];
-        options += '<option value="'+i+'">'+item+'</option>';
+    if(orderType && orderType == 1){//'YK'
+        options = '<option value="1">'+common.opt.orderImportTypes[1]+'</option>';
+    }else if(orderType && orderType == 2){//'TX'
+        options = '<option value="1">'+common.opt.orderImportTypes[2]+'</option>';
+    }else {
+        for (var i = 1; i < len; i++) {
+            var item = common.opt.orderImportTypes[i];
+            options += '<option value="' + i + '">' + item + '</option>';
+        }
     }
     if(selectTagName) {
         $("select[name="+selectTagName+"]").html(options);

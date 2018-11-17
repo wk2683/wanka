@@ -69,7 +69,7 @@ public class CardController  extends  BaseController{
     @RequestMapping(value = "/lock",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public BaseResponse lock(@RequestBody Card card){
+    public BaseResponse lock(Card card){
         Integer affectRow = cardService.lock(card);
         return responseUpdate(affectRow,card,this.getClass());
     }

@@ -72,7 +72,9 @@ layui.use(['form','layer','table','util'],function () {
             return false;
         }
 
+        sessionStorage.order = resData.data;
         var data = JSON.parse(resData.data);
+        pageData.order = data;//保存为全局
 
         form.val('order_form',{
             id:data.id,
@@ -103,6 +105,7 @@ layui.use(['form','layer','table','util'],function () {
         common.sendOption.completeCallBack = function (res) {
             var resData = JSON.parse(res.responseText);
             if(resData.code == common.code.RESPONSE_CODE_SUCCESS ){
+                sessionStorage.orderCard = resData.data;//保存到会话，多页面使用
                 var card =  JSON.parse(resData.data);
                 pageData.card = card;//保存信用卡信息
                 pageData.initCardInfo(card);
@@ -129,6 +132,8 @@ layui.use(['form','layer','table','util'],function () {
             //无人操作，则先去锁定卡
             pageData.lockCard(card);
         }
+        //显示信用卡信息
+
     };
     //锁上与放卡 参数card为卡信息，lock=1为锁卡，其它为放卡
     pageData.lockCard = function(card,lock){
@@ -268,11 +273,11 @@ layui.use(['form','layer','table','util'],function () {
                 pageData.deleteConfirm(obj,tableId);
             } else if(layEvent === 'update'){ //编辑
                 //修改
-                var update_url = common.url.page_root + common.url.model.orderExport.page.update + '?id='+obj.data.id + '&orderId='+obj.data.orderId;
+                var update_url = common.url.page_root + common.url.model.orderExport.page.update ;
                 if(tableId.indexOf('import')>0){
-                    update_url = common.url.page_root + common.url.model.orderImport.page.update + '?id='+obj.data.id + '&orderId='+obj.data.orderId;
+                    update_url = common.url.page_root + common.url.model.orderImport.page.update ;
                 }
-                location.href = update_url;
+                location.href = update_url+ '?id='+obj.data.id + '&orderId='+obj.data.orderId + '&type='+pageData.order.type;
             }
         });
 
@@ -348,13 +353,13 @@ layui.use(['form','layer','table','util'],function () {
         $(document.body).on('click','.addBtn',function () {
             var exportTable = $(this).closest(".widget-body").find("#order_export_list");
             var p = common.util.getHrefParam();
-            var add_url = common.url.page_root + common.url.model.orderExport.page.add + '?orderId='+p.id;
+            var add_url = common.url.page_root + common.url.model.orderExport.page.add ;
             if(exportTable.length>0){
 
             }else {
-                add_url = common.url.page_root + common.url.model.orderImport.page.add + '?orderId='+p.id;
+                add_url = common.url.page_root + common.url.model.orderImport.page.add ;
             }
-            window.open(add_url);
+            window.open(add_url+ '?orderId='+p.id + '&type='+ pageData.order.type );
         });
 
 

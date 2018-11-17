@@ -15,7 +15,7 @@ layui.use(['form','table','layer'],function () {
     var tableHeader = [[ //表头
         {field: 'id',       title: '选择', align:'center',width:'8%',templet:'#indexTemplate'},
         {field: 'name',       title: '权限名称', align:'center',width:'18%'},
-        {field: 'action',       title: '操作', align:'center'},
+        {field: 'action',       title: '操作', align:'left'},
         {field: 'optType',       title: '操作类型', align:'center',width:'8%'},
         {field: 'seg',       title: '排序值', align:'center',width:'8%'},
         {field: 'remark',       title: '备注', align:'center'},
@@ -104,6 +104,7 @@ layui.use(['form','table','layer'],function () {
             elem: '#'+tableId //指定原始表格元素选择器（推荐id选择器）
             ,cols:tableHeader
             ,data:pdata //  把已经数据给表格，不用表格自己请求后台取数据
+            , limit: 100 //每页显示数量
             , skin: 'row' //行边框风格 line | row | nob
             , even: true  //隔行背景 true | false
         });
