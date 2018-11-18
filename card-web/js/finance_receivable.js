@@ -88,13 +88,7 @@ layui.use(['form','table','layer','laydate'],function () {
                 ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
             }
 
-            // ,response: {//如果无需自定义数据响应名称，可不加该参数
-            //     statusName: 'status' //规定数据状态的字段名称，默认：code
-            //     ,statusCode: 200 //规定成功的状态码，默认：0
-            //     ,msgName: 'hint' //规定状态信息的字段名称，默认：msg
-            //     ,countName: 'total' //规定数据总数的字段名称，默认：count
-            //     ,dataName: 'rows' //规定数据列表的字段名称，默认：data
-            // }
+
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
                 return {
@@ -108,7 +102,7 @@ layui.use(['form','table','layer','laydate'],function () {
             , even: true  //隔行背景 true | false
             , size: 'sm'  //小尺寸 sm | lg
         });
-        //《《《《《《《《《《《《《《表格初始化完成
+
 
         //监听工具条
         table.on('tool(orderTableEvent)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -116,253 +110,39 @@ layui.use(['form','table','layer','laydate'],function () {
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
             console.log("点击事件......"+layEvent);
-            if(layEvent === 'export_import'){//记账
-                var imexport_url = common.url.page_root + common.url.model.order.page.imexport + '?id='+obj.data.id;
-                location.href = imexport_url;
-            }else if(layEvent === 'detail'){ //查看详情
-                var detail_url = common.url.page_root + common.url.model.order.page.detail + '?id='+obj.data.id;
-                window.open(detail_url);
-            } else if(layEvent === 'delete'){ //删除
-                pageData.deleteConfirm(obj);
-            } else if(layEvent === 'update'){ //编辑
-                //修改
-               var update_url = common.url.page_root + common.url.model.order.page.update + '?id='+obj.data.id;
-                location.href = update_url;
+            if(layEvent === 'receivable'){//已经收款
+                pageData.orderOver(obj.data.id);
             }
         });
         //监听 增 删 改
 
     };
-    //渲染表格方法结束
 
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>添加操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-    //打开添加模态框表单
-    pageData.openAddModel = function(){
-        layer.open({
-            title: common.optName.CONTROLLER_OPT_ADD + common.url.model.worker.name,
-            type:1,//页面类型
-            content:$('#add_form'),
-            area:['600px'],
-            btn:['提交'],
-            yes: function(index, layero){//当前层索引、当前层DOM对象
-                //提交
-                var name = $(layero).find("input[name=name]").val();
-                var seg = $(layero).find("input[name=seg]").val();
-                var remark = $(layero).find("textarea[name=remark]").val();
-
-                name = $.trim(name);
-                seg = $.trim(seg);
-                remark = $.trim(remark);
-                if(!name || !seg || !remark){
-                    layer.alert('所有都有填写的，亲');
-                    return false;
-                }
-
-                layer.closeAll();
-                console.log(name + "," + seg + "," + remark);
-                pageData.submitAddRole(name,seg,remark);
-
-            },
-            cancel: function(){
-                //右上角关闭回调
-
-                //return false 开启该代码可禁止点击该按钮关闭
-            }
-        });
-    };
-    //添加提交数据
-    pageData.submitAddRole = function(name,seg,remark){
-        common.sendOption.data = {
-            name:name,
-            seg:seg,
-            remark:remark,
+    pageData.orderOver = function (orderId) {
+        var param  = {
+            id:orderId,
+            status:2
         };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.add;
-        common.sendOption.type = common.sendMethod.POST;
-        common.sendOption.completeCallBack =pageData.addComplete;
-
-        common.httpSend(common.sendOption);
-    };
-    //添加完成后动作
-    pageData.addComplete = function(res){
-            common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD);
-    };
-
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>更新操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-    //打开更新模态框表单 modelObj:当前数据行对象，数据为modelObj.data 为一行的数据
-    pageData.openUpdateModel = function(modelObj){
-
-        $('#add_form').find("input[name=name]").val(modelObj.data.name);
-        $('#add_form').find("input[name=seg]").val(modelObj.data.seg);
-        $('#add_form').find("textarea[name=remark]").val(modelObj.data.remark);
-
-        layer.open({
-            title:common.optName.CONTROLLER_OPT_UPDATE + common.url.model.worker.name,
-            type:1,//页面类型
-            content:$('#add_form'),
-            area:['600px'],
-            btn:['提交'],
-            yes: function(index, layero){//当前层索引、当前层DOM对象
-                //提交
-                var name = $(layero).find("input[name=name]").val();
-                var seg = $(layero).find("input[name=seg]").val();
-                var remark = $(layero).find("textarea[name=remark]").val();
-
-                name = $.trim(name);
-                seg = $.trim(seg);
-                remark = $.trim(remark);
-                if(!name || !seg || !remark){
-                    layer.alert('所有都有填写的，亲');
-                    return false;
-                }
-
-                layer.closeAll();
-                console.log(name + "," + seg + "," + remark);
-                pageData.submitUpdateRole(modelObj.data.id,name,seg,remark);
-
-            },
-            cancel: function(){
-                //右上角关闭回调
-
-                //return false 开启该代码可禁止点击该按钮关闭
-            }
-        });
-    };
-    //更新提交数据
-    pageData.submitUpdateRole = function(id,name,seg,remark){
-        common.sendOption.data = {
-            id:id,
-            name:name,
-            seg:seg,
-            remark:remark,
-        };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.update;
-        common.sendOption.type = common.sendMethod.POST;
-        common.sendOption.completeCallBack =pageData.updateComplete;
-
-        common.httpSend(common.sendOption);
-    };
-    //更新完成后动作
-    pageData.updateComplete = function(res){
-        common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE);
-    };
-
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>删除操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-    //确认删除
-    pageData.deleteConfirm = function(obj){
-        layer.confirm('确定关闭订单吗？', function(index){
-
-            layer.close(index);
-            //向服务端发送删除指令
-            console.log("删除 id  =  "+obj.data.id);
-            pageData.deleteSubmit(obj);
-            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-        });
-    };
-    //提交删除
-    pageData.deleteSubmit = function(obj){
-        common.sendOption.data = { id:obj.data.id };
-        common.sendOption.url = common.url.web_root + common.url.model.order.action + common.url.opt.delete;
+        common.sendOption.data = param;
+        common.sendOption.url = common.url.web_root + common.url.model.order.action + common.url.opt.model.order.status2over;
         common.sendOption.type = common.sendMethod.GET;
-        common.sendOption.completeCallBack =pageData.deleteComplete;
+        common.sendOption.completeCallBack =function (res) {
+            var resData = JSON.parse(res.responseText);
+            if(resData.code == common.code.RESPONSE_CODE_SUCCESS){
+                layer.alert('订单状态已经修改为[完成]',{anim:5},function () {
+                    layer.closeAll();
+                    var receviabledUrl = common.url.page_root + common.url.model.finance.page.receivabled;
+                    location.href = receviabledUrl;
+                })
+            }else{
+                layer.alert('订单状态经修失败，刷新再试',{anim:6},function () {
+                    layer.closeAll();
+                    location.href = location.href;
+                })
+            }
+        };
         common.httpSend(common.sendOption);
     };
-    //删除返回后处理
-    pageData.deleteComplete = function(res){
-        common.noDataResponse(res,'关闭');
-    };
-    pageData.initSelectStatus = function(){
-        var len = common.opt.status.length;
-        var options = '<option value="">选择状态</option>';
-        for(var i=0;i<len;i++){
-            var item = common.opt.status[i];
-            options += '<option value="'+i+'">'+item+'</option>';
-        }
-        console.log(options);
-        $("select[name=status]").html(options);
-        // form.render('select');
-
-    };
 
 
-    pageData.initSearchDate = function(){
-        common.util.initSelectDate(laydate,'start_time');
-        common.util.initSelectDate(laydate,'end_time');
-        // //日期时间选择器
-        // laydate.render({
-        //     elem: '#start_time'
-        //     ,type: 'datetime'
-        // });
-        // //日期时间选择器
-        // laydate.render({
-        //     elem: '#end_time'
-        //     ,type: 'datetime'
-        // });
-    };
-    //条件搜索订单
-    pageData.searchOrder = function(){
-        var searchObj = {};
-        //订单类型
-        var type = $("select[name=orderType]").val();
-        if(type && type.length>0){
-            searchObj.type= type;
-        }
-        //订单状态
-        var status = $("select[name=status]").val();
-        if(status && status.length>0){
-            searchObj.status= status;
-        }
-        //下订单人（客户）
-        var userId = $("input[name=userId]").val();
-        if(userId && userId.length>0){
-            searchObj.userId= userId;
-        }
-
-        //下单开始时间
-        var start_time = $("input[name=start_time]").val();
-        if(start_time && start_time.length>0){
-            searchObj.startCreateTime= start_time;
-        }
-
-        //下单结束时间
-        var end_time = $("input[name=end_time]").val();
-        if(end_time && end_time.length>0){
-            searchObj.endCreateTime= end_time;
-        }
-
-        //下单结束时间
-        var searchKey = $("input[name=searchKey]").val();
-        if(searchKey && searchKey.length>0){
-            searchObj.searchKey= searchKey;
-        }
-
-        pageData.getTableData(searchObj);
-    };
-
-    $(function () {
-
-        // pageData.initSelectStatus();
-        common.util.getStatusOptions('status');
-        common.util.getOrderTypeOptions('type');
-        form.render('select');
-
-        pageData.initSearchDate();
-        //初始化第一页数据
-        pageData.getTableData({});
-
-        //搜索按钮事件
-        $(document.body).on('click','#searchBtn',function () {
-            pageData.searchOrder();
-        });
-
-        //添加按钮事件
-        $(document.body).on('click','#add_order_btn',function () {
-            //新增
-            var add_url = common.url.page_root + common.url.model.order.page.add;
-            window.open(add_url);
-        });
-    });
 });

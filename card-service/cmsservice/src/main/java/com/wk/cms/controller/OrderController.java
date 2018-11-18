@@ -1,7 +1,9 @@
 package com.wk.cms.controller;
 
 import com.wk.bean.BaseResponse;
+import com.wk.cms.service.CardService;
 import com.wk.cms.service.OrderService;
+import com.wk.entity.Card;
 import com.wk.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,8 @@ import java.util.List;
 public class OrderController  extends  BaseController{
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private CardService cardService;
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
@@ -69,7 +73,7 @@ public class OrderController  extends  BaseController{
      * @param order
      * @return
      */
-    @RequestMapping(value = "/updateStatus2",method = RequestMethod.POST)
+    @RequestMapping(value = "/updateStatus2",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public BaseResponse updateStatus2(@RequestBody Order order){
@@ -81,7 +85,7 @@ public class OrderController  extends  BaseController{
      * @param order
      * @return
      */
-    @RequestMapping(value = "/updateStatus3",method = RequestMethod.POST)
+    @RequestMapping(value = "/updateStatus3",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public BaseResponse updateStatus3(@RequestBody Order order){
@@ -93,29 +97,20 @@ public class OrderController  extends  BaseController{
      * @param order
      * @return
      */
-    @RequestMapping(value = "/updateStatus4",method = RequestMethod.POST)
+    @RequestMapping(value = "/updateStatus4",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public BaseResponse updateStatus4(@RequestBody Order order){
         Integer affectRow = orderService.update(order);
+        if(affectRow>0) {
+            Card card = new Card();
+            card.setId(order.getCardId());
+            card.setLock(2);//解锁
+            card.setLockWorkerId(order.getOptId());
+            card.setOptId(order.getOptId());
+            affectRow = cardService.lock(card);
+        }
         return responseUpdate(affectRow,order,this.getClass());
     }
 
-
-    /**
-     * 查询等待还款订单
-     * @param order
-     * @return
-     */
-    @RequestMapping(value = "/repayment",method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin
-    public BaseResponse repayment(Order order){
-        List<Order> orders = orderService.search(order);
-        Integer total = 0;
-        if(order.getPage()==1){
-            total = orderService.searchCount(order);
-        }
-        return responseSearch(orders,total,order, this.getClass());
-    }
 }

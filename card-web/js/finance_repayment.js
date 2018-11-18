@@ -57,7 +57,8 @@ layui.use(['form','table','layer','laydate'],function () {
             console.log("点击事件......"+layEvent);
             if(layEvent === 'repayment'){ //还款
                 var imexport_url = common.url.page_root + common.url.model.order.page.imexport + '?id='+obj.data.id;
-                window.open(imexport_url);
+                // window.open(imexport_url);
+                location.href = imexport_url;
             }
         });
 

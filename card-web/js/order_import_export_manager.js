@@ -155,7 +155,10 @@ layui.use(['form','layer','table','util'],function () {
                     layer.msg('锁定卡成功！');
                 }else{//放卡
                     layer.alert('信用卡已经释放,即将返回上一步',function () {
-                        history.back();
+                        var back = history.back();
+                        if(!back){
+                            location.href = common.url.page_root + common.url.model.order.page.manager;
+                        }
                     });
                 }
             }else{
@@ -343,6 +346,33 @@ layui.use(['form','layer','table','util'],function () {
         pageData.bindData2Table('order_import_list',importTableHeader,searchObj,url);
     };
 
+    pageData.optOver = function (order) {
+        var param  = {
+            id:order.id,
+            cardId:order.cardId,
+            status:4 //操作完成
+        };
+        common.sendOption.data = param;
+        common.sendOption.url = common.url.web_root + common.url.model.order.action + common.url.opt.model.order.status2optOver;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack =function (res) {
+            var resData = JSON.parse(res.responseText);
+            if(resData.code == common.code.RESPONSE_CODE_SUCCESS){
+                layer.alert('订单状态已经修改为[操作完成]，可以开始收款',{anim:5},function () {
+                    layer.closeAll();
+                    var receviableUrl = common.url.page_root + common.url.model.finance.page.receivable;
+                    location.href = receviableUrl;
+                })
+            }else{
+                layer.alert('订单状态经修失败，刷新再试',{anim:6},function () {
+                    layer.closeAll();
+                    location.href = location.href;
+                })
+            }
+        };
+        common.httpSend(common.sendOption);
+    };
+
     $(function () {
 
         //加载订单信息
@@ -389,6 +419,10 @@ layui.use(['form','layer','table','util'],function () {
         $(".unlock-btn").click(function () {
             pageData.lockCard(pageData.card,2);//解锁卡
         });
+        $(".opt-over-btn").click(function () {
+            pageData.optOver(pageData.order);//解锁卡
+        });
+
 
     })
 

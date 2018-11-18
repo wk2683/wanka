@@ -177,7 +177,7 @@ common.url = {
                 load:'load'
             },
             order:{
-                repayment:'repayment',
+                // repayment:'repayment', 用不到
                 status2over:'updateStatus2',
                 status2optOver:'updateStatus4',
                 status2ing:'updateStatus3'
