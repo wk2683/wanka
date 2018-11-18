@@ -148,7 +148,12 @@ common.url = {
         },
         finance:{
             action:'finance/',
-            name:'财务'
+            name:'财务',
+            page:{
+                receivable:'page/finance_receivable.html',
+                receivabled:'page/finance_receivabled.html',
+                repayment:'page/finance_repayment.html',
+            }
         }
     },
     opt:{
@@ -523,136 +528,9 @@ common.initModelDom = function () {
 //初始化头条
 common.initTopNav = function (user) {
 
-    var emailList =    '                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">\n' +
-        '                                    <li>\n' +
-        '                                        <a href="#">\n' +
-        '                                            <img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">\n' +
-        '                                            <div class="message">\n' +
-        '                                                <span class="message-sender">\n' +
-        '                                                    Divyia Austin\n' +
-        '                                                </span>\n' +
-        '                                                <span class="message-time">\n' +
-        '                                                    2 minutes ago\n' +
-        '                                                </span>\n' +
-        '                                                <span class="message-subject">\n' +
-        '                                                    Here\'s the recipe for apple pie\n' +
-        '                                                </span>\n' +
-        '                                                <span class="message-body">\n' +
-        '                                                    to identify the sending application when the senders image is shown for the main icon\n' +
-        '                                                </span>\n' +
-        '                                            </div>\n' +
-        '                                        </a>\n' +
-        '                                    </li>\n' +
-        '                                    <li>\n' +
-        '                                        <a href="#">\n' +
-        '                                            <img src="assets/img/avatars/bing.png" class="message-avatar" alt="Microsoft Bing">\n' +
-        '                                            <div class="message">\n' +
-        '                                                <span class="message-sender">\n' +
-        '                                                    Bing.com\n' +
-        '                                                </span>\n' +
-        '                                                <span class="message-time">\n' +
-        '                                                    Yesterday\n' +
-        '                                                </span>\n' +
-        '                                                <span class="message-subject">\n' +
-        '                                                    Bing Newsletter: The January Issue‏\n' +
-        '                                                </span>\n' +
-        '                                                <span class="message-body">\n' +
-        '                                                    Discover new music just in time for the Grammy® Awards.\n' +
-        '                                                </span>\n' +
-        '                                            </div>\n' +
-        '                                        </a>\n' +
-        '                                    </li>\n' +
-        '                                    <li>\n' +
-        '                                        <a href="#">\n' +
-        '                                            <img src="assets/img/avatars/adam-jansen.jpg" class="message-avatar" alt="Divyia Austin">\n' +
-        '                                            <div class="message">\n' +
-        '                                                <span class="message-sender">\n' +
-        '                                                    Nicolas\n' +
-        '                                                </span>\n' +
-        '                                                <span class="message-time">\n' +
-        '                                                    Friday, September 22\n' +
-        '                                                </span>\n' +
-        '                                                <span class="message-subject">\n' +
-        '                                                    New 4K Cameras\n' +
-        '                                                </span>\n' +
-        '                                                <span class="message-body">\n' +
-        '                                                    The 4K revolution has come over the horizon and is reaching the general populous\n' +
-        '                                                </span>\n' +
-        '                                            </div>\n' +
-        '                                        </a>\n' +
-        '                                    </li>\n' +
-        '                                </ul>\n' +
-        '                                <!--/Messages Dropdown-->\n' ;
-
-    var taskList  =  '                                <!--Tasks Dropdown-->\n' +
-    '                                <ul class="pull-right dropdown-menu dropdown-tasks dropdown-arrow ">\n' +
-    '                                    <li class="dropdown-header bordered-darkorange">\n' +
-    '                                        <i class="fa fa-tasks"></i>\n' +
-    '                                        4 Tasks In Progress\n' +
-    '                                    </li>\n' +
-    '                                    <li>\n' +
-    '                                        <a href="#">\n' +
-    '                                            <div class="clearfix">\n' +
-    '                                                <span class="pull-left">Account Creation</span>\n' +
-    '                                                <span class="pull-right">65%</span>\n' +
-    '                                            </div>\n' +
-    '\n' +
-    '                                            <div class="progress progress-xs">\n' +
-    '                                                <div style="width:65%" class="progress-bar"></div>\n' +
-    '                                            </div>\n' +
-    '                                        </a>\n' +
-    '                                    </li>\n' +
-    '                                    <li>\n' +
-    '                                        <a href="#">\n' +
-    '                                            <div class="clearfix">\n' +
-    '                                                <span class="pull-left">Profile Data</span>\n' +
-    '                                                <span class="pull-right">35%</span>\n' +
-    '                                            </div>\n' +
-    '\n' +
-    '                                            <div class="progress progress-xs">\n' +
-    '                                                <div style="width:35%" class="progress-bar progress-bar-success"></div>\n' +
-    '                                            </div>\n' +
-    '                                        </a>\n' +
-    '                                    </li>\n' +
-    '                                    <li>\n' +
-    '                                        <a href="#">\n' +
-    '                                            <div class="clearfix">\n' +
-    '                                                <span class="pull-left">Updating Resume</span>\n' +
-    '                                                <span class="pull-right">75%</span>\n' +
-    '                                            </div>\n' +
-    '\n' +
-    '                                            <div class="progress progress-xs">\n' +
-    '                                                <div style="width:75%" class="progress-bar progress-bar-darkorange"></div>\n' +
-    '                                            </div>\n' +
-    '                                        </a>\n' +
-    '                                    </li>\n' +
-    '                                    <li>\n' +
-    '                                        <a href="#">\n' +
-    '                                            <div class="clearfix">\n' +
-    '                                                <span class="pull-left">Adding Contacts</span>\n' +
-    '                                                <span class="pull-right">10%</span>\n' +
-    '                                            </div>\n' +
-    '\n' +
-    '                                            <div class="progress progress-xs">\n' +
-    '                                                <div style="width:10%" class="progress-bar progress-bar-warning"></div>\n' +
-    '                                            </div>\n' +
-    '                                        </a>\n' +
-    '                                    </li>\n' +
-    '                                    <li class="dropdown-footer">\n' +
-    '                                        <a href="#">\n' +
-    '                                            See All Tasks\n' +
-    '                                        </a>\n' +
-    '                                        <button class="btn btn-xs btn-default shiny darkorange icon-only pull-right"><i class="fa fa-check"></i></button>\n' +
-    '                                    </li>\n' +
-    '                                </ul>\n' +
-    '                                <!--/Tasks Dropdown-->\n' ;
-
-
-    emailList = '';
-    taskList = '';
 
     var userHomeImg = common.url.web_root +common.url.model.worker.action + common.url.opt.model.worker.readImg + '?path=' + user.homeImg;
-
+    var repaymentUrl = common.url.page_root + common.url.model.finance.page.repayment;
     var topNavHtml = '<div class="navbar">\n' +
                         '        <div class="navbar-inner">\n' +
                         '            <div class="navbar-container">\n' +
@@ -674,105 +552,38 @@ common.initTopNav = function (user) {
                         '                <!-- Account Area and Settings --->\n' +
                         '                <div class="navbar-header pull-right">\n' +
                         '                    <div class="navbar-account">\n' +
-                        '                        <ul class="account-area">\n' +
+                        '                        <ul class="account-area" >\n' +
+
                         '                            <li>\n' +
-                        '                                <a class=" dropdown-toggle" data-toggle="dropdown" title="Help" href="#">\n' +
-                        '                                    <i class="icon fa fa-warning"></i>\n' +
+                        '                                <a class="wave in dropdown-toggle" data-toggle="" title="超过还款日期的信用卡数量" href="'+repaymentUrl+'">\n' +
+                        '                                    <i class="icon fa fa-warning">超期</i>\n' +
+                        '                                    <span class="badge" id="d0">3</span>\n' +
                         '                                </a>\n' +
-                        '                                <!--Notification Dropdown-->\n' +
-                        '                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-notifications">\n' +
-                        '                                    <li>\n' +
-                        '                                        <a href="#">\n' +
-                        '                                            <div class="clearfix">\n' +
-                        '                                                <div class="notification-icon">\n' +
-                        '                                                    <i class="fa fa-phone bg-themeprimary white"></i>\n' +
-                        '                                                </div>\n' +
-                        '                                                <div class="notification-body">\n' +
-                        '                                                    <span class="title">Skype meeting with Patty</span>\n' +
-                        '                                                    <span class="description">01:00 pm</span>\n' +
-                        '                                                </div>\n' +
-                        '                                                <div class="notification-extra">\n' +
-                        '                                                    <i class="fa fa-clock-o themeprimary"></i>\n' +
-                        '                                                    <span class="description">office</span>\n' +
-                        '                                                </div>\n' +
-                        '                                            </div>\n' +
-                        '                                        </a>\n' +
-                        '                                    </li>\n' +
-                        '                                    <li>\n' +
-                        '                                        <a href="#">\n' +
-                        '                                            <div class="clearfix">\n' +
-                        '                                                <div class="notification-icon">\n' +
-                        '                                                    <i class="fa fa-check bg-darkorange white"></i>\n' +
-                        '                                                </div>\n' +
-                        '                                                <div class="notification-body">\n' +
-                        '                                                    <span class="title">Uncharted break</span>\n' +
-                        '                                                    <span class="description">03:30 pm - 05:15 pm</span>\n' +
-                        '                                                </div>\n' +
-                        '                                                <div class="notification-extra">\n' +
-                        '                                                    <i class="fa fa-clock-o darkorange"></i>\n' +
-                        '                                                </div>\n' +
-                        '                                            </div>\n' +
-                        '                                        </a>\n' +
-                        '                                    </li>\n' +
-                        '                                    <li>\n' +
-                        '                                        <a href="#">\n' +
-                        '                                            <div class="clearfix">\n' +
-                        '                                                <div class="notification-icon">\n' +
-                        '                                                    <i class="fa fa-gift bg-warning white"></i>\n' +
-                        '                                                </div>\n' +
-                        '                                                <div class="notification-body">\n' +
-                        '                                                    <span class="title">Kate birthday party</span>\n' +
-                        '                                                    <span class="description">08:30 pm</span>\n' +
-                        '                                                </div>\n' +
-                        '                                                <div class="notification-extra">\n' +
-                        '                                                    <i class="fa fa-calendar warning"></i>\n' +
-                        '                                                    <i class="fa fa-clock-o warning"></i>\n' +
-                        '                                                    <span class="description">at home</span>\n' +
-                        '                                                </div>\n' +
-                        '                                            </div>\n' +
-                        '                                        </a>\n' +
-                        '                                    </li>\n' +
-                        '                                    <li>\n' +
-                        '                                        <a href="#">\n' +
-                        '                                            <div class="clearfix">\n' +
-                        '                                                <div class="notification-icon">\n' +
-                        '                                                    <i class="fa fa-glass bg-success white"></i>\n' +
-                        '                                                </div>\n' +
-                        '                                                <div class="notification-body">\n' +
-                        '                                                    <span class="title">Dinner with friends</span>\n' +
-                        '                                                    <span class="description">10:30 pm</span>\n' +
-                        '                                                </div>\n' +
-                        '                                            </div>\n' +
-                        '                                        </a>\n' +
-                        '                                    </li>\n' +
-                        '                                    <li class="dropdown-footer ">\n' +
-                        '                                        <span>\n' +
-                        '                                            Today, March 28\n' +
-                        '                                        </span>\n' +
-                        '                                        <span class="pull-right">\n' +
-                        '                                            10°c\n' +
-                        '                                            <i class="wi wi-cloudy"></i>\n' +
-                        '                                        </span>\n' +
-                        '                                    </li>\n' +
-                        '                                </ul>\n' +
-                        '                                <!--/Notification Dropdown-->\n' +
                         '                            </li>\n' +
+
+
                         '                            <li>\n' +
-                        '                                <a class="wave in dropdown-toggle" data-toggle="dropdown" title="今日新增客户" href="#">\n' +
-                        '                                    <i class="icon fa fa-envelope"></i>\n' +
-                        '                                    <span class="badge">3</span>\n' +
+                        '                                <a class="wave in dropdown-toggle" data-toggle="" title="今日还要款日期的信用卡数量" href="'+repaymentUrl+'">\n' +
+                        '                                    <i class="icon fa fa-warning">今天到期</i>\n' +
+                        '                                    <span class="badge" id="d1">3</span>\n' +
                         '                                </a>\n' +
-                        '                                <!--Messages Dropdown-->\n' +
-                emailList+
                         '                            </li>\n' +
-                        '\n' +
+
                         '                            <li>\n' +
-                        '                                <a class="dropdown-toggle" data-toggle="dropdown" title="未完成订单" href="#">\n' +
-                        '                                    <i class="icon fa fa-tasks"></i>\n' +
-                        '                                    <span class="badge">4</span>\n' +
+                        '                                <a class="wave in dropdown-toggle" data-toggle="" title="还有3天到还款日期的信用卡数量" href="'+repaymentUrl+'">\n' +
+                        '                                    <i class="icon fa fa-warning">3天到期</i>\n' +
+                        '                                    <span class="badge" id="d3">3</span>\n' +
                         '                                </a>\n' +
-                 taskList +
                         '                            </li>\n' +
+
+                        '                            <li>\n' +
+                        '                                <a class="wave in dropdown-toggle" data-toggle="" title="还有8天到还款日期的信用卡数量" href="'+repaymentUrl+'">\n' +
+                        '                                    <i class="icon fa fa-warning">8天到期</i>\n' +
+                        '                                    <span class="badge" id="d8">3</span>\n' +
+                        '                                </a>\n' +
+                        '                            </li>\n' +
+
+
                         '                            <li>\n' +
                         '                                <a class="login-area dropdown-toggle" data-toggle="dropdown">\n' +
                         '                                    <div class="avatar" title="View your public profile">\n' +
@@ -891,7 +702,9 @@ common.initCommonStyle = function(){
         '    .widget-body{padding:0px;} \n' +                       //panel 面板body 与 form 空的处理
         '    .layui-table, .layui-table-view{margin:0px 0px;} \n' + //layui-table上下边距太大
         '    form{padding:10px } \n' +                              //表单边距
-        '   .layui-table-tool{padding:0;z-index: 180;} \n' +        //表格上的搜索条撑开太大的处理,z-index挡住头条下拉菜单
+        '   .layui-table-tool{padding:0;z-index: 180;} \n' + //表格上的搜索条撑开太大的处理,z-index挡住头条下拉菜单
+        '   .navbar .navbar-inner .navbar-header .navbar-account .account-area>li  {padding-left:15px;}\n' +
+        '   .navbar .navbar-inner .navbar-header .navbar-account .account-area>li>a .badge {top:1px;left:-10px;}' +
         '</style>';
 
     $(document.head).append(style);
@@ -1015,7 +828,7 @@ common.initCom = function () {
     common.initMapNav(modelNames[0]);//div.page-content 第一个子节点
     common.initCommonStyle();//加上样式
 
-
+    common.util.initRepayment();
 };
 
 //
@@ -1547,6 +1360,22 @@ common.util.getMonthDays = function (date) {
     }
 
 };
+common.util.initRepayment = function () {
+    if(sessionStorage.repaymentNumber) {
+        var dd = sessionStorage.repaymentNumber.split(",");
+
+        var d0 = dd[0];
+        var d1 = dd[1];
+        var d3 = dd[2];
+        var d8 = dd[3];
+
+        if(parseInt(d0)>0){$("#d0").text(d0);}else{$("#d0").hide();}
+        if(parseInt(d1)>0){$("#d1").text(d1);}else{$("#d1").hide();}
+        if(parseInt(d3)>0){$("#d3").text(d3);}else{$("#d3").hide();}
+        if(parseInt(d8)>0){$("#d8").text(d8);}else{$("#d8").hide();}
+    }
+    //sessionStorage.repaymentNumber = d0 + ',' + d1 + ',' + d3 + ',' + d8 + ',' + d9;
+}
 
 //注销登录
 common.logout = function () {

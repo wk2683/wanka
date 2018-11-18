@@ -93,7 +93,8 @@ layui.use(['form','layer','upload'],function () {
     };
 
     pageData.toWorkerDetail = function(){
-        var worker_detail = common.url.page_root + common.url.model.worker.page.detail + '?id='+pageData.worker.id;
+        // var worker_detail = common.url.page_root + common.url.model.worker.page.detail + '?id='+pageData.worker.id;
+        var worker_detail = common.url.page_root + common.url.model.finance.page.repayment;//还款提示
         if(sessionStorage.directUrl){
             worker_detail = sessionStorage.directUrl;
             sessionStorage.removeItem('directUrl');

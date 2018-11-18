@@ -136,6 +136,16 @@ layui.use(['form','table','layer','laydate'],function () {
                 }
             }
         }
+
+
+         var d0 =   data0.length ;
+         var d1 =  data1.length ;
+         var d3 = data3.length ;
+         var d8 = data8.length ;
+         var d9 =  data9.length;
+
+        sessionStorage.repaymentNumber = d0 + ',' + d1 + ',' + d3 + ',' + d8 + ',' + d9;
+        common.util.initRepayment();
         if(data0.length>0) {
             pageData.initTableData(data0, 'orderList0');
         }else{
