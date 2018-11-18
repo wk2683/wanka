@@ -79,8 +79,24 @@ layui.use(['form','layer','upload'],function () {
 
         $("input[name="+modelName+"Id]").val(selectUser.id);
         $("input[name="+modelName+"Name]").val(selectUser.name);
+        if(modelName=='card'){//显示卡号
+            $("."+modelName+"Text").text(  !!selectUser.cardNumber?'信用卡号：' + (selectUser.cardNumber):'');
+        }
     };
-
+    //自动填写手续费，实收手续费
+    pageData.initCount = function () {
+        var total = $("input[name=total]").val();
+        total = parseFloat(total);
+        var rate = $("input[name=rate]").val();
+        rate = parseFloat(rate);
+        var fee= total * rate / 100;
+        $("input[name=fee]").val(fee.toFixed(2));
+        var discountDom = $("input[name=discount]");
+        var discount = discountDom.val();
+        discount = parseFloat(discount);
+        var realFee = fee - discount;
+        $("input[name=realFee]").val(realFee.toFixed(2));
+    }
 
 
     $(function () {
@@ -101,6 +117,21 @@ layui.use(['form','layer','upload'],function () {
                 return false;
             }
             pageData.openSelectModel('card',customerId);
+        });
+
+        //监控手续费率自动填写手续费
+        $("input[name=total]").blur(function () {
+            pageData.initCount();
+        });
+
+        //监控手续费率自动填写手续费
+        $("input[name=rate]").blur(function () {
+            pageData.initCount();
+        });
+
+        //监控优惠金额后自动填写实收
+        $("input[name=discount]").blur(function () {
+            pageData.initCount();
         });
 
         //监听提交按钮 submit(btn_id)
