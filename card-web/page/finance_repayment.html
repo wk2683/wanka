@@ -46,12 +46,12 @@
                 <!-- Page Body -->
                 <div class="page-body">
 
-                    <!--操作完成未收账-->
-                    <div class="row">
+                    <!-- 超期未还 -->
+                    <div class="row" id="t0">
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
                                 <div class="widget-header ">
-                                    <span class="widget-caption">已收账订单列表</span>
+                                    <span class="widget-caption">已经超期未还信用卡</span>
                                     <!--<button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>-->
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize">
@@ -66,11 +66,92 @@
                                     </div>
                                 </div>
                                 <div class="widget-body">
-                                    <table id="order_list" lay-filter="orderTableEvent"></table>
+                                    <table id="orderList0" lay-filter="orderList0Event"></table>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- 今天要还 -->
+                    <div class="row" id="t1">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="widget">
+                                <div class="widget-header ">
+                                    <span class="widget-caption">今天要还的信用卡</span>
+                                    <!--<button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>-->
+                                    <div class="widget-buttons">
+                                        <a href="#" data-toggle="maximize">
+                                            <i class="fa fa-expand"></i>
+                                        </a>
+                                        <a href="#" data-toggle="collapse">
+                                            <i class="fa fa-minus"></i>
+                                        </a>
+                                        <a href="#" data-toggle="dispose">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <table id="orderList1" lay-filter="orderList1Event"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3天内要还 -->
+                    <div class="row" id="t3">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="widget">
+                                <div class="widget-header ">
+                                    <span class="widget-caption">3天内要还的信用卡</span>
+                                    <!--<button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>-->
+                                    <div class="widget-buttons">
+                                        <a href="#" data-toggle="maximize">
+                                            <i class="fa fa-expand"></i>
+                                        </a>
+                                        <a href="#" data-toggle="collapse">
+                                            <i class="fa fa-minus"></i>
+                                        </a>
+                                        <a href="#" data-toggle="dispose">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <table id="orderList3" lay-filter="orderList3Event"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8天内要还 -->
+                    <div class="row" id="t8">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="widget">
+                                <div class="widget-header ">
+                                    <span class="widget-caption">8天内要还的信用卡</span>
+                                    <!--<button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>-->
+                                    <div class="widget-buttons">
+                                        <a href="#" data-toggle="maximize">
+                                            <i class="fa fa-expand"></i>
+                                        </a>
+                                        <a href="#" data-toggle="collapse">
+                                            <i class="fa fa-minus"></i>
+                                        </a>
+                                        <a href="#" data-toggle="dispose">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <table id="orderList8" lay-filter="orderList8Event"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
                 <!-- /Page Body -->
             </div>
@@ -85,10 +166,7 @@
     <!--表格中每一行的操作按钮-->
     <script type="text/html" id="toolbarRight">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-xs" lay-event="detail">详情</button>
-            <button class="layui-btn layui-btn-xs layui-btn-danger {{ d.status==0?'layui-btn-disabled':'' }}" {{ d.status==0?'':'lay-event="delete"' }} >关闭</button>
-            <button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>
-            <button class="layui-btn layui-btn-xs {{ d.status==0?'layui-btn-disabled':'' }}" {{ d.status==0?'':'lay-event="export_import"' }} >记账</button>
+            <button class="layui-btn layui-btn-xs" lay-event="repayment">立即还款</button>
         </div>
     </script>
 
@@ -102,6 +180,19 @@
     <!--表格中每一行的订单类型-->
     <script type="text/html" id="orderTypeTemplate">
         {{ common.opt.orderTypes[d.type] }}
+    </script>
+
+    <!--表格中每一行的订单类型-->
+    <script type="text/html" id="remainTemplate">
+        {{# if(d.remainDate<0){ }}
+        <span style="color: #FF0000;font-weight: 900;font-size:18px;">{{d.remainDate}}</span>
+        {{# }else if(d.remainDate<=1){  }}
+        <span style="color: #f13718;font-weight: 900;font-size:18px;">{{d.remainDate}}</span>
+        {{# }else if(d.remainDate<=3){  }}
+        <span style="color: #FFFf00;font-weight: 900;font-size:18px;">{{d.remainDate}}</span>
+        {{# }else if(d.remainDate<=8){  }}
+        <span style="color: #00FF00;font-weight: 900;font-size:18px;">{{d.remainDate}}</span>
+        {{# }  }}
     </script>
 
     <!--Basic Scripts-->

@@ -100,4 +100,22 @@ public class OrderController  extends  BaseController{
         Integer affectRow = orderService.update(order);
         return responseUpdate(affectRow,order,this.getClass());
     }
+
+
+    /**
+     * 查询等待还款订单
+     * @param order
+     * @return
+     */
+    @RequestMapping(value = "/repayment",method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public BaseResponse repayment(Order order){
+        List<Order> orders = orderService.search(order);
+        Integer total = 0;
+        if(order.getPage()==1){
+            total = orderService.searchCount(order);
+        }
+        return responseSearch(orders,total,order, this.getClass());
+    }
 }

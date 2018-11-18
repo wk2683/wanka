@@ -171,6 +171,12 @@ common.url = {
             mall:{
                 load:'load'
             },
+            order:{
+                repayment:'repayment',
+                status2over:'updateStatus2',
+                status2optOver:'updateStatus4',
+                status2ing:'updateStatus3'
+            },
             permission:{
                 getUserActionInRole:'getUserActionInRole'
             },
@@ -1518,7 +1524,29 @@ common.util.loadPermissionsComplete = function(res){
     sessionStorage.setItem(common.session.key.permissionData,resData.data);
 };
 
+common.util.getMonthDays = function (date) {
+    if(!date){ date = new Date();}
+    var month = date.getMonth() + 1;
+    if( month == 1 ||  month == 3 ||  month == 5 ||  month == 7 ||  month == 8 ||  month == 10 ||  month == 12){
+        return 31;
+    }
 
+    if( month == 4 ||  month == 6 ||  month == 9 ||  month == 11 ){
+        return 30;
+    }
+
+    if(month == 2 ){
+        var year = date.getFullYear();
+        if( year%4 == 0 && year%100 >0 ){
+            return 29;
+        }
+        if( year%100 == 0 && year%400 == 0 ){
+            return 29;
+        }
+        return 28;//平年
+    }
+
+};
 
 //注销登录
 common.logout = function () {

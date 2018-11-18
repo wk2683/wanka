@@ -34,6 +34,8 @@
         orders.card_id cardId,
         card.card_name cardName,
         card.card_number cardNumber,
+        card.bill_date billDate,
+        card.replay_date replayDate,
         orders.type,
         orders.total,
         orders.rate,
