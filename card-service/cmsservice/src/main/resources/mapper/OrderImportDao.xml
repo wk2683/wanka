@@ -40,7 +40,7 @@
         pos.name posName,
         import.mall_name mallName,
         import.consume_account_id consumeAccountId,
-        account.name consumeAccountName,
+        CONCAT(card.name,' ', card.card_number) consumeAccountName,
         import.bill bill,
         import.consume_type consumeType,
         import.result result,
@@ -54,7 +54,7 @@
         import.update_time updateTime,
         import.opt_id optId
         FROM wk.wk_order_import import
-        LEFT JOIN wk.wk_account account ON account.id = import.consume_account_id
+        LEFT JOIN wk.wk_card card ON card.id = import.consume_account_id
         LEFT JOIN wk.wk_pos pos ON pos.id = import.pos_id
         <where>
             <if test=" orderId != null and  orderId != '' " >AND import.order_id  = #{orderId}</if>

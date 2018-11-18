@@ -49,7 +49,7 @@ public class OrderController  extends  BaseController{
         return responseGet(order,this.getClass());
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @RequestMapping(value = "/search",method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public BaseResponse search(Order order){
@@ -59,5 +59,45 @@ public class OrderController  extends  BaseController{
             total = orderService.searchCount(order);
         }
         return responseSearch(orders,total,order, this.getClass());
+    }
+
+
+    //----------------以上是基础操作--------------------
+
+    /**
+     * 订单修改为完成
+     * @param order
+     * @return
+     */
+    @RequestMapping(value = "/updateStatus2",method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin
+    public BaseResponse updateStatus2(@RequestBody Order order){
+        Integer affectRow = orderService.update(order);
+        return responseUpdate(affectRow,order,this.getClass());
+    }
+    /**
+     * 订单修改为业务中
+     * @param order
+     * @return
+     */
+    @RequestMapping(value = "/updateStatus3",method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin
+    public BaseResponse updateStatus3(@RequestBody Order order){
+        Integer affectRow = orderService.update(order);
+        return responseUpdate(affectRow,order,this.getClass());
+    }
+    /**
+     * 订单修改为操作完成
+     * @param order
+     * @return
+     */
+    @RequestMapping(value = "/updateStatus4",method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin
+    public BaseResponse updateStatus4(@RequestBody Order order){
+        Integer affectRow = orderService.update(order);
+        return responseUpdate(affectRow,order,this.getClass());
     }
 }

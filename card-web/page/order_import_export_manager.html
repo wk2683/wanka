@@ -233,7 +233,7 @@
                 <!---->
             <!--</div>-->
         <!--</form>-->
-        <button class="layui-btn addBtn">添加</button>
+        <button class="layui-btn addBtn">新增记录</button>
     </div>
 </script>
 <!-- 表头搜索 模板 end -->
@@ -245,7 +245,18 @@
         <button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>
     </div>
 </script>
-
+//消费方式
+<script type="text/html" id="consumeTemplate">
+    {{ common.opt.consumeTypes[d.consumeType] }}
+</script>
+//操作结果
+<script type="text/html" id="resultTemplate">
+    {{# if(d.result==1){ }}
+    <span style="color:green;">成功</span>
+    {{# }else{ }}
+    <span style="color:red;">失败</span>
+    {{# }  }}
+</script>
 
 <!--Basic Scripts-->
 <script src="../assets/js/jquery-2.0.3.min.js"></script>

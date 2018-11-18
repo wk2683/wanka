@@ -33,6 +33,7 @@
         customer.name customerName,
         orders.card_id cardId,
         card.card_name cardName,
+        card.card_number cardNumber,
         orders.type,
         orders.total,
         orders.rate,

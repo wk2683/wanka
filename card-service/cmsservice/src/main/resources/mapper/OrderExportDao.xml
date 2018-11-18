@@ -35,10 +35,11 @@
         export.export_date exportDate,
         export.type,
         export.export_account_id exportAccountId,
-        account1.name exportAccountName,
-        export.import_account_id importAccountId,
-        account2.name importAccountName,
-        export.card_password cardPassword,
+        CONCAT(account.name,' ',account.card_number) exportAccountName,
+        <!-- 不再需要输入账户，输入即是订单绑定的信用卡
+        export.import_account_id importAccountId,-->
+        card.card_name importAccountName,
+        <!-- export.card_password cardPassword,-->
         export.name,
         export.card_number cardNumber,
         export.import_bill importBill,
@@ -49,8 +50,8 @@
         export.create_time createTime,
         export.update_time updateTime,
         export.opt_id optId  FROM wk.wk_order_export export
-        LEFT JOIN wk.wk_account account1 ON account1.id = export.export_account_id
-        LEFT JOIN wk.wk_account account2 ON account2.id = export.import_account_id
+        LEFT JOIN wk.wk_account account ON account.id = export.export_account_id
+        LEFT JOIN wk.wk_card card ON card.id = export.import_account_id
         <where>
             <if test="orderId != null and orderId != '' ">AND  export.order_id = #{orderId} </if>
             <if test="exportDate != null and exportDate != '' ">AND  export.export_date = #{ exportDate} </if>

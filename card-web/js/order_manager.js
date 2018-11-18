@@ -13,16 +13,19 @@ layui.use(['form','table','layer','laydate'],function () {
     var pageData = {};
 
     var tableHeader = [[ //表头
-        {field: 'id',        title: 'ID', align:'center',width:'8%'},
-        {field: 'customerId',title: '下单人ID', align:'center'},
-        {field: 'type',      title: '订单类型', align:'center',templet:'#orderTypeTemplate'},
-        {field: 'total',     title: '订单总额', align:'center'},
-        {field: 'rate',      title: '手续费率', align:'center'},
-        {field: 'fee',       title: '手续费', align:'center'},
-        {field: 'discount',  title: '优惠金额', align:'center'},
-        {field: 'realFee',   title: '实收手续费', align:'center'},
-        {field: 'status',    title: '订单状态', align:'center',templet:'#statusTemplate'},
-        {field: 'remark',    title: '备注', align:'center'},
+        {field: 'id',        title: 'ID', align:'center',width:100},
+        // {field: 'customerId',title: '下单人ID', align:'center'},
+        {field: 'customerName',title: '下单人', align:'center',width:150},
+        {field: 'cardName',title: '信用卡名', align:'center',width:150},
+        {field: 'cardNumber',title: '卡号', align:'center',width:250},
+        {field: 'type',      title: '订单类型', align:'center',templet:'#orderTypeTemplate',width:100},
+        {field: 'total',     title: '订单总额', align:'center',width:100},
+        {field: 'rate',      title: '手续费率', align:'center',width:100},
+        {field: 'fee',       title: '手续费', align:'center',width:100},
+        {field: 'discount',  title: '优惠金额', align:'center',width:100},
+        {field: 'realFee',   title: '实收手续费', align:'center',width:100},
+        {field: 'status',    title: '订单状态', align:'center',templet:'#statusTemplate',width:100},
+        {field: 'remark',    title: '备注', align:'center',width:100},
         {fixed: 'right',  align:'center',width:200, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
@@ -33,7 +36,7 @@ layui.use(['form','table','layer','laydate'],function () {
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.order.action + common.url.opt.search  //数据源url
             , where: searchObj //如果无需传递额外参数，可不加该参数
-            , method: common.sendMethod.POST // get | post 如果无需自定义HTTP类型，可不加该参数
+            , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
                           // toolbar: '#toolbarDemo' //指向自定义工具栏模板选择器

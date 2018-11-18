@@ -869,7 +869,7 @@ common.getModelNames = function(){
 
     var modelName2 = common.opt.names[names[1]];
     if(!modelName2){
-        modelName2 += common.url.model[names[1]].name;
+        modelName2 = common.url.model[names[1]].name;
     }
 
     if(names.length>2){
@@ -1232,7 +1232,7 @@ common.util.findOrgNameFromSession = function (id) {
 common.util.addMall = function (mallName) {
     common.sendOption.data = {name:mallName};
     common.sendOption.url = common.url.web_root + common.url.model.mall.action + common.url.opt.add;
-    common.sendOption.type = common.sendMethod.GET;
+    common.sendOption.type = common.sendMethod.POST;
     common.sendOption.completeCallBack =function (res) {
         var resData = JSON.parse(res.responseText);
         if(resData.code == common.code.RESPONSE_CODE_SUCCESS){
@@ -1261,7 +1261,7 @@ common.util.loadMallList = function(initMallSelectFun){
 common.util.addBank = function (bankName) {
     common.sendOption.data = {name:bankName};
     common.sendOption.url = common.url.web_root + common.url.model.bank.action + common.url.opt.add;
-    common.sendOption.type = common.sendMethod.GET;
+    common.sendOption.type = common.sendMethod.POST;
     common.sendOption.completeCallBack =function (res) {
         var resData = JSON.parse(res.responseText);
         if(resData.code == common.code.RESPONSE_CODE_SUCCESS){

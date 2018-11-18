@@ -11,6 +11,7 @@ public class Order extends BaseEntity implements Serializable {
     private String customerName ;//下单客户姓名
     private String cardId ;//下单的信用卡
     private String cardName ;//下单的信用卡名称
+    private String cardNumber;//下单信用卡号
     private Integer type    ;//订单类型
     private BigDecimal total   ;//订单总金额
     private BigDecimal rate    ;//手续 费率
@@ -51,6 +52,14 @@ public class Order extends BaseEntity implements Serializable {
 
     public void setCardName(String cardName) {
         this.cardName = cardName;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     public Integer getType() {

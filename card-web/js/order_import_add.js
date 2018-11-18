@@ -122,8 +122,9 @@ layui.use(['form','layer','upload','laydate'],function () {
 
     pageData.initShouldBill = function(){
         var orderImport = JSON.parse(sessionStorage.orderImport);
+        var order = JSON.parse(sessionStorage.order);
         var shouldBill = 0;
-        if(orderImport) {
+        if(orderImport && orderImport.length>0 ) {
             var len = orderImport.length;
             var bill = 0;
             for (var i = 0; i < len; i++) {
@@ -132,9 +133,9 @@ layui.use(['form','layer','upload','laydate'],function () {
                     bill += imp.bill;
                 }
             }
-            shouldBill
+            shouldBill = order.total - bill;
         }else{//如果是第一条入账记录
-            var order = JSON.parse(sessionStorage.order);
+
             shouldBill = order.total;//订单总额
         }
         pageData.shouldBill = shouldBill;
@@ -230,7 +231,7 @@ layui.use(['form','layer','upload','laydate'],function () {
             pageData.computerFee();
         });
 
-
+        //添加商户
         $("#addMall").click(function () {
             // $(this).hide();
             event.preventDefault();
