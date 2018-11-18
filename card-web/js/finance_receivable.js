@@ -144,5 +144,7 @@ layui.use(['form','table','layer','laydate'],function () {
         common.httpSend(common.sendOption);
     };
 
-
+    $(function () {
+        pageData.getTableData()
+    })
 });
