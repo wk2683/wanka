@@ -73,7 +73,7 @@ public class OrderController  extends  BaseController{
      * @param order
      * @return
      */
-    @RequestMapping(value = "/updateStatus2",method = RequestMethod.GET)
+    @RequestMapping(value = "/updateStatus2",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public BaseResponse updateStatus2(@RequestBody Order order){
@@ -85,7 +85,7 @@ public class OrderController  extends  BaseController{
      * @param order
      * @return
      */
-    @RequestMapping(value = "/updateStatus3",method = RequestMethod.GET)
+    @RequestMapping(value = "/updateStatus3",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public BaseResponse updateStatus3(@RequestBody Order order){
@@ -97,7 +97,7 @@ public class OrderController  extends  BaseController{
      * @param order
      * @return
      */
-    @RequestMapping(value = "/updateStatus4",method = RequestMethod.GET)
+    @RequestMapping(value = "/updateStatus4",method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public BaseResponse updateStatus4(@RequestBody Order order){

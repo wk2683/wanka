@@ -125,7 +125,7 @@ layui.use(['form','table','layer','laydate'],function () {
         };
         common.sendOption.data = param;
         common.sendOption.url = common.url.web_root + common.url.model.order.action + common.url.opt.model.order.status2over;
-        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.type = common.sendMethod.POST;
         common.sendOption.completeCallBack =function (res) {
             var resData = JSON.parse(res.responseText);
             if(resData.code == common.code.RESPONSE_CODE_SUCCESS){
