@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 17/11/2018 22:11:00
+ Date: 18/11/2018 11:04:37
 */
 
 SET NAMES utf8mb4;
@@ -160,6 +160,12 @@ CREATE TABLE `wk_mall`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商户列表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of wk_mall
+-- ----------------------------
+INSERT INTO `wk_mall` VALUES ('fijfoiewjfo', '中国石油加油站', '中石油', 2, NULL);
+INSERT INTO `wk_mall` VALUES ('jweaofjwe', '中国石化加油站', '中石化', 1, NULL);
+
+-- ----------------------------
 -- Table structure for wk_model
 -- ----------------------------
 DROP TABLE IF EXISTS `wk_model`;
@@ -237,7 +243,7 @@ CREATE TABLE `wk_order`  (
 -- ----------------------------
 -- Records of wk_order
 -- ----------------------------
-INSERT INTO `wk_order` VALUES ('1', 'c2896645-ab6e-4813-88d6-662968edbe8b', '22b4f34e-827b-4dd0-af0d-15f7151b1dec', 1, 1.00, 0.999, 1.00, 1.00, 1.00, 1, '1', 1, '2018-11-06 22:27:53', '2018-11-07 08:31:12', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk_order` VALUES ('1', 'c2896645-ab6e-4813-88d6-662968edbe8b', '22b4f34e-827b-4dd0-af0d-15f7151b1dec', 1, 10000.00, 0.999, 1.00, 1.00, 1.00, 1, '1', 1, '2018-11-06 22:27:53', '2018-11-07 08:31:12', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
 INSERT INTO `wk_order` VALUES ('101ff879-300e-422f-9add-fab003fbafb7', 'c2896645-ab6e-4813-88d6-662968edbe8b', '148c3c93-a731-4cd4-bd3a-de4acae82d1b', 1, 1561561.00, 0.050, 50.00, 10.00, 40.00, 0, '亲朋', 2, '2018-11-07 00:17:25', '2018-11-09 08:11:35', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
 INSERT INTO `wk_order` VALUES ('727bdc76-94ec-4fd2-aca6-a1b424ff1e64', 'c2896645-ab6e-4813-88d6-662968edbe8b', '148c3c93-a731-4cd4-bd3a-de4acae82d1b', 1, 1651561.00, 0.040, 10.00, 40.00, 30.00, 2, 'new user', 2, '2018-11-07 00:22:23', '2018-11-07 00:22:23', NULL);
 INSERT INTO `wk_order` VALUES ('d053d43e-7b28-490c-8ec7-320a2c2a9d14', 'c2896645-ab6e-4813-88d6-662968edbe8b', '22b4f34e-827b-4dd0-af0d-15f7151b1dec', 2, 4651561.00, 0.040, 50.00, 10.00, 40.00, 3, '2018', 2, '2018-11-07 05:47:09', '2018-11-07 08:03:04', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
@@ -291,7 +297,7 @@ CREATE TABLE `wk_order_import`  (
   `bill` decimal(10, 2) NULL DEFAULT NULL COMMENT '消费金额',
   `consume_type` int(2) NULL DEFAULT NULL COMMENT '消费方式，1-正常刷卡，2-双免闪付',
   `result` int(2) NULL DEFAULT NULL COMMENT '操作结果，1-成功，2-失败',
-  `rate` decimal(6, 3) NULL DEFAULT NULL COMMENT '手续费率',
+  `rate` decimal(6, 3) NULL DEFAULT NULL COMMENT '手续费率（成本手续费）',
   `fee` decimal(10, 2) NULL DEFAULT NULL COMMENT '成本手续费=消费金额*费率',
   `import_bill` decimal(10, 2) NULL DEFAULT NULL COMMENT '到账金额=消费金额-手续费',
   `should_bill` decimal(10, 2) NULL DEFAULT NULL COMMENT '应该刷余额（=还入金额总和-消费金额总和）',
@@ -306,8 +312,10 @@ CREATE TABLE `wk_order_import`  (
 -- ----------------------------
 -- Records of wk_order_import
 -- ----------------------------
+INSERT INTO `wk_order_import` VALUES ('075d3ef7-6422-45f9-a884-4dfc2f192d12', '1', '2018-11-18 00:00:00', 1, '92e4bfed-83f6-44fe-a1e2-19853d7ed967', '来宾市百佳超市', '22b4f34e-827b-4dd0-af0d-15f7151b1dec', 2000.00, 2, 1, 0.380, 7.60, 1992.40, 8000.00, '第一笔消费', 1, '2018-11-18 10:51:23', '2018-11-18 10:51:23', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
 INSERT INTO `wk_order_import` VALUES ('140861ad-4640-4a28-bc52-6232283d17bd', 'd053d43e-7b28-490c-8ec7-320a2c2a9d14', '2018-11-09 00:00:00', 2, '1', '洪源装璜', '37395154-bfe9-49e3-a774-a38adc3ea16d', 21516.00, 1, 1, 0.600, 135.00, 51.00, 12.00, '测试111', 2, '2018-11-09 07:20:04', '2018-11-09 07:58:08', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
 INSERT INTO `wk_order_import` VALUES ('15073f2a-f644-4580-bc8a-56866e0af155', '', '2018-11-09 01:06:42', 2, '92e4bfed-83f6-44fe-a1e2-19853d7ed967', '来宾国际大酒店', '37395154-bfe9-49e3-a774-a38adc3ea16d', 2566165.00, NULL, 1, 0.380, 20.00, 40000.00, 500.00, '测试', 2, '2018-11-09 01:07:45', '2018-11-09 01:07:45', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk_order_import` VALUES ('e045d34e-c399-4a41-b311-1e04b7e4150e', '1', '2018-11-18 00:00:00', 1, '1', '中国石油加油站', '22b4f34e-827b-4dd0-af0d-15f7151b1dec', 5000.00, 1, 1, 0.600, 30.00, 4970.00, 3000.00, '第二笔消费', 1, '2018-11-18 10:53:06', '2018-11-18 10:53:06', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
 
 -- ----------------------------
 -- Table structure for wk_order_type
@@ -481,6 +489,8 @@ CREATE TABLE `wk_pos`  (
   `bank_name` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `card_number` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `rate_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `rate1` decimal(5, 3) NULL DEFAULT NULL COMMENT '正常刷卡费率',
+  `rate2` decimal(5, 3) NULL DEFAULT NULL COMMENT '双免闪付费率',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `seg` int(11) NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
@@ -491,8 +501,9 @@ CREATE TABLE `wk_pos`  (
 -- ----------------------------
 -- Records of wk_pos
 -- ----------------------------
-INSERT INTO `wk_pos` VALUES ('1', '中行POS机', 'c2896645-ab6e-4813-88d6-662968edbe8b', '刘备', '农业银行', '100000000', '0.05', '1', 1, '2018-11-01 09:04:58', '2018-11-09 01:05:41', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
-INSERT INTO `wk_pos` VALUES ('92e4bfed-83f6-44fe-a1e2-19853d7ed967', '工行POS机', NULL, '项羽', '工商银行', '22222222222222222', '0.3', '测试', 1, '2018-11-01 09:04:18', '2018-11-09 01:06:20', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk_pos` VALUES ('1', '中行POS机', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d', 'administrator', '农业银行', '6409832483940234802', '0.05', 0.600, 0.380, '1', 1, '2018-11-01 09:04:58', '2018-11-18 07:01:44', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk_pos` VALUES ('92e4bfed-83f6-44fe-a1e2-19853d7ed967', '工行POS机', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d', 'administrator', '工商银行', '643289894294239097899', '0.3', 0.600, 0.380, '测试', 1, '2018-11-01 09:04:18', '2018-11-18 07:01:21', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk_pos` VALUES ('801b8d3b-11d7-4438-a1ed-0149169ca83e', '农业银行POS机', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d', 'administrator', '农业银行', '62222688798237982312878', NULL, 0.600, 0.380, '', 1, '2018-11-18 07:00:48', '2018-11-18 07:00:48', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
 
 -- ----------------------------
 -- Table structure for wk_rate
