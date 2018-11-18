@@ -78,7 +78,7 @@
                 export.name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
-        </where>  ORDER BY  export.update_time DESC  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY  export.update_time ASC  limit #{pageStart},#{pageSize}
     </select>
 
 

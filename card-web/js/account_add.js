@@ -15,6 +15,18 @@ layui.use(['form','layer','upload'],function () {
 
 
     pageData.submitAdd = function(param){
+        if(!param.bankName){
+            if(param.bankName2){
+                param.bankName = param.bankName2;
+                common.util.addBank(param.bankName2);
+            }else{
+                layer.alert('选择或输入银行名称',{anim: 6},function () {
+
+                });
+                return false;
+            }
+        }
+
         common.sendOption.data = param;
         common.sendOption.url = common.url.web_root + common.url.model.account.action + common.url.opt.add;
         common.sendOption.type = common.sendMethod.POST;
@@ -86,6 +98,26 @@ layui.use(['form','layer','upload'],function () {
 
     pageData.initBankList();
 
+
+    $("#addBank").click(function () {
+        // $(this).hide();
+        event.preventDefault();
+        event.stopPropagation();
+
+        var bankName2 = document.getElementById('bankName2');
+        //显示输入框
+        bankName2.style.display= !!bankName2.style.display ?'':'none';
+        var inputValue = $("select[name=bankName]").next().find("input").val();
+
+        if(inputValue){
+            inputValue = $.trim(inputValue);
+            if(inputValue && inputValue.indexOf("选择")<0){
+                bankName2.value=inputValue;
+            }
+        }
+        return false;
+    });
+
     //监听提交按钮 submit(btn_id)
     form.on('submit(formAdd)', function(data){
        pageData.submitAdd(data.field);
@@ -95,7 +127,7 @@ layui.use(['form','layer','upload'],function () {
     $("input[name=userName]").click(function () {
         pageData.openSelectUserMode();
     });
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<初始化表单 结束<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 
 
 });

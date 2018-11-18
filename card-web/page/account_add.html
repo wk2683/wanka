@@ -91,9 +91,15 @@
 
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">银行名称</label>
-                                            <div class="layui-input-block">
+                                            <div class="layui-input-inline">
                                                 <!--<input type="text" name="bankName" required  lay-verify="required" placeholder="请输入身份证号" autocomplete="off" class="layui-input">-->
-                                                <select name="bankName" ></select>
+                                                <select name="bankName" lay-search></select>
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">
+                                                <button class="layui-btn layui-btn-primary layui-btn-sm" id="addBank" style="border:none;">
+                                                    <i class="layui-icon" style="color:green;">&#xe654;</i>
+                                                </button>
+                                                <input id="bankName2" name="bankName2" placeholder="新银行名称" style="width: 400px;height: 29px;display: none;">
                                             </div>
                                         </div>
 

@@ -1249,7 +1249,7 @@ common.util.loadMallList = function(initMallSelectFun){
     common.sendOption.type = common.sendMethod.GET;
     common.sendOption.completeCallBack =function (res) {
         var resData = JSON.parse(res.responseText);
-        sessionStorage.bankList = resData.data;
+        sessionStorage.mallList = resData.data;
         if(initMallSelectFun){
             initMallSelectFun();
         }

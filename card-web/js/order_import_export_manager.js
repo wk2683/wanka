@@ -235,6 +235,9 @@ layui.use(['form','layer','table','util'],function () {
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
 
+                if(tableId == 'order_import_list'){
+                    sessionStorage.orderImport = res.data;
+                }
                 if(data && data.length>0){
                     var len = data.length;
                     for(var i=0;i<len;i++){
@@ -389,7 +392,10 @@ layui.use(['form','layer','table','util'],function () {
 
     })
 
-
+//保存到会话的信息
+    //sessionStorage.order 订单信息
+    // sessionStorage.orderCard 订单对应信用卡信息
+    // sessionStorage.orderImport 订单入账记录表（可能为空）
 
 
 });
