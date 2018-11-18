@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>财务待收账</title>
+
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="../assets/img/favicon.png" type="image/x-icon">
+
+    <!--Basic Styles-->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../assets/css/weather-icons.min.css" rel="stylesheet" />
+
+
+    <!--Beyond styles-->
+    <link href="../assets/css/beyond.min.css" rel="stylesheet" />
+    <link href="../assets/css/demo.min.css" rel="stylesheet" />
+    <link href="../assets/css/typicons.min.css" rel="stylesheet" />
+    <link href="../assets/css/animate.min.css" rel="stylesheet" />
+    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
+
+    <!--Page Related styles-->
+    <link href="../assets/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="../common/lib/layui-v2.4.3/layui/css/layui.css" rel="stylesheet" />
+
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="../assets/js/skins.min.js"></script>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+
+    <!-- Main Container -->
+    <div class="main-container container-fluid">
+        <!-- Page Container -->
+        <div class="page-container">
+
+            <!-- Page Content -->
+            <div class="page-content">
+
+                <!-- Page Body -->
+                <div class="page-body">
+
+                    <!--操作完成未收账-->
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="widget">
+                                <div class="widget-header ">
+                                    <span class="widget-caption">等待收账订单列表</span>
+                                    <!--<button id="add_worker_btn" class="layui-btn layui-btn-xs" lay-event="add">新增</button>-->
+                                    <div class="widget-buttons">
+                                        <a href="#" data-toggle="maximize">
+                                            <i class="fa fa-expand"></i>
+                                        </a>
+                                        <a href="#" data-toggle="collapse">
+                                            <i class="fa fa-minus"></i>
+                                        </a>
+                                        <a href="#" data-toggle="dispose">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <table id="order_list" lay-filter="orderTableEvent"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+        </div>
+        <!-- /Page Container -->
+        <!-- Main Container -->
+
+    </div>
+
+
+    <!--表格中每一行的操作按钮-->
+    <script type="text/html" id="toolbarRight">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-xs" lay-event="receivable">已经款</button>
+            <!--<button class="layui-btn layui-btn-xs layui-btn-danger {{ d.status==0?'layui-btn-disabled':'' }}" {{ d.status==0?'':'lay-event="delete"' }} >关闭</button>-->
+            <!--<button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>-->
+            <!--<button class="layui-btn layui-btn-xs {{ d.status==0?'layui-btn-disabled':'' }}" {{ d.status==0?'':'lay-event="export_import"' }} >记账</button>-->
+        </div>
+    </script>
+
+
+    <!--表格中每一行的状态-->
+    <script type="text/html" id="statusTemplate">
+        {{ common.opt.status[d.status] }}
+    </script>
+
+
+    <!--表格中每一行的订单类型-->
+    <script type="text/html" id="orderTypeTemplate">
+        {{ common.opt.orderTypes[d.type] }}
+    </script>
+
+    <!--Basic Scripts-->
+    <script src="../assets/js/jquery-2.0.3.min.js"></script>
+    <script src="../common/js/module/common.js"></script>
+    <script >common.initCom();</script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+
+    <!--Beyond Scripts-->
+    <script src="../assets/js/beyond.min.js"></script>
+
+    <!--Page Related Scripts-->
+    <script src="../assets/js/datatable/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/datatable/ZeroClipboard.js"></script>
+    <script src="../assets/js/datatable/dataTables.tableTools.min.js"></script>
+    <script src="../assets/js/datatable/dataTables.bootstrap.min.js"></script>
+    <script src="../assets/js/datatable/datatables-init.js"></script>
+    <script src="../common/lib/layui-v2.4.3/layui/layui.all.js"></script>
+    <script src="../assets/js/bootbox/bootbox.js"></script>
+    <script src="../js/finance_receivable.js"></script>
+    <script>
+        // InitiateSimpleDataTable.init();
+        // InitiateEditableDataTable.init();
+        // InitiateExpandableDataTable.init();
+        // InitiateSearchableDataTable.init();
+    </script>
+
+</body>
+<!--  /Body -->
+</html>

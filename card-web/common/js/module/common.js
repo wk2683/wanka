@@ -27,7 +27,7 @@ common.sendOption = {
     completeCallBack:''
 };
 common.opt = {};
-common.opt.names = {add:'新增',update:'修改',manager:'管理',detail:'详情',import:'入账',export:'出账'};//页面导航名称
+common.opt.names = {add:'新增',update:'修改',manager:'管理',detail:'详情',import:'入账',export:'出账','receivable':'未收账','receivabled':'已收账','repayment':'还款'};//页面导航名称
 common.opt.status = ['已关闭','新增','完成','业务中','操作完成'];//订单状态
 common.opt.orderTypes = ['','YK','TX','YK+TX','其它'];//订单类型(第一个位置为空，为适应数据库上类型从1开始，下两个同义)
 common.opt.orderExportTypes = ['','还款','取现转账'];//操作出账类型-订单详情的操作类型
@@ -145,6 +145,10 @@ common.url = {
                 detail:'page/worker_detail.html',
                 selectList:'page/worker_selectList.html'
             }
+        },
+        finance:{
+            action:'finance/',
+            name:'财务'
         }
     },
     opt:{
@@ -421,6 +425,34 @@ common.menu = [
                             pid:"1",
                             type:"page",
                             url:"account_add.html"
+                        }
+                    ]
+                },
+                {
+                    id:'1',
+                    name:'财务统计',
+                    pid:'-1',
+                    children:[
+                        {
+                            id:'1',
+                            name:'应收账单',
+                            pid:'-1',
+                            type:'page',
+                            url:'finance_receivable.html'
+                        },
+                        {
+                            id:'1',
+                            name:'已收账单',
+                            pid:'-1',
+                            type:'page',
+                            url:'finance_receivabled.html'
+                        },
+                        {
+                            id:'1',
+                            name:'待还款',
+                            pid:'-1',
+                            type:'page',
+                            url:'finance_repayment.html'
                         }
                     ]
                 }

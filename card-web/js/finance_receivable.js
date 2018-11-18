@@ -1,4 +1,4 @@
-//角色管理脚本
+//应该收账 管理脚本
 
 
 layui.use(['form','table','layer','laydate'],function () {
@@ -15,8 +15,8 @@ layui.use(['form','table','layer','laydate'],function () {
     var tableHeader = [[ //表头
         {field: 'id',        title: 'ID', align:'center',width:100},
         // {field: 'customerId',title: '下单人ID', align:'center'},
-        {field: 'customerName',title: '下单人', align:'center',width:100},
-        {field: 'cardName',title: '信用卡名', align:'center',width:100},
+        {field: 'customerName',title: '下单人', align:'center',width:150},
+        {field: 'cardName',title: '信用卡名', align:'center',width:150},
         {field: 'cardNumber',title: '卡号', align:'center',width:250},
         {field: 'type',      title: '订单类型', align:'center',templet:'#orderTypeTemplate',width:100},
         {field: 'total',     title: '订单总额', align:'center',width:100},
@@ -26,10 +26,14 @@ layui.use(['form','table','layer','laydate'],function () {
         {field: 'realFee',   title: '实收手续费', align:'center',width:100},
         {field: 'status',    title: '订单状态', align:'center',templet:'#statusTemplate',width:100},
         {field: 'remark',    title: '备注', align:'center',width:100},
-        {fixed: 'right',  align:'center',width:200, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {fixed: 'right',  align:'center',width:80, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     pageData.getTableData = function(searchObj) {
+        if(!searchObj){
+            searchObj = {};
+        }
+        searchObj.status = 4;//操作完成但未收款
         //执行渲染
         table.render({
             elem: '#order_list' //指定原始表格元素选择器（推荐id选择器）
