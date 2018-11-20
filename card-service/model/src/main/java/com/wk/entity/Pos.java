@@ -8,11 +8,10 @@ import java.math.BigDecimal;
  */
 public class Pos extends BaseEntity implements Serializable {
     private String name              ;
-    private String importUserName  ;
-    private String importUserId  ;
+    private String importAccountId  ;//入账的资金账户ID
+    private String importAccountName  ;//入账的资金账户名称
     private String bankName         ;
     private String cardNumber       ;
-    private String rateId           ;
     private BigDecimal rate1           ;//正常费率
     private BigDecimal rate2           ;//双免费率
     private Integer seg               ;
@@ -25,20 +24,20 @@ public class Pos extends BaseEntity implements Serializable {
         this.name = name;
     }
 
-    public String getImportUserName() {
-        return importUserName;
+    public String getImportAccountId() {
+        return importAccountId;
     }
 
-    public void setImportUserName(String importUserName) {
-        this.importUserName = importUserName;
+    public void setImportAccountId(String importAccountId) {
+        this.importAccountId = importAccountId;
     }
 
-    public String getImportUserId() {
-        return importUserId;
+    public String getImportAccountName() {
+        return importAccountName;
     }
 
-    public void setImportUserId(String importUserId) {
-        this.importUserId = importUserId;
+    public void setImportAccountName(String importAccountName) {
+        this.importAccountName = importAccountName;
     }
 
     public String getBankName() {
@@ -57,13 +56,7 @@ public class Pos extends BaseEntity implements Serializable {
         this.cardNumber = cardNumber;
     }
 
-    public String getRateId() {
-        return rateId;
-    }
 
-    public void setRateId(String rateId) {
-        this.rateId = rateId;
-    }
 
     public BigDecimal getRate1() {
         return rate1;

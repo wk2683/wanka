@@ -35,7 +35,8 @@
         export.export_date exportDate,
         export.type,
         export.export_account_id exportAccountId,
-        CONCAT(account.name,' ',account.card_number) exportAccountName,
+        account.name exportAccountName,
+        account.card_number exportAccountNumber,
         <!-- 不再需要输入账户，输入即是订单绑定的信用卡
         export.import_account_id importAccountId,-->
         card.card_name importAccountName,

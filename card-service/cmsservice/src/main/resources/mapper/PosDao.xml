@@ -9,11 +9,9 @@
     <update id="update" parameterType="com.wk.entity.Pos">
         UPDATE wk.wk_pos SET update_time =  #{updateTime}
         <if test="  name != null and  name != '' "> , name =  #{name}</if>
-        <if test="  importUserName != null and  importUserName != '' "> , import_user_name =  #{importUserName}</if>
-        <if test="  importUserId != null and  importUserId != '' "> , import_user_id =  #{importUserId}</if>
+        <if test="  importAccountId != null and  importAccountId != '' "> , import_account_id =  #{importAccountId}</if>
         <if test="  bankName != null and  bankName != '' "> , bank_name =  #{bankName}</if>
         <if test="  cardNumber != null and  cardNumber != '' "> , card_number =  #{cardNumber}</if>
-        <if test="  rateId != null and  rateId != '' "> , rate_id =  #{rateId}</if>
         <if test="  rate1 != null and  rate1 != '' "> , rate1 =  #{rate1}</if>
         <if test="  rate2 != null and  rate2 != '' "> , rate2 =  #{rate2}</if>
         <if test="  remark != null and  remark != '' "> , remark =  #{remark}</if>
@@ -23,32 +21,44 @@
     </update>
 
     <select id="search" resultType="com.wk.entity.Pos" parameterType="com.wk.entity.Pos">
-        SELECT id,name,import_user_name importUserName,import_user_id importUserId, bank_name bankName,card_number cardNumber , rate_id rateId ,rate1,rate2,  remark ,  seg , create_time createTime, update_time updateTime, opt_id optId  FROM wk.wk_pos
+        SELECT
+        pos.id,
+        pos.NAME,
+        pos.import_account_id importAccountId,
+        account.name importAccountName,
+        pos.bank_name bankName,
+        pos.card_number cardNumber,
+        pos.rate1,
+        pos.rate2,
+        pos.remark,
+        pos.seg,
+        pos.create_time createTime,
+        pos.update_time updateTime,
+        pos.opt_id optId
+        FROM
+        wk.wk_pos pos
+        LEFT JOIN wk.wk_account account ON account.id = pos.import_account_id
         <where>
-            <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
-            <if test="  importUserName != null and  importUserName != '' "> AND  import_user_name =  #{importUserName}</if>
-            <if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>
-            <if test="  cardNumber != null and  cardNumber != '' "> AND  card_number =  #{cardNumber}</if>
-            <if test="  rateId != null and  rateId != '' "> AND  rate_id =  #{rateId}</if>
-            <if test="  rate1 != null and  rate1 != '' "> AND  rate1 =  #{rate1}</if>
-            <if test="  rate2 != null and  rate2 != '' "> AND  rate2 =  #{rate2}</if>
-            <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
-            <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
-            <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
-            <if test=" startCreateTime != null and startCreateTime != '' ">AND  create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' ">AND  create_time &lt; #{startCreateTime}</if>
-            <if test=" startUpdateTime != null and startUpdateTime != '' ">AND  update_time &gt; #{startUpdateTime}</if>
-            <if test=" endUpdateTime != null and endUpdateTime != '' ">AND  update_time &lt; #{endUpdateTime}</if>
+            <if test="  name != null and  name != '' "> AND  pos.name =  #{name}</if>
+            <if test="  bankName != null and  bankName != '' "> AND  pos.bank_name =  #{bankName}</if>
+            <if test="  cardNumber != null and  cardNumber != '' "> AND  pos.card_number =  #{cardNumber}</if>
+            <if test="  rate1 != null and  rate1 != '' "> AND  pos.rate1 =  #{rate1}</if>
+            <if test="  rate2 != null and  rate2 != '' "> AND  pos.rate2 =  #{rate2}</if>
+            <if test="  remark != null and  remark != '' "> AND  pos.remark =  #{remark}</if>
+            <if test="  seg != null and  seg != 0 "> AND  pos.seg =  #{seg}</if>
+            <if test="  optId != null and  optId != '' "> AND  pos.opt_id =  #{optId}</if>
+            <if test=" startCreateTime != null and startCreateTime != '' ">AND  pos.create_time &gt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' ">AND  pos.create_time &lt; #{startCreateTime}</if>
+            <if test=" startUpdateTime != null and startUpdateTime != '' ">AND  pos.update_time &gt; #{startUpdateTime}</if>
+            <if test=" endUpdateTime != null and endUpdateTime != '' ">AND pos.update_time &lt; #{endUpdateTime}</if>
             <if test="searchKey != null and searchKey != '' ">
                 AND
                 (
-                name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                pos.name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
-                import_user_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                pos.bank_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
-                bank_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                OR
-                card_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                pos.card_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
         </where>  ORDER BY seg DESC, update_time DESC  limit #{pageStart},#{pageSize}
@@ -58,7 +68,6 @@
         SELECT COUNT(*) FROM wk.wk_pos
         <where>
             <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
-            <if test="  importUserName != null and  importUserName != '' "> AND  import_user_name =  #{importUserName}</if>
             <if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>
             <if test="  cardNumber != null and  cardNumber != '' "> AND  card_number =  #{cardNumber}</if>
             <if test="  rateId != null and  rateId != '' "> AND  rate_id =  #{rateId}</if>
@@ -73,8 +82,6 @@
                 AND
                 (
                 name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                OR
-                import_user_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR
                 bank_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 OR

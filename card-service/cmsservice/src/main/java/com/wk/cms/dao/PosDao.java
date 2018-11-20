@@ -16,8 +16,8 @@ public interface PosDao {
 	 * @param pos
      * @return
      */
-	@Insert(" INSERT INTO wk.wk_pos(id, name, import_user_name,import_user_id, bank_name, card_number, rate_id,rate1,rate2, remark, seg, create_time, update_time, opt_id) VALUES \n" +
-			"(#{id}, #{name}, #{importUserName},#{importUserId}, #{bankName}, #{cardNumber}, #{rateId}, #{rate1}, #{rate2}, #{remark}, #{seg}, #{createTime}, #{updateTime}, #{optId}) ")
+	@Insert(" INSERT INTO wk.wk_pos(id, name, import_account_id , bank_name, card_number,rate1,rate2, remark, seg, create_time, update_time, opt_id) VALUES \n" +
+			"(#{id}, #{name}, #{importAccountId}, #{bankName}, #{cardNumber},  #{rate1}, #{rate2}, #{remark}, #{seg}, #{createTime}, #{updateTime}, #{optId}) ")
 	Integer add(Pos pos);
 
     /**
@@ -33,7 +33,24 @@ public interface PosDao {
 	 * @param id
      * @return
      */
-	@Select(" SELECT id,name,import_user_name importUserName,import_user_id importUserId, bank_name bankName,card_number cardNumber , rate_id rateId ,rate1,rate2,  remark ,  seg , create_time createTime, update_time updateTime, opt_id optId FROM wk.wk_pos WHERE ID=#{id} ")
+	@Select(" SELECT\n" +
+			"        pos.id,\n" +
+			"        pos.NAME,\n" +
+			"        pos.import_account_id importAccountId,\n" +
+			"        account.name importAccountName,\n" +
+			"        pos.bank_name bankName,\n" +
+			"        pos.card_number cardNumber,\n" +
+			"        pos.rate1,\n" +
+			"        pos.rate2,\n" +
+			"        pos.remark,\n" +
+			"        pos.seg,\n" +
+			"        pos.create_time createTime,\n" +
+			"        pos.update_time updateTime,\n" +
+			"        pos.opt_id optId\n" +
+			"        FROM\n" +
+			"        wk.wk_pos pos\n" +
+			"        LEFT JOIN wk.wk_account account ON account.id = pos.import_account_id " +
+			" WHERE pos.id=#{id} ")
 	Pos get(String id);
 
 	/**

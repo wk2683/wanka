@@ -250,17 +250,27 @@
         <button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>
     </div>
 </script>
-//消费方式
+<!--消费方式-->
 <script type="text/html" id="consumeTemplate">
     {{ common.opt.consumeTypes[d.consumeType] }}
 </script>
-//操作结果
+<!--操作结果-->
 <script type="text/html" id="resultTemplate">
     {{# if(d.result==1){ }}
     <span style="color:green;">成功</span>
     {{# }else{ }}
     <span style="color:red;">失败</span>
     {{# }  }}
+</script>
+
+exportAccountNumber
+<!--出账账显示-->
+<script type="text/html" id="exportAccountTemplate">
+    {{ d.exportAccountName?d.exportAccountName:'' }} {{d.exportAccountNumber}}
+</script>
+<!--入账显示-->
+<script type="text/html" id="importAccountTemplate">
+    {{ d.importAccountName?d.importAccountName:'' }} {{d.cardNumber}}
 </script>
 
 <!--Basic Scripts-->

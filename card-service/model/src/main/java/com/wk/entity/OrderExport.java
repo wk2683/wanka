@@ -27,6 +27,7 @@ public class OrderExport extends  BaseEntity implements Serializable {
     private Integer type;
     private String exportAccountId;
     private String exportAccountName;
+    private String exportAccountNumber;//转出账户的卡号
     private String importAccountId;
     private String importAccountName;
     private String cardPassword;
@@ -87,6 +88,14 @@ public class OrderExport extends  BaseEntity implements Serializable {
 
     public String getImportAccountName() {
         return importAccountName;
+    }
+
+    public String getExportAccountNumber() {
+        return exportAccountNumber;
+    }
+
+    public void setExportAccountNumber(String exportAccountNumber) {
+        this.exportAccountNumber = exportAccountNumber;
     }
 
     public void setImportAccountName(String importAccountName) {

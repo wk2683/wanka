@@ -63,8 +63,8 @@ layui.use(['form','layer','upload'],function () {
             return false;
         }
         var selectUser = selectUsers[0];
-        $("input[name=importUserId]").val(selectUser.id);
-        $("input[name=importUserName]").val(selectUser.name);
+        $("input[name=importAccountId]").val(selectUser.id);
+        $("input[name=importAccountName]").val(selectUser.name);
         $(".account-card-number").text(selectUser.cardNumber?'卡号：'+selectUser.cardNumber:'');
     };
 
@@ -92,8 +92,8 @@ layui.use(['form','layer','upload'],function () {
        pageData.submitAdd(data.field);
         return false;
     });
-    //点选用户（入账人）--选择员工
-    $("input[name=importUserName]").click(function () {
+    //点选入账资金账户
+    $("input[name=importAccountName]").click(function () {
         pageData.openSelectMode();
     });
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<初始化表单 结束<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

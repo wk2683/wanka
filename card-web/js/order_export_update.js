@@ -13,7 +13,7 @@ layui.use(['form','layer','util','laydate'],function () {
 
 
 
-    pageData.submitAdd = function(param){
+    pageData.submitUpdate = function(param){
         if(param.exportDate){
             var d = new Date(param.exportDate);
             param.exportDate = d.getTime();
@@ -21,11 +21,11 @@ layui.use(['form','layer','util','laydate'],function () {
         common.sendOption.data = param;
         common.sendOption.url = common.url.web_root + common.url.model.orderExport.action + common.url.opt.update;
         common.sendOption.type = common.sendMethod.POST;
-        common.sendOption.completeCallBack =pageData.addComplete;
+        common.sendOption.completeCallBack =pageData.updateComplete;
         common.httpSend(common.sendOption);
     }
 
-    pageData.addComplete = function(res){
+    pageData.updateComplete = function(res){
         var p = common.util.getHrefParam();
         var order_export_url = common.url.model.order.page.imexport + '?id=' + p.orderId;
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE,order_export_url);
@@ -70,7 +70,8 @@ layui.use(['form','layer','util','laydate'],function () {
         }
         var selectUser = selectUsers[0];
         $("input[name="+prev+"Id]").val(selectUser.id);
-        $("input[name="+prev+"Name]").val(selectUser.name + ' ' + selectUsers.cardNumber);
+        $("input[name="+prev+"Name]").val(selectUser.name + ' ' + (selectUser.cardNumber?selectUser.cardNumber:''));
+        // $("input[name="+prev+"Text]").text(selectUser.cardNumber);
     };
 
 
@@ -99,7 +100,7 @@ layui.use(['form','layer','util','laydate'],function () {
             exportDate:util.toDateString(data.exportDate,'yyyy-MM-dd HH:mm'),
             type:data.type,
             exportAccountId:data.exportAccountId,
-            exportAccountName:data.exportAccountName,
+            exportAccountName:data.exportAccountName + ' ' + data.exportAccountNumber,
             importAccountId:data.importAccountId ,
             importAccountName:data.importAccountName ,
             cardPassword:data.cardPassword,
@@ -110,7 +111,10 @@ layui.use(['form','layer','util','laydate'],function () {
             fee:data.fee,
             seg:data.seg,
             remark:data.remark
-        })
+        });
+        // $(".exportAccountText").text( '卡号：' + data.exportAccountNumber);
+        //初始化日期控件
+        common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
 
         form.render();
     };
@@ -121,40 +125,30 @@ layui.use(['form','layer','util','laydate'],function () {
         var p = common.util.getHrefParam();
         $("input[name=id]").val(p.id);
         $("input[name=orderId]").val(p.orderId);
-
-
-
-        //初始化日期控件
-        common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
         //初始化操作类型
-        // common.util.getOrderTypeOptions('type');
         common.util.getOrderExportTypeOptions('type',p.type);
-        //初始化手续费率选择
-        // common.util.getRatesOptions('rate');
-        // form.render('select');
+        if(p.type==2){
+            //取现，则隐藏入账字段
+            var ian = $("input[name=importAccountName]");ian.val(0);ian.closest('.layui-form-item').hide();
+            $("input[name=importAccountId]").val("");
+            $(".card-number-text").text('取现转账，直接输入客户的银行卡号')
+        }
+        // var card = JSON.parse(sessionStorage.orderCard);
+        // $("input[name=importAccountName]").val(card.cardName);
+        // $("input[name=importAccountId]").val(card.id);
+        // $("input[name=name]").val(card.name);
+        // $("input[name=cardNumber]").val(card.cardNumber);
+        // $("input[name=bankName]").val(card.bankName);
 
 
-        //点选转出
+        //点选转出资金账户
         $("input[name=exportAccountName]").click(function () {
             pageData.openAccountSelectModel('exportAccount');
         });
 
-        // //点选转入
-        // $("input[name=importAccountName]").click(function () {
-        //     pageData.openAccountSelectModel('importAccount');
-        // });
-        var card = JSON.parse(sessionStorage.orderCard);
-        $("input[name=importAccountName]").val(card.cardName);
-        $("input[name=importAccountId]").val(card.id);
-        $("input[name=name]").val(card.name);
-        $("input[name=cardNumber]").val(card.cardNumber);
-        $("input[name=bankName]").val(card.bankName);
-
-
-
         //监听提交按钮 submit(btn_id)
-        form.on('submit(formAdd)', function(data){
-            pageData.submitAdd(data.field);
+        form.on('submit(formUpdate)', function(data){
+            pageData.submitUpdate(data.field);
             return false;
         });
 

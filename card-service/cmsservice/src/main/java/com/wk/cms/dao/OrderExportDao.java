@@ -43,6 +43,7 @@ public interface OrderExportDao {
 			"export.type, \n" +
 			"export.export_account_id exportAccountId,\n" +
 			"account1.name exportAccountName,\n" +
+			"account1.card_number exportAccountNumber,\n" +
 			"export.import_account_id importAccountId, \n" +
 			"account2.name importAccountName, \n" +
 			"export.card_password cardPassword, \n" +
@@ -58,7 +59,7 @@ public interface OrderExportDao {
 			"export.opt_id optId " +
 			" FROM wk.wk_order_export export " +
 			" LEFT JOIN wk.wk_account account1 ON account1.id = export.export_account_id " +
-			" LEFT JOIN wk.wk_account account2 ON account2.id = export.import_account_id " +
+			" LEFT JOIN wk.wk_card account2 ON account2.id = export.import_account_id " +
 			" WHERE export.id=#{id} ")
 	OrderExport get(String id);
 

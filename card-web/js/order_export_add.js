@@ -71,7 +71,7 @@ layui.use(['form','layer','upload','laydate'],function () {
         }
         var selectUser = selectUsers[0];
         $("input[name="+prev+"Id]").val(selectUser.id);
-        $("input[name="+prev+"Name]").val(selectUser.name + ' ' + selectUser.cardNumber);
+        $("input[name="+prev+"Name]").val(selectUser.name + ' ' + (selectUser.cardNumber?selectUser.cardNumber:''));
         // $("input[name="+prev+"Text]").text(selectUser.cardNumber);
     };
 
@@ -85,18 +85,20 @@ layui.use(['form','layer','upload','laydate'],function () {
         //初始化操作类型
         // common.util.getOrderTypeOptions('type');
         common.util.getOrderExportTypeOptions('type',p.type);
+        if(p.type==2){
+            //取现，则隐藏入账字段
+            var ian = $("input[name=importAccountName]");ian.val(0);ian.closest('.layui-form-item').hide();
+            $("input[name=importAccountId]").remove();
+            $(".card-number-text").text('取现转账，直接输入客户的银行卡号')
+        }
 
 
-
-        //点选转出
+        //点选转出资金账户
         $("input[name=exportAccountName]").click(function () {
             pageData.openAccountSelectModel('exportAccount');
         });
 
-        //点选转入
-        // $("input[name=importAccountName]").click(function () {
-        //     pageData.openAccountSelectModel('importAccount');
-        // });
+
 
         var card = JSON.parse(sessionStorage.orderCard);
         $("input[name=importAccountName]").val(card.cardName);
@@ -105,8 +107,7 @@ layui.use(['form','layer','upload','laydate'],function () {
         $("input[name=cardNumber]").val(card.cardNumber);
         $("input[name=bankName]").val(card.bankName);
 
-        //初始化手续费率选择
-        // common.util.getRatesOptions('rate');
+
         form.render('select');
 
         //监听提交按钮 submit(btn_id)

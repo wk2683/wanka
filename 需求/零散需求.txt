@@ -153,6 +153,7 @@ sessionStorage.setItem(common.session.key.accountData,res.data);
 
 
 POS机关联 资金账户，原来关联用户，代码的变量名还未个性
+-- 删除数据库字段 import_user_name ，import_user_id 改为 import_account_id , 删除 rate_id
 
 
 

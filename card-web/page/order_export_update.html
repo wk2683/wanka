@@ -91,47 +91,43 @@
 
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">转出账户</label>
-                                        <div class="layui-input-block">
+                                        <div class="layui-input-inline">
                                             <input type="text" name="exportAccountName"  id="exportAccountName"  lay-verify="required" placeholder="请选择账户"  class="layui-input" readonly>
                                             <input type="hidden" name="exportAccountId" value="1"  >
                                         </div>
+                                        <div class="layui-form-mid layui-word-aux" name="exportAccountText">（公司的资金账户）</div>
                                     </div>
 
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">转入账户</label>
                                         <div class="layui-input-block">
-                                            <input type="text" name="importAccountName"  id="importAccountName"  lay-verify="required" placeholder="请选择账户"  class="layui-input" readonly>
-                                            <input type="hidden" name="importAccountId" value="1"  >
+                                            <input type="text" name="importAccountName"  id="importAccountName"   placeholder="请选择账户"  class="layui-input" readonly>
+                                            <input type="hidden" name="importAccountId" value=""  >
                                         </div>
                                     </div>
 
-                                    <!--<div class="layui-form-item">-->
-                                        <!--<label class="layui-form-label">卡密码</label>-->
-                                        <!--<div class="layui-input-inline">-->
-                                            <!--<input type="text" name="cardPassword" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label">姓名</label>
+                                        <label class="layui-form-label">转入卡号</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="cardNumber" required  lay-verify="required" placeholder="请输入卡号" autocomplete="off" class="layui-input">
+                                        </div>
+                                        <div class="layui-form-mid layui-word-aux card-number-text"></div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">转入开卡姓名</label>
                                         <div class="layui-input-inline">
                                             <input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                                         </div>
                                     </div>
-                                    <div class="layui-form-item">
-                                        <label class="layui-form-label">卡号</label>
-                                        <div class="layui-input-inline">
-                                            <input type="text" name="cardNumber" required  lay-verify="required" placeholder="请输入卡号" autocomplete="off" class="layui-input">
-                                        </div>
 
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <label class="layui-form-label">开卡银行</label>
-                                        <div class="layui-input-inline">
-                                            <input type="text" name="bankName" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
-                                        </div>
 
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">转入开卡银行</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="bankName" required  lay-verify="required" placeholder="开卡银行名称" autocomplete="off" class="layui-input" >
+                                        </div>
                                     </div>
+
 
 
 
@@ -143,21 +139,14 @@
                                         <div class="layui-form-mid layui-word-aux">元</div>
                                     </div>
 
-                                    <!--<div class="layui-form-item">-->
-                                        <!--<label class="layui-form-label">转账手续费率</label>-->
-                                        <!--<div class="layui-input-inline">-->
-                                            <!--<select name="rate" id="rate" lay-verify="required"> </select>-->
-                                            <!--&lt;!&ndash;<input type="text" name="rate" required  lay-verify="required" placeholder="请输入小数" autocomplete="off" class="layui-input">&ndash;&gt;-->
-                                        <!--</div>-->
-                                        <!--<div class="layui-form-mid layui-word-aux">% （无选择项则通知管理加上全局配置）</div>-->
-                                    <!--</div>-->
+
 
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label">手续费</label>
+                                        <label class="layui-form-label">转账手续费</label>
                                         <div class="layui-input-inline">
                                             <input type="text" name="fee" required  lay-verify="required" value="0" placeholder="请输入金额" autocomplete="off" class="layui-input">
                                         </div>
-                                        <div class="layui-form-mid layui-word-aux">元</div>
+                                        <div class="layui-form-mid layui-word-aux">资金账户转钱到信用卡要交的手续费</div>
                                     </div>
 
 
@@ -165,9 +154,9 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">排序值</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" name="seg" required  lay-verify="required" value="1" placeholder="请输入整数" autocomplete="off" class="layui-input">
+                                            <input type="text" name="seg" required  lay-verify="required" value="1"  autocomplete="off" class="layui-input">
                                         </div>
-                                        <div class="layui-form-mid layui-word-aux">数字越大排序越靠前</div>
+                                        <div class="layui-form-mid layui-word-aux">整数，数字越大排序越靠前</div>
                                     </div>
 
 
@@ -181,12 +170,10 @@
                                     </div>
                                     <div class="layui-form-item">
                                         <div class="layui-input-block">
-                                            <button class="layui-btn" lay-submit lay-filter="formAdd">提交</button>
+                                            <button class="layui-btn" lay-submit lay-filter="formUpdate">提交</button>
                                         </div>
                                     </div>
                                 </form>
-
-
                                 <!--表单结束-->
                             </div>
                         </div>

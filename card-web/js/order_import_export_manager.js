@@ -16,17 +16,17 @@ layui.use(['form','layer','table','util'],function () {
         {field: 'exportDate',title: '日期', align:'center',width:150},
         {field: 'type',title: '操作类型', align:'center',width:150},
         // {field: 'exportAccountId',title: '转出账户', align:'center'},
-        {field: 'exportAccountName',title: '转出账户', align:'center',width:150},
+        {field: 'exportAccountName',title: '转出账户', align:'center',width:250,templet:'#exportAccountTemplate'},
         // {field: 'importAccountId',title: '转入账户', align:'center',width:150},
-        {field: 'importAccountName',title: '转入账户', align:'center',width:150},
+        {field: 'importAccountName',title: '转入账户', align:'center',width:250,templet:'#importAccountTemplate'},
         // {field: 'cardPassword',title: '卡密码', align:'center',width:150},
-        {field: 'cardNumber',title: '输入卡号', align:'center',width:150},
+        // {field: 'cardNumber',title: '输入卡号', align:'center',width:150},
         {field: 'name',title: '姓名', align:'center',width:100},
         {field: 'importBill',title: '还入金额', align:'center',width:150},
         // {field: 'rate',title: '费率', align:'center',width:150},
         {field: 'fee',title: '手续费', align:'center',width:150},
         {field: 'remark',title: '备注', align:'center',width:150},
-        {fixed: 'right',  align:'center',width:100, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {fixed: 'right',  align:'center',width:150, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
     //入账表头
     var importTableHeader = [[
@@ -46,7 +46,7 @@ layui.use(['form','layer','table','util'],function () {
         {field: 'importBill',title: '到账金额', align:'center',width:150},
         {field: 'shouldBill',title: '应刷余额', align:'center',width:150},
         {field: 'remark',title: '备注', align:'center',width:150},
-        {fixed: 'right',  align:'center',width:100, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {fixed: 'right',  align:'center',width:150, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     //获取详情

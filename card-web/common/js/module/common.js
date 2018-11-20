@@ -1191,9 +1191,9 @@ common.util.getOrderExportTypeOptions = function(selectTagName,orderType){
     var len = common.opt.orderExportTypes.length;
     var options = '';
     if(orderType && orderType == 1){//'YK'
-        options = '<option value="1">'+common.opt.orderExportTypes[1]+'</option>';
+        options = '<option value="1" selected>'+common.opt.orderExportTypes[1]+'</option>';
     }else if(orderType && orderType == 2){//'TX'
-        options = '<option value="1">'+common.opt.orderExportTypes[2]+'</option>';
+        options = '<option value="2" selected>'+common.opt.orderExportTypes[2]+'</option>';
     }else {
         for (var i = 1; i < len; i++) {
             var item = common.opt.orderExportTypes[i];
