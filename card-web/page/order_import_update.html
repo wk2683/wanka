@@ -71,7 +71,7 @@
                             </div>
                             <div class="widget-body">
                                 <!--表单开始-->
-                                <form class="layui-form layui-form-pane" lay-filter="import_form"   onsubmit="return false;">
+                                <form class="layui-form layui-form-pane"  lay-filter="import_form"   onsubmit="return false;">
                                     <input type="hidden" name="id">
                                     <input type="hidden" name="orderId">
 
@@ -99,24 +99,32 @@
 
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">商户名称</label>
-                                        <div class="layui-input-block">
-                                            <input type="text" name="mallName"    lay-verify="required" placeholder="请输入商户名称"  class="layui-input" >
+                                        <div class="layui-input-inline">
+                                            <!--<input type="text" name="mallName"    lay-verify="required" placeholder="请输入商户名称"  class="layui-input" >-->
+                                            <select  name="mallName"   lay-search></select>
+                                        </div>
+                                        <div class="layui-form-mid layui-word-aux">
+                                            <button class="layui-btn layui-btn-primary layui-btn-sm" id="addMall"  style="border:none;">
+                                                <i class="layui-icon" style="color:green;">&#xe654;</i>
+                                            </button>
+                                            <input id="mallName2" name="mallName2" placeholder="新商户名称" style="width: 400px;height: 29px;display: none;">
                                         </div>
                                     </div>
 
 
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">消费账户</label>
-                                        <div class="layui-input-block">
-                                            <input type="text" name="consumeAccountName"  id="consumeAccountName"  lay-verify="required" placeholder="请选择消费账户"  class="layui-input" readonly>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="consumeAccountName"  id="consumeAccountName"  lay-verify="required"  class="layui-input" readonly>
                                             <input type="hidden" name="consumeAccountId" value="1"  >
                                         </div>
+                                        <div class="layui-form-mid layui-word-aux" id="consumeAccountText"></div>
                                     </div>
 
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">消费金额</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" name="bill" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input">
+                                            <input type="text" name="bill" required  lay-verify="required" value="0"  placeholder="请输入金额" autocomplete="off" class="layui-input">
                                         </div>
                                         <div class="layui-form-mid layui-word-aux">元</div>
                                     </div>
@@ -124,7 +132,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">消费方式</label>
                                         <div class="layui-input-inline">
-                                            <select name="consumeType" lay-verify="required"> </select>
+                                            <select name="consumeType" lay-verify="required" lay-filter="consumeTypeSelect"> </select>
                                         </div>
                                     </div>
 
@@ -132,26 +140,25 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">操作结果</label>
                                         <div class="layui-input-inline">
-                                            <select name="result" lay-verify="required">
-                                                <option value="0">待定</option>
+                                            <select name="result" lay-verify="required" lay-filter="resultSelect">
                                                 <option value="1">成功</option>
                                                 <option value="2">失败</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label">手续费率</label>
+                                        <label class="layui-form-label">成本费率</label>
                                         <div class="layui-input-inline">
-                                            <select name="rate" id="rate" lay-verify="required"> </select>
-                                            <!--<input type="text" name="rate" required  lay-verify="required" placeholder="请输入小数" autocomplete="off" class="layui-input">-->
+                                            <!--<select name="rate" id="rate" lay-verify="required"  lay-filter="rateSelect"> </select>-->
+                                            <input type="text" name="rate" required  lay-verify="required" placeholder="请输入小数" autocomplete="off" class="layui-input">
                                         </div>
-                                        <div class="layui-form-mid layui-word-aux">% （无选择项则通知管理加上全局配置）</div>
+                                        <div class="layui-form-mid layui-word-aux">%</div>
                                     </div>
 
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">成本手续费</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" name="fee" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input">
+                                            <input type="text" name="fee" required  lay-verify="required" value="0" autocomplete="off" class="layui-input">
                                         </div>
                                         <div class="layui-form-mid layui-word-aux">元</div>
                                     </div>
@@ -159,7 +166,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">到账金额</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" name="importBill" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input">
+                                            <input type="text" name="importBill" required  lay-verify="required" value="0" autocomplete="off" class="layui-input">
                                         </div>
                                         <div class="layui-form-mid layui-word-aux">元</div>
                                     </div>
@@ -170,17 +177,17 @@
                                         <div class="layui-input-inline">
                                             <input type="text" name="shouldBill" required  lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input">
                                         </div>
-                                        <div class="layui-form-mid layui-word-aux">元</div>
+                                        <div class="layui-form-mid layui-word-aux">元&nbsp;&nbsp;<span style="color:red;font-weight: 900;" id="shouldBillWarm"></span></div>
                                     </div>
 
 
-                                    <div class="layui-form-item">
-                                        <label class="layui-form-label">排序值</label>
-                                        <div class="layui-input-inline">
-                                            <input type="text" name="seg" required  lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input">
-                                        </div>
-                                        <div class="layui-form-mid layui-word-aux">数字越大排序越靠前</div>
-                                    </div>
+                                    <!--<div class="layui-form-item">-->
+                                    <!--<label class="layui-form-label">排序值</label>-->
+                                    <!--<div class="layui-input-inline">-->
+                                    <input type="hidden" name="seg" required  lay-verify="required" value="1"  autocomplete="off" class="layui-input">
+                                    <!--</div>-->
+                                    <!--<div class="layui-form-mid layui-word-aux">数字越大排序越靠前</div>-->
+                                    <!--</div>-->
 
 
 
@@ -197,8 +204,6 @@
                                         </div>
                                     </div>
                                 </form>
-
-
                                 <!--表单结束-->
                             </div>
                         </div>

@@ -1,8 +1,8 @@
 //新增订单出账
 
 
-layui.use(['form','layer','upload','laydate'],function () {
-
+layui.use(['form','layer','upload','laydate','util'],function () {
+    var util = layui.util;
     var laydate = layui.laydate;
     var upload = layui.upload;
     var layer = layui.layer;
@@ -80,6 +80,8 @@ layui.use(['form','layer','upload','laydate'],function () {
     $(function () {
         var p = common.util.getHrefParam();
         $("input[name=orderId]").val(p.orderId);
+        var date = new Date();
+        $("#exportDate").val(util.toDateString(date,'yyyy-MM-dd HH:mm:ss'));
         //初始化日期控件
         common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
         //初始化操作类型
@@ -108,7 +110,7 @@ layui.use(['form','layer','upload','laydate'],function () {
         $("input[name=bankName]").val(card.bankName);
 
 
-        form.render('select');
+        form.render();
 
         //监听提交按钮 submit(btn_id)
         form.on('submit(formAdd)', function(data){

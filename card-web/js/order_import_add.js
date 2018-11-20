@@ -1,8 +1,8 @@
 //新增订单入账
 
 
-layui.use(['form','layer','upload','laydate'],function () {
-
+layui.use(['form','layer','upload','laydate','util'],function () {
+    var util = layui.util;
     var laydate = layui.laydate;
     var upload = layui.upload;
     var layer = layui.layer;
@@ -142,37 +142,9 @@ layui.use(['form','layer','upload','laydate'],function () {
         $("input[name=shouldBill]").val(shouldBill);
     };
 
-    //监听选择消费方式
-    form.on('select(consumeTypeSelect)', function(data){
-        // console.log(data.elem); //得到select原始DOM对象
-        // console.log(data.value); //得到被选中的值
-        // console.log(data.othis); //得到美化后的DOM对象
-        //显示费率
-        if(data.value == 1){
-            $("input[name=rate]").val(pageData.pos.rate1);
-        }else if(data.value == 2 ){
-            $("input[name=rate]").val(pageData.pos.rate2);
-        }
-        //显示手续费
-        pageData.computerFee();
-    });
 
-    //监听选择操作（只有选择失败才执行处理）
-    form.on('select(resultSelect)', function(data){
-        // console.log(data.elem); //得到select原始DOM对象
-        // console.log(data.value); //得到被选中的值
-        // console.log(data.othis); //得到美化后的DOM对象
-        //显示费率
-        if(data.value == 2){
-            $("input[name=fee]").val(0);
-            $("input[name=importBill]").val(0);
-            $("input[name=shouldBill]").val(pageData.shouldBill);
-            $("#shouldBillWarm").text("");
-        }else{
-            pageData.computerFee();
-        }
 
-    });
+
 
     pageData.initShowMallName = function(){
         var mallList = JSON.parse(sessionStorage.mallList);
@@ -195,14 +167,19 @@ layui.use(['form','layer','upload','laydate'],function () {
 
         var p = common.util.getHrefParam();
         $("input[name=orderId]").val(p.orderId);
+
         //初始化日期控件
+        var date = new Date();
+        $("#exportDate").val(util.toDateString(date,'yyyy-MM-dd HH:mm:ss'));
         common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
+
         //初始化操作类型
         // common.util.getOrderTypeOptions('type');
         common.util.getOrderImportTypeOptions('type',p.type);
 
         //商户名称
         common.util.loadMallList(pageData.initShowMallName);
+
         //消费方式
         common.util.getConsumeTypeOptions('consumeType',1)
 
@@ -212,10 +189,6 @@ layui.use(['form','layer','upload','laydate'],function () {
             pageData.openSelectModel('pos');
         });
 
-        //点选消费账户（下单时固定了）
-        // $("input[name=consumeAccountName]").click(function () {
-        //     pageData.openSelectModel('consumeAccount');
-        // });
 
         var card = JSON.parse(sessionStorage.orderCard);
         $("input[name=consumeAccountName]").val(card.name);
@@ -224,7 +197,7 @@ layui.use(['form','layer','upload','laydate'],function () {
 
         // //初始化手续费率选择 由选择POS机时自动计算
         // common.util.getRatesOptions('rate');
-        form.render('select');
+        form.render();
 
         //监听输入完消费金额
         $("input[name=bill]").blur(function () {
@@ -258,6 +231,42 @@ layui.use(['form','layer','upload','laydate'],function () {
             pageData.submitAdd(data.field);
             return false;
         });
+
+
+        //监听选择消费方式
+        form.on('select(consumeTypeSelect)', function(data){
+            // console.log(data.elem); //得到select原始DOM对象
+            // console.log(data.value); //得到被选中的值
+            // console.log(data.othis); //得到美化后的DOM对象
+            //显示费率
+            if(data.value == 1){
+                $("input[name=rate]").val(pageData.pos.rate1);
+            }else if(data.value == 2 ){
+                $("input[name=rate]").val(pageData.pos.rate2);
+            }
+            //显示手续费
+            pageData.computerFee();
+        });
+
+
+        //监听选择操作（只有选择失败才执行处理）
+        form.on('select(resultSelect)', function(data){
+            // console.log(data.elem); //得到select原始DOM对象
+            // console.log(data.value); //得到被选中的值
+            // console.log(data.othis); //得到美化后的DOM对象
+            //显示费率
+            if(data.value == 2){
+                $("input[name=fee]").val(0);
+                $("input[name=importBill]").val(0);
+                $("input[name=shouldBill]").val(pageData.shouldBill);
+                $("#shouldBillWarm").text("");
+            }else{
+                pageData.computerFee();
+            }
+
+        });
+
+
 
     })
 

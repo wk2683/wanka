@@ -61,7 +61,7 @@
                 pos.card_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
-        </where>  ORDER BY seg DESC, update_time DESC  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY pos.seg DESC, pos.update_time DESC  limit #{pageStart},#{pageSize}
     </select>
 
     <select id="searchCount" resultType="java.lang.Integer" parameterType="com.wk.entity.Pos">
@@ -70,7 +70,6 @@
             <if test="  name != null and  name != '' "> AND  name =  #{name}</if>
             <if test="  bankName != null and  bankName != '' "> AND  bank_name =  #{bankName}</if>
             <if test="  cardNumber != null and  cardNumber != '' "> AND  card_number =  #{cardNumber}</if>
-            <if test="  rateId != null and  rateId != '' "> AND  rate_id =  #{rateId}</if>
             <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
             <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
             <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>

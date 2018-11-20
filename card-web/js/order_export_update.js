@@ -97,7 +97,7 @@ layui.use(['form','layer','util','laydate'],function () {
 
         form.val('export_form',{
             id:data.id,
-            exportDate:util.toDateString(data.exportDate,'yyyy-MM-dd HH:mm'),
+            exportDate:util.toDateString(data.exportDate,'yyyy-MM-dd HH:mm:ss'),
             type:data.type,
             exportAccountId:data.exportAccountId,
             exportAccountName:data.exportAccountName + ' ' + data.exportAccountNumber,

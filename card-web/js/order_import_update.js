@@ -100,7 +100,7 @@ layui.use(['form','layer','util','laydate'],function () {
 
         form.val('import_form',{
             id:data.id,
-            exportDate:util.toDateString(data.exportDate,'yyyy-MM-dd HH:mm'),
+            exportDate:util.toDateString(data.exportDate,'yyyy-MM-dd HH:mm:ss'),
             type:data.type,
             posId:data.posId,
             posName:data.posName,
@@ -122,25 +122,68 @@ layui.use(['form','layer','util','laydate'],function () {
 
         form.render();
     };
+    pageData.computerFee = function(){
+        var bill = $("input[name=bill]").val();//消费金额
+        var rate = $("input[name=rate]").val();//费率
+        bill = parseFloat(bill);
+        rate = parseFloat(rate);
+        var fee =  bill * rate / 100 ;
+        var importBill = bill - fee ;
+        $("input[name=fee]").val( fee.toFixed(2));//成本手续费
+        $("input[name=importBill]").val( importBill.toFixed(2));//成本手续费
 
+        var result = $("select[name=result]").val();
+        if(result == 1){
+            var shouldDom = $("input[name=shouldBill]");
+            var shouldBill  = pageData.shouldBill - bill;
+            shouldDom.val(shouldBill.toFixed(2));
+            if(shouldBill<0){
+                $("#shouldBillWarm").text("刷出金额超量");
+            }else {
+                $("#shouldBillWarm").text("");
+            }
+        }
+    };
+    pageData.initShouldBill = function(){
+        var orderImport = JSON.parse(sessionStorage.orderImport);
+        var order = JSON.parse(sessionStorage.order);
+        var shouldBill = 0;
+        if(orderImport && orderImport.length>0 ) {
+            var len = orderImport.length;
+            var bill = 0;
+            for (var i = 0; i < len; i++) {
+                var imp = orderImport[i];
+                if (imp.result == 1) {
+                    bill += imp.bill;
+                }
+            }
+            shouldBill = order.total - bill;
+        }else{//如果是第一条入账记录
+
+            shouldBill = order.total;//订单总额
+        }
+        pageData.shouldBill = shouldBill;
+        // $("input[name=shouldBill]").val(shouldBill);
+    };
 
     $(function () {
+        pageData.initShouldBill();
         //保存地址上的参数
         var p = common.util.getHrefParam();
         $("input[name=id]").val(p.id);
         $("input[name=orderId]").val(p.orderId);
 
-
-
         //初始化日期控件
         common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
+
         //初始化操作类型
-        common.util.getOrderTypeOptions('type');
-        //初始化手续费率选择
-        common.util.getRatesOptions('rate');
-        // form.render('select');
+        // common.util.getOrderTypeOptions('type');
+        common.util.getOrderImportTypeOptions('type',p.type);
 
         common.util.getConsumeTypeOptions('consumeType')
+
+        //商户名称
+        common.util.loadMallList(pageData.initShowMallName);
 
 
         //点选POS机
@@ -148,9 +191,31 @@ layui.use(['form','layer','util','laydate'],function () {
             pageData.openSelectModel('pos');
         });
 
-        //点选消费账户
-        $("input[name=consumeAccountName]").click(function () {
-            pageData.openSelectModel('consumeAccount');
+
+        //监听输入完消费金额
+        $("input[name=bill]").blur(function () {
+            pageData.computerFee();
+        });
+
+        //添加商户
+        $("#addMall").click(function () {
+            // $(this).hide();
+            event.preventDefault();
+            event.stopPropagation();
+
+            var mall2 = document.getElementById('mallName2');
+
+
+            mall2.style.display= !!mall2.style.display ?'':'none';//显示输入框
+            var inputValue = $("select[name=mallName]").next().find("input").val();
+
+            if(inputValue){
+                inputValue = $.trim(inputValue);
+                if(inputValue && inputValue.indexOf("选择")<0){
+                    mall2.value=inputValue;
+                }
+            }
+            return false;
         });
 
 
