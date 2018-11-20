@@ -3,17 +3,14 @@
 <mapper namespace="com.wk.cms.dao.OrderExportDao">
 
 
-    <!--//add-->
-    <!--//delete-->
-    <!--//get-->
+
     <update id="update" parameterType="com.wk.entity.OrderExport">
         UPDATE wk.wk_order_export SET update_time =  #{updateTime}, export_date = #{ exportDate}
         <if test="orderId != null and orderId != '' ">, order_id = #{orderId} </if>
-
         <if test="type != null and type != 0 ">, type = #{type} </if>
         <if test="exportAccountId != null and exportAccountId != '' ">, export_account_id = #{ exportAccountId} </if>
         <if test="importAccountId != null and importAccountId != '' ">, import_account_id = #{ importAccountId} </if>
-        <if test="cardPassword != null and cardPassword != '' ">, card_password = #{ cardPassword} </if>
+        <if test="bankName != null and bankName != '' ">, bank_name = #{ bankName} </if>
         <if test="name != null and name != '' ">, name = #{name} </if>
         <if test="cardNumber != null and cardNumber != '' ">, card_number = #{ cardNumber} </if>
         <if test="importBill != null and importBill != '' ">, import_bill = #{ importBill} </if>
@@ -40,7 +37,7 @@
         <!-- 不再需要输入账户，输入即是订单绑定的信用卡
         export.import_account_id importAccountId,-->
         card.card_name importAccountName,
-        <!-- export.card_password cardPassword,-->
+         export.bank_name bankName,
         export.name,
         export.card_number cardNumber,
         export.import_bill importBill,
@@ -55,11 +52,7 @@
         LEFT JOIN wk.wk_card card ON card.id = export.import_account_id
         <where>
             <if test="orderId != null and orderId != '' ">AND  export.order_id = #{orderId} </if>
-            <if test="exportDate != null and exportDate != '' ">AND  export.export_date = #{ exportDate} </if>
             <if test="type != null and type != 0 ">AND  export.type = #{type} </if>
-            <if test="exportAccountId != null and exportAccountId != '' ">AND  export.export_account_id = #{ exportAccountId} </if>
-            <if test="importAccountId != null and importAccountId != '' ">AND  export.import_account_id = #{ importAccountId} </if>
-            <if test="cardPassword != null and cardPassword != '' ">AND  export.card_password = #{ cardPassword} </if>
             <if test="name != null and name != '' ">AND export. name = #{name} </if>
             <if test="cardNumber != null and cardNumber != '' ">AND  export.card_number = #{ cardNumber} </if>
             <if test="importBill != null and importBill != '' ">AND  export.import_bill = #{ importBill} </if>
@@ -88,11 +81,7 @@
         SELECT COUNT(*)   FROM wk.wk_order_export
         <where>
             <if test="orderId != null and orderId != '' ">AND  order_id = #{orderId} </if>
-            <if test="exportDate != null and exportDate != '' ">AND  export_datae = #{ exportDate} </if>
             <if test="type != null and type != 0 ">AND  type = #{type} </if>
-            <if test="exportAccountId != null and exportAccountId != '' ">AND  export_account_id = #{ exportAccountId} </if>
-            <if test="importAccountId != null and importAccountId != '' ">AND  import_account_id = #{ importAccountId} </if>
-            <if test="cardPassword != null and cardPassword != '' ">AND  card_password = #{ cardPassword} </if>
             <if test="name != null and name != '' ">AND  name = #{name} </if>
             <if test="cardNumber != null and cardNumber != '' ">AND  card_number = #{ cardNumber} </if>
             <if test="importBill != null and importBill != '' ">AND  import_bill = #{ importBill} </if>

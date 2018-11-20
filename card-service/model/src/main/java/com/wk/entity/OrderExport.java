@@ -30,7 +30,7 @@ public class OrderExport extends  BaseEntity implements Serializable {
     private String exportAccountNumber;//转出账户的卡号
     private String importAccountId;
     private String importAccountName;
-    private String cardPassword;
+    private String bankName;
     private String name;
     private String cardNumber;
     private BigDecimal importBill;
@@ -102,12 +102,12 @@ public class OrderExport extends  BaseEntity implements Serializable {
         this.importAccountName = importAccountName;
     }
 
-    public String getCardPassword() {
-        return cardPassword;
+    public String getBankName() {
+        return bankName;
     }
 
-    public void setCardPassword(String cardPassword) {
-        this.cardPassword = cardPassword;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
     public String getName() {

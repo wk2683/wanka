@@ -103,7 +103,7 @@ layui.use(['form','layer','util','laydate'],function () {
             exportAccountName:data.exportAccountName + ' ' + data.exportAccountNumber,
             importAccountId:data.importAccountId ,
             importAccountName:data.importAccountName ,
-            cardPassword:data.cardPassword,
+            bankName:data.bankName,
             name:data.name ,
             cardNumber:data.cardNumber,
             importBill:data.importBill,
@@ -130,7 +130,7 @@ layui.use(['form','layer','util','laydate'],function () {
         if(p.type==2){
             //取现，则隐藏入账字段
             var ian = $("input[name=importAccountName]");ian.val(0);ian.closest('.layui-form-item').hide();
-            $("input[name=importAccountId]").val("");
+            $("input[name=importAccountId]").remove();
             $(".card-number-text").text('取现转账，直接输入客户的银行卡号')
         }
         // var card = JSON.parse(sessionStorage.orderCard);

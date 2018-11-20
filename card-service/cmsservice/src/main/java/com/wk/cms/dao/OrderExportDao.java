@@ -19,8 +19,8 @@ public interface OrderExportDao {
      * @return
      */
 	@Insert(" INSERT INTO wk.wk_order_export\n" +
-			"(id, order_id, export_date, type, export_account_id, import_account_id, card_password, name, card_number, import_bill, rate, fee, remark, seg, create_time, update_time, opt_id) VALUES \n" +
-			"(#{id},#{orderId},#{exportDate},#{type},#{exportAccountId},#{importAccountId},#{cardPassword},#{name},#{cardNumber},#{importBill},#{rate},#{fee},#{remark},#{seg},#{createTime},#{updateTime},#{optId}) ")
+			"(id, order_id, export_date, type, export_account_id, import_account_id, bank_name, name, card_number, import_bill, rate, fee, remark, seg, create_time, update_time, opt_id) VALUES \n" +
+			"(#{id},#{orderId},#{exportDate},#{type},#{exportAccountId},#{importAccountId},#{bankName},#{name},#{cardNumber},#{importBill},#{rate},#{fee},#{remark},#{seg},#{createTime},#{updateTime},#{optId}) ")
 	Integer add( OrderExport orderExport);
 
     /**
@@ -46,7 +46,7 @@ public interface OrderExportDao {
 			"account1.card_number exportAccountNumber,\n" +
 			"export.import_account_id importAccountId, \n" +
 			"account2.name importAccountName, \n" +
-			"export.card_password cardPassword, \n" +
+			"export.bank_name bankName, \n" +
 			"export.name, \n" +
 			"export.card_number cardNumber, \n" +
 			"export.import_bill importBill, \n" +

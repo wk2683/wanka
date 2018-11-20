@@ -19,7 +19,7 @@ layui.use(['form','layer','table','util'],function () {
         {field: 'exportAccountName',title: '转出账户', align:'center',width:250,templet:'#exportAccountTemplate'},
         // {field: 'importAccountId',title: '转入账户', align:'center',width:150},
         {field: 'importAccountName',title: '转入账户', align:'center',width:250,templet:'#importAccountTemplate'},
-        // {field: 'cardPassword',title: '卡密码', align:'center',width:150},
+        {field: 'bankName',title: '转入银行', align:'center',width:150},
         // {field: 'cardNumber',title: '输入卡号', align:'center',width:150},
         {field: 'name',title: '姓名', align:'center',width:100},
         {field: 'importBill',title: '还入金额', align:'center',width:150},
