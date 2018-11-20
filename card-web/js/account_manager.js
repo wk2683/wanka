@@ -90,7 +90,7 @@ layui.use(['form','table','layer'],function () {
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
                 //保存到会话，给整个系统使用
-                sessionStorage.setItem(common.session.key.roleData,res.data);
+                sessionStorage.setItem(common.session.key.accountData,res.data);
                 return {
                     "code": 0,// res.status, //解析接口状态
                     "msg": '',// res.message, //解析提示文本

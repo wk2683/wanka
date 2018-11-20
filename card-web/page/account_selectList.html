@@ -132,7 +132,11 @@
         function getSelectUsers() {
             var users = [];
             $("input[name=select_customer]:checked").each(function () {
-                users.push({id:this.value,name:$(this).data('name'),cardNumber:$(this).data('number')});
+                users.push({
+                    id:this.value,
+                    name:$(this).data('name'),
+                    cardNumber:$(this).data('number')
+                });
             });
             return users;
         }

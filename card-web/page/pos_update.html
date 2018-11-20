@@ -83,11 +83,12 @@
 
 
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">入账人</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="importUserName" required  lay-verify="required" placeholder="点击选择人员" autocomplete="off" class="layui-input" >
+                                            <label class="layui-form-label">关联账户</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="importUserName" required  lay-verify="required" placeholder="点击选择账户" autocomplete="off" class="layui-input" readonly>
                                                 <input type="hidden" name="importUserId">
                                             </div>
+                                            <div class="layui-form-mid layui-word-aux account-card-number"></div>
                                         </div>
 
                                         <div class="layui-form-item">

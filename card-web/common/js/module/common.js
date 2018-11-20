@@ -260,6 +260,7 @@ common.session = {
         modelData:'modelData',//模块
         permissionData: 'permissionData',//所有权限
         modelTree:'modelTree',//模块与权限的组合树
+        accountData:'accountData'//资金账户数据 （似乎无用）
     }
 };
 

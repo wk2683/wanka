@@ -78,6 +78,7 @@ layui.use(['form','layer','laydate'],function () {
             return false;
         }
         var selectUser = selectUsers[0];
+        pageData.selectUser = selectUser;
         $("input[name=customerId]").val(selectUser.id);
         $("input[name=customerName]").val(selectUser.name);
     };
@@ -89,6 +90,25 @@ layui.use(['form','layer','laydate'],function () {
     form.on('submit(formAdd)', function(data){
        pageData.submitAdd(data.field);
         return false;
+    });
+
+    form.on('switch(selfSwitch)', function(data){
+        // console.log(data.elem); //得到checkbox原始DOM对象
+        // console.log(data.elem.checked); //开关是否开启，true或者false
+        // console.log(data.value); //开关value值，也可以通过data.elem.value得到
+        // console.log(data.othis); //得到美化后的DOM对象
+
+        if(data.elem.checked){
+            if(pageData.selectUser) {
+                $("input[name=name]").val(pageData.selectUser.name);
+                $("input[name=idNumber]").val(pageData.selectUser.idNumber);
+                $("input[name=phone]").val(pageData.selectUser.phone);
+            }
+        }else{
+            $("input[name=name]").val("");
+            $("input[name=idNumber]").val("");
+            $("input[name=phone]").val("");
+        }
     });
 
     common.util.initSelectDate(laydate,'validDate',common.formatDateType.month);

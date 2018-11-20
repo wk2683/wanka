@@ -164,25 +164,26 @@ layui.use(['form','layer','upload'],function () {
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD,common.url.model.customer.page.manager);
     };
 
+    $(function () {
+        $("input[name=workerName]").val(user.name);
+        $("input[name=workerId]").val(user.id);
 
 
-    //初始化上传图片控件（3个）
-    pageData.initUploadImg(1);
-    pageData.initUploadImg(2);
-    pageData.initUploadImg(3);
+        //初始化上传图片控件（3个）
+        pageData.initUploadImg(1);
+        pageData.initUploadImg(2);
+        pageData.initUploadImg(3);
 
-    //监听提交按钮 submit(btn_id)
-    form.on('submit(formAdd)', function(data){
-       pageData.submitAdd(data.field);
-        return false;
+        //监听提交按钮 submit(btn_id)
+        form.on('submit(formAdd)', function(data){
+           pageData.submitAdd(data.field);
+            return false;
+        });
+
+
+        //选择组织
+        $(document.body).on('click','input[name=workerName]',function () {
+            pageData.openWorkerSelectModel();
+        });
     });
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<初始化表单 结束<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
-
-    //选择组织
-    $(document.body).on('click','input[name=workerName]',function () {
-        pageData.openWorkerSelectModel();
-    });
-
 });

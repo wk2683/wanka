@@ -148,5 +148,11 @@ POS信息，关联员工 （OK）
 
 只能修改当天的----
 
+加载资金账户列表时保存到会话（之前存了角色进去，发现冲突），保存资金账户应该没有什么用
+sessionStorage.setItem(common.session.key.accountData,res.data);
+
+
+POS机关联 资金账户，原来关联用户，代码的变量名还未个性
+
 
 
