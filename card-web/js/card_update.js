@@ -87,6 +87,9 @@ layui.use(['form','layer','laydate'],function () {
         pageData.selectUser = selectUser;
         $("input[name=customerId]").val(selectUser.id);
         $("input[name=customerName]").val(selectUser.name);
+        $("input[name=name]").val(pageData.selectUser.name);
+        $("input[name=idNumber]").val(pageData.selectUser.idNumber);
+        $("input[name=phone]").val(pageData.selectUser.phone);
     };
 
 
