@@ -30,6 +30,25 @@ layui.use(['form','layer','upload','laydate','util'],function () {
         var p = common.util.getHrefParam();
         var order_export_url = common.url.model.order.page.imexport + '?id=' + p.orderId;
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD,order_export_url);
+        pageData.setOrder3Status();
+
+    };
+    pageData.setOrder3Status = function(){
+        var order = JSON.parse(sessionStorage.order);
+        if(order.status == 1 ){
+            common.sendOption.data = {id:order.id,status:3};
+            common.sendOption.url = common.url.web_root + common.url.model.order.action + common.url.opt.model.order.status2ing;
+            common.sendOption.type = common.sendMethod.POST;
+            common.sendOption.completeCallBack =function (res) {
+                var resData = JSON.parse(res.responseText);
+                if(resData.code == common.code.RESPONSE_CODE_SUCCESS){
+                    console.log("订单修改为业务中成功");
+                }else{
+                    console.log("订单修改为业务中失败");
+                }
+            };
+            common.httpSend(common.sendOption);
+        }
     };
 
     //打开选择资金账户

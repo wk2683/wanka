@@ -88,15 +88,15 @@ layui.use(['form','table','layer','laydate'],function () {
         if(data && data.length>0) {
             var len = data.length;
             var date = new Date();
-            var nowDate = date.getDate();
-            var days = common.util.getMonthDays(date);
+            var nowDate = date.getDate();//今天
+            var days = common.util.getMonthDays(date);//本月有共多少天
             for(var i=0; i<len; i++ ){
                 var order = data[i];
                 var billDate = order.billDate;//账单日
                 var replayDate = order.replayDate;//还款日
                 var remainDate = 0;
                 //一、 billDate > repayDate  账单日大于还款日
-                //     repayDate billDate nowDate   > repayDate     过了账单日，但没到还款日期，
+                //     repayDate billDate nowDate   > repayDate     过了账单日，但没到还款日期， > 代表下月
                 //     repayDate nowDate  billDate  > repayDate     过了还款日，未到账单日，则***已经超期
                 //     nowDate  repayDate billDate  > repayDate     出账单了，未到还款日期，
 

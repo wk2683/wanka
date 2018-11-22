@@ -115,8 +115,8 @@ layui.use(['form','layer','upload'],function () {
         form.val('pos_form',{
             'id':pos.id,
             'name':pos.name,
-            'importAccountName':pos.importUserName,
-            'importAccountId':pos.importUserId,
+            'importAccountName':pos.importAccountName,
+            'importAccountId':pos.importAccountId,
             'bankName':pos.bankName,
             'cardNumber':pos.cardNumber,
             'rateId':pos.rateId,
