@@ -65,7 +65,10 @@ layui.use(['form','layer','upload'],function () {
         var selectUser = selectUsers[0];
         $("input[name=importAccountId]").val(selectUser.id);
         $("input[name=importAccountName]").val(selectUser.name);
-        $(".account-card-number").text(selectUser.cardNumber?'卡号：'+selectUser.cardNumber:'');
+        $("input[name=cardNumber]").val(selectUser.cardNumber);
+        $("input[name=bankName]").val(selectUser.bankName);
+        $("input[name=userName]").val(selectUser.userName);
+        // $(".account-card-number").text(selectUser.cardNumber?'卡号：'+selectUser.cardNumber:'');
     };
 
     pageData.initBankList = function(){

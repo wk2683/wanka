@@ -105,7 +105,7 @@
 
     <!--第一列选择模板-->
     <script type="text/html" id="indexTemplate">
-        <input type="checkbox" name="select_customer" value="{{ d.id }}" data-name="{{ d.name }}" data-number="{{d.cardNumber}}"> &nbsp;
+        <input type="checkbox" name="select_customer" value="{{ d.id }}" data-name="{{ d.name }}" data-number="{{d.cardNumber}}" data-username="{{d.userName}}" data-bankname="{{d.bankName}}"> &nbsp;
         {{ d.LAY_INDEX }}
     </script>
     <!--第一列选择模板 end -->
@@ -135,7 +135,9 @@
                 users.push({
                     id:this.value,
                     name:$(this).data('name'),
-                    cardNumber:$(this).data('number')
+                    userName:$(this).data('username'),
+                    cardNumber:$(this).data('number'),
+                    bankName:$(this).data('bankname')
                 });
             });
             return users;

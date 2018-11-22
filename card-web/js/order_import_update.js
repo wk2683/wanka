@@ -98,6 +98,18 @@ layui.use(['form','layer','util','laydate'],function () {
     };
     pageData.renderData = function(data){
 
+        //初始化日期控件
+        common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
+
+        //初始化操作类型
+        var p = common.util.getHrefParam();
+        common.util.getOrderImportTypeOptions('type',p.type);
+
+        common.util.getConsumeTypeOptions('consumeType')
+
+        //商户名称
+        common.util.loadMallList(pageData.initShowMallName);
+
         form.val('import_form',{
             id:data.id,
             exportDate:util.toDateString(data.exportDate,'yyyy-MM-dd HH:mm:ss'),
@@ -173,17 +185,7 @@ layui.use(['form','layer','util','laydate'],function () {
         $("input[name=id]").val(p.id);
         $("input[name=orderId]").val(p.orderId);
 
-        //初始化日期控件
-        common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
 
-        //初始化操作类型
-        // common.util.getOrderTypeOptions('type');
-        common.util.getOrderImportTypeOptions('type',p.type);
-
-        common.util.getConsumeTypeOptions('consumeType')
-
-        //商户名称
-        common.util.loadMallList(pageData.initShowMallName);
 
 
         //点选POS机

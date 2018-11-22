@@ -1213,7 +1213,7 @@ common.util.getOrderImportTypeOptions = function(selectTagName,orderType){
     if(orderType && orderType == 1){//'YK'
         options = '<option value="1">'+common.opt.orderImportTypes[1]+'</option>';
     }else if(orderType && orderType == 2){//'TX'
-        options = '<option value="1">'+common.opt.orderImportTypes[2]+'</option>';
+        options = '<option value="2">'+common.opt.orderImportTypes[2]+'</option>';
     }else {
         for (var i = 1; i < len; i++) {
             var item = common.opt.orderImportTypes[i];
