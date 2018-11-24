@@ -57,7 +57,7 @@ layui.use(['form','layer','upload'],function () {
             }
         })
     };
-    //显示选择的客户
+    //显示选择的信息
     pageData.showSelect = function(modelName){
         var len = window.frames.length;
         var selectUsers = 0;
@@ -79,8 +79,15 @@ layui.use(['form','layer','upload'],function () {
 
         $("input[name="+modelName+"Id]").val(selectUser.id);
         $("input[name="+modelName+"Name]").val(selectUser.name);
+        pageData.orderCard = selectUser;//保存选择的信用卡
         if(modelName=='card'){//显示卡号
             $("."+modelName+"Text").text(  !!selectUser.cardNumber?'信用卡号：' + (selectUser.cardNumber):'');
+            var type = $("#type").val();
+            if(type == 'YK'){
+                $("input[name=rate]").val(selectUser.replayRate);//还款费率
+            }else if(type == 'TX'){
+                $("input[name=rate]").val(selectUser.cashRate);//取现费率
+            }
         }
     };
     //自动填写手续费，实收手续费
@@ -96,7 +103,7 @@ layui.use(['form','layer','upload'],function () {
         discount = parseFloat(discount);
         var realFee = fee - discount;
         $("input[name=realFee]").val(realFee.toFixed(2));
-    }
+    };
 
 
     $(function () {
@@ -119,6 +126,16 @@ layui.use(['form','layer','upload'],function () {
             pageData.openSelectModel('card',customerId);
         });
 
+        $("#type").change(function () {
+            var type = $(this).val();
+            var card = pageData.orderCard;
+            if(type == 'YK'){
+                $("input[name=rate]").val(card.replayRate);//还款费率
+            }else if(type == 'TX'){
+                $("input[name=rate]").val(card.cashRate);//取现费率
+            }
+            pageData.initCount();
+        });
         //监控手续费率自动填写手续费
         $("input[name=total]").blur(function () {
             pageData.initCount();
@@ -128,6 +145,7 @@ layui.use(['form','layer','upload'],function () {
         $("input[name=rate]").blur(function () {
             pageData.initCount();
         });
+
 
         //监控优惠金额后自动填写实收
         $("input[name=discount]").blur(function () {

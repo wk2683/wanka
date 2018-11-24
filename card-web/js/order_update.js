@@ -72,6 +72,16 @@ layui.use(['form','layer','upload'],function () {
         var selectUser = selectUsers[0];
         $("input[name="+modelName+"Id]").val(selectUser.id);
         $("input[name="+modelName+"Name]").val(selectUser.name);
+        pageData.orderCard = selectUser;//保存选择的信用卡
+        if(modelName=='card'){//显示卡号
+            $("."+modelName+"Text").text(  !!selectUser.cardNumber?'信用卡号：' + (selectUser.cardNumber):'');
+            var type = $("#type").val();
+            if(type == 'YK'){
+                $("input[name=rate]").val(selectUser.replayRate);//还款费率
+            }else if(type == 'TX'){
+                $("input[name=rate]").val(selectUser.cashRate);//取现费率
+            }
+        }
     };
 
     //获取详情
@@ -120,6 +130,20 @@ layui.use(['form','layer','upload'],function () {
         // common.util.initNameById(data.customerId,common.url.model.customer.action,$("input[name=customerName]"));
     };
 
+    //自动填写手续费，实收手续费
+    pageData.initCount = function () {
+        var total = $("input[name=total]").val();
+        total = parseFloat(total);
+        var rate = $("input[name=rate]").val();
+        rate = parseFloat(rate);
+        var fee= total * rate / 100;
+        $("input[name=fee]").val(fee.toFixed(2));
+        var discountDom = $("input[name=discount]");
+        var discount = discountDom.val();
+        discount = parseFloat(discount);
+        var realFee = fee - discount;
+        $("input[name=realFee]").val(realFee.toFixed(2));
+    };
 
 
     $(function () {
@@ -134,7 +158,7 @@ layui.use(['form','layer','upload'],function () {
             pageData.openSelectModel('customer');
         });
 
-        //点选客户
+        //点选信用卡
         $("input[name=cardName]").click(function () {
             var customerId = $("input[name=customerId]").val();
             if(!customerId){
@@ -142,6 +166,32 @@ layui.use(['form','layer','upload'],function () {
                 return false;
             }
             pageData.openSelectModel('card',customerId);
+        });
+
+        $("#type").change(function () {
+            var type = $(this).val();
+            var card = pageData.orderCard;
+            if(type == 'YK'){
+                $("input[name=rate]").val(card.replayRate);//还款费率
+            }else if(type == 'TX'){
+                $("input[name=rate]").val(card.cashRate);//取现费率
+            }
+            pageData.initCount();
+        });
+        //监控手续费率自动填写手续费
+        $("input[name=total]").blur(function () {
+            pageData.initCount();
+        });
+
+        //监控手续费率自动填写手续费
+        $("input[name=rate]").blur(function () {
+            pageData.initCount();
+        });
+
+
+        //监控优惠金额后自动填写实收
+        $("input[name=discount]").blur(function () {
+            pageData.initCount();
         });
 
         //监听提交按钮 submit(btn_id)

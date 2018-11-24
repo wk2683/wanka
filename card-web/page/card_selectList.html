@@ -105,7 +105,7 @@
 
     <!--第一列选择模板-->
     <script type="text/html" id="indexTemplate">
-        <input type="checkbox" name="select_customer" value="{{ d.id }}" data-name="{{ d.cardName }}" data-number="{{d.cardNumber}}"> &nbsp;
+        <input type="checkbox" name="select_customer" value="{{ d.id }}" data-name="{{ d.cardName }}" data-number="{{d.cardNumber}}" data-replay="{{d.replayRate}}" data-cash="{{d.cashRate}}"> &nbsp;
         {{ d.LAY_INDEX }}
     </script>
     <!--第一列选择模板 end -->
@@ -157,7 +157,9 @@
                 users.push({
                     id:this.value,
                     name:$(this).data('name'),
-                    cardNumber:$(this).data('number')
+                    cardNumber:$(this).data('number'),
+                    replayRate:$(this).data('replay'),//还款费率
+                    cashRate:$(this).data('cash'),//取现费率
                 });
             });
             return users;
