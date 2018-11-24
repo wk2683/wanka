@@ -76,9 +76,9 @@ layui.use(['form','layer','upload'],function () {
         if(modelName=='card'){//显示卡号
             $("."+modelName+"Text").text(  !!selectUser.cardNumber?'信用卡号：' + (selectUser.cardNumber):'');
             var type = $("#type").val();
-            if(type == 'YK'){
+            if(type == '1'){
                 $("input[name=rate]").val(selectUser.replayRate);//还款费率
-            }else if(type == 'TX'){
+            }else if(type == '2'){
                 $("input[name=rate]").val(selectUser.cashRate);//取现费率
             }
         }
@@ -168,12 +168,12 @@ layui.use(['form','layer','upload'],function () {
             pageData.openSelectModel('card',customerId);
         });
 
-        $("#type").change(function () {
-            var type = $(this).val();
+        form.on("select(typeChange)",function () {
+            var type = $("#type").val();
             var card = pageData.orderCard;
-            if(type == 'YK'){
+            if(type == '1'){
                 $("input[name=rate]").val(card.replayRate);//还款费率
-            }else if(type == 'TX'){
+            }else if(type == '2'){
                 $("input[name=rate]").val(card.cashRate);//取现费率
             }
             pageData.initCount();
