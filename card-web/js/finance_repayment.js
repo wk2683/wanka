@@ -158,7 +158,7 @@ layui.use(['form','table','layer','laydate'],function () {
             $("#t1").hide();
         }
         if(data3.length>0) {
-            pageData.initTableData(data3, 'orderList30');
+            pageData.initTableData(data3, 'orderList3');
         }else{
             $("#t3").hide();
         }
