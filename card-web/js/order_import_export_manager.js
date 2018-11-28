@@ -48,7 +48,8 @@ layui.use(['form','layer','table','util'],function () {
         {field: 'remark',title: '备注', align:'center',width:150},
         {fixed: 'right',  align:'center',width:150, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
-
+    pageData.sumrepaybill = 0;//已经还金额合计
+    pageData.sumbill = 0;//消费金额合计
     //获取详情
     pageData.getData = function(){
         var param = common.util.getHrefParam();
@@ -242,8 +243,7 @@ layui.use(['form','layer','table','util'],function () {
                     sessionStorage.orderImport = res.data;
                 }
 
-                pageData.sumrepaybill = 0;//已经还金额合计
-                pageData.sumbill = 0;//消费金额合计
+
                 if(data && data.length>0){
                     var len = data.length;
                     for(var i=0;i<len;i++){
@@ -252,24 +252,26 @@ layui.use(['form','layer','table','util'],function () {
                             item.exportDate = util.toDateString(new Date(item.exportDate),'yyyy-MM-dd HH:mm')
                         }
                         item.type = common.opt.orderTypes[item.type];
-                        if(tableId == 'order_import_list'){//入账 - 消费
+                        if(tableId == 'order_import_list'  && item.result == 1){//入账 - 消费
                             pageData.sumbill += parseFloat(item.bill);
-                        }else if(tableId == 'order_export_list' && item.type){//出账 - 还款
+                        }else if(tableId == 'order_export_list' ){//出账 - 还款
                             pageData.sumrepaybill += parseFloat(item.importBill);
                         }
                     }
                 }
 
 
-                if(tableId == 'order_import_list'){//入账
-                    pageData.shouldbill = pageData.sumrepaybill - pageData.sumbill;//应刷金额 = 还入金额 - 消费刷出金额
-                    $("#unrepaybill").text("应刷余额："+ (pageData.shouldbill.toFixed(2)));
-                }else if(tableId == 'order_export_list' && item.type){//出账
+                if(tableId == 'order_export_list' ){//出账
                     pageData.unrepaybill = parseFloat(pageData.order.total) - pageData.sumrepaybill;//未还金额 = 订单总额-已经还的金额
                     $("#unrepaybill").text("未还金额："+ (pageData.unrepaybill.toFixed(2)));
+
+                }else if(tableId == 'order_import_list'){//入账
+
+                    pageData.shouldbill = pageData.sumrepaybill - pageData.sumbill;//应刷金额 = 还入金额 - 消费刷出金额
+                    $("#shouldbill").text("应刷余额："+ (pageData.shouldbill.toFixed(2)));
                 }
 
-                return {
+                    return {
                     "code": 0,// res.status, //解析接口状态
                     "msg": '',// res.message, //解析提示文本
                     "count": res.total?res.total:pageData.totalCount,// res.total, //解析数据长度

@@ -34,6 +34,7 @@
 
         .layui-form-pane .layui-input-block{width: 30%;}
         .layui-form-pane .layui-input-inline{width:30%;}
+        .span-bill{border:1px solid #123;}
     </style>
 </head>
 <!-- /Head -->
@@ -159,10 +160,10 @@
                                             <button class="layui-btn layui-btn-normal unlock-btn">释放操作信用卡（让他人操作）</button>
                                             <button class="layui-btn opt-over-btn">订单操作完成</button>
                                             <!--<button class="layui-btn">删除</button>-->
-
-                                            <span id="unrepaybill" title="未还金额"></span>
-                                            <span id="shouldbill" title="应该刷金额"> </span>
+                                            <button class="layui-btn layui-btn-primary" id="unrepaybill" title="未还金额 = 订单总额-已经还的金额"></button>
+                                            <button class="layui-btn layui-btn-primary" id="shouldbill" title="应刷金额 = 还入金额 - 消费刷出金额"></button>
                                         </div>
+
                                     </div>
 
 
