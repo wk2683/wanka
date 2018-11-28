@@ -253,9 +253,9 @@ layui.use(['form','layer','table','util'],function () {
                         }
                         item.type = common.opt.orderTypes[item.type];
                         if(tableId == 'order_import_list'  && item.result == 1){//入账 - 消费
-                            pageData.sumbill += parseFloat(item.bill);
+                            pageData.sumbill += parseFloat(item.bill);//已经刷出的钱（消费的钱）合计
                         }else if(tableId == 'order_export_list' ){//出账 - 还款
-                            pageData.sumrepaybill += parseFloat(item.importBill);
+                            pageData.sumrepaybill += parseFloat(item.importBill);//已经还的钱合计
                         }
                     }
                 }
@@ -267,11 +267,11 @@ layui.use(['form','layer','table','util'],function () {
 
                 }else if(tableId == 'order_import_list'){//入账
 
-                    pageData.shouldbill = pageData.sumrepaybill - pageData.sumbill;//应刷金额 = 还入金额 - 消费刷出金额
+                    pageData.shouldbill = pageData.sumrepaybill - pageData.sumbill;//应刷余额 = 还入金额 - 消费刷出金额
                     $("#shouldbill").text("应刷余额："+ (pageData.shouldbill.toFixed(2)));
                 }
 
-                    return {
+                return {
                     "code": 0,// res.status, //解析接口状态
                     "msg": '',// res.message, //解析提示文本
                     "count": res.total?res.total:pageData.totalCount,// res.total, //解析数据长度

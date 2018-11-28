@@ -41,6 +41,7 @@
         orders.rate,
         orders.fee,
         orders.discount,
+        IFNULL(sumimport.sumBill,0) sumBill,
         orders.real_fee realFee,
         orders.status,
         orders.remark,
@@ -51,7 +52,9 @@
         FROM wk.wk_order orders
         LEFT JOIN wk.wk_customer customer ON customer.id = orders.customer_id
         LEFT JOIN wk.wk_card card ON card.id = orders.card_id
-
+        LEFT JOIN (
+            SELECT order_id id,sum(bill) sumBill  FROM wk.wk_order_import WHERE  result = 1 GROUP BY order_id
+        ) sumimport ON sumimport.id = orders.id
         <where>
             <if test="  customerId != null and  customerId != '' "> AND  orders.customer_id =  #{customerId}</if>
             <if test="  cardId != null and  cardId != '' "> AND  orders.card_id =  #{cardId}</if>
