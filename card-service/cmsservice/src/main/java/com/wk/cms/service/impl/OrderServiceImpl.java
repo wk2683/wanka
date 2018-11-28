@@ -1,7 +1,9 @@
 package com.wk.cms.service.impl;
 
+import com.wk.cms.dao.CardDao;
 import com.wk.cms.dao.OrderDao;
 import com.wk.cms.service.OrderService;
+import com.wk.entity.Card;
 import com.wk.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
+    @Autowired
+    private CardDao cardDao;
     @Override
     public String add(Order order) {
         order.addInit();
@@ -29,6 +33,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Integer delete(String id,String optId) {
+        Order order = orderDao.get(id);
+        if(order == null ){
+            return 0;
+        }
+        Card card = new Card();
+        card.setLock(2);
+        card.setLockWorkerId("");
+        card.updateInit();//更新时间
+        card.setId(order.getCardId());
+        Integer affectRow = cardDao.lock(card);
+        if(affectRow == 0){
+            return 0;
+        }
         return orderDao.delete(id,optId);
     }
 
