@@ -4,6 +4,8 @@ eureka:
       defaultZone: http://localhost:8001/eureka/
 server:
   port: 8002
+  tomcat:
+    basedir:  E:\server\wk\upload\temp
 spring:
   jackson:
     date-format:  yyyy-MM-dd HH:mm:ss
