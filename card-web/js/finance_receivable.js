@@ -15,18 +15,21 @@ layui.use(['form','table','layer','laydate'],function () {
     var tableHeader = [[ //表头
         {field: 'id',        title: 'ID', align:'center',width:100},
         // {field: 'customerId',title: '下单人ID', align:'center'},
-        {field: 'customerName',title: '下单人', align:'center',width:150},
+        {field: 'customerName',title: '下单人', align:'center',width:100},
         {field: 'cardName',title: '信用卡名', align:'center',width:150},
-        {field: 'cardNumber',title: '卡号', align:'center',width:250},
+        {field: 'cardNumber',title: '卡号', align:'center',width:200},
         {field: 'type',      title: '订单类型', align:'center',templet:'#orderTypeTemplate',width:100},
         {field: 'total',     title: '订单总额', align:'center',width:100},
-        {field: 'rate',      title: '手续费率', align:'center',width:100},
-        {field: 'fee',       title: '手续费', align:'center',width:100},
-        {field: 'discount',  title: '优惠金额', align:'center',width:100},
-        {field: 'realFee',   title: '实收手续费', align:'center',width:100},
-        {field: 'status',    title: '订单状态', align:'center',templet:'#statusTemplate',width:100},
-        {field: 'remark',    title: '备注', align:'center',width:100},
-        {fixed: 'right',  align:'center',width:80, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {field: 'sumBill',  title: '已经刷出金额', align:'center',width:150},
+        {field: 'unBill',  title: '未能刷出金额', align:'center',width:150},
+        {field: 'rate',      title: '手续费率', align:'center',width:150},
+        {field: 'fee',       title: '手续费', align:'center',width:150},
+        {field: 'discount',  title: '优惠金额', align:'center',width:150},
+
+        {field: 'realFee',   title: '实收手续费', align:'center',width:150},
+        {field: 'status',    title: '订单状态', align:'center',width:150,templet:'#statusTemplate'},
+        {field: 'remark',    title: '备注', align:'center',width:150},
+        {fixed: 'right',  align:'center',width:180, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     pageData.getTableData = function(searchObj) {
@@ -91,6 +94,13 @@ layui.use(['form','table','layer','laydate'],function () {
 
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
+
+                var len = data.length;
+                for(var i=0;i<len;i++){
+                    var item  = data[i];
+                    var unBill = parseFloat(item.total) - parseFloat(item.sumBill);
+                    data[i].unBill = unBill.toFixed(2);
+                }
                 return {
                     "code": 0,// res.status, //解析接口状态
                     "msg": '',// res.message, //解析提示文本

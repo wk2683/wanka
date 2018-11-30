@@ -19,6 +19,7 @@ public class Order extends BaseEntity implements Serializable {
     private BigDecimal rate    ;//手续 费率
     private BigDecimal fee     ;//手续费
     private BigDecimal discount;//优惠金额
+    private BigDecimal sumBill;//已经刷出（还入）金额合计
     private BigDecimal realFee;//实收
     private Integer status  ;//订单状态
     private String remark  ;//备注
@@ -118,6 +119,14 @@ public class Order extends BaseEntity implements Serializable {
 
     public void setDiscount(BigDecimal discount) {
         this.discount = discount;
+    }
+
+    public BigDecimal getSumBill() {
+        return sumBill;
+    }
+
+    public void setSumBill(BigDecimal sumBill) {
+        this.sumBill = sumBill;
     }
 
     public BigDecimal getRealFee() {
