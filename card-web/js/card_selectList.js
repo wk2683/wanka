@@ -78,7 +78,7 @@ layui.use(['form','table','layer'],function () {
             }
             //data:[{}{}{}],  把已经数据给表格，不用表格自己请求后台取数据
             , page: true // boolean | object  -----单独生成分页并接收点击分页事件 laypage 组件
-            , limit: 10 //每页显示数量
+            , limit: 30 //每页显示数量
             , limits: [10,  30, 50,100,200] //可选择设定每页数量
             , loading: true //true | false 是否显示加载条
             , title: '角色表' //定义table大标题（比如导出时则为文件名）

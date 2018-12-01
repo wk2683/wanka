@@ -157,4 +157,9 @@ POS机关联 资金账户，原来关联用户，代码的变量名还未个性
 --出账表 card_password 改成 bank_name
 
 
+INSERT INTO `wk`.`wk_permission`(`id`, `model_id`, `name`, `action`, `opt_type`, `remark`, `seg`, `create_time`, `update_time`, `opt_id`) VALUES ('c523f302-efe9-409f-85df-65ea017e7e6d', 'b681f67b-75dc-4734-9479-aa7fdfa4ec3a', '订单查重', 'order/checkOrder', 'click', '通过客户ID，信用卡ID，订单类型查检有没有未完成状态的订单', 39, '2018-12-01 16:27:35', '2018-12-01 16:28:13', 'b78c71ea-0051-44cc-9bd3-e021b0e1d16d');
+INSERT INTO `wk`.`wk_role_permission`(`role_id`, `permission_id`) VALUES ('b8865e66-4a93-48a0-8a35-b3a8eb26045a', 'c523f302-efe9-409f-85df-65ea017e7e6d');
+
+
+
 

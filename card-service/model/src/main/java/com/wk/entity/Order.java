@@ -14,6 +14,7 @@ public class Order extends BaseEntity implements Serializable {
     private String cardNumber;//下单信用卡号
     private Integer billDate   ;//账单日
     private Integer replayDate ;//还款日
+    private BigDecimal total2   ;//信用卡总额度
     private Integer type    ;//订单类型
     private BigDecimal total   ;//订单总金额
     private BigDecimal rate    ;//手续 费率
@@ -79,6 +80,14 @@ public class Order extends BaseEntity implements Serializable {
 
     public void setReplayDate(Integer replayDate) {
         this.replayDate = replayDate;
+    }
+
+    public BigDecimal getTotal2() {
+        return total2;
+    }
+
+    public void setTotal2(BigDecimal total2) {
+        this.total2 = total2;
     }
 
     public Integer getType() {

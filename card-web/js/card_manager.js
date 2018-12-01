@@ -26,8 +26,8 @@ layui.use(['form','table','layer'],function () {
         {field: 'bankName',     title: '发卡银行',width:100, align:'center'},
         {field: 'cardNumber',   title: '卡号', width:300,align:'center'},
         {field: 'password',     title: '密码',width:100, align:'center'},
-        {field: 'billDate',     title: '账单日',width:100, align:'center'},
-        {field: 'replayDate',   title: '还款日',width:100, align:'center'},
+        {field: 'billDate',     title: '账单日',width:100, align:'center',sort:true},
+        {field: 'replayDate',   title: '还款日',width:100, align:'center',sort:true},
         {field: 'validDate',   title: '有效期',width:100, align:'center'},
         {field: 'total',        title: '总额',width:100, align:'center'},
         {field: 'bill',         title: '账单金额',width:100, align:'center'},
@@ -40,13 +40,17 @@ layui.use(['form','table','layer'],function () {
         {fixed: 'right',  align:'center',width:150, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
-    pageData.getTableData = function(searchKey) {
+    pageData.getTableData = function(searchKey,customerId) {
+        var param = { userId: user.id, userName: user.name, searchKey:searchKey};
+        if(customerId){
+            param.customerId = customerId;
+        }
         //执行渲染
         table.render({
             elem: '#card_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.card.action + common.url.opt.search  //数据源url
-            , where: { userId: user.id, userName: user.name, searchKey:searchKey} //如果无需传递额外参数，可不加该参数
+            , where: param //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
@@ -79,22 +83,19 @@ layui.use(['form','table','layer'],function () {
             }
             //data:[{}{}{}],  把已经数据给表格，不用表格自己请求后台取数据
             , page: true // boolean | object  -----单独生成分页并接收点击分页事件 laypage 组件
-            , limit: 10 //每页显示数量
-            , limits: [10,  30, 50,100,200] //可选择设定每页数量
+            , limit: 50 //每页显示数量
+            , limits: [10,  30, 50,100,200,1000] //可选择设定每页数量
             , loading: true //true | false 是否显示加载条
             , title: '角色表' //定义table大标题（比如导出时则为文件名）
             , text: {none: '无数据'} //空数据时提示信息
-            // ,initSort:'' //默认排序字段
+            ,initSort:'replayDate' //默认排序字段 还款日
             // ,id:'table tag id' //设置table 标签的id值  （因为正常也没有id而可以通过class渲染表格）
             , skin: 'row' //行边框风格 line | row | nob
-
-
             //request: {} //如果无需自定义请求参数，可不加该参数
             ,request: {
                 pageName: 'page' //页码的参数名称，默认：page
                 ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
             }
-
             // ,response: {//如果无需自定义数据响应名称，可不加该参数
             //     statusName: 'status' //规定数据状态的字段名称，默认：code
             //     ,statusCode: 200 //规定成功的状态码，默认：0
@@ -205,6 +206,52 @@ layui.use(['form','table','layer'],function () {
         common.httpSend(common.sendOption);
     };
 
+    //弹出选择用户模态框
+    pageData.openSelectUserMode = function(){
+        var ww = $(window).width();
+        ww = ww*0.8;
+        var hh = $(window).height();
+        hh = hh*0.8;
+        layer.open({
+            type:2,
+            title:'选择用户',
+            content: common.url.page_root + common.url.model.customer.page.selectList,
+            area:[ ww+'px',hh+'px'],
+            btn:['确定'],
+            yes:function (index, layero) {
+                console.log("点击了确定");
+                pageData.showSelectUsers();
+                layer.close(index);//关掉自己
+            }
+        })
+    };
+    //显示选中的用户
+    pageData.showSelectUsers = function(){
+        var len = window.frames.length;
+        var selectUsers = 0;
+        for(var i=0;i<len;i++){
+            if(window.frames[i].getSelectUsers && typeof  window.frames[i].getSelectUsers == "function"){
+                selectUsers = window.frames[i].getSelectUsers();    //[{id,name},...]
+                break;
+            }
+        }
+        if(selectUsers.length>1){
+            layer.msg('只能选择一个用户哦~',{anim:6},function () {
+                pageData.openSelectUserMode();
+            });
+
+            return false;
+        }
+        var selectUser = selectUsers[0];
+        pageData.selectUser = selectUser;
+        $("input[name=customerId]").val(selectUser.id);
+        $("input[name=customerName]").val(selectUser.name);
+        // $("input[name=name]").val(pageData.selectUser.name);
+        // $("input[name=idNumber]").val(pageData.selectUser.idNumber);
+        // $("input[name=phone]").val(pageData.selectUser.phone);
+    };
+
+
     $(function () {
 
 
@@ -219,10 +266,20 @@ layui.use(['form','table','layer'],function () {
         //添加按钮事件
         $(document.body).on('click','#searchBtn',function () {
             var searchKey = $("input[name=searchKey]").val();
-            if(!searchKey){
+            var customerId = $("input[name=customerId]").val();
+            if(!searchKey  && !customerId){
+                layer.alert("选择客户或输入关键字",{anim:6},function () {
+                    layer.closeAll();
+                })
                 return false;
             }
-            pageData.getTableData(searchKey);
+            pageData.getTableData(searchKey,customerId);
         });
+
+        //点击选择用户
+        $(document.body).on("click","input[name=customerName]",function () {
+            pageData.openSelectUserMode();
+        });
+
     });
 });

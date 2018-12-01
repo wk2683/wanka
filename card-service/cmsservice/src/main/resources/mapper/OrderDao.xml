@@ -98,4 +98,41 @@
         </where>
     </select>
 
+
+    <select id="orderCheck" resultType="com.wk.entity.Order" parameterType="com.wk.entity.Order">
+        SELECT
+        orders.id,
+        orders.customer_id customerId,
+        customer.name customerName,
+        orders.card_id cardId,
+        card.card_name cardName,
+        card.card_number cardNumber,
+        card.bill_date billDate,
+        card.replay_date replayDate,
+        orders.type,
+        orders.total,
+        orders.rate,
+        orders.fee,
+        orders.discount,
+        IFNULL(sumimport.sumBill,0) sumBill,
+        orders.real_fee realFee,
+        orders.status,
+        orders.remark,
+        orders.seg,
+        orders.create_time createTime,
+        orders.update_time updateTime,
+        orders.opt_id optId
+        FROM wk.wk_order orders
+        LEFT JOIN wk.wk_customer customer ON customer.id = orders.customer_id
+        LEFT JOIN wk.wk_card card ON card.id = orders.card_id
+        LEFT JOIN (
+        SELECT order_id id,sum(bill) sumBill  FROM wk.wk_order_import WHERE  result = 1 GROUP BY order_id
+        ) sumimport ON sumimport.id = orders.id
+        <where>
+            <if test="  customerId != null and  customerId != '' "> AND  orders.customer_id =  #{customerId}</if>
+            <if test="  cardId != null and  cardId != '' "> AND  orders.card_id =  #{cardId}</if>
+            <if test="  type != null and  type != '' "> AND  orders.type =  #{type}</if>
+        </where>  ORDER BY orders.seg DESC, orders.update_time DESC  limit #{pageStart},#{pageSize}
+    </select>
+
 </mapper>

@@ -79,8 +79,8 @@
             <if test="  bankName != null and  bankName != '' "> AND  card.bank_name =  #{bankName}</if>
             <if test="  cardNumber != null and  cardNumber != '' "> AND  card.card_number =  #{cardNumber}</if>
             <if test="  password != null and  password != '' "> AND  card.password =  #{password}</if>
-            <if test="  billDate != null and  billDate != 0 "> AND  card.bill_date =  #{billDate}</if>
-            <if test="  replayDate != null and  replayDate != 0 "> AND  card.replay_date =  #{replayDate}</if>
+            <!--<if test="  billDate != null and  billDate != 0 "> AND  card.bill_date =  #{billDate}</if>-->
+            <!--<if test="  replayDate != null and  replayDate != 0 "> AND  card.replay_date =  #{replayDate}</if>-->
             <if test="  total != null and  total != '' "> AND  card.total =  #{total}</if>
             <if test="  bill != null and  bill != '' "> AND  card.bill =  #{bill}</if>
             <if test="  replayRate != null and  replayRate != '' "> AND  card.replay_rate =  #{replayRate}</if>
@@ -97,20 +97,20 @@
             <if test="searchKey != null and searchKey != '' ">
                 AND
                 (
-                card.name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                    OR
-                card.card_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                    OR
-                card.phone LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                    OR
-                card.id_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                    OR
-                card.bank_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                    OR
-                card.card_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                    card.name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                        OR
+                    card.card_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                        OR
+                    card.phone LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                        OR
+                    card.id_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                        OR
+                    card.bank_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                        OR
+                    card.card_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
-        </where>  ORDER BY card.seg DESC, card.update_time DESC  limit #{pageStart},#{pageSize}
+        </where>  ORDER BY card.seg DESC , card.update_time DESC  limit #{pageStart},#{pageSize}
     </select>
 
 
@@ -144,17 +144,17 @@
             <if test="searchKey != null and searchKey != '' ">
                 AND
                 (
-                name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                OR
-                card_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                OR
-                phone LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                OR
-                id_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                OR
-                bank_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
-                OR
-                card_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                    name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                    OR
+                    card_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                    OR
+                    phone LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                    OR
+                    id_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                    OR
+                    bank_name LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
+                    OR
+                    card_number LIKE CONCAT(CONCAT('%', #{searchKey}),'%')
                 )
             </if>
         </where>

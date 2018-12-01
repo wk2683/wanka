@@ -46,4 +46,11 @@ public interface OrderService {
 
 
 	Integer searchCount(Order order);
+
+	/**
+	 * 检测订单存在
+	 * @param order
+	 * @return
+	 */
+	List<Order> orderCheck(Order order);
 }

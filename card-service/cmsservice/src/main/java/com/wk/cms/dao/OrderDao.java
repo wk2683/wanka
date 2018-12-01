@@ -37,6 +37,9 @@ public interface OrderDao {
 			"        customer.name customerName,\n" +
 			"        orders.card_id cardId,\n" +
 			"        card.card_name cardName,\n" +
+			"        card.bill_date billDate,\n" +
+			"        card.replay_date replayDate,\n" +
+			"        card.total total2,\n" +
 			"        orders.type,\n" +
 			"        orders.total,\n" +
 			"        orders.rate,\n" +
@@ -75,4 +78,11 @@ public interface OrderDao {
 	 * @return 返回搜索到的记录总数
 	 */
 	Integer searchCount(Order order);
+
+	/**
+	 * 检测订单是否存在（客户ID,信用卡ID，订单类型）
+	 * @param order
+	 * @return
+	 */
+	List<Order> orderCheck(Order order);
 }

@@ -81,6 +81,10 @@ layui.use(['form','layer','upload'],function () {
             }else if(type == '2'){
                 $("input[name=rate]").val(selectUser.cashRate);//取现费率
             }
+            //显示账单日，还款日，总额
+            $("input[name=billDate]").val(selectUser.billDate);
+            $("input[name=replayDate]").val(selectUser.replayDate);
+            $("input[name=total2]").val(selectUser.total);
         }
     };
 
@@ -116,6 +120,9 @@ layui.use(['form','layer','upload'],function () {
             customerName:data.customerName,
             cardId:data.cardId,
             cardName:data.cardName,
+            billDate:data.billDate,
+            replayDate:data.replayDate,
+            total2:data.total2,
             type:data.type,
             total:data.total,
             rate:data.rate,

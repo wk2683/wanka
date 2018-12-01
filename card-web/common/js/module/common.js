@@ -181,7 +181,8 @@ common.url = {
                 // repayment:'repayment', 用不到
                 status2over:'updateStatus2',
                 status2optOver:'updateStatus4',
-                status2ing:'updateStatus3'
+                status2ing:'updateStatus3',
+                orderCheck:'orderCheck',
             },
             permission:{
                 getUserActionInRole:'getUserActionInRole'
@@ -201,7 +202,7 @@ common.url = {
         }
     }
 };
-common.url.unneedFilterUrl = ['bank/load'];
+common.url.unneedFilterUrl = ['bank/load','order/orderCheck'];
 
 
 if(!sessionStorage.user && location.pathname.indexOf("login.html")<0 ){

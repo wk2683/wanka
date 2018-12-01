@@ -12,6 +12,43 @@ layui.use(['form','layer','upload'],function () {
 
     var pageData = {};
 
+    //订单检测
+    pageData.checkOrder = function(param,submitAdd){
+
+        common.sendOption.data = {customerId:param.customerId,cardId:param.cardId};
+        common.sendOption.url = common.url.web_root + common.url.model.order.action + common.url.opt.model.order.orderCheck;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack = function (res) {
+            var resData = JSON.parse(res.responseText);
+            if(resData.code = common.code.RESPONSE_CODE_SUCCESS){
+                var data = JSON.parse(resData.data);
+                if(data && data.length>0 ){    //订单已经存在
+
+                    var content = '';
+                    var ilen = data.length;
+                    for(var ii = 0;ii<ilen;ii++){
+                        var o = data[ii];
+                        var detail_url = common.url.page_root + common.url.model.order.page.detail + '?id='+ o.id;
+                        content += '已存在 客户 和 信用卡 相同的订单  [<a href="'+detail_url+'">查看详情</a>]<br/><br/>';
+                    }
+                    content = '<div style="text-align: center;">' + content + '</div>';
+                    layer.open({
+                        area: ['500px', '300px'],
+                        type:1,
+                        title:'订单检测结果',
+                        content:content,
+                        yes:function (index,layro) {
+                            layer.close(index);
+                        }
+                    });
+                    return false;
+                }else{
+                    submitAdd(param);
+                }
+            }
+        };
+        common.httpSend(common.sendOption);
+    };
 
 
     pageData.submitAdd = function(param){
@@ -88,6 +125,10 @@ layui.use(['form','layer','upload'],function () {
             }else if(type == '2'){
                 $("input[name=rate]").val(selectUser.cashRate);//取现费率
             }
+            //显示账单日，还款日，总额
+            $("input[name=billDate]").val(selectUser.billDate);
+            $("input[name=replayDate]").val(selectUser.replayDate);
+            $("input[name=total2]").val(selectUser.total);
         }
     };
     //自动填写手续费，实收手续费
@@ -155,7 +196,9 @@ layui.use(['form','layer','upload'],function () {
 
         //监听提交按钮 submit(btn_id)
         form.on('submit(formAdd)', function(data){
-            pageData.submitAdd(data.field);
+
+            pageData.checkOrder(data.field,pageData.submitAdd);
+
             return false;
         });
 

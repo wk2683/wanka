@@ -113,4 +113,12 @@ public class OrderController  extends  BaseController{
         return responseUpdate(affectRow,order,this.getClass());
     }
 
+
+    @RequestMapping(value = "/orderCheck",method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public BaseResponse orderCheck(Order order){
+        List<Order> orders = orderService.orderCheck(order);
+        return responseSearch(orders,0,order, this.getClass());
+    }
 }

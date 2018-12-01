@@ -89,6 +89,10 @@
             <form class="layui-form" lay-filter="search_form" onsubmit="return false;">
                 <div class="layui-inline">
                     <div class="layui-form-mid"></div>
+                    <div class="layui-input-inline" style="width: 150px;">
+                        <input type="text" name="customerName" placeholder="选择所属客户"  class="layui-input" readonly>
+                        <input type="hidden" name="customerId">
+                    </div>
                     <div class="layui-input-inline" style="width: 300px;">
                         <input type="text" name="searchKey" placeholder="关键字:名字、手机、身份证" autocomplete="off" class="layui-input">
                     </div>
