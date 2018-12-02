@@ -19,7 +19,7 @@ layui.use(['form','table','layer'],function () {
         {field: 'optType',       title: '操作类型', align:'center',width:'8%'},
         {field: 'seg',       title: '排序值', align:'center',width:'8%'},
         {field: 'remark',       title: '备注', align:'center'},
-        ,{fixed: 'right',  align:'center',width:120, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {fixed: 'right',  align:'center',width:120, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     //加载模块（包括 权限）数据，

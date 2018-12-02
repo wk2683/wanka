@@ -24,8 +24,8 @@ layui.use(['form','table','layer'],function () {
         {field: 'weixin',       title: '微信号', align:'center',width:'8%'},
         {field: 'fontImg',       title: '身份证正面', align:'center',width:'8%'},
         {field: 'afterImg',       title: '身份证背面', align:'center',width:'8%'},
-        {field: 'homeImg',       title: '全身照', align:'center',width:'8%'}
-        ,{fixed: 'right',  align:'center',width:150, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {field: 'homeImg',       title: '全身照', align:'center',width:'8%'},
+        {fixed: 'right',  align:'center',width:150, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     pageData.getTableData = function(searchKey) {
