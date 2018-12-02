@@ -12,7 +12,7 @@ layui.use(['form','table','layer'],function () {
     var pageData = {};
 
     var tableHeader = [[ //表头
-        {field: 'id',       title: '序号',        align:'center',width:'8%',templet:'#indexTemplate'},
+        //{field: 'id,       title: '序号',        align:'center',width:'8%',templet:'#indexTemplate'},
         {field: 'name',     title: '姓名',        align:'center'},
         {field: 'idNumber', title: '身份证号',    align:'center'},
         {field: 'phone',    title: '手机',        align:'center'},

@@ -13,7 +13,7 @@ layui.use(['form','table','layer'],function () {
 
     //权限表头
     var tableHeader = [[ //表头
-        {field: 'id',       title: 'ID', align:'center',width:'8%'},
+        //{field: 'id,       title: 'ID', align:'center',width:'8%'},
         {field: 'name',       title: '权限名称', align:'center',width:'18%'},
         {field: 'action',       title: '操作', align:'left'},
         {field: 'optType',       title: '操作类型', align:'center',width:'8%'},

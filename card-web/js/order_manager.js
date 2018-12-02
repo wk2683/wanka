@@ -13,11 +13,14 @@ layui.use(['form','table','layer','laydate'],function () {
     var pageData = {};
 
     var tableHeader = [[ //表头
-        {field: 'id',        title: 'ID', align:'center',width:100},
+        // {field: 'id',        title: 'ID', align:'center',width:100},
         // {field: 'customerId',title: '下单人ID', align:'center'},
         {field: 'customerName',title: '下单人', align:'center',width:100},
         {field: 'cardName',title: '信用卡名', align:'center',width:100},
         {field: 'cardNumber',title: '卡号', align:'center',width:250},
+        {field: 'billDate',title: '账单日', align:'center',width:100,sort:true},
+        {field: 'replayDate',title: '还款日', align:'center',width:100,sort:true},
+        {field: 'total2',title: '卡总额', align:'center',width:100},
         {field: 'type',      title: '订单类型', align:'center',templet:'#orderTypeTemplate',width:100},
         {field: 'total',     title: '订单总额', align:'center',width:100},
         {field: 'rate',      title: '手续费率', align:'center',width:100},
@@ -69,11 +72,11 @@ layui.use(['form','table','layer','laydate'],function () {
             //data:[{}{}{}],  把已经数据给表格，不用表格自己请求后台取数据
             , page: true // boolean | object  -----单独生成分页并接收点击分页事件 laypage 组件
             , limit: 30 //每页显示数量
-            , limits: [10,  30, 50,100,200] //可选择设定每页数量
+            , limits: [10,  30, 50,100,200,500,1000] //可选择设定每页数量
             , loading: true //true | false 是否显示加载条
             , title: '角色表' //定义table大标题（比如导出时则为文件名）
             , text: {none: '无数据'} //空数据时提示信息
-            // ,initSort:'' //默认排序字段
+            // ,initSort:'replayDate' //默认排序字段
             // ,id:'table tag id' //设置table 标签的id值  （因为正常也没有id而可以通过class渲染表格）
             , skin: 'row' //行边框风格 line | row | nob
 

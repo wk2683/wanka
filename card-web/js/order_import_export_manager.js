@@ -12,7 +12,7 @@ layui.use(['form','layer','table','util'],function () {
 
     //出账表头
     var exportTableHeader = [[
-        {field: 'id',title: 'ID', align:'center',width:100},
+        // {field: 'id',title: 'ID', align:'center',width:100},
         {field: 'exportDate',title: '日期', align:'center',width:150},
         {field: 'type',title: '操作类型', align:'center',width:150},
         // {field: 'exportAccountId',title: '转出账户', align:'center'},
@@ -30,7 +30,7 @@ layui.use(['form','layer','table','util'],function () {
     ]];
     //入账表头
     var importTableHeader = [[
-        {field: 'id',title: 'ID', align:'center',width:100},
+        // {field: 'id',title: 'ID', align:'center',width:100},
         {field: 'exportDate',title: '日期', align:'center',width:150},
         {field: 'type',title: '操作类型', align:'center',width:100},
         // {field: 'posId',title: 'POS机名称', align:'center'},
@@ -83,6 +83,9 @@ layui.use(['form','layer','table','util'],function () {
             customerName:data.customerName,
             cardId:data.cardId,
             cardName:data.cardName,
+            billDate:data.billDate,
+            replayDate:data.replayDate,
+            total2:data.total2,
             type: common.opt.orderTypes[data.type],
             total:data.total,
             rate:data.rate,

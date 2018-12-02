@@ -12,7 +12,7 @@ layui.use(['form','table','layer'],function () {
     var pageData = {};
 
     var tableHeader = [[ //表头
-        {field: 'id',       title: '序号', align:'center',width:'8%',templet:'#indexTemplate'},
+        //{field: 'id',       title: '序号', align:'center',width:'8%',templet:'#indexTemplate'},
         {field: 'name',       title: 'POS名称', align:'center'},
         // {field: 'importAccountId',       title: '关联账户', align:'center'},
         {field: 'importAccountName',       title: '关联账户', align:'center'},

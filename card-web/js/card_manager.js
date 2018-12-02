@@ -13,7 +13,7 @@ layui.use(['form','table','layer'],function () {
 
 
     var tableHeader = [[ //表头
-        {field: 'id',           title: '序号', align:'center',templet:'#indexTemplate'},
+        // {field: 'id',           title: '序号', align:'center',templet:'#indexTemplate'},
         {field: 'self',         title: '本人卡', align:'center',width:100,templet:'#selfTemplate'},
         {field: 'lock',         title: '操作状态', align:'center',width:100,templet:'#lockTemplate'},
         {field: 'lockWorkerName',         title: '操作员工', align:'center',width:100,templet:'#lockWorkerTemplate'},

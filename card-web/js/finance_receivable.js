@@ -13,7 +13,7 @@ layui.use(['form','table','layer','laydate'],function () {
     var pageData = {};
 
     var tableHeader = [[ //表头
-        {field: 'id',        title: 'ID', align:'center',width:100},
+        //{field: 'id,        title: 'ID', align:'center',width:100},
         // {field: 'customerId',title: '下单人ID', align:'center'},
         {field: 'customerName',title: '下单人', align:'center',width:100},
         {field: 'cardName',title: '信用卡名', align:'center',width:150},

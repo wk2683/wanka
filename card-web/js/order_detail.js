@@ -12,7 +12,7 @@ layui.use(['form','layer','table'],function () {
 
     //出账表头
     var exportTableHeader = [[
-        {field: 'id',title: 'ID', align:'center'},
+        // {field: 'id',title: 'ID', align:'center'},
         {field: 'exportDate',title: '日期', align:'center'},
         {field: 'type',title: '操作类型', align:'center'},
         {field: 'exportAccountId',title: '转出账户', align:'center'},
@@ -28,7 +28,7 @@ layui.use(['form','layer','table'],function () {
     ]];
     //入账表头
     var importTableHeader = [[
-        {field: 'id',title: '日期', align:'center'},
+        // {field: 'id',title: 'ID', align:'center'},
         // {field: 'orderId',title: '日期', align:'center'},
         {field: 'exportDate',title: '日期', align:'center'},
         {field: 'type',title: '操作类型', align:'center'},

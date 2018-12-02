@@ -36,6 +36,7 @@
         card.card_number cardNumber,
         card.bill_date billDate,
         card.replay_date replayDate,
+        card.total total2,
         orders.type,
         orders.total,
         orders.rate,

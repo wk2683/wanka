@@ -13,7 +13,7 @@ layui.use(['form','table','layer'],function () {
 
     var tableHeader = [[ //表头
 
-         {field: 'id',       title: 'ID', align:'center',width:'20%'}
+         //{field: 'id',       title: 'ID', align:'center',width:'20%'}
         ,{field: 'name',     title: '资金账户名称', align:'center'}
         ,{field: 'userName',     title: '姓名', align:'center'}
         ,{field: 'bankName',     title: '银行名称', align:'center'}
