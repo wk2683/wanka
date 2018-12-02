@@ -120,6 +120,10 @@ layui.use(['form','table','layer'],function () {
                 // var detail_url = location.origin + '/page/worker_update.html?id='+data.id;
                 var detail_url = common.url.page_root + common.url.model.customer.page.update +  '?id='+data.id;
                 window.open(detail_url);
+            }else if(layEvent == 'order'){
+
+                var detail_url = common.url.page_root + common.url.model.order.page.manager +  '?customerId='+data.id + '&customerName='+data.name;
+                window.open(detail_url);
             }
         });
         //监听 增 删 改

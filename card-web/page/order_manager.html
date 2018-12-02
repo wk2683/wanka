@@ -72,38 +72,37 @@
                                         <div class="layui-inline">
                                             <select name="type" >
                                                 <option value="">订单类型</option>
-                                                <option value="010">北京</option>
-                                                <option value="021">上海</option>
-                                                <option value="0571">杭州</option>
                                             </select>
                                         </div>
 
                                         <div class="layui-inline">
                                             <select name="status" >
                                                 <option value="">订单状态</option>
-                                                <option value="010">layer</option>
-                                                <option value="021">form</option>
-                                                <option value="0571" >layim</option>
                                             </select>
                                         </div>
 
                                         <div class="layui-inline">
-                                            <input type="text" name="userName" class="layui-input"  placeholder="下单人">
-                                            <input type="hidden" name="userId" >
+                                            <input type="text" name="customerName" class="layui-input"  placeholder="下单人">
+                                            <input type="hidden" name="customerId" >
+                                        </div>
+
+                                        <div class="layui-inline">
+                                            <input type="text" name="cardName" class="layui-input"  placeholder="信用卡">
+                                            <input type="hidden" name="cardId" >
                                         </div>
 
                                         <div class="layui-inline">
                                             <label class="layui-form-label" style="width:100px;">下单时间:</label>
                                             <div class="layui-input-inline" style="width: 150px;margin-top:2px;">
-                                                <input type="text" name="price_min" class="layui-input" id="start_time" placeholder="选择时间">
+                                                <input type="text" name="start_time" class="layui-input" id="start_time" placeholder="选择时间">
                                             </div>
                                             <div class="layui-form-mid">-</div>
                                             <div class="layui-input-inline" style="width: 150px;margin-top:2px;">
-                                                <input type="text" name="price_max" class="layui-input" id="end_time" placeholder="选择时间">
+                                                <input type="text" name="end_time" class="layui-input" id="end_time" placeholder="选择时间">
                                             </div>
                                         </div>
 
-
+                                        <button class="layui-btn layui-btn-danger" id="clear_btn">清空条件</button>
                                     </div>
                                     <!--搜索框 结束-->
 
@@ -194,7 +193,7 @@
     </script>
 
 
-    <!--表格中每一行的状态-->
+    <!--类型-->
     <script type="text/html" id="orderTypeTemplate">
         {{ common.opt.orderTypes[d.type] }}
     </script>

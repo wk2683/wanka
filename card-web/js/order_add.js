@@ -116,9 +116,10 @@ layui.use(['form','layer','upload'],function () {
 
         $("input[name="+modelName+"Id]").val(selectUser.id);
         $("input[name="+modelName+"Name]").val(selectUser.name);
-        pageData.orderCard = selectUser;//保存选择的信用卡
+
         if(modelName=='card'){//显示卡号
-            $("."+modelName+"Text").text(  !!selectUser.cardNumber?'信用卡号：' + (selectUser.cardNumber):'');
+            pageData.orderCard = selectUser;//保存选择的信用卡
+            // $("."+modelName+"Text").text(  !!selectUser.cardNumber?'信用卡号：' + (selectUser.cardNumber):'');
             var type = $("#type").val();
             if(type == '1'){
                 $("input[name=rate]").val(selectUser.replayRate);//还款费率

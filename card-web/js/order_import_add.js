@@ -106,7 +106,7 @@ layui.use(['form','layer','upload','laydate','util'],function () {
         var selectUser = selectUsers[0];
 
         $("input[name="+prev+"Id]").val(selectUser.id);
-        $("input[name="+prev+"Name]").val(selectUser.name + ' ' + selectUser.cardNumber);
+        $("input[name="+prev+"Name]").val(selectUser.name);// + ' ' + selectUser.cardNumber);
 
         if(prev=='pos'){
             pageData.pos = selectUser;//记住选择的POS信息
@@ -208,9 +208,9 @@ layui.use(['form','layer','upload','laydate','util'],function () {
 
 
         var card = JSON.parse(sessionStorage.orderCard);
-        $("input[name=consumeAccountName]").val(card.name);
+        $("input[name=consumeAccountName]").val(card.cardName);
         $("input[name=consumeAccountId]").val(card.id);
-        $("#consumeAccountText").text('信用卡号：' + card.cardNumber);
+        $("#consumeAccountText").text('信用卡密码：' + card.password);
 
         // //初始化手续费率选择 由选择POS机时自动计算
         // common.util.getRatesOptions('rate');

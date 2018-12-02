@@ -90,7 +90,7 @@ layui.use(['form','layer','upload','laydate','util'],function () {
         }
         var selectUser = selectUsers[0];
         $("input[name="+prev+"Id]").val(selectUser.id);
-        $("input[name="+prev+"Name]").val(selectUser.name + ' ' + (selectUser.cardNumber?selectUser.cardNumber:''));
+        $("input[name="+prev+"Name]").val(selectUser.name);// + ' ' + (selectUser.cardNumber?selectUser.cardNumber:''));
         // $("input[name="+prev+"Text]").text(selectUser.cardNumber);
     };
 

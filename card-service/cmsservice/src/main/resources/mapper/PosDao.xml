@@ -48,7 +48,7 @@
             <if test="  seg != null and  seg != 0 "> AND  pos.seg =  #{seg}</if>
             <if test="  optId != null and  optId != '' "> AND  pos.opt_id =  #{optId}</if>
             <if test=" startCreateTime != null and startCreateTime != '' ">AND  pos.create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' ">AND  pos.create_time &lt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' ">AND  pos.create_time &lt; #{endCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' ">AND  pos.update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' ">AND pos.update_time &lt; #{endUpdateTime}</if>
             <if test="searchKey != null and searchKey != '' ">
@@ -74,7 +74,7 @@
             <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
             <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
             <if test=" startCreateTime != null and startCreateTime != '' ">AND  create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' ">AND  create_time &lt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' ">AND  create_time &lt; #{endCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' ">AND  update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' ">AND  update_time &lt; #{endUpdateTime}</if>
             <if test="searchKey != null and searchKey != '' ">

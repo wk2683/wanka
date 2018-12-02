@@ -1,13 +1,14 @@
 //角色管理脚本
 
 
-layui.use(['form','table','layer','laydate'],function () {
+layui.use(['form','table','layer','laydate','util'],function () {
 
 
     var table = layui.table;
     var layer = layui.layer;
     var form = layui.form;
     var laydate = layui.laydate;
+    var util = layui.util;
     var user = layui.sessionData('user');
 
     var pageData = {};
@@ -15,6 +16,7 @@ layui.use(['form','table','layer','laydate'],function () {
     var tableHeader = [[ //表头
         // {field: 'id',        title: 'ID', align:'center',width:100},
         // {field: 'customerId',title: '下单人ID', align:'center'},
+        {field: 'createTime',title: '下单日期', align:'center',width:150},
         {field: 'customerName',title: '下单人', align:'center',width:100},
         {field: 'cardName',title: '信用卡名', align:'center',width:100},
         {field: 'cardNumber',title: '卡号', align:'center',width:250},
@@ -23,10 +25,15 @@ layui.use(['form','table','layer','laydate'],function () {
         {field: 'total2',title: '卡总额', align:'center',width:100},
         {field: 'type',      title: '订单类型', align:'center',templet:'#orderTypeTemplate',width:100},
         {field: 'total',     title: '订单总额', align:'center',width:100},
-        {field: 'rate',      title: '手续费率', align:'center',width:100},
-        {field: 'fee',       title: '手续费', align:'center',width:100},
-        {field: 'discount',  title: '优惠金额', align:'center',width:100},
-        {field: 'realFee',   title: '实收手续费', align:'center',width:100},
+
+        // {field: 'rate',      title: '手续费率', align:'center',width:100},
+        // {field: 'fee',       title: '手续费', align:'center',width:100},
+        // {field: 'discount',  title: '优惠金额', align:'center',width:100},
+        // {field: 'realFee',   title: '实收手续费', align:'center',width:100},
+        {field: 'sumBill2',   title: '已还入金额', align:'center',width:100},
+        {field: 'sumBill',   title: '已刷出金额', align:'center',width:100},
+        {field: 'shouldBill',   title: '应刷余额', align:'center',width:100},
+
         {field: 'status',    title: '订单状态', align:'center',templet:'#statusTemplate',width:100},
         {field: 'remark',    title: '备注', align:'center',width:100},
         {fixed: 'right',  align:'center',width:200, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
@@ -96,6 +103,15 @@ layui.use(['form','table','layer','laydate'],function () {
             // }
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
+
+                if(data && data.length>0){
+                    var plen = data.length;
+                    for(var pi = 0;pi<plen;pi++){
+                        data[pi].createTime = util.toDateString(data[pi].createTime, 'yyyy-MM-dd HH:mm:ss');
+                        data[pi].shouldBill = (parseFloat(data[pi].sumBill2)-parseFloat(data[pi].sumBill)).toFixed(2);
+                    }
+                }
+
                 return {
                     "code": 0,// res.status, //解析接口状态
                     "msg": '',// res.message, //解析提示文本
@@ -188,66 +204,6 @@ layui.use(['form','table','layer','laydate'],function () {
             common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD);
     };
 
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>更新操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-    //打开更新模态框表单 modelObj:当前数据行对象，数据为modelObj.data 为一行的数据
-    pageData.openUpdateModel = function(modelObj){
-
-        $('#add_form').find("input[name=name]").val(modelObj.data.name);
-        $('#add_form').find("input[name=seg]").val(modelObj.data.seg);
-        $('#add_form').find("textarea[name=remark]").val(modelObj.data.remark);
-
-        layer.open({
-            title:common.optName.CONTROLLER_OPT_UPDATE + common.url.model.worker.name,
-            type:1,//页面类型
-            content:$('#add_form'),
-            area:['600px'],
-            btn:['提交'],
-            yes: function(index, layero){//当前层索引、当前层DOM对象
-                //提交
-                var name = $(layero).find("input[name=name]").val();
-                var seg = $(layero).find("input[name=seg]").val();
-                var remark = $(layero).find("textarea[name=remark]").val();
-
-                name = $.trim(name);
-                seg = $.trim(seg);
-                remark = $.trim(remark);
-                if(!name || !seg || !remark){
-                    layer.alert('所有都有填写的，亲');
-                    return false;
-                }
-
-                layer.closeAll();
-                console.log(name + "," + seg + "," + remark);
-                pageData.submitUpdateRole(modelObj.data.id,name,seg,remark);
-
-            },
-            cancel: function(){
-                //右上角关闭回调
-
-                //return false 开启该代码可禁止点击该按钮关闭
-            }
-        });
-    };
-    //更新提交数据
-    pageData.submitUpdateRole = function(id,name,seg,remark){
-        common.sendOption.data = {
-            id:id,
-            name:name,
-            seg:seg,
-            remark:remark,
-        };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.update;
-        common.sendOption.type = common.sendMethod.POST;
-        common.sendOption.completeCallBack =pageData.updateComplete;
-
-        common.httpSend(common.sendOption);
-    };
-    //更新完成后动作
-    pageData.updateComplete = function(res){
-        common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE);
-    };
-
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>删除操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     //确认删除
@@ -273,33 +229,12 @@ layui.use(['form','table','layer','laydate'],function () {
     pageData.deleteComplete = function(res){
         common.noDataResponse(res,'关闭');
     };
-    pageData.initSelectStatus = function(){
-        var len = common.opt.status.length;
-        var options = '<option value="">选择状态</option>';
-        for(var i=0;i<len;i++){
-            var item = common.opt.status[i];
-            options += '<option value="'+i+'">'+item+'</option>';
-        }
-        console.log(options);
-        $("select[name=status]").html(options);
-        // form.render('select');
 
-    };
 
 
     pageData.initSearchDate = function(){
         common.util.initSelectDate(laydate,'start_time');
         common.util.initSelectDate(laydate,'end_time');
-        // //日期时间选择器
-        // laydate.render({
-        //     elem: '#start_time'
-        //     ,type: 'datetime'
-        // });
-        // //日期时间选择器
-        // laydate.render({
-        //     elem: '#end_time'
-        //     ,type: 'datetime'
-        // });
     };
     //条件搜索订单
     pageData.searchOrder = function(){
@@ -315,11 +250,18 @@ layui.use(['form','table','layer','laydate'],function () {
             searchObj.status= status;
         }
         //下订单人（客户）
-        var userId = $("input[name=userId]").val();
-        if(userId && userId.length>0){
-            searchObj.userId= userId;
+        var customerId = $("input[name=customerId]").val();
+        if(customerId && customerId.length>0){
+            searchObj.customerId= customerId;
         }
 
+        //下订单人（客户）
+        var cardId = $("input[name=cardId]").val();
+        if(cardId && cardId.length>0){
+            searchObj.cardId= cardId;
+        }
+
+        common.util.getMonthDays()
         //下单开始时间
         var start_time = $("input[name=start_time]").val();
         if(start_time && start_time.length>0){
@@ -341,6 +283,62 @@ layui.use(['form','table','layer','laydate'],function () {
         pageData.getTableData(searchObj);
     };
 
+
+    /**
+     * 打开选择客户 或者选择信用卡
+     * @param modelName  模块名，选择客户时为 customer ,选择信用卡时为 card
+     */
+    pageData.openSelectModel = function(modelName){
+        var ww = $(window).width();
+        ww = ww*0.8;
+        var hh = $(window).height();
+        hh = hh*0.8;
+        var url = common.url.page_root + common.url.model.customer.page.selectList;
+        if(modelName=='customer'){
+
+        }else if(modelName=='card'){
+            url = common.url.page_root + common.url.model.card.page.selectList;
+        }
+        layer.open({
+            type:2,
+            title:'选择用户',
+            content: url,
+            area:[ ww+'px',hh+'px'],
+            btn:['确定'],
+            yes:function (index, layero) {
+                console.log("点击了确定");
+                pageData.showSelect(modelName);
+                layer.close(index);//关掉自己
+            }
+        })
+    };
+    //显示选择的信息
+    pageData.showSelect = function(modelName){
+        var len = window.frames.length;
+        var selectUsers = 0;
+        for(var i=0;i<len;i++){
+            if(window.frames[i].getSelectUsers && typeof  window.frames[i].getSelectUsers == "function"){
+                selectUsers = window.frames[i].getSelectUsers();    //[{id,name},...]
+                break;
+            }
+        }
+        if(selectUsers.length>1){
+            layer.msg('只能选择一个用户哦~',{anim:6},function () {
+                // pageData.openSelectUserMode();
+                pageData.openSelectModel(modelName);
+            });
+
+            return false;
+        }
+        var selectUser = selectUsers[0];
+
+        $("input[name="+modelName+"Id]").val(selectUser.id);
+        $("input[name="+modelName+"Name]").val(selectUser.name);
+
+    };
+
+
+
     $(function () {
 
         // pageData.initSelectStatus();
@@ -349,8 +347,23 @@ layui.use(['form','table','layer','laydate'],function () {
         form.render('select');
 
         pageData.initSearchDate();
+
+        var searchKey = {};
+        var p = common.util.getHrefParam();
+        //客户ID
+        if(p && p.customerId){
+            searchKey.customerId = p.customerId;
+            $("input[name=customerId]").val(p.customerId);
+            $("input[name=customerName]").val(decodeURI(p.customerName));
+        }
+        //信用卡ID
+        if(p && p.cardId){
+            searchKey.cardId = p.cardId;
+            $("input[name=cardId]").val(p.cardId);
+            $("input[name=cardName]").val(decodeURI(p.cardName));
+        }
         //初始化第一页数据
-        pageData.getTableData({});
+        pageData.getTableData(searchKey);
 
         //搜索按钮事件
         $(document.body).on('click','#searchBtn',function () {
@@ -363,5 +376,42 @@ layui.use(['form','table','layer','laydate'],function () {
             var add_url = common.url.page_root + common.url.model.order.page.add;
             window.open(add_url);
         });
+        //清空搜索条件
+        $("#clear_btn").click(function () {
+
+            $("select[name=orderType]").val('');
+
+            $("select[name=status]").val('');
+
+            $("input[name=customerId]").val('');
+            $("input[name=customerName]").val('');
+
+            $("input[name=cardId]").val('');
+            $("input[name=cardName]").val('');
+
+            $("input[name=start_time]").val('');
+
+            $("input[name=end_time]").val('');
+
+            $("input[name=searchKey]").val('');
+
+            form.render();
+            pageData.initSearchDate();
+        });
+
+
+        //点选下单的客户
+        $("input[name=customerName]").click(function () {
+            pageData.openSelectModel('customer');
+        });
+
+        //点选下单的信用卡
+        $("input[name=cardName]").click(function () {
+
+            pageData.openSelectModel('card');
+        });
+
+
+
     });
 });

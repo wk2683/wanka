@@ -255,6 +255,7 @@ layui.use(['form','layer','table','util'],function () {
                             item.exportDate = util.toDateString(new Date(item.exportDate),'yyyy-MM-dd HH:mm')
                         }
                         item.type = common.opt.orderTypes[item.type];
+
                         if(tableId == 'order_import_list'  && item.result == 1){//入账 - 消费
                             pageData.sumbill += parseFloat(item.bill);//已经刷出的钱（消费的钱）合计
                         }else if(tableId == 'order_export_list' ){//出账 - 还款

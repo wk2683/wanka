@@ -43,6 +43,7 @@
         orders.fee,
         orders.discount,
         IFNULL(sumimport.sumBill,0) sumBill,
+        IFNULL(sumexport.sumBill,0) sumBill2,
         orders.real_fee realFee,
         orders.status,
         orders.remark,
@@ -54,8 +55,11 @@
         LEFT JOIN wk.wk_customer customer ON customer.id = orders.customer_id
         LEFT JOIN wk.wk_card card ON card.id = orders.card_id
         LEFT JOIN (
-            SELECT order_id id,sum(bill) sumBill  FROM wk.wk_order_import WHERE  result = 1 GROUP BY order_id
+        SELECT order_id id,sum(bill) sumBill  FROM wk.wk_order_import WHERE  result = 1 GROUP BY order_id
         ) sumimport ON sumimport.id = orders.id
+        LEFT JOIN (
+        SELECT order_id id,sum(import_bill) sumBill  FROM wk.wk_order_export  GROUP BY order_id
+        ) sumexport ON sumexport.id = orders.id
         <where>
             <if test="  customerId != null and  customerId != '' "> AND  orders.customer_id =  #{customerId}</if>
             <if test="  cardId != null and  cardId != '' "> AND  orders.card_id =  #{cardId}</if>
@@ -70,7 +74,7 @@
             <if test="  seg != null and  seg != 0 "> AND  orders.seg =  #{seg}</if>
             <if test="  optId != null and  optId != '' "> AND  orders.opt_id =  #{optId}</if>
             <if test=" startCreateTime != null and startCreateTime != '' ">AND orders.create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' ">AND orders.create_time &lt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' ">AND orders.create_time &lt; #{endCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' ">AND orders.update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' ">AND orders.update_time &lt; #{endUpdateTime}</if>
         </where>  ORDER BY orders.seg DESC, orders.update_time DESC  limit #{pageStart},#{pageSize}
@@ -93,7 +97,7 @@
             <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
             <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
             <if test=" startCreateTime != null and startCreateTime != '' ">AND  create_time &gt; #{startCreateTime}</if>
-            <if test=" endCreateTime != null and endCreateTime != '' ">AND  create_time &lt; #{startCreateTime}</if>
+            <if test=" endCreateTime != null and endCreateTime != '' ">AND  create_time &lt; #{endCreateTime}</if>
             <if test=" startUpdateTime != null and startUpdateTime != '' ">AND  update_time &gt; #{startUpdateTime}</if>
             <if test=" endUpdateTime != null and endUpdateTime != '' ">AND  update_time &lt; #{endUpdateTime}</if>
         </where>

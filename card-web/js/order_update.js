@@ -72,8 +72,8 @@ layui.use(['form','layer','upload'],function () {
         var selectUser = selectUsers[0];
         $("input[name="+modelName+"Id]").val(selectUser.id);
         $("input[name="+modelName+"Name]").val(selectUser.name);
-        pageData.orderCard = selectUser;//保存选择的信用卡
         if(modelName=='card'){//显示卡号
+            pageData.orderCard = selectUser;//保存选择的信用卡
             $("."+modelName+"Text").text(  !!selectUser.cardNumber?'信用卡号：' + (selectUser.cardNumber):'');
             var type = $("#type").val();
             if(type == '1'){

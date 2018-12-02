@@ -37,7 +37,7 @@ layui.use(['form','table','layer'],function () {
         {field: 'income',       title: '公司持卡',width:100, align:'center',templet:'#incomeTemplate'},
         // {field: 'remark',       title: '备注',     align:'center'},
 
-        {fixed: 'right',  align:'center',width:150, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {fixed: 'right',  align:'center',width:250, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
     pageData.getTableData = function(searchKey,customerId) {
@@ -147,6 +147,10 @@ layui.use(['form','table','layer'],function () {
                 window.open(update_url);
             }else if(layEvent === 'unlock'){//释放卡
                 pageData.unlock(obj);
+            }else if(layEvent == 'order'){
+
+                var detail_url = common.url.page_root + common.url.model.order.page.manager +  '?cardId='+data.id + '&cardName='+data.cardName;
+                window.open(detail_url);
             }
         });
         //监听 增 删 改
