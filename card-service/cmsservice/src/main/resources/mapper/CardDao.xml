@@ -62,6 +62,7 @@
         card.seg,
         card.lock,
         card.lock_worker_id lockWorkerId,
+        card.lock_worker_id lockWorkerId,
         worker.name lockWorkerName,
         card.create_time createTime,
         card.update_time updateTime,

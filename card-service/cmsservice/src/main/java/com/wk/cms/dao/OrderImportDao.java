@@ -46,7 +46,7 @@ public interface OrderImportDao {
 			" pos.name posName,\n" +
 			" import.mall_name mallName,\n" +
 			" import.consume_account_id consumeAccountId,\n" +
-			" account.name consumeAccountName,\n" +
+			" card.card_name consumeAccountName,\n" +
 			" import.bill bill,\n" +
 			" import.consume_type consumeType,\n" +
 			" import.result result,\n" +
@@ -60,7 +60,7 @@ public interface OrderImportDao {
 			" import.update_time updateTime,\n" +
 			" import.opt_id optId " +
 			" FROM wk.wk_order_import import " +
-			" LEFT JOIN wk.wk_account account ON account.id = import.consume_account_id " +
+			" LEFT JOIN wk.wk_card card ON card.id = import.consume_account_id " +
 			" LEFT JOIN wk.wk_pos pos ON pos.id = import.pos_id " +
 			"WHERE import.id=#{id} ")
 	OrderImport get(String id);

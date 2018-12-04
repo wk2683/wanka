@@ -40,7 +40,7 @@
         pos.name posName,
         import.mall_name mallName,
         import.consume_account_id consumeAccountId,
-        CONCAT(card.name,' ', card.card_number) consumeAccountName,
+        CONCAT(card.card_name,' ', card.card_number) consumeAccountName,
         import.bill bill,
         import.consume_type consumeType,
         import.result result,

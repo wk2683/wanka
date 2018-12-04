@@ -12,6 +12,10 @@ public class Order extends BaseEntity implements Serializable {
     private String cardId ;//下单的信用卡
     private String cardName ;//下单的信用卡名称
     private String cardNumber;//下单信用卡号
+    private Integer lock;//下单信用卡号锁状态
+    private String lockWorkerId;//下单信用卡号锁卡人ID
+    private String lockWorkerName;//下单信用卡号锁卡人名
+
     private Integer billDate   ;//账单日
     private Integer replayDate ;//还款日
     private BigDecimal total2   ;//信用卡总额度
@@ -65,6 +69,30 @@ public class Order extends BaseEntity implements Serializable {
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    public Integer getLock() {
+        return lock;
+    }
+
+    public void setLock(Integer lock) {
+        this.lock = lock;
+    }
+
+    public String getLockWorkerId() {
+        return lockWorkerId;
+    }
+
+    public void setLockWorkerId(String lockWorkerId) {
+        this.lockWorkerId = lockWorkerId;
+    }
+
+    public String getLockWorkerName() {
+        return lockWorkerName;
+    }
+
+    public void setLockWorkerName(String lockWorkerName) {
+        this.lockWorkerName = lockWorkerName;
     }
 
     public Integer getBillDate() {

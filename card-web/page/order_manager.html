@@ -197,7 +197,16 @@
     <script type="text/html" id="orderTypeTemplate">
         {{ common.opt.orderTypes[d.type] }}
     </script>
-
+    <!--操作状态显示模板-->
+    <script type="text/html" id="lockTemplate">
+        {{# if(d.lock==1 ) { }}
+        <span style="color:red;">{{d.lockWorkerName}} 操作中</span>
+        {{# if(d.unlock ) { }}<button class="layui-btn layui-btn-xs layui-btn-danger lock-btn" lay-event="unlock">释放</button>{{# }  }}
+        {{# }else{ }}
+        <span style="color:green;">空闲</span>
+        {{# }  }}
+    </script>
+    <!--操作状态显示模板 end -->
     <!--Basic Scripts-->
     <script src="../assets/js/jquery-2.0.3.min.js"></script>
     <script src="../common/js/module/common.js"></script>

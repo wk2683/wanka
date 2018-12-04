@@ -292,11 +292,11 @@
 exportAccountNumber
 <!--出账账显示-->
 <script type="text/html" id="exportAccountTemplate">
-    {{ d.exportAccountName?d.exportAccountName:'' }} {{d.exportAccountNumber}}
+    {{ d.exportAccountName?d.exportAccountName:d.exportAccountNumber }}
 </script>
 <!--入账显示-->
 <script type="text/html" id="importAccountTemplate">
-    {{ d.importAccountName?d.importAccountName:'' }} {{d.cardNumber}}
+    {{ d.importAccountName?d.importAccountName:d.cardNumber }}
 </script>
 
 <!--Basic Scripts-->

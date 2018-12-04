@@ -35,6 +35,7 @@ common.opt.orderExportTypes = ['','还款','取现转账'];//操作出账类型-
 common.opt.orderImportTypes = ['','消费','取现刷卡'];//操作入账类型-订单详情的操作类型
 common.opt.consumeTypes = ['其它','正常刷卡','双免闪付'];//消费类型
 common.opt.rates = [0.38,0.60,1.20];//费率表
+common.opt.unlockRoleNames = ['系统管理','财务'];
 common.url = {
     web_root:'http://localhost:8002/',
     page_root:'http://localhost:8003/',
@@ -1378,7 +1379,17 @@ common.util.initRepayment = function () {
         if(parseInt(d8)>0){$("#d8").text(d8);}else{$("#d8").hide();}
     }
     //sessionStorage.repaymentNumber = d0 + ',' + d1 + ',' + d3 + ',' + d8 + ',' + d9;
-}
+};
+//检测一个角色是否有解锁权力
+common.util.canUnlockRole = function (roleName) {
+  var rlen = common.opt.unlockRoleNames.length;
+  for(var i=0;i<rlen;i++){
+      if(roleName.indexOf(common.opt.unlockRoleNames[i])>=0){
+          return true;
+      }
+  }
+  return false;
+};
 
 //注销登录
 common.logout = function () {

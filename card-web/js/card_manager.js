@@ -105,12 +105,12 @@ layui.use(['form','table','layer'],function () {
             // }
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
-                var unlock = false;//有释放卡的权力
-                if(user.roleName.indexOf('系统管理')>-1 || user.roleName.indexOf('财务')>-1 || user.roleName.indexOf('老板')>-1){
-                    unlock = true;
-                }
+                var unlock = common.util.canUnlockRole(user.roleName);//有释放卡的权力
                 var len = data.length;
                 for(var i=0;i<len;i++){
+                    if(!unlock && user.id == data[i].lockWorkerId){
+                        unlock = true;
+                    }
                     data[i].unlock = unlock;
                 }
                 return {

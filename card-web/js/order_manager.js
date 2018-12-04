@@ -19,11 +19,16 @@ layui.use(['form','table','layer','laydate','util'],function () {
         {field: 'createTime',title: '下单日期', align:'center',width:150},
         {field: 'customerName',title: '下单人', align:'center',width:100},
         {field: 'cardName',title: '信用卡名', align:'center',width:100},
-        {field: 'cardNumber',title: '卡号', align:'center',width:250},
+        // {field: 'cardNumber',title: '卡号', align:'center',width:250},
+        {field: 'lock',title: '操作状态', align:'center',width:200,templet:'#lockTemplate'},
+        // {field: 'lockWorkerId',title: '锁卡人ID', align:'center',width:250},
+        // {field: 'lockWorkerName',title: '锁卡人名', align:'center',width:250},
+
+
         {field: 'billDate',title: '账单日', align:'center',width:100,sort:true},
         {field: 'replayDate',title: '还款日', align:'center',width:100,sort:true},
         {field: 'total2',title: '卡总额', align:'center',width:100},
-        {field: 'type',      title: '订单类型', align:'center',templet:'#orderTypeTemplate',width:100},
+        {field: 'type',      title: '订单类型', align:'center',width:100,templet:'#orderTypeTemplate'},
         {field: 'total',     title: '订单总额', align:'center',width:100},
 
         // {field: 'rate',      title: '手续费率', align:'center',width:100},
@@ -78,7 +83,7 @@ layui.use(['form','table','layer','laydate','util'],function () {
             }
             //data:[{}{}{}],  把已经数据给表格，不用表格自己请求后台取数据
             , page: true // boolean | object  -----单独生成分页并接收点击分页事件 laypage 组件
-            , limit: 30 //每页显示数量
+            , limit: 200 //每页显示数量
             , limits: [10,  30, 50,100,200,500,1000] //可选择设定每页数量
             , loading: true //true | false 是否显示加载条
             , title: '角色表' //定义table大标题（比如导出时则为文件名）
@@ -103,6 +108,15 @@ layui.use(['form','table','layer','laydate','util'],function () {
             // }
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
+
+                var unlock = common.util.canUnlockRole(user.roleName);//有释放卡的权力
+                var len = data.length;
+                for(var i=0;i<len;i++){
+                    if(!unlock && user.id == data[i].lockWorkerId){
+                        unlock = true;
+                    }
+                    data[i].unlock = unlock;
+                }
 
                 if(data && data.length>0){
                     var plen = data.length;
@@ -139,6 +153,8 @@ layui.use(['form','table','layer','laydate','util'],function () {
                 window.open(detail_url);
             } else if(layEvent === 'delete'){ //删除
                 pageData.deleteConfirm(obj);
+            }else if(layEvent === 'unlock'){//释放卡
+                pageData.unlock(obj);
             } else if(layEvent === 'update'){ //编辑
                 //修改
                var update_url = common.url.page_root + common.url.model.order.page.update + '?id='+obj.data.id;
@@ -149,8 +165,32 @@ layui.use(['form','table','layer','laydate','util'],function () {
 
     };
     //渲染表格方法结束
+    //释放卡
+    pageData.unlock = function(obj){
+        var param = {
+            id:obj.data.cardId,
+            lock:2,
+            lockWorkerId:user.id,
+        };
+        common.sendOption.data = param;
+        common.sendOption.url = common.url.web_root + common.url.model.card.action + common.url.opt.model.card.lock;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack = function(res){
+            var resData = JSON.parse(res.responseText);
+            if( resData.code == common.code.RESPONSE_CODE_SUCCESS ){
+                layer.msg('释放卡成功！',{anim:5},function () {
+                    //提示完成后动作
+                    var lockBtn = $(obj.tr).find(".lock-btn");
+                    lockBtn.prev().css({color:'green'}).text('空闲');
+                    lockBtn.hide();//隐藏（或者移除）都可以
+                });
+            }else{
+                layer.msg('释放操作失败，刷新后再操作');
+            }
+        };
+        common.httpSend(common.sendOption);
+    };
 
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>添加操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     //打开添加模态框表单
     pageData.openAddModel = function(){

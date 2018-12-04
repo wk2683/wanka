@@ -34,6 +34,9 @@
         orders.card_id cardId,
         card.card_name cardName,
         card.card_number cardNumber,
+        card.lock,
+        card.lock_worker_id lockWorkerId,
+        worker.name lockWorkerName,
         card.bill_date billDate,
         card.replay_date replayDate,
         card.total total2,
@@ -54,6 +57,7 @@
         FROM wk.wk_order orders
         LEFT JOIN wk.wk_customer customer ON customer.id = orders.customer_id
         LEFT JOIN wk.wk_card card ON card.id = orders.card_id
+        LEFT JOIN wk.wk_worker worker ON worker.id = card.lock_worker_id
         LEFT JOIN (
         SELECT order_id id,sum(bill) sumBill  FROM wk.wk_order_import WHERE  result = 1 GROUP BY order_id
         ) sumimport ON sumimport.id = orders.id

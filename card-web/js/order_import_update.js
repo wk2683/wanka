@@ -96,8 +96,24 @@ layui.use(['form','layer','util','laydate'],function () {
             })
         }
     };
+    pageData.initShowMallName = function(){
+        var mallList = JSON.parse(sessionStorage.mallList);
+        if(mallList && mallList.length>0){
+            var options = '<option value="">选择商户名称</option>';
+            var len = mallList.length;
+            for(var i=0;i<len;i++){
+                var mall = mallList[i];
+                options += '<option value="'+ mall.name +'" data-nickname="'+ mall.nickName +'">'+ mall.name +'</option>'
+            }
+            $("select[name=mallName]").html(options);
+            if(pageData.importOrder){
+                $("select[name=mallName]").val(pageData.importOrder.mallName);
+            }
+            form.render('select');
+        }
+    };
     pageData.renderData = function(data){
-
+        pageData.importOrder = data;
         //初始化日期控件
         common.util.initSelectDate(laydate,'exportDate',common.formatDateType.datetime);
 
