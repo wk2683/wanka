@@ -1,40 +1,58 @@
 //角色管理脚本
 
 
-layui.use(['form','table','layer'],function () {
+layui.use(['form','table','layer','laydate','util'],function () {
 
 
     var table = layui.table;
     var layer = layui.layer;
     var form = layui.form;
+    var laydate = layui.laydate;
+    var util = layui.util;
     var user = layui.sessionData('user');
 
     var pageData = {};
 
     var tableHeader = [[ //表头
-        // {field: 'orgId',       title: '组织ID', align:'center',width:'8%'},
-        {field: 'orgName',       title: '组织', align:'center',width:'8%'},
-        // {field: 'roleId',       title: '角色ID', align:'center',width:'8%'},
-        {field: 'roleName',       title: '角色', align:'center',width:'8%'},
-        {field: 'userName',       title: '用户名', align:'center',width:'8%'},
-        {field: 'password',       title: '密码', align:'center',width:'8%'},
-        {field: 'name',       title: '姓名', align:'center',width:'8%'},
-        {field: 'idNumber',       title: '身份证号', align:'center',width:'8%'},
-        {field: 'phone',       title: '手机', align:'center',width:'8%'},
-        {field: 'weixin',       title: '微信号', align:'center',width:'8%'},
-        {field: 'fontImg',       title: '身份证正面', align:'center',width:'8%'},
-        {field: 'afterImg',       title: '身份证背面', align:'center',width:'8%'},
-        {field: 'homeImg',       title: '全身照', align:'center',width:'8%'},
-        {fixed: 'right',  align:'center',width:250, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        // {field: 'id',        title: 'ID', align:'center',width:100},
+        // {field: 'customerId',title: '下单人ID', align:'center'},
+        {field: 'createTime',title: '下单日期', align:'center',width:150},
+        {field: 'customerName',title: '下单人', align:'center',width:100},
+        {field: 'cardName',title: '信用卡名', align:'center',width:100},
+        // {field: 'cardNumber',title: '卡号', align:'center',width:250},
+        {field: 'lock',title: '操作状态', align:'center',width:200,templet:'#lockTemplate'},
+        // {field: 'lockWorkerId',title: '锁卡人ID', align:'center',width:250},
+        // {field: 'lockWorkerName',title: '锁卡人名', align:'center',width:250},
+
+
+        {field: 'billDate',title: '账单日', align:'center',width:100,sort:true},
+        {field: 'replayDate',title: '还款日', align:'center',width:100,sort:true},
+        {field: 'type',      title: '订单类型', align:'center',width:100,templet:'#orderTypeTemplate'},
+        {field: 'total2',title: '卡总额', align:'right',width:100},
+        {field: 'total',     title: '订单总额', align:'right',width:100},
+
+        // {field: 'rate',      title: '手续费率', align:'center',width:100},
+        // {field: 'fee',       title: '手续费', align:'center',width:100},
+        // {field: 'discount',  title: '优惠金额', align:'center',width:100},
+        // {field: 'realFee',   title: '实收手续费', align:'center',width:100},
+        {field: 'sumBill2',   title: '已还入金额', align:'right',width:100},
+        {field: 'sumBill',   title: '已刷出金额', align:'right',width:100},
+        {field: 'shouldBill',   title: '应刷余额', align:'right',width:100},
+
+        {field: 'status',    title: '订单状态', align:'center',templet:'#statusTemplate',width:100},
+        {field: 'remark',    title: '备注', align:'center',width:100},
+        {fixed: 'right',  align:'center',width:200, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
-    pageData.getTableData = function(searchKey) {
+    pageData.getTableData = function(searchObj) {
+        searchObj = !!searchObj?searchObj:{};
+        searchObj.done = 1;//1=完成，2=未完成
         //执行渲染
         table.render({
-            elem: '#worker_list' //指定原始表格元素选择器（推荐id选择器）
+            elem: '#order_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
-            , url: common.url.web_root + common.url.model.worker.action + common.url.opt.search  //数据源url
-            , where: { userId: user.id ,searchKey:searchKey} //如果无需传递额外参数，可不加该参数
+            , url: common.url.web_root + common.url.model.order.action + common.url.opt.search  //数据源url
+            , where: searchObj //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
@@ -67,12 +85,12 @@ layui.use(['form','table','layer'],function () {
             }
             //data:[{}{}{}],  把已经数据给表格，不用表格自己请求后台取数据
             , page: true // boolean | object  -----单独生成分页并接收点击分页事件 laypage 组件
-            , limit: 30 //每页显示数量
-            , limits: [10,  30, 50,100,200] //可选择设定每页数量
+            , limit: 200 //每页显示数量
+            , limits: [10,  30, 50,100,200,500,1000] //可选择设定每页数量
             , loading: true //true | false 是否显示加载条
             , title: '角色表' //定义table大标题（比如导出时则为文件名）
             , text: {none: '无数据'} //空数据时提示信息
-            // ,initSort:'' //默认排序字段
+            // ,initSort:'replayDate' //默认排序字段
             // ,id:'table tag id' //设置table 标签的id值  （因为正常也没有id而可以通过class渲染表格）
             , skin: 'row' //行边框风格 line | row | nob
 
@@ -92,6 +110,24 @@ layui.use(['form','table','layer'],function () {
             // }
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
+                if(data) {
+                    var unlock = common.util.canUnlockRole(user.roleName);//有释放卡的权力
+                    var len = data.length;
+                    for (var i = 0; i < len; i++) {
+                        if (!unlock && user.id == data[i].lockWorkerId) {
+                            unlock = true;
+                        }
+                        data[i].unlock = unlock;
+                    }
+
+                    if (data && data.length > 0) {
+                        var plen = data.length;
+                        for (var pi = 0; pi < plen; pi++) {
+                            data[pi].createTime = util.toDateString(data[pi].createTime, 'yyyy-MM-dd HH:mm:ss');
+                            data[pi].shouldBill = (parseFloat(data[pi].sumBill2) - parseFloat(data[pi].sumBill)).toFixed(2);
+                        }
+                    }
+                }
                 return {
                     "code": 0,// res.status, //解析接口状态
                     "msg": '',// res.message, //解析提示文本
@@ -106,40 +142,57 @@ layui.use(['form','table','layer'],function () {
         //《《《《《《《《《《《《《《表格初始化完成
 
         //监听工具条
-        table.on('tool(workerTableEvent)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        table.on('tool(orderTableEvent)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
             console.log("点击事件......"+layEvent);
-            if(layEvent === 'add'){
-                //添加
-                // pageData.openAddModel();
-                var add_url = common.url.page_root + common.url.model.worker.page.add
-                window.open(add_url);
-            }else if(layEvent === 'detail'){ //查看
-                //详情
-                var detail_url =  common.url.page_root + common.url.model.customer.page.detail + '?id='+data.id;
-
+            if(layEvent === 'export_import'){//记账
+                var imexport_url = common.url.page_root + common.url.model.order.page.imexport + '?id='+obj.data.id;
+                location.href = imexport_url;
+            }else if(layEvent === 'detail'){ //查看详情
+                var detail_url = common.url.page_root + common.url.model.order.page.detail + '?id='+obj.data.id;
                 window.open(detail_url);
             } else if(layEvent === 'delete'){ //删除
                 pageData.deleteConfirm(obj);
+            }else if(layEvent === 'unlock'){//释放卡
+                pageData.unlock(obj);
             } else if(layEvent === 'update'){ //编辑
                 //修改
-                // pageData.openUpdateModel(obj);
-                // var detail_url = location.origin + '/page/worker_update.html?id='+data.id;
-                var update_url = common.url.page_root + common.url.model.customer.page.update + '?id='+data.id;
-                window.open(update_url);
-            }else if(layEvent === 'customer'){ //员工下的客户
-                var tocustomer_url = common.url.page_root + common.url.model.customer.page.manager + '?workerId='+data.id + '&workerName=' + data.name;
-                window.open(tocustomer_url);
+               var update_url = common.url.page_root + common.url.model.order.page.update + '?id='+obj.data.id;
+                location.href = update_url;
             }
         });
         //监听 增 删 改
 
     };
     //渲染表格方法结束
+    //释放卡
+    pageData.unlock = function(obj){
+        var param = {
+            id:obj.data.cardId,
+            lock:2,
+            lockWorkerId:user.id,
+        };
+        common.sendOption.data = param;
+        common.sendOption.url = common.url.web_root + common.url.model.card.action + common.url.opt.model.card.lock;
+        common.sendOption.type = common.sendMethod.GET;
+        common.sendOption.completeCallBack = function(res){
+            var resData = JSON.parse(res.responseText);
+            if( resData.code == common.code.RESPONSE_CODE_SUCCESS ){
+                layer.msg('释放卡成功！',{anim:5},function () {
+                    //提示完成后动作
+                    var lockBtn = $(obj.tr).find(".lock-btn");
+                    lockBtn.prev().css({color:'green'}).text('空闲');
+                    lockBtn.hide();//隐藏（或者移除）都可以
+                });
+            }else{
+                layer.msg('释放操作失败，刷新后再操作');
+            }
+        };
+        common.httpSend(common.sendOption);
+    };
 
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>添加操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     //打开添加模态框表单
     pageData.openAddModel = function(){
@@ -193,113 +246,214 @@ layui.use(['form','table','layer'],function () {
             common.noDataResponse(res,common.optName.CONTROLLER_OPT_ADD);
     };
 
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>更新操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-    //打开更新模态框表单 modelObj:当前数据行对象，数据为modelObj.data 为一行的数据
-    pageData.openUpdateModel = function(modelObj){
-
-        $('#add_form').find("input[name=name]").val(modelObj.data.name);
-        $('#add_form').find("input[name=seg]").val(modelObj.data.seg);
-        $('#add_form').find("textarea[name=remark]").val(modelObj.data.remark);
-
-        layer.open({
-            title:common.optName.CONTROLLER_OPT_UPDATE + common.url.model.worker.name,
-            type:1,//页面类型
-            content:$('#add_form'),
-            area:['600px'],
-            btn:['提交'],
-            yes: function(index, layero){//当前层索引、当前层DOM对象
-                //提交
-                var name = $(layero).find("input[name=name]").val();
-                var seg = $(layero).find("input[name=seg]").val();
-                var remark = $(layero).find("textarea[name=remark]").val();
-
-                name = $.trim(name);
-                seg = $.trim(seg);
-                remark = $.trim(remark);
-                if(!name || !seg || !remark){
-                    layer.alert('所有都有填写的，亲');
-                    return false;
-                }
-
-                layer.closeAll();
-                console.log(name + "," + seg + "," + remark);
-                pageData.submitUpdateRole(modelObj.data.id,name,seg,remark);
-
-            },
-            cancel: function(){
-                //右上角关闭回调
-
-                //return false 开启该代码可禁止点击该按钮关闭
-            }
-        });
-    };
-    //更新提交数据
-    pageData.submitUpdateRole = function(id,name,seg,remark){
-        common.sendOption.data = {
-            id:id,
-            name:name,
-            seg:seg,
-            remark:remark,
-        };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.update;
-        common.sendOption.type = common.sendMethod.POST;
-        common.sendOption.completeCallBack =pageData.updateComplete;
-
-        common.httpSend(common.sendOption);
-    };
-    //更新完成后动作
-    pageData.updateComplete = function(res){
-        common.noDataResponse(res,common.optName.CONTROLLER_OPT_UPDATE);
-    };
-
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>删除操作的方法<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     //确认删除
     pageData.deleteConfirm = function(obj){
-        layer.confirm('真的删除行么', function(index){
+        layer.confirm('确定关闭订单吗？', function(index){
 
             layer.close(index);
             //向服务端发送删除指令
             console.log("删除 id  =  "+obj.data.id);
-            pageData.deleteRole(obj);
+            pageData.deleteSubmit(obj);
             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
         });
     };
     //提交删除
-    pageData.deleteRole = function(obj){
+    pageData.deleteSubmit = function(obj){
         common.sendOption.data = { id:obj.data.id };
-        common.sendOption.url = common.url.web_root + common.url.model.worker.action + common.url.opt.delete;
+        common.sendOption.url = common.url.web_root + common.url.model.order.action + common.url.opt.delete;
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.deleteComplete;
         common.httpSend(common.sendOption);
     };
     //删除返回后处理
     pageData.deleteComplete = function(res){
-        common.noDataResponse(res,common.optName.CONTROLLER_OPT_DELETE);
+        common.noDataResponse(res,'关闭');
     };
+
+
+
+    pageData.initSearchDate = function(){
+        common.util.initSelectDate(laydate,'start_time');
+        common.util.initSelectDate(laydate,'end_time');
+    };
+    //条件搜索订单
+    pageData.searchOrder = function(){
+        var searchObj = {};
+        //订单类型
+        var type = $("select[name=orderType]").val();
+        if(type && type.length>0){
+            searchObj.type= type;
+        }
+        //订单状态
+        // var status = $("select[name=status]").val();
+        // if(status && status.length>0){
+        //     searchObj.status= status;
+        // }
+        //下订单人（客户）
+        var customerId = $("input[name=customerId]").val();
+        if(customerId && customerId.length>0){
+            searchObj.customerId= customerId;
+        }
+
+        //下订单人（客户）
+        var cardId = $("input[name=cardId]").val();
+        if(cardId && cardId.length>0){
+            searchObj.cardId= cardId;
+        }
+
+        common.util.getMonthDays()
+        //下单开始时间
+        var start_time = $("input[name=start_time]").val();
+        if(start_time && start_time.length>0){
+            searchObj.startCreateTime= start_time;
+        }
+
+        //下单结束时间
+        var end_time = $("input[name=end_time]").val();
+        if(end_time && end_time.length>0){
+            searchObj.endCreateTime= end_time;
+        }
+
+        //下单结束时间
+        var searchKey = $("input[name=searchKey]").val();
+        if(searchKey && searchKey.length>0){
+            searchObj.searchKey= searchKey;
+        }
+
+        pageData.getTableData(searchObj);
+    };
+
+
+    /**
+     * 打开选择客户 或者选择信用卡
+     * @param modelName  模块名，选择客户时为 customer ,选择信用卡时为 card
+     */
+    pageData.openSelectModel = function(modelName){
+        var ww = $(window).width();
+        ww = ww*0.8;
+        var hh = $(window).height();
+        hh = hh*0.8;
+        var url = common.url.page_root + common.url.model.customer.page.selectList;
+        if(modelName=='customer'){
+
+        }else if(modelName=='card'){
+            url = common.url.page_root + common.url.model.card.page.selectList;
+        }
+        layer.open({
+            type:2,
+            title:'选择用户',
+            content: url,
+            area:[ ww+'px',hh+'px'],
+            btn:['确定'],
+            yes:function (index, layero) {
+                console.log("点击了确定");
+                pageData.showSelect(modelName);
+                layer.close(index);//关掉自己
+            }
+        })
+    };
+    //显示选择的信息
+    pageData.showSelect = function(modelName){
+        var len = window.frames.length;
+        var selectUsers = 0;
+        for(var i=0;i<len;i++){
+            if(window.frames[i].getSelectUsers && typeof  window.frames[i].getSelectUsers == "function"){
+                selectUsers = window.frames[i].getSelectUsers();    //[{id,name},...]
+                break;
+            }
+        }
+        if(selectUsers.length>1){
+            layer.msg('只能选择一个用户哦~',{anim:6},function () {
+                // pageData.openSelectUserMode();
+                pageData.openSelectModel(modelName);
+            });
+
+            return false;
+        }
+        var selectUser = selectUsers[0];
+
+        $("input[name="+modelName+"Id]").val(selectUser.id);
+        $("input[name="+modelName+"Name]").val(selectUser.name);
+
+    };
+
+
 
     $(function () {
 
+        // pageData.initSelectStatus();
+        common.util.getStatusOptions('status');
+        common.util.getOrderTypeOptions('type');
+        form.render('select');
 
+        pageData.initSearchDate();
+
+        var searchKey = {};
+        var p = common.util.getHrefParam();
+        //客户ID
+        if(p && p.customerId){
+            searchKey.customerId = p.customerId;
+            $("input[name=customerId]").val(p.customerId);
+            $("input[name=customerName]").val(decodeURI(p.customerName));
+        }
+        //信用卡ID
+        if(p && p.cardId){
+            searchKey.cardId = p.cardId;
+            $("input[name=cardId]").val(p.cardId);
+            $("input[name=cardName]").val(decodeURI(p.cardName));
+        }
         //初始化第一页数据
-        pageData.getTableData('');
-        //添加按钮事件
-        $(document.body).on('click','#addBtn',function () {
-            //详情
-            var detail_url = location.origin + '/page/worker_add.html';
-            var detail_url = common.url.page_root + common.url.model.worker.page.add;
-            window.open(detail_url);
-        });
+        pageData.getTableData(searchKey);
 
         //搜索按钮事件
         $(document.body).on('click','#searchBtn',function () {
-            var searchKey = $("input[name=searchKey]").val();
-            if(!searchKey){
-                return false;
-            }
-            pageData.getTableData(searchKey);
+            pageData.searchOrder();
         });
+
+        //添加按钮事件
+        $(document.body).on('click','#add_order_btn',function () {
+            //新增
+            var add_url = common.url.page_root + common.url.model.order.page.add;
+            window.open(add_url);
+        });
+        //清空搜索条件
+        $("#clear_btn").click(function () {
+
+            $("select[name=orderType]").val('');
+
+            // $("select[name=status]").val('');
+
+            $("input[name=customerId]").val('');
+            $("input[name=customerName]").val('');
+
+            $("input[name=cardId]").val('');
+            $("input[name=cardName]").val('');
+
+            $("input[name=start_time]").val('');
+
+            $("input[name=end_time]").val('');
+
+            $("input[name=searchKey]").val('');
+
+            form.render();
+            pageData.initSearchDate();
+        });
+
+
+        //点选下单的客户
+        $("input[name=customerName]").click(function () {
+            pageData.openSelectModel('customer');
+        });
+
+        //点选下单的信用卡
+        $("input[name=cardName]").click(function () {
+
+            pageData.openSelectModel('card');
+        });
+
+
 
     });
 });

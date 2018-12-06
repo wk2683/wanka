@@ -31,6 +31,7 @@ public class Order extends BaseEntity implements Serializable {
     private String remark  ;//备注
     private String seg     ;//排序值
 
+    private Integer done;//1-已完成，2-未完成（订单完成区分）
     public String getCustomerId() {
         return customerId;
     }
@@ -207,5 +208,13 @@ public class Order extends BaseEntity implements Serializable {
 
     public void setSeg(String seg) {
         this.seg = seg;
+    }
+
+    public Integer getDone() {
+        return done;
+    }
+
+    public void setDone(Integer done) {
+        this.done = done;
     }
 }

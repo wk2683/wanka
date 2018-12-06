@@ -123,11 +123,11 @@ layui.use(['form','layer','table','util'],function () {
             if(card.lockWorkerId == user.id){//自己曾经编辑
 
             }else{//他人编辑，您不能操作
-                var info = '此订单的信用卡:\n' +
-                    '信用卡名称：'+ card.cardName +' \n ' +
-                    '卡号：'+ card.cardNumber +'\n' +
-                    '持卡人：'+ card.name +' \n' +
-                    '正在被[ '+ card.lockWorkerName +' ]操作，\n一张卡不可以被同时操作，\n确定返回上一步选择其它订单.';
+                var info = '此订单的信用卡:<br/>' +
+                    '信用卡名称：'+ card.cardName +' <br/> ' +
+                    '卡号：'+ card.cardNumber +'<br/>' +
+                    '持卡人：'+ card.name +'<br/>' +
+                    '正在被[ '+ card.lockWorkerName +' ]操作，<br/>一张卡不可以被同时操作，<br/>确定返回上一步选择其它订单.';
                 layer.alert(info,function () {
                     history.back();
                 })

@@ -10,6 +10,7 @@ layui.use(['form','table','layer'],function () {
     var user = layui.sessionData('user');
 
     var pageData = {};
+    pageData.worker = {};//选中的员工
 
     var tableHeader = [[ //表头
         //{field: 'id,       title: '序号',        align:'center',width:'8%',templet:'#indexTemplate'},
@@ -18,16 +19,20 @@ layui.use(['form','table','layer'],function () {
         {field: 'phone',    title: '手机',        align:'center'},
         //{field: 'workerId', title: '所属员工',    align:'center'},
         {field: 'workerName', title: '所属员工',    align:'center'},
-        {fixed: 'right',  align:'center', toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {fixed: 'right',  align:'center', toolbar: '#toolbarRight',width:350} //这里的toolbar值是模板元素的选择器
     ]];
 
-    pageData.getTableData = function(searchKey) {
+    pageData.getTableData = function(searchObj) {
+        searchObj = !!searchObj?searchObj:{};
+        searchObj.userId = user.id;
+        searchObj.userName = user.name;
+
         //执行渲染
         table.render({
             elem: '#role_list' //指定原始表格元素选择器（推荐id选择器）
             , cols: tableHeader //表头
             , url: common.url.web_root + common.url.model.customer.action + common.url.opt.search  //数据源url
-            , where: { userId: user.id, userName: user.name,searchKey:searchKey } //如果无需传递额外参数，可不加该参数
+            , where: searchObj //如果无需传递额外参数，可不加该参数
             , method: common.sendMethod.GET // get | post 如果无需自定义HTTP类型，可不加该参数
             , contentType: common.sendDataType.JSON//	发送到服务端的内容编码类型。如果你要发送 json 内容，可以设置：contentType: 'application/json'
             , headers: {} //	接口的请求头。如：headers: {token: 'sasasas'}
@@ -43,16 +48,10 @@ layui.use(['form','table','layer'],function () {
             // cellMinWidth:int   最小单元格宽
             , done: function (res, curr, count) {//表格渲染完成回调
 
-                //如果是异步请求数据方式，res即为你接口返回的信息。
-                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                console.log(res);
-
-                //得到当前页码
-                console.log(curr);
-
-                //得到数据总量
-                console.log(count);
-
+                if(pageData.worker && pageData.worker.id){
+                    $("input[name=workerId]").val(pageData.worker.id);
+                    $("input[name=workerName]").val(pageData.worker.name);
+                }
                 //生成分页条(无特别处理，则不用额外写分页条代码)
                 if(curr==1 ) {
                     pageData.totalCount = count;
@@ -85,6 +84,7 @@ layui.use(['form','table','layer'],function () {
             // }
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
+
                 return {
                     "code": 0,// res.status, //解析接口状态
                     "msg": '',// res.message, //解析提示文本
@@ -124,6 +124,10 @@ layui.use(['form','table','layer'],function () {
 
                 var detail_url = common.url.page_root + common.url.model.order.page.manager +  '?customerId='+data.id + '&customerName='+data.name;
                 window.open(detail_url);
+            }else if(layEvent == 'card'){
+
+                var card_url = common.url.page_root + common.url.model.card.page.manager +  '?customerId='+data.id + '&customerName='+data.name;
+                window.open(card_url);
             }
         });
         //监听 增 删 改
@@ -271,11 +275,79 @@ layui.use(['form','table','layer'],function () {
         common.noDataResponse(res,common.optName.CONTROLLER_OPT_DELETE);
     };
 
-    $(function () {
+    //打开选择组织弹出框
+    pageData.openWorkerSelectModel = function(){
 
+        var ww = $(window).width();
+        ww = ww*0.8;
+        var hh = $(window).height();
+        hh = hh*0.8;
+        layer.open({
+            type:2,
+            title:'选择用户',
+            content: common.url.page_root + common.url.model.worker.page.selectList ,
+            area:[ ww+'px',hh+'px'],
+            btn:['确定'],
+            yes:function (index, layero) {
+                console.log("点击了确定");
+                pageData.showSelectUsers();
+                layer.close(index);//关掉自己
+            }
+        })
+
+
+    };
+
+    //显示选中的用户
+    pageData.showSelectUsers = function(){
+        var len = window.frames.length;
+        var selectUsers = 0;
+        for(var i=0;i<len;i++){
+            if(window.frames[i].getSelectUsers && typeof  window.frames[i].getSelectUsers == "function"){
+                selectUsers = window.frames[i].getSelectUsers();    //[{id,name},...]
+                break;
+            }
+        }
+        console.log(selectUsers);
+        // if(selectUsers){
+        //     len = selectUsers.length;
+        //     var userNames = '';
+        //     var userIds = '';
+        //     for( var k=0;k<len;k++){
+        //         var user = selectUsers[k];
+        //         userNames += ','+user.name;
+        //         userIds += ','+user.id;
+        //     }
+        //     $("input[name=workerId]").val(userIds.substring(1));
+        //     $("input[name=workerName]").val(userNames.substring(1));
+        // }
+        if(selectUsers.length>1){
+            layer.alert('只能选择一个员工',function () {
+                layer.closeAll();
+                $('input[name=workerName]').click();
+            });
+        }else {
+            $("input[name=workerId]").val(selectUsers[0].id);
+            $("input[name=workerName]").val(selectUsers[0].name);
+            pageData.worker = selectUsers[0];
+        }
+
+    };
+
+    $(function () {
+        var p = common.util.getHrefParam();
+        var searchObj = {};
+        if(p.workerId){
+            searchObj.workerId = p.workerId;
+            var name = !!p.workerName? decodeURI(p.workerName):'';
+            pageData.worker.id=p.workerId;
+            pageData.worker.name=name;
+            $("input[name=workerId]").val(pageData.worker.id);
+            $("input[name=workerName]").val(pageData.worker.name);
+        }
 
         //初始化第一页数据
-        pageData.getTableData('');
+        pageData.getTableData(searchObj);
 
         //添加按钮事件
         $(document.body).on('click','#addBtn',function () {
@@ -285,13 +357,31 @@ layui.use(['form','table','layer'],function () {
             window.open(detail_url);
         });
 
+
+        //选择员工
+        $(document.body).on('click','input[name=workerName]',function () {
+            pageData.openWorkerSelectModel();
+        });
+
+
         //搜索按钮事件
         $(document.body).on('click','#searchBtn',function () {
             var searchKey = $("input[name=searchKey]").val();
-            if(!searchKey){
+            var workerId = $("input[name=workerId]").val();
+            if(!searchKey && !workerId){
+                layer.alert('选择员工或输入关键字',{anim:6},function () {
+                    layer.closeAll();
+                });
                 return false;
             }
-            pageData.getTableData(searchKey);
+            var searchObj = {};
+            if(searchKey){
+                searchObj.searchKey = searchKey;
+            }
+            if(workerId){
+                searchObj.workerId = workerId;
+            }
+            pageData.getTableData(searchObj);
         });
     });
 });

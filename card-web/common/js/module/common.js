@@ -28,7 +28,7 @@ common.sendOption = {
     completeCallBack:''
 };
 common.opt = {};
-common.opt.names = {add:'新增',update:'修改',manager:'管理',detail:'详情',import:'入账',export:'出账','receivable':'未收账','receivabled':'已收账','repayment':'还款'};//页面导航名称
+common.opt.names = {add:'新增',update:'修改',manager:'管理',detail:'详情',import:'入账',export:'出账','receivable':'未收账','receivabled':'已收账','repayment':'还款','undone':'未完成','done':'已完成'};//页面导航名称
 common.opt.status = ['已关闭','新增','完成','业务中','操作完成'];//订单状态
 common.opt.orderTypes = ['','YK','TX','YK+TX','其它'];//订单类型(第一个位置为空，为适应数据库上类型从1开始，下两个同义)
 common.opt.orderExportTypes = ['','还款','取现转账'];//操作出账类型-订单详情的操作类型
@@ -345,10 +345,24 @@ common.menu = [
                     children:[
                         {
                             id:"101",
-                            name:"订单列表",
+                            name:"全部订单",
                             pid:"1",
                             type:"page",
                             url:"order_manager.html"
+                        },
+                        {
+                            id:"101",
+                            name:"未完成订单",
+                            pid:"1",
+                            type:"page",
+                            url:"order_manager_undone.html"
+                        },
+                        {
+                            id:"101",
+                            name:"已完成订单",
+                            pid:"1",
+                            type:"page",
+                            url:"order_manager_done.html"
                         },
                         {
                             id:"101",
@@ -1179,7 +1193,7 @@ common.util.getStatusOptions = function(selectTagName){
 //初始化订单类型（操作类型）option
 common.util.getOrderTypeOptions = function(selectTagName){
     var len = common.opt.orderTypes.length;
-    var options = '';
+    var options = '<option value="">订单类型</option>';
     for(var i=1;i<len;i++){
         var item = common.opt.orderTypes[i];
         options += '<option value="'+i+'">'+item+'</option>';

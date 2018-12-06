@@ -27,17 +27,17 @@ layui.use(['form','table','layer','laydate','util'],function () {
 
         {field: 'billDate',title: '账单日', align:'center',width:100,sort:true},
         {field: 'replayDate',title: '还款日', align:'center',width:100,sort:true},
-        {field: 'total2',title: '卡总额', align:'center',width:100},
         {field: 'type',      title: '订单类型', align:'center',width:100,templet:'#orderTypeTemplate'},
-        {field: 'total',     title: '订单总额', align:'center',width:100},
+        {field: 'total2',title: '卡总额', align:'right',width:100},
+        {field: 'total',     title: '订单总额', align:'right',width:100},
 
         // {field: 'rate',      title: '手续费率', align:'center',width:100},
         // {field: 'fee',       title: '手续费', align:'center',width:100},
         // {field: 'discount',  title: '优惠金额', align:'center',width:100},
         // {field: 'realFee',   title: '实收手续费', align:'center',width:100},
-        {field: 'sumBill2',   title: '已还入金额', align:'center',width:100},
-        {field: 'sumBill',   title: '已刷出金额', align:'center',width:100},
-        {field: 'shouldBill',   title: '应刷余额', align:'center',width:100},
+        {field: 'sumBill2',   title: '已还入金额', align:'right',width:100},
+        {field: 'sumBill',   title: '已刷出金额', align:'right',width:100},
+        {field: 'shouldBill',   title: '应刷余额', align:'right',width:100},
 
         {field: 'status',    title: '订单状态', align:'center',templet:'#statusTemplate',width:100},
         {field: 'remark',    title: '备注', align:'center',width:100},
@@ -108,24 +108,24 @@ layui.use(['form','table','layer','laydate','util'],function () {
             // }
             , parseData: function (res) { //res 即为原始返回的数据  为 layui 2.4.0 开始新增
                 var data = JSON.parse(res.data);
-
-                var unlock = common.util.canUnlockRole(user.roleName);//有释放卡的权力
-                var len = data.length;
-                for(var i=0;i<len;i++){
-                    if(!unlock && user.id == data[i].lockWorkerId){
-                        unlock = true;
+                if(data) {
+                    var unlock = common.util.canUnlockRole(user.roleName);//有释放卡的权力
+                    var len = data.length;
+                    for (var i = 0; i < len; i++) {
+                        if (!unlock && user.id == data[i].lockWorkerId) {
+                            unlock = true;
+                        }
+                        data[i].unlock = unlock;
                     }
-                    data[i].unlock = unlock;
-                }
 
-                if(data && data.length>0){
-                    var plen = data.length;
-                    for(var pi = 0;pi<plen;pi++){
-                        data[pi].createTime = util.toDateString(data[pi].createTime, 'yyyy-MM-dd HH:mm:ss');
-                        data[pi].shouldBill = (parseFloat(data[pi].sumBill2)-parseFloat(data[pi].sumBill)).toFixed(2);
+                    if (data && data.length > 0) {
+                        var plen = data.length;
+                        for (var pi = 0; pi < plen; pi++) {
+                            data[pi].createTime = util.toDateString(data[pi].createTime, 'yyyy-MM-dd HH:mm:ss');
+                            data[pi].shouldBill = (parseFloat(data[pi].sumBill2) - parseFloat(data[pi].sumBill)).toFixed(2);
+                        }
                     }
                 }
-
                 return {
                     "code": 0,// res.status, //解析接口状态
                     "msg": '',// res.message, //解析提示文本

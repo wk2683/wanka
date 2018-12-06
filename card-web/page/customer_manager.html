@@ -124,6 +124,10 @@
                 <div class="layui-inline">
                     <div class="layui-form-mid"></div>
                     <div class="layui-input-inline" style="width: 300px;">
+                        <input type="text" name="workerName" placeholder="选择员工" autocomplete="off" class="layui-input">
+                        <input type="hidden" name="workerId" >
+                    </div>
+                    <div class="layui-input-inline" style="width: 300px;">
                         <input type="text" name="searchKey" placeholder="关键字" autocomplete="off" class="layui-input">
                     </div>
                     <button class="layui-btn" id="searchBtn">搜索</button>
@@ -141,6 +145,7 @@
             <button class="layui-btn layui-btn-xs" lay-event="detail">详情</button>
             <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
             <button class="layui-btn layui-btn-xs" lay-event="update">编辑</button>
+            <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="card">他的信用卡</button>
             <button class="layui-btn layui-btn-xs" lay-event="order">相关订单</button>
         </div>
     </script>

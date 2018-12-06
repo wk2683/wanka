@@ -181,7 +181,7 @@ layui.use(['form','layer','upload'],function () {
         });
 
 
-        //选择组织
+        //选择员工
         $(document.body).on('click','input[name=workerName]',function () {
             pageData.openWorkerSelectModel();
         });

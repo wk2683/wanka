@@ -10,7 +10,7 @@ layui.use(['form','table','layer'],function () {
     var user = layui.sessionData('user');
 
     var pageData = {};
-
+    pageData.customer = {};
 
     var tableHeader = [[ //表头
         // {field: 'id',           title: '序号', align:'center',templet:'#indexTemplate'},
@@ -37,14 +37,20 @@ layui.use(['form','table','layer'],function () {
         {field: 'income',       title: '公司持卡',width:100, align:'center',templet:'#incomeTemplate'},
         // {field: 'remark',       title: '备注',     align:'center'},
 
-        {fixed: 'right',  align:'center',width:250, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
+        {fixed: 'right',  align:'center',width:350, toolbar: '#toolbarRight'} //这里的toolbar值是模板元素的选择器
     ]];
 
-    pageData.getTableData = function(searchKey,customerId) {
-        var param = { userId: user.id, userName: user.name, searchKey:searchKey};
-        if(customerId){
-            param.customerId = customerId;
+    pageData.getTableData = function(seearchObj) {
+        var param = { userId: user.id, userName: user.name};
+        if(seearchObj){
+            if(seearchObj.customerId){
+                param.customerId = seearchObj.customerId;
+            }
+            if(seearchObj.searchKey){
+                param.searchKey = seearchObj.searchKey;
+            }
         }
+
         //执行渲染
         table.render({
             elem: '#card_list' //指定原始表格元素选择器（推荐id选择器）
@@ -66,16 +72,10 @@ layui.use(['form','table','layer'],function () {
             // cellMinWidth:int   最小单元格宽
             , done: function (res, curr, count) {//表格渲染完成回调
 
-                //如果是异步请求数据方式，res即为你接口返回的信息。
-                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                console.log(res);
-
-                //得到当前页码
-                console.log(curr);
-
-                //得到数据总量
-                console.log(count);
-
+                if(pageData.customer && pageData.customer.id) {
+                    $("input[name=customerId]").val(pageData.customer.id);
+                    $("input[name=customerName]").val(pageData.customer.name);
+                }
                 //生成分页条(无特别处理，则不用额外写分页条代码)
                 if(curr==1 ) {
                     pageData.totalCount = count;
@@ -148,9 +148,14 @@ layui.use(['form','table','layer'],function () {
             }else if(layEvent === 'unlock'){//释放卡
                 pageData.unlock(obj);
             }else if(layEvent == 'order'){
-
                 var detail_url = common.url.page_root + common.url.model.order.page.manager +  '?cardId='+data.id + '&cardName='+data.cardName;
                 window.open(detail_url);
+            }else if(layEvent == 'orderAdd'){
+                layer.alert('功能开发中....',{anim:6},function () {
+                    layer.closeAll();
+                })
+                // var detail_url = common.url.page_root + common.url.model.order.page.add +  '?cardId='+data.id + '&cardName='+data.cardName;
+                // window.open(detail_url);
             }
         });
         //监听 增 删 改
@@ -247,9 +252,10 @@ layui.use(['form','table','layer'],function () {
             return false;
         }
         var selectUser = selectUsers[0];
-        pageData.selectUser = selectUser;
-        $("input[name=customerId]").val(selectUser.id);
-        $("input[name=customerName]").val(selectUser.name);
+        // pageData.selectUser = selectUser;
+        pageData.customer = selectUser;
+        $("input[name=customerId]").val(pageData.customer.id);
+        $("input[name=customerName]").val(pageData.customer.name);
         // $("input[name=name]").val(pageData.selectUser.name);
         // $("input[name=idNumber]").val(pageData.selectUser.idNumber);
         // $("input[name=phone]").val(pageData.selectUser.phone);
@@ -258,9 +264,18 @@ layui.use(['form','table','layer'],function () {
 
     $(function () {
 
-
+        var p = common.util.getHrefParam();
+        var searchObj = {};
+        if(p.customerId){
+            searchObj.customerId = p.customerId;
+            var name = !!p.customerName? decodeURI(p.customerName):'';
+            pageData.customer.id=p.customerId;
+            pageData.customer.name=name;
+            $("input[name=customerId]").val(pageData.customer.id);
+            $("input[name=customerName]").val(pageData.customer.name);
+        }
         //初始化第一页数据
-        pageData.getTableData('');
+        pageData.getTableData(searchObj);
         //添加按钮事件
         $(document.body).on('click','#add_card_btn',function () {
             var add_url = common.url.page_root + common.url.model.card.page.add;
@@ -277,7 +292,14 @@ layui.use(['form','table','layer'],function () {
                 })
                 return false;
             }
-            pageData.getTableData(searchKey,customerId);
+            var searchObj = {};
+            if(searchKey){
+                searchObj.searchKey = searchKey;
+            }
+            if(customerId){
+                searchObj.customerId = customerId;
+            }
+            pageData.getTableData(searchObj);
         });
 
         //点击选择用户

@@ -73,7 +73,10 @@
             <if test="  fee != null and  fee != '' "> AND  orders.fee =  #{fee}</if>
             <if test="  discount != null and  discount != '' "> AND  orders.discount =  #{discount}</if>
             <if test="  realFee != null and  realFee != '' "> AND  orders.real_fee =  #{realFee}</if>
-            <if test="  status != null and  status != '' "> AND  orders.status =  #{status}</if>
+            <if test="  status != null "> AND  orders.status =  #{status}</if>
+            <if test=" done==1 and  status == null "> AND orders.status = 2 </if>
+            <if test=" done==2 and  status == null "> AND (orders.status = 1 OR orders.status &gt; 2) </if>
+
             <if test="  remark != null and  remark != '' "> AND  orders.remark =  #{remark}</if>
             <if test="  seg != null and  seg != 0 "> AND  orders.seg =  #{seg}</if>
             <if test="  optId != null and  optId != '' "> AND  orders.opt_id =  #{optId}</if>
@@ -97,6 +100,9 @@
             <if test="  discount != null and  discount != '' "> AND  discount =  #{discount}</if>
             <if test="  realFee != null and  realFee != '' "> AND  real_fee =  #{realFee}</if>
             <if test="  status != null and  status != '' "> AND  status =  #{status}</if>
+            <if test=" done==1 and  status == null "> AND status = 2 </if>
+            <if test=" done==2 and  status == null "> AND (status = 1 OR status &gt; 2) </if>
+
             <if test="  remark != null and  remark != '' "> AND  remark =  #{remark}</if>
             <if test="  seg != null and  seg != 0 "> AND  seg =  #{seg}</if>
             <if test="  optId != null and  optId != '' "> AND  opt_id =  #{optId}</if>
