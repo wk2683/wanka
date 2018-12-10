@@ -15,7 +15,7 @@ layui.use(['form','table','layer'],function () {
     var tableHeader = [[ //表头
         // {field: 'id',           title: '序号', align:'center',templet:'#indexTemplate'},
         {field: 'self',         title: '本人卡', align:'center',width:100,templet:'#selfTemplate'},
-        {field: 'lock',         title: '操作状态', align:'center',width:100,templet:'#lockTemplate'},
+        {field: 'lock',         title: '操作状态', align:'center',width:200,templet:'#lockTemplate'},
         {field: 'lockWorkerName',         title: '操作员工', align:'center',width:100,templet:'#lockWorkerTemplate'},
         // {field: 'customerId',   title: '所属客户', align:'center'},
         {field: 'customerName',   title: '所属客户',width:100, align:'center'},
@@ -151,11 +151,11 @@ layui.use(['form','table','layer'],function () {
                 var detail_url = common.url.page_root + common.url.model.order.page.manager +  '?cardId='+data.id + '&cardName='+data.cardName;
                 window.open(detail_url);
             }else if(layEvent == 'orderAdd'){
-                layer.alert('功能开发中....',{anim:6},function () {
-                    layer.closeAll();
-                })
-                // var detail_url = common.url.page_root + common.url.model.order.page.add +  '?cardId='+data.id + '&cardName='+data.cardName;
-                // window.open(detail_url);
+                // layer.alert('功能开发中....',{anim:6},function () {
+                //     layer.closeAll();
+                // })
+                var detail_url = common.url.page_root + common.url.model.order.page.add +  '?card='+ JSON.stringify(data);
+                window.open(detail_url);
             }
         });
         //监听 增 删 改

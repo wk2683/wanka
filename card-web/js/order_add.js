@@ -147,11 +147,42 @@ layui.use(['form','layer','upload'],function () {
         $("input[name=realFee]").val(realFee.toFixed(2));
     };
 
+    pageData.initForm = function () {
+        var p = common.util.getHrefParam();
+        if(!p.card){
+            return false;
+        }
+        var card = JSON.parse(decodeURI(p.card));
+        pageData.orderCard = card;
+        // form.val('order_form',card);
+        var fee = (card.total * card.replayRate / 100 ).toFixed(2);
+        form.val('order_form',{
+            // id:data.id,
+            customerId:card.customerId,
+            customerName:card.customerName,
+            cardId:card.id,
+            cardName:card.cardName,
+            billDate:card.billDate,
+            replayDate:card.replayDate,
+            total2:card.total,
+            type: 1,
+            total:card.total,
+            rate:card.replayRate,
+            fee:fee,
+            discount:0,
+            realFee:fee,
+            status:1,
+            // remark:data.remark,
+        });
+
+    };
 
     $(function () {
 
         common.util.getOrderTypeOptions('type');
         form.render('select');
+
+        pageData.initForm();
 
         //点选下单的客户
         $("input[name=customerName]").click(function () {

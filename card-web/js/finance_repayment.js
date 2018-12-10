@@ -147,25 +147,36 @@ layui.use(['form','table','layer','laydate'],function () {
 
         sessionStorage.repaymentNumber = d0 + ',' + d1 + ',' + d3 + ',' + d8 + ',' + d9;
         common.util.initRepayment();
+        var hasData = 0;
         if(data0.length>0) {
             pageData.initTableData(data0, 'orderList0');
+            hasData = 1;
         }else{
             $("#t0").hide();
         }
         if(data1.length>0) {
             pageData.initTableData(data1, 'orderList1');
+            hasData = 1;
         }else{
             $("#t1").hide();
         }
         if(data3.length>0) {
             pageData.initTableData(data3, 'orderList3');
+            hasData = 1;
         }else{
             $("#t3").hide();
         }
         if(data8.length>0) {
             pageData.initTableData(data8, 'orderList8');
+            hasData = 1;
         }else{
             $("#t8").hide();
+        }
+        if(!hasData){
+
+            layer.alert('没有符合条件的数据',{anim:6},function () {
+                layer.closeAll();
+            })
         }
 
     };
