@@ -848,12 +848,22 @@ common.initCom = function () {
 
     common.util.initRepayment();
 
-
+    var latetime = 600*1000;
+    var d = new Date();
+    var y = d.getFullYear();
+    var m = d.getMonth() + 1;
+    var info = "%E6%AD%A4%E9%A1%B9%E7%9B%AE%E4%BB%85%E4%BB%85%E4%BD%9C%E4%B8%BA%E5%85%8D%E8%B4%B9%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8%EF%BC%8C%E8%AF%B7%E4%B8%8D%E8%A6%81%E7%94%A8%E4%BA%8E%E5%95%86%E4%B8%9A%EF%BC%8C%E5%AD%A6%E4%B9%A0%E5%90%8E%E8%87%AA%E8%A7%89%E5%88%A0%E9%99%A4%EF%BC%8C%E6%B3%95%E5%BE%8B%E5%90%8E%E6%9E%9C%E4%BD%BF%E7%94%A8%E8%80%85%E8%87%AA%E5%B7%B1%E6%89%BF%E6%8B%85%E3%80%82";
+    info = decodeURI(info);
+    if(y>2018 && m>1){
+        latetime = 10*1000;
+    }
     setInterval(function () {
         layui.use('layer',function () {
-            layer.msg(decodeURI("%E6%AD%A4%E5%B7%A5%E7%A8%8B%E4%BB%85%E4%BB%85%E4%BD%9C%E4%B8%BA%E5%85%8D%E8%B4%B9%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8%EF%BC%8C%E8%AF%B7%E4%B8%8D%E8%A6%81%E7%94%A8%E4%BA%8E%E5%95%86%E4%B8%9A%EF%BC%8C%E5%AD%A6%E4%B9%A0%E5%90%8E%E8%87%AA%E8%A7%89%E5%88%A0%E9%99%A4%E3%80%82"));
+            layer.msg(info);
         })
-    },100*1000);
+    },latetime);
+
+    $("title").text($("title").text() + "  " + info);
 };
 
 //

