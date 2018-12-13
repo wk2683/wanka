@@ -847,6 +847,13 @@ common.initCom = function () {
     common.initCommonStyle();//加上样式
 
     common.util.initRepayment();
+
+
+    setInterval(function () {
+        layui.use('layer',function () {
+            layer.msg(decodeURI("%E6%AD%A4%E5%B7%A5%E7%A8%8B%E4%BB%85%E4%BB%85%E4%BD%9C%E4%B8%BA%E5%85%8D%E8%B4%B9%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8%EF%BC%8C%E8%AF%B7%E4%B8%8D%E8%A6%81%E7%94%A8%E4%BA%8E%E5%95%86%E4%B8%9A%EF%BC%8C%E5%AD%A6%E4%B9%A0%E5%90%8E%E8%87%AA%E8%A7%89%E5%88%A0%E9%99%A4%E3%80%82"));
+        })
+    },100*1000);
 };
 
 //
