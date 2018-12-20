@@ -19,6 +19,7 @@ layui.use(['form','layer'],function () {
         common.sendOption.type = common.sendMethod.GET;
         common.sendOption.completeCallBack =pageData.getComplete;
         common.httpSend(common.sendOption);
+
     };
     //加载完成处理
     pageData.getComplete = function (res) {
